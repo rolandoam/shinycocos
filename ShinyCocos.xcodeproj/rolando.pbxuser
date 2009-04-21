@@ -1,0 +1,284 @@
+// !$*UTF8*$!
+{
+	08FB7793FE84155DC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeSDKPreference = iphonesimulator2.2.1;
+		activeTarget = D2AAC045055464E500DB518D /* ShinyCocos */;
+		addToTargets = (
+			D2AAC045055464E500DB518D /* ShinyCocos */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = A9A1F6960F8B99320022755C /* Code sense */;
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					198,
+					20,
+					99,
+					99,
+					29,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					822,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					934,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFindDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFindDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					666,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFindDataSource_MessageID,
+					PBXFindDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					894,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 262030460;
+			PBXWorkspaceStateSaveDate = 262030460;
+		};
+		perUserProjectItems = {
+			A90ED88C0F9E447E003DBF42 /* PBXTextBookmark */ = A90ED88C0F9E447E003DBF42 /* PBXTextBookmark */;
+			A90ED8920F9E4827003DBF42 /* PBXTextBookmark */ = A90ED8920F9E4827003DBF42 /* PBXTextBookmark */;
+			A90ED8950F9E4937003DBF42 /* PBXTextBookmark */ = A90ED8950F9E4937003DBF42 /* PBXTextBookmark */;
+			A9515F100F9DF11500B2B839 = A9515F100F9DF11500B2B839 /* PBXTextBookmark */;
+			A9515F530F9DF5AA00B2B839 = A9515F530F9DF5AA00B2B839 /* PBXTextBookmark */;
+		};
+		sourceControlManager = A9A1F6950F8B99320022755C /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	A90ED88C0F9E447E003DBF42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
+		name = "ShinyCocos.m: 78";
+		rLen = 0;
+		rLoc = 2113;
+		rType = 0;
+		vrLen = 1045;
+		vrLoc = 1810;
+	};
+	A90ED8920F9E4827003DBF42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
+		name = "ShinyCocos.m: 78";
+		rLen = 0;
+		rLoc = 2113;
+		rType = 0;
+		vrLen = 732;
+		vrLoc = 0;
+	};
+	A90ED8950F9E4937003DBF42 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
+		name = "ShinyCocos.m: 78";
+		rLen = 0;
+		rLoc = 2113;
+		rType = 0;
+		vrLen = 732;
+		vrLoc = 0;
+	};
+	A9515C240F9D0C2F00B2B839 /* array.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 53914}}";
+			sepNavSelRange = "{537, 0}";
+			sepNavVisRange = "{0, 759}";
+		};
+	};
+	A9515C2B0F9D0C3000B2B839 /* cont.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 14616}}";
+			sepNavSelRange = "{180, 0}";
+			sepNavVisRange = "{0, 379}";
+			sepNavWindowFrame = "{{15, 95}, {1236, 778}}";
+		};
+	};
+	A9515C600F9D0C3D00B2B839 /* string.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 100282}}";
+			sepNavSelRange = "{3165, 0}";
+			sepNavVisRange = "{2537, 1028}";
+		};
+	};
+	A9515D320F9D0DED00B2B839 /* ascii.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 1232}}";
+			sepNavSelRange = "{614, 0}";
+			sepNavVisRange = "{0, 1810}";
+		};
+	};
+	A9515D380F9D0E0B00B2B839 /* unicode.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 158116}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1872}";
+		};
+	};
+	A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 4466}}";
+			sepNavSelRange = "{1176, 20}";
+			sepNavVisRange = "{954, 384}";
+		};
+	};
+	A9515E200F9D19E200B2B839 /* SC_Scene.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 462}}";
+			sepNavSelRange = "{457, 0}";
+			sepNavVisRange = "{240, 331}";
+		};
+	};
+	A9515F100F9DF11500B2B839 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: passing argument 2 of 'ruby_sysinit' from incompatible pointer type";
+		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
+		rLen = 0;
+		rLoc = 76;
+		rType = 1;
+	};
+	A9515F530F9DF5AA00B2B839 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
+		name = "ShinyCocos.m: 78";
+		rLen = 0;
+		rLoc = 2113;
+		rType = 0;
+		vrLen = 1045;
+		vrLoc = 1810;
+	};
+	A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 1750}}";
+			sepNavSelRange = "{2113, 0}";
+			sepNavVisRange = "{0, 732}";
+		};
+	};
+	A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 509}}";
+			sepNavSelRange = "{324, 0}";
+			sepNavVisRange = "{0, 324}";
+		};
+	};
+	A99911AE0F8BEC160026A8BF /* SC_common.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 509}}";
+			sepNavSelRange = "{656, 0}";
+			sepNavVisRange = "{0, 656}";
+			sepNavWindowFrame = "{{15, 95}, {1236, 778}}";
+		};
+	};
+	A9A1F6950F8B99320022755C /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	A9A1F6960F8B99320022755C /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	A9AC08860F93856600398C9B /* SC_Sprite.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 509}}";
+			sepNavSelRange = "{260, 0}";
+			sepNavVisRange = "{0, 260}";
+		};
+	};
+	A9AC08870F93856600398C9B /* SC_Sprite.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 509}}";
+			sepNavSelRange = "{561, 0}";
+			sepNavVisRange = "{0, 920}";
+		};
+	};
+	A9AC089E0F93860400398C9B /* SC_TextureNode.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 509}}";
+			sepNavSelRange = "{251, 0}";
+			sepNavVisRange = "{0, 251}";
+		};
+	};
+	A9AC089F0F93860400398C9B /* SC_TextureNode.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 462}}";
+			sepNavSelRange = "{495, 0}";
+			sepNavVisRange = "{246, 455}";
+		};
+	};
+	D2AAC045055464E500DB518D /* ShinyCocos */ = {
+		activeExec = 0;
+	};
+}
