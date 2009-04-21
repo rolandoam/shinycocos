@@ -1,0 +1,6 @@
+*.tmproj
+*.tar.gz
+ruby/
+cocos2d-iphone/
+build/
+.DS_Store
