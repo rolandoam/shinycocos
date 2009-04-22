@@ -178,7 +178,7 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 
 VALUE rb_cCocosNode_s_node(VALUE klass) {
 	CocosNode *node = [CocosNode node];
-	cocos_holder *ptr = malloc(sizeof(cocos_holder));
+	cocos_holder *ptr = ALLOC(cocos_holder);
 	ptr->_obj = node;
 	VALUE obj = common_init(klass, ptr, NO);
 	// add the pointer to the object hash
@@ -188,7 +188,7 @@ VALUE rb_cCocosNode_s_node(VALUE klass) {
 
 VALUE rb_cCocosNode_s_new(VALUE klass) {
 	CocosNode *node = [[CocosNode alloc] init];
-	cocos_holder *ptr = malloc(sizeof(cocos_holder));
+	cocos_holder *ptr = ALLOC(cocos_holder);
 	ptr->_obj = node;
 	VALUE obj = common_init(klass, ptr, YES);
 	// add the pointer to the object hash

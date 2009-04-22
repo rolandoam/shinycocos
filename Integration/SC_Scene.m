@@ -16,7 +16,7 @@ VALUE rb_cScene;
 
 VALUE rb_cScene_s_new(VALUE klass) {
 	Scene *obj = [[Scene alloc] init];
-	cocos_holder *ptr = malloc(sizeof(cocos_holder));
+	cocos_holder *ptr = ALLOC(cocos_holder);
 	ptr->_obj = obj;
 	VALUE rb_obj = common_init(klass, ptr, YES);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)obj), rb_obj);
