@@ -45,7 +45,6 @@ void common_free_no_release(void *ptr) {
 }
 
 VALUE common_init(VALUE klass, cocos_holder *ptr, BOOL release_on_free) {
-	//*ptr = malloc(sizeof(cocos_holder));
 	VALUE tdata;
 	if (release_on_free)
 		tdata = Data_Wrap_Struct(klass, 0, common_free, ptr);
@@ -80,6 +79,7 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 
 VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
 	rb_acc_delegate = obj;
+	rb_gv_set("sc_acc_delegate", obj); // we set it as a global variable, or else ruby will clean it on GC
 	[UIAccelerometer sharedAccelerometer].delegate = accDelegate;
 	return obj;
 }
@@ -127,7 +127,7 @@ void ShinyCocosSetup(UIWindow *window) {
 }
 
 void ShinyCocosStart() {
-	int state;
+	int state = 0;
 	accDelegate = [[AccDelegate alloc] init];
 	NSLog(@"starting shiny cocos");
 	ruby_script("main.rb");
