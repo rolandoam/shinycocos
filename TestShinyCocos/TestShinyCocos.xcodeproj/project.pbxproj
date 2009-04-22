@@ -19,6 +19,7 @@
 		A9A057350F9E9B6800C85842 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056D00F9E9AB600C85842 /* libcocos2d.a */; };
 		A9A0574D0F9E9CAE00C85842 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A0574C0F9E9CAE00C85842 /* OpenGLES.framework */; };
 		A9A057530F9E9CBA00C85842 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A057520F9E9CBA00C85842 /* QuartzCore.framework */; };
+		A9E53E960F9F6BB9001DC55F /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,6 +280,7 @@
 		A9A057080F9E9B1600C85842 /* main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = main.rb; sourceTree = "<group>"; };
 		A9A0574C0F9E9CAE00C85842 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		A9A057520F9E9CBA00C85842 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A9E53E950F9F6BB9001DC55F /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +348,7 @@
 				A9A057060F9E9B1600C85842 /* fps_images.png */,
 				A9A057070F9E9B1600C85842 /* logogff.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				A9E53E950F9F6BB9001DC55F /* Entitlements.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				A9A057090F9E9B1600C85842 /* fps_images.png in Resources */,
 				A9A0570A0F9E9B1600C85842 /* logogff.png in Resources */,
 				A9A0570B0F9E9B1600C85842 /* main.rb in Resources */,
+				A9E53E960F9F6BB9001DC55F /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +773,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Scio Desarrollos Ltda.";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -784,6 +789,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Scio Desarrollos Ltda.";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

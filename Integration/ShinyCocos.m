@@ -113,7 +113,6 @@ void ShinyCocosSetup(UIWindow *window) {
 	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 	VALUE load_path = rb_gv_get(":");
 	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]));
-	ruby_script("main.rb");
 
 	/* init our stuff */
 	Init_ShinyCocos();
@@ -129,13 +128,14 @@ void ShinyCocosSetup(UIWindow *window) {
 
 void ShinyCocosStart() {
 	int state;
+	accDelegate = [[AccDelegate alloc] init];
 	NSLog(@"starting shiny cocos");
+	ruby_script("main.rb");
 	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
 	if (state != 0) {
 		VALUE error = rb_gv_get("@");
 		NSLog(@"RubyError:%s\n%s", STR2CSTR(rb_gv_get("!")), STR2CSTR(rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"))));
 	}
-	accDelegate = [[AccDelegate alloc] init];
 }
 
 void ShinyCocosStop() {
