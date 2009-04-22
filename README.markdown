@@ -10,7 +10,6 @@ There are only install requirements:
 
 * svn
 * curl (installed with Mac OS X)
-* rubyosa gem (install with `sudo gem install rubyosa`)
 
 ## Installation
 
@@ -22,11 +21,15 @@ or:
 
     > ruby get_dependencies.rb
 
+Open the cocos2d-iphone project and set the output directory to
+"../build" instead of "build".
+
+Open the TestShinyCocos and build.
+
 Now you're ready to rock :-)
-If you want, you can take the TestShinyCocos project and start from
-there.
 
 ## TODO
 
 * Add documentation :-)
+* Integrate the rest of the cocos2d-iphone API
 * Benchmarks
