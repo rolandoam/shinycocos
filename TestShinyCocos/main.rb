@@ -8,7 +8,6 @@
 
 # simple test scene
 
-=begin
 include Cocos2D
 
 class TestScene < Scene
@@ -17,15 +16,21 @@ class TestScene < Scene
     sprite.position = [240, 160]
     add_child sprites
   end
-
+  
   def on_enter
     ns_log "entering the scene..."
+  end
+  
+  # acceleration is an array of floats
+  # acceleration[0..2] = x,y,z
+  # acceleration[3] = absolute acceleration
+  def got_acceleration(acceleration)
+    ns_log("acceleration x:%f" % [acceleration[0]])
   end
 end
 
 Director.landscape = true
 Director.animation_interval = 1/60.0
-Director.run_scene TestScene.node
-=end
-
-raise "test exception"
+test = TestScene.node
+set_acceleration_delegate test
+Director.run_scene test

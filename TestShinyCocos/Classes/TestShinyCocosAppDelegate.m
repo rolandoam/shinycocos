@@ -2,7 +2,7 @@
 //  TestShinyCocosAppDelegate.m
 //  TestShinyCocos
 //
-//  Created by Rolando Abarca on 4/7/09.
+//  Created by Rolando Abarca on 4/21/09.
 //  Copyright Games For Food SpA 2009. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 #import "cocos2d.h"
 
 @implementation TestShinyCocosAppDelegate
+
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -33,12 +34,6 @@
 -(void) applicationWillTerminate: (UIApplication*) application {
 	[[Director sharedDirector] release];
 }
-
-// purge memroy
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-	[[TextureMgr sharedTextureMgr] removeAllTextures];
-}
-
 
 - (void)dealloc {
     [window release];

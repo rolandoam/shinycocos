@@ -39,8 +39,8 @@
 	[self rb_on_enter];
 	// call the ruby version
 	VALUE rb_obj = rb_hash_aref(rb_object_hash, INT2FIX((long)self));
-	cocos_holder *ptr;
-	//NSAssert(self == GET_OBJC(ptr), @"Invalid pointer from rb_object!");
+//	cocos_holder *ptr;
+//	NSAssert(self == GET_OBJC(ptr), @"Invalid pointer from rb_object!");
 	rb_funcall(rb_obj, rb_intern("on_enter"), 0, 0);
 }
 
@@ -48,8 +48,8 @@
 	[self rb_on_exit];
 	// call the ruby version
 	VALUE rb_obj = rb_hash_aref(rb_object_hash, INT2FIX((long)self));
-	cocos_holder *ptr;
-	//NSAssert(self == GET_OBJC(ptr), @"Invalid pointer from rb_object!");
+//	cocos_holder *ptr;
+//	NSAssert(self == GET_OBJC(ptr), @"Invalid pointer from rb_object!");
 	rb_funcall(rb_obj, rb_intern("on_exit"), 0, 0);
 }
 

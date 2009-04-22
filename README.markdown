@@ -14,5 +14,19 @@ There are only install requirements:
 
 ## Installation
 
-First, run the script that will fetch ruby. Now you're ready :-)
+First, run the script that will fetch ruby and cocos2d-iphone:
 
+    > ./get_dependencies.rb
+
+or:
+
+    > ruby get_dependencies.rb
+
+Now you're ready to rock :-)
+If you want, you can take the TestShinyCocos project and start from
+there.
+
+## TODO
+
+* Add documentation :-)
+* Benchmarks

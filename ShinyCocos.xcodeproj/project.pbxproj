@@ -9,77 +9,41 @@
 /* Begin PBXBuildFile section */
 		A9515C700F9D0C5E00B2B839 /* array.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C240F9D0C2F00B2B839 /* array.c */; };
 		A9515C710F9D0C5E00B2B839 /* bignum.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C250F9D0C2F00B2B839 /* bignum.c */; };
-		A9515C720F9D0C5E00B2B839 /* blockinlining.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C260F9D0C2F00B2B839 /* blockinlining.c */; };
 		A9515C730F9D0C5E00B2B839 /* class.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C270F9D0C2F00B2B839 /* class.c */; };
 		A9515C740F9D0C5E00B2B839 /* compar.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C280F9D0C3000B2B839 /* compar.c */; };
-		A9515C750F9D0C5E00B2B839 /* compile.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C290F9D0C3000B2B839 /* compile.c */; };
-		A9515C760F9D0C5E00B2B839 /* complex.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2A0F9D0C3000B2B839 /* complex.c */; };
-		A9515C770F9D0C5E00B2B839 /* cont.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2B0F9D0C3000B2B839 /* cont.c */; };
-		A9515C780F9D0C5E00B2B839 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2C0F9D0C3100B2B839 /* debug.c */; };
 		A9515C790F9D0C5E00B2B839 /* dir.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2D0F9D0C3100B2B839 /* dir.c */; };
 		A9515C7A0F9D0C5E00B2B839 /* dln.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2E0F9D0C3100B2B839 /* dln.c */; };
 		A9515C7B0F9D0C5E00B2B839 /* dmydln.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2F0F9D0C3100B2B839 /* dmydln.c */; };
-		A9515C7C0F9D0C5E00B2B839 /* dmyencoding.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C300F9D0C3200B2B839 /* dmyencoding.c */; };
 		A9515C7D0F9D0C5E00B2B839 /* dmyext.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C310F9D0C3200B2B839 /* dmyext.c */; };
-		A9515C7E0F9D0C5E00B2B839 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C320F9D0C3200B2B839 /* encoding.c */; };
 		A9515C7F0F9D0C5E00B2B839 /* enum.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C330F9D0C3200B2B839 /* enum.c */; };
 		A9515C800F9D0C5E00B2B839 /* enumerator.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C340F9D0C3300B2B839 /* enumerator.c */; };
 		A9515C810F9D0C5E00B2B839 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C350F9D0C3300B2B839 /* error.c */; };
 		A9515C820F9D0C5E00B2B839 /* eval.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C360F9D0C3300B2B839 /* eval.c */; };
-		A9515C840F9D0C5E00B2B839 /* eval_jump.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C380F9D0C3400B2B839 /* eval_jump.c */; };
 		A9515C850F9D0C5E00B2B839 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C390F9D0C3400B2B839 /* file.c */; };
 		A9515C860F9D0C5E00B2B839 /* gc.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C3A0F9D0C3400B2B839 /* gc.c */; };
-		A9515C870F9D0C5E00B2B839 /* golf_prelude.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C3B0F9D0C3400B2B839 /* golf_prelude.c */; };
-		A9515C880F9D0C5E00B2B839 /* goruby.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C3C0F9D0C3500B2B839 /* goruby.c */; };
 		A9515C890F9D0C5E00B2B839 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C3D0F9D0C3500B2B839 /* hash.c */; };
 		A9515C8B0F9D0C5E00B2B839 /* inits.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C3F0F9D0C3500B2B839 /* inits.c */; };
 		A9515C8C0F9D0C5E00B2B839 /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C400F9D0C3600B2B839 /* io.c */; };
-		A9515C8D0F9D0C5E00B2B839 /* iseq.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C410F9D0C3600B2B839 /* iseq.c */; };
-		A9515C8F0F9D0C5E00B2B839 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C430F9D0C3600B2B839 /* load.c */; };
 		A9515C910F9D0C5E00B2B839 /* marshal.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C450F9D0C3700B2B839 /* marshal.c */; };
 		A9515C920F9D0C5E00B2B839 /* math.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C460F9D0C3700B2B839 /* math.c */; };
-		A9515C930F9D0C5E00B2B839 /* miniprelude.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C470F9D0C3700B2B839 /* miniprelude.c */; };
-		A9515C940F9D0C5E00B2B839 /* newline.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C480F9D0C3700B2B839 /* newline.c */; };
 		A9515C950F9D0C5E00B2B839 /* numeric.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C490F9D0C3800B2B839 /* numeric.c */; };
 		A9515C960F9D0C5E00B2B839 /* object.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C4A0F9D0C3800B2B839 /* object.c */; };
 		A9515C970F9D0C5E00B2B839 /* pack.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C4B0F9D0C3800B2B839 /* pack.c */; };
 		A9515C980F9D0C5E00B2B839 /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C4C0F9D0C3800B2B839 /* parse.c */; };
-		A9515C990F9D0C5E00B2B839 /* prelude.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C4D0F9D0C3900B2B839 /* prelude.c */; };
-		A9515C9A0F9D0C5E00B2B839 /* proc.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C4E0F9D0C3900B2B839 /* proc.c */; };
 		A9515C9B0F9D0C5E00B2B839 /* process.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C4F0F9D0C3900B2B839 /* process.c */; };
 		A9515C9C0F9D0C5E00B2B839 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C500F9D0C3900B2B839 /* random.c */; };
 		A9515C9D0F9D0C5E00B2B839 /* range.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C510F9D0C3A00B2B839 /* range.c */; };
-		A9515C9E0F9D0C5E00B2B839 /* rational.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C520F9D0C3A00B2B839 /* rational.c */; };
 		A9515C9F0F9D0C5E00B2B839 /* re.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C530F9D0C3A00B2B839 /* re.c */; };
-		A9515CA00F9D0C5E00B2B839 /* regcomp.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C540F9D0C3A00B2B839 /* regcomp.c */; };
-		A9515CA10F9D0C5E00B2B839 /* regenc.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C550F9D0C3B00B2B839 /* regenc.c */; };
-		A9515CA20F9D0C5E00B2B839 /* regerror.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C560F9D0C3B00B2B839 /* regerror.c */; };
-		A9515CA30F9D0C5E00B2B839 /* regexec.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C570F9D0C3B00B2B839 /* regexec.c */; };
-		A9515CA40F9D0C5E00B2B839 /* regparse.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C580F9D0C3B00B2B839 /* regparse.c */; };
-		A9515CA50F9D0C5E00B2B839 /* regsyntax.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C590F9D0C3C00B2B839 /* regsyntax.c */; };
 		A9515CA60F9D0C5E00B2B839 /* ruby.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C5A0F9D0C3C00B2B839 /* ruby.c */; };
-		A9515CA70F9D0C5E00B2B839 /* safe.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C5B0F9D0C3C00B2B839 /* safe.c */; };
 		A9515CA80F9D0C5E00B2B839 /* signal.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C5C0F9D0C3C00B2B839 /* signal.c */; };
 		A9515CA90F9D0C5E00B2B839 /* sprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C5D0F9D0C3D00B2B839 /* sprintf.c */; };
 		A9515CAA0F9D0C5E00B2B839 /* st.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C5E0F9D0C3D00B2B839 /* st.c */; };
-		A9515CAB0F9D0C5E00B2B839 /* strftime.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C5F0F9D0C3D00B2B839 /* strftime.c */; };
 		A9515CAC0F9D0C5E00B2B839 /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C600F9D0C3D00B2B839 /* string.c */; };
 		A9515CAD0F9D0C5E00B2B839 /* struct.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C610F9D0C3E00B2B839 /* struct.c */; };
-		A9515CAE0F9D0C5E00B2B839 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C620F9D0C3E00B2B839 /* thread.c */; };
-		A9515CAF0F9D0C5E00B2B839 /* thread_pthread.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C630F9D0C3E00B2B839 /* thread_pthread.c */; };
-		A9515CB00F9D0C5E00B2B839 /* thread_win32.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C640F9D0C3F00B2B839 /* thread_win32.c */; };
 		A9515CB10F9D0C5E00B2B839 /* time.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C650F9D0C3F00B2B839 /* time.c */; };
-		A9515CB20F9D0C5E00B2B839 /* transcode.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C660F9D0C3F00B2B839 /* transcode.c */; };
 		A9515CB30F9D0C5E00B2B839 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C670F9D0C3F00B2B839 /* util.c */; };
 		A9515CB40F9D0C5E00B2B839 /* variable.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C680F9D0C4000B2B839 /* variable.c */; };
 		A9515CB50F9D0C5E00B2B839 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C690F9D0C4000B2B839 /* version.c */; };
-		A9515CB60F9D0C5E00B2B839 /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C6A0F9D0C4000B2B839 /* vm.c */; };
-		A9515CB70F9D0C5E00B2B839 /* vm_dump.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C6B0F9D0C4000B2B839 /* vm_dump.c */; };
-		A9515D300F9D0DCF00B2B839 /* lgamma_r.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515D2F0F9D0DCF00B2B839 /* lgamma_r.c */; };
-		A9515D350F9D0DED00B2B839 /* ascii.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515D320F9D0DED00B2B839 /* ascii.c */; };
-		A9515D370F9D0DED00B2B839 /* utf_8.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515D340F9D0DED00B2B839 /* utf_8.c */; };
-		A9515D3A0F9D0E0B00B2B839 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515D380F9D0E0B00B2B839 /* unicode.c */; };
-		A9515D3B0F9D0E0B00B2B839 /* us_ascii.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515D390F9D0E0B00B2B839 /* us_ascii.c */; };
 		A9515E210F9D19E200B2B839 /* SC_CocosNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A9515E1B0F9D19E200B2B839 /* SC_CocosNode.h */; };
 		A9515E220F9D19E200B2B839 /* SC_CocosNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */; };
 		A9515E230F9D19E200B2B839 /* SC_Director.h in Headers */ = {isa = PBXBuildFile; fileRef = A9515E1D0F9D19E200B2B839 /* SC_Director.h */; };
@@ -89,6 +53,9 @@
 		A9990E8F0F8BAA9D0026A8BF /* ShinyCocos.m in Sources */ = {isa = PBXBuildFile; fileRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */; };
 		A9990EA80F8BADDA0026A8BF /* ShinyCocos.h in Headers */ = {isa = PBXBuildFile; fileRef = A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */; };
 		A99911AF0F8BEC160026A8BF /* SC_common.h in Headers */ = {isa = PBXBuildFile; fileRef = A99911AE0F8BEC160026A8BF /* SC_common.h */; };
+		A9A054F90F9E8D5300C85842 /* strscan.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A054F80F9E8D5300C85842 /* strscan.c */; };
+		A9A054FB0F9E8D8800C85842 /* regex.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A054FA0F9E8D8800C85842 /* regex.c */; };
+		A9A055210F9E8DB800C85842 /* prec.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A055200F9E8DB800C85842 /* prec.c */; };
 		A9AC08880F93856600398C9B /* SC_Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC08860F93856600398C9B /* SC_Sprite.h */; };
 		A9AC08890F93856600398C9B /* SC_Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC08870F93856600398C9B /* SC_Sprite.m */; };
 		A9AC08A00F93860400398C9B /* SC_TextureNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC089E0F93860400398C9B /* SC_TextureNode.h */; };
@@ -98,77 +65,41 @@
 /* Begin PBXFileReference section */
 		A9515C240F9D0C2F00B2B839 /* array.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = array.c; path = ruby/array.c; sourceTree = "<group>"; };
 		A9515C250F9D0C2F00B2B839 /* bignum.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bignum.c; path = ruby/bignum.c; sourceTree = "<group>"; };
-		A9515C260F9D0C2F00B2B839 /* blockinlining.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = blockinlining.c; path = ruby/blockinlining.c; sourceTree = "<group>"; };
 		A9515C270F9D0C2F00B2B839 /* class.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = class.c; path = ruby/class.c; sourceTree = "<group>"; };
 		A9515C280F9D0C3000B2B839 /* compar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = compar.c; path = ruby/compar.c; sourceTree = "<group>"; };
-		A9515C290F9D0C3000B2B839 /* compile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = compile.c; path = ruby/compile.c; sourceTree = "<group>"; };
-		A9515C2A0F9D0C3000B2B839 /* complex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = complex.c; path = ruby/complex.c; sourceTree = "<group>"; };
-		A9515C2B0F9D0C3000B2B839 /* cont.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cont.c; path = ruby/cont.c; sourceTree = "<group>"; };
-		A9515C2C0F9D0C3100B2B839 /* debug.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = debug.c; path = ruby/debug.c; sourceTree = "<group>"; };
 		A9515C2D0F9D0C3100B2B839 /* dir.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dir.c; path = ruby/dir.c; sourceTree = "<group>"; };
 		A9515C2E0F9D0C3100B2B839 /* dln.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dln.c; path = ruby/dln.c; sourceTree = "<group>"; };
 		A9515C2F0F9D0C3100B2B839 /* dmydln.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dmydln.c; path = ruby/dmydln.c; sourceTree = "<group>"; };
-		A9515C300F9D0C3200B2B839 /* dmyencoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dmyencoding.c; path = ruby/dmyencoding.c; sourceTree = "<group>"; };
 		A9515C310F9D0C3200B2B839 /* dmyext.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dmyext.c; path = ruby/dmyext.c; sourceTree = "<group>"; };
-		A9515C320F9D0C3200B2B839 /* encoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = encoding.c; path = ruby/encoding.c; sourceTree = "<group>"; };
 		A9515C330F9D0C3200B2B839 /* enum.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = enum.c; path = ruby/enum.c; sourceTree = "<group>"; };
 		A9515C340F9D0C3300B2B839 /* enumerator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = enumerator.c; path = ruby/enumerator.c; sourceTree = "<group>"; };
 		A9515C350F9D0C3300B2B839 /* error.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = error.c; path = ruby/error.c; sourceTree = "<group>"; };
 		A9515C360F9D0C3300B2B839 /* eval.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = eval.c; path = ruby/eval.c; sourceTree = "<group>"; };
-		A9515C380F9D0C3400B2B839 /* eval_jump.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = eval_jump.c; path = ruby/eval_jump.c; sourceTree = "<group>"; };
 		A9515C390F9D0C3400B2B839 /* file.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = file.c; path = ruby/file.c; sourceTree = "<group>"; };
 		A9515C3A0F9D0C3400B2B839 /* gc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gc.c; path = ruby/gc.c; sourceTree = "<group>"; };
-		A9515C3B0F9D0C3400B2B839 /* golf_prelude.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = golf_prelude.c; path = ruby/golf_prelude.c; sourceTree = "<group>"; };
-		A9515C3C0F9D0C3500B2B839 /* goruby.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = goruby.c; path = ruby/goruby.c; sourceTree = "<group>"; };
 		A9515C3D0F9D0C3500B2B839 /* hash.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = hash.c; path = ruby/hash.c; sourceTree = "<group>"; };
 		A9515C3F0F9D0C3500B2B839 /* inits.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = inits.c; path = ruby/inits.c; sourceTree = "<group>"; };
 		A9515C400F9D0C3600B2B839 /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = io.c; path = ruby/io.c; sourceTree = "<group>"; };
-		A9515C410F9D0C3600B2B839 /* iseq.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = iseq.c; path = ruby/iseq.c; sourceTree = "<group>"; };
-		A9515C430F9D0C3600B2B839 /* load.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = load.c; path = ruby/load.c; sourceTree = "<group>"; };
 		A9515C450F9D0C3700B2B839 /* marshal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = marshal.c; path = ruby/marshal.c; sourceTree = "<group>"; };
 		A9515C460F9D0C3700B2B839 /* math.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = math.c; path = ruby/math.c; sourceTree = "<group>"; };
-		A9515C470F9D0C3700B2B839 /* miniprelude.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = miniprelude.c; path = ruby/miniprelude.c; sourceTree = "<group>"; };
-		A9515C480F9D0C3700B2B839 /* newline.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = newline.c; path = ruby/newline.c; sourceTree = "<group>"; };
 		A9515C490F9D0C3800B2B839 /* numeric.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = numeric.c; path = ruby/numeric.c; sourceTree = "<group>"; };
 		A9515C4A0F9D0C3800B2B839 /* object.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = object.c; path = ruby/object.c; sourceTree = "<group>"; };
 		A9515C4B0F9D0C3800B2B839 /* pack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pack.c; path = ruby/pack.c; sourceTree = "<group>"; };
 		A9515C4C0F9D0C3800B2B839 /* parse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = parse.c; path = ruby/parse.c; sourceTree = "<group>"; };
-		A9515C4D0F9D0C3900B2B839 /* prelude.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = prelude.c; path = ruby/prelude.c; sourceTree = "<group>"; };
-		A9515C4E0F9D0C3900B2B839 /* proc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = proc.c; path = ruby/proc.c; sourceTree = "<group>"; };
 		A9515C4F0F9D0C3900B2B839 /* process.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = process.c; path = ruby/process.c; sourceTree = "<group>"; };
 		A9515C500F9D0C3900B2B839 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = random.c; path = ruby/random.c; sourceTree = "<group>"; };
 		A9515C510F9D0C3A00B2B839 /* range.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = range.c; path = ruby/range.c; sourceTree = "<group>"; };
-		A9515C520F9D0C3A00B2B839 /* rational.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = rational.c; path = ruby/rational.c; sourceTree = "<group>"; };
 		A9515C530F9D0C3A00B2B839 /* re.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = re.c; path = ruby/re.c; sourceTree = "<group>"; };
-		A9515C540F9D0C3A00B2B839 /* regcomp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = regcomp.c; path = ruby/regcomp.c; sourceTree = "<group>"; };
-		A9515C550F9D0C3B00B2B839 /* regenc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = regenc.c; path = ruby/regenc.c; sourceTree = "<group>"; };
-		A9515C560F9D0C3B00B2B839 /* regerror.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = regerror.c; path = ruby/regerror.c; sourceTree = "<group>"; };
-		A9515C570F9D0C3B00B2B839 /* regexec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = regexec.c; path = ruby/regexec.c; sourceTree = "<group>"; };
-		A9515C580F9D0C3B00B2B839 /* regparse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = regparse.c; path = ruby/regparse.c; sourceTree = "<group>"; };
-		A9515C590F9D0C3C00B2B839 /* regsyntax.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = regsyntax.c; path = ruby/regsyntax.c; sourceTree = "<group>"; };
 		A9515C5A0F9D0C3C00B2B839 /* ruby.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ruby.c; path = ruby/ruby.c; sourceTree = "<group>"; };
-		A9515C5B0F9D0C3C00B2B839 /* safe.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = safe.c; path = ruby/safe.c; sourceTree = "<group>"; };
 		A9515C5C0F9D0C3C00B2B839 /* signal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = signal.c; path = ruby/signal.c; sourceTree = "<group>"; };
 		A9515C5D0F9D0C3D00B2B839 /* sprintf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sprintf.c; path = ruby/sprintf.c; sourceTree = "<group>"; };
 		A9515C5E0F9D0C3D00B2B839 /* st.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = st.c; path = ruby/st.c; sourceTree = "<group>"; };
-		A9515C5F0F9D0C3D00B2B839 /* strftime.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = strftime.c; path = ruby/strftime.c; sourceTree = "<group>"; };
 		A9515C600F9D0C3D00B2B839 /* string.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = string.c; path = ruby/string.c; sourceTree = "<group>"; };
 		A9515C610F9D0C3E00B2B839 /* struct.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = struct.c; path = ruby/struct.c; sourceTree = "<group>"; };
-		A9515C620F9D0C3E00B2B839 /* thread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = thread.c; path = ruby/thread.c; sourceTree = "<group>"; };
-		A9515C630F9D0C3E00B2B839 /* thread_pthread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = thread_pthread.c; path = ruby/thread_pthread.c; sourceTree = "<group>"; };
-		A9515C640F9D0C3F00B2B839 /* thread_win32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = thread_win32.c; path = ruby/thread_win32.c; sourceTree = "<group>"; };
 		A9515C650F9D0C3F00B2B839 /* time.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = time.c; path = ruby/time.c; sourceTree = "<group>"; };
-		A9515C660F9D0C3F00B2B839 /* transcode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = transcode.c; path = ruby/transcode.c; sourceTree = "<group>"; };
 		A9515C670F9D0C3F00B2B839 /* util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = util.c; path = ruby/util.c; sourceTree = "<group>"; };
 		A9515C680F9D0C4000B2B839 /* variable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = variable.c; path = ruby/variable.c; sourceTree = "<group>"; };
 		A9515C690F9D0C4000B2B839 /* version.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = version.c; path = ruby/version.c; sourceTree = "<group>"; };
-		A9515C6A0F9D0C4000B2B839 /* vm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = vm.c; path = ruby/vm.c; sourceTree = "<group>"; };
-		A9515C6B0F9D0C4000B2B839 /* vm_dump.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = vm_dump.c; path = ruby/vm_dump.c; sourceTree = "<group>"; };
-		A9515D2F0F9D0DCF00B2B839 /* lgamma_r.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lgamma_r.c; path = ruby/missing/lgamma_r.c; sourceTree = "<group>"; };
-		A9515D320F9D0DED00B2B839 /* ascii.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ascii.c; path = ruby/enc/ascii.c; sourceTree = "<group>"; };
-		A9515D340F9D0DED00B2B839 /* utf_8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utf_8.c; path = ruby/enc/utf_8.c; sourceTree = "<group>"; };
-		A9515D380F9D0E0B00B2B839 /* unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unicode.c; path = ruby/enc/unicode.c; sourceTree = "<group>"; };
-		A9515D390F9D0E0B00B2B839 /* us_ascii.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = us_ascii.c; path = ruby/enc/us_ascii.c; sourceTree = "<group>"; };
 		A9515E1B0F9D19E200B2B839 /* SC_CocosNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_CocosNode.h; path = Integration/SC_CocosNode.h; sourceTree = "<group>"; };
 		A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_CocosNode.m; path = Integration/SC_CocosNode.m; sourceTree = "<group>"; };
 		A9515E1D0F9D19E200B2B839 /* SC_Director.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Director.h; path = Integration/SC_Director.h; sourceTree = "<group>"; };
@@ -178,6 +109,9 @@
 		A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShinyCocos.m; path = Integration/ShinyCocos.m; sourceTree = "<group>"; };
 		A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ShinyCocos.h; path = Integration/ShinyCocos.h; sourceTree = "<group>"; };
 		A99911AE0F8BEC160026A8BF /* SC_common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SC_common.h; path = Integration/SC_common.h; sourceTree = "<group>"; };
+		A9A054F80F9E8D5300C85842 /* strscan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = strscan.c; path = ruby/ext/strscan/strscan.c; sourceTree = "<group>"; };
+		A9A054FA0F9E8D8800C85842 /* regex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = regex.c; path = ruby/regex.c; sourceTree = "<group>"; };
+		A9A055200F9E8DB800C85842 /* prec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = prec.c; path = ruby/prec.c; sourceTree = "<group>"; };
 		A9AC08860F93856600398C9B /* SC_Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Sprite.h; path = Integration/SC_Sprite.h; sourceTree = "<group>"; };
 		A9AC08870F93856600398C9B /* SC_Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Sprite.m; path = Integration/SC_Sprite.m; sourceTree = "<group>"; };
 		A9AC089E0F93860400398C9B /* SC_TextureNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TextureNode.h; path = Integration/SC_TextureNode.h; sourceTree = "<group>"; };
@@ -218,97 +152,48 @@
 		A9515C230F9D0C2D00B2B839 /* ruby */ = {
 			isa = PBXGroup;
 			children = (
-				A9515D310F9D0DD300B2B839 /* enc */,
-				A9515D2E0F9D0DBB00B2B839 /* missing */,
+				A9A054F70F9E8D3F00C85842 /* ext */,
 				A9515C240F9D0C2F00B2B839 /* array.c */,
 				A9515C250F9D0C2F00B2B839 /* bignum.c */,
-				A9515C260F9D0C2F00B2B839 /* blockinlining.c */,
 				A9515C270F9D0C2F00B2B839 /* class.c */,
 				A9515C280F9D0C3000B2B839 /* compar.c */,
-				A9515C290F9D0C3000B2B839 /* compile.c */,
-				A9515C2A0F9D0C3000B2B839 /* complex.c */,
-				A9515C2B0F9D0C3000B2B839 /* cont.c */,
-				A9515C2C0F9D0C3100B2B839 /* debug.c */,
 				A9515C2D0F9D0C3100B2B839 /* dir.c */,
 				A9515C2E0F9D0C3100B2B839 /* dln.c */,
 				A9515C2F0F9D0C3100B2B839 /* dmydln.c */,
-				A9515C300F9D0C3200B2B839 /* dmyencoding.c */,
 				A9515C310F9D0C3200B2B839 /* dmyext.c */,
-				A9515C320F9D0C3200B2B839 /* encoding.c */,
 				A9515C330F9D0C3200B2B839 /* enum.c */,
 				A9515C340F9D0C3300B2B839 /* enumerator.c */,
 				A9515C350F9D0C3300B2B839 /* error.c */,
 				A9515C360F9D0C3300B2B839 /* eval.c */,
-				A9515C380F9D0C3400B2B839 /* eval_jump.c */,
 				A9515C390F9D0C3400B2B839 /* file.c */,
 				A9515C3A0F9D0C3400B2B839 /* gc.c */,
-				A9515C3B0F9D0C3400B2B839 /* golf_prelude.c */,
-				A9515C3C0F9D0C3500B2B839 /* goruby.c */,
 				A9515C3D0F9D0C3500B2B839 /* hash.c */,
 				A9515C3F0F9D0C3500B2B839 /* inits.c */,
 				A9515C400F9D0C3600B2B839 /* io.c */,
-				A9515C410F9D0C3600B2B839 /* iseq.c */,
-				A9515C430F9D0C3600B2B839 /* load.c */,
 				A9515C450F9D0C3700B2B839 /* marshal.c */,
 				A9515C460F9D0C3700B2B839 /* math.c */,
-				A9515C470F9D0C3700B2B839 /* miniprelude.c */,
-				A9515C480F9D0C3700B2B839 /* newline.c */,
 				A9515C490F9D0C3800B2B839 /* numeric.c */,
 				A9515C4A0F9D0C3800B2B839 /* object.c */,
 				A9515C4B0F9D0C3800B2B839 /* pack.c */,
 				A9515C4C0F9D0C3800B2B839 /* parse.c */,
-				A9515C4D0F9D0C3900B2B839 /* prelude.c */,
-				A9515C4E0F9D0C3900B2B839 /* proc.c */,
+				A9A055200F9E8DB800C85842 /* prec.c */,
 				A9515C4F0F9D0C3900B2B839 /* process.c */,
 				A9515C500F9D0C3900B2B839 /* random.c */,
 				A9515C510F9D0C3A00B2B839 /* range.c */,
-				A9515C520F9D0C3A00B2B839 /* rational.c */,
 				A9515C530F9D0C3A00B2B839 /* re.c */,
-				A9515C540F9D0C3A00B2B839 /* regcomp.c */,
-				A9515C550F9D0C3B00B2B839 /* regenc.c */,
-				A9515C560F9D0C3B00B2B839 /* regerror.c */,
-				A9515C570F9D0C3B00B2B839 /* regexec.c */,
-				A9515C580F9D0C3B00B2B839 /* regparse.c */,
-				A9515C590F9D0C3C00B2B839 /* regsyntax.c */,
+				A9A054FA0F9E8D8800C85842 /* regex.c */,
 				A9515C5A0F9D0C3C00B2B839 /* ruby.c */,
-				A9515C5B0F9D0C3C00B2B839 /* safe.c */,
 				A9515C5C0F9D0C3C00B2B839 /* signal.c */,
 				A9515C5D0F9D0C3D00B2B839 /* sprintf.c */,
 				A9515C5E0F9D0C3D00B2B839 /* st.c */,
-				A9515C5F0F9D0C3D00B2B839 /* strftime.c */,
 				A9515C600F9D0C3D00B2B839 /* string.c */,
 				A9515C610F9D0C3E00B2B839 /* struct.c */,
-				A9515C620F9D0C3E00B2B839 /* thread.c */,
-				A9515C630F9D0C3E00B2B839 /* thread_pthread.c */,
-				A9515C640F9D0C3F00B2B839 /* thread_win32.c */,
 				A9515C650F9D0C3F00B2B839 /* time.c */,
-				A9515C660F9D0C3F00B2B839 /* transcode.c */,
 				A9515C670F9D0C3F00B2B839 /* util.c */,
 				A9515C680F9D0C4000B2B839 /* variable.c */,
 				A9515C690F9D0C4000B2B839 /* version.c */,
-				A9515C6A0F9D0C4000B2B839 /* vm.c */,
-				A9515C6B0F9D0C4000B2B839 /* vm_dump.c */,
 			);
 			name = ruby;
-			sourceTree = "<group>";
-		};
-		A9515D2E0F9D0DBB00B2B839 /* missing */ = {
-			isa = PBXGroup;
-			children = (
-				A9515D2F0F9D0DCF00B2B839 /* lgamma_r.c */,
-			);
-			name = missing;
-			sourceTree = "<group>";
-		};
-		A9515D310F9D0DD300B2B839 /* enc */ = {
-			isa = PBXGroup;
-			children = (
-				A9515D320F9D0DED00B2B839 /* ascii.c */,
-				A9515D380F9D0E0B00B2B839 /* unicode.c */,
-				A9515D390F9D0E0B00B2B839 /* us_ascii.c */,
-				A9515D340F9D0DED00B2B839 /* utf_8.c */,
-			);
-			name = enc;
 			sourceTree = "<group>";
 		};
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
@@ -329,6 +214,14 @@
 				A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */,
 			);
 			name = Integration;
+			sourceTree = "<group>";
+		};
+		A9A054F70F9E8D3F00C85842 /* ext */ = {
+			isa = PBXGroup;
+			children = (
+				A9A054F80F9E8D5300C85842 /* strscan.c */,
+			);
+			name = ext;
 			sourceTree = "<group>";
 		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
@@ -399,83 +292,50 @@
 			files = (
 				A9515C700F9D0C5E00B2B839 /* array.c in Sources */,
 				A9515C710F9D0C5E00B2B839 /* bignum.c in Sources */,
-				A9515C720F9D0C5E00B2B839 /* blockinlining.c in Sources */,
 				A9515C730F9D0C5E00B2B839 /* class.c in Sources */,
 				A9515C740F9D0C5E00B2B839 /* compar.c in Sources */,
-				A9515C750F9D0C5E00B2B839 /* compile.c in Sources */,
-				A9515C760F9D0C5E00B2B839 /* complex.c in Sources */,
-				A9515C770F9D0C5E00B2B839 /* cont.c in Sources */,
-				A9515C780F9D0C5E00B2B839 /* debug.c in Sources */,
 				A9515C790F9D0C5E00B2B839 /* dir.c in Sources */,
 				A9515C7A0F9D0C5E00B2B839 /* dln.c in Sources */,
 				A9515C7B0F9D0C5E00B2B839 /* dmydln.c in Sources */,
-				A9515C7C0F9D0C5E00B2B839 /* dmyencoding.c in Sources */,
 				A9515C7D0F9D0C5E00B2B839 /* dmyext.c in Sources */,
-				A9515C7E0F9D0C5E00B2B839 /* encoding.c in Sources */,
 				A9515C7F0F9D0C5E00B2B839 /* enum.c in Sources */,
 				A9515C800F9D0C5E00B2B839 /* enumerator.c in Sources */,
 				A9515C810F9D0C5E00B2B839 /* error.c in Sources */,
 				A9515C820F9D0C5E00B2B839 /* eval.c in Sources */,
-				A9515C840F9D0C5E00B2B839 /* eval_jump.c in Sources */,
 				A9515C850F9D0C5E00B2B839 /* file.c in Sources */,
 				A9515C860F9D0C5E00B2B839 /* gc.c in Sources */,
-				A9515C870F9D0C5E00B2B839 /* golf_prelude.c in Sources */,
-				A9515C880F9D0C5E00B2B839 /* goruby.c in Sources */,
 				A9515C890F9D0C5E00B2B839 /* hash.c in Sources */,
 				A9515C8B0F9D0C5E00B2B839 /* inits.c in Sources */,
 				A9515C8C0F9D0C5E00B2B839 /* io.c in Sources */,
-				A9515C8D0F9D0C5E00B2B839 /* iseq.c in Sources */,
-				A9515C8F0F9D0C5E00B2B839 /* load.c in Sources */,
 				A9515C910F9D0C5E00B2B839 /* marshal.c in Sources */,
 				A9515C920F9D0C5E00B2B839 /* math.c in Sources */,
-				A9515C930F9D0C5E00B2B839 /* miniprelude.c in Sources */,
-				A9515C940F9D0C5E00B2B839 /* newline.c in Sources */,
 				A9515C950F9D0C5E00B2B839 /* numeric.c in Sources */,
 				A9515C960F9D0C5E00B2B839 /* object.c in Sources */,
 				A9515C970F9D0C5E00B2B839 /* pack.c in Sources */,
 				A9515C980F9D0C5E00B2B839 /* parse.c in Sources */,
-				A9515C990F9D0C5E00B2B839 /* prelude.c in Sources */,
-				A9515C9A0F9D0C5E00B2B839 /* proc.c in Sources */,
 				A9515C9B0F9D0C5E00B2B839 /* process.c in Sources */,
 				A9515C9C0F9D0C5E00B2B839 /* random.c in Sources */,
 				A9515C9D0F9D0C5E00B2B839 /* range.c in Sources */,
-				A9515C9E0F9D0C5E00B2B839 /* rational.c in Sources */,
 				A9515C9F0F9D0C5E00B2B839 /* re.c in Sources */,
-				A9515CA00F9D0C5E00B2B839 /* regcomp.c in Sources */,
-				A9515CA10F9D0C5E00B2B839 /* regenc.c in Sources */,
-				A9515CA20F9D0C5E00B2B839 /* regerror.c in Sources */,
-				A9515CA30F9D0C5E00B2B839 /* regexec.c in Sources */,
-				A9515CA40F9D0C5E00B2B839 /* regparse.c in Sources */,
-				A9515CA50F9D0C5E00B2B839 /* regsyntax.c in Sources */,
 				A9515CA60F9D0C5E00B2B839 /* ruby.c in Sources */,
-				A9515CA70F9D0C5E00B2B839 /* safe.c in Sources */,
 				A9515CA80F9D0C5E00B2B839 /* signal.c in Sources */,
 				A9515CA90F9D0C5E00B2B839 /* sprintf.c in Sources */,
 				A9515CAA0F9D0C5E00B2B839 /* st.c in Sources */,
-				A9515CAB0F9D0C5E00B2B839 /* strftime.c in Sources */,
 				A9515CAC0F9D0C5E00B2B839 /* string.c in Sources */,
 				A9515CAD0F9D0C5E00B2B839 /* struct.c in Sources */,
-				A9515CAE0F9D0C5E00B2B839 /* thread.c in Sources */,
-				A9515CAF0F9D0C5E00B2B839 /* thread_pthread.c in Sources */,
-				A9515CB00F9D0C5E00B2B839 /* thread_win32.c in Sources */,
 				A9515CB10F9D0C5E00B2B839 /* time.c in Sources */,
-				A9515CB20F9D0C5E00B2B839 /* transcode.c in Sources */,
 				A9515CB30F9D0C5E00B2B839 /* util.c in Sources */,
 				A9515CB40F9D0C5E00B2B839 /* variable.c in Sources */,
 				A9515CB50F9D0C5E00B2B839 /* version.c in Sources */,
-				A9515CB60F9D0C5E00B2B839 /* vm.c in Sources */,
-				A9515CB70F9D0C5E00B2B839 /* vm_dump.c in Sources */,
 				A9990E8F0F8BAA9D0026A8BF /* ShinyCocos.m in Sources */,
 				A9AC08890F93856600398C9B /* SC_Sprite.m in Sources */,
 				A9AC08A10F93860400398C9B /* SC_TextureNode.m in Sources */,
-				A9515D300F9D0DCF00B2B839 /* lgamma_r.c in Sources */,
-				A9515D350F9D0DED00B2B839 /* ascii.c in Sources */,
-				A9515D370F9D0DED00B2B839 /* utf_8.c in Sources */,
-				A9515D3A0F9D0E0B00B2B839 /* unicode.c in Sources */,
-				A9515D3B0F9D0E0B00B2B839 /* us_ascii.c in Sources */,
 				A9515E220F9D19E200B2B839 /* SC_CocosNode.m in Sources */,
 				A9515E240F9D19E200B2B839 /* SC_Director.m in Sources */,
 				A9515E260F9D19E200B2B839 /* SC_Scene.m in Sources */,
+				A9A054F90F9E8D5300C85842 /* strscan.c in Sources */,
+				A9A054FB0F9E8D8800C85842 /* regex.c in Sources */,
+				A9A055210F9E8DB800C85842 /* prec.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

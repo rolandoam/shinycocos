@@ -7,8 +7,6 @@
  *
  */
 
-#import "SC_common.h"
-
 /* setup cocos2d <-> ruby integration */
 void ShinyCocosSetup(UIWindow *window);
 /* will require a file from the Resource Path */

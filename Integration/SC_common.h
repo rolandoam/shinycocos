@@ -24,5 +24,5 @@ void common_free(void *ptr);
 void common_free_no_release(void *ptr);
 VALUE common_init(VALUE klass, cocos_holder *ptr, BOOL release_on_free);
 VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module);
-VALUE common_rb_set_accelerator_delegate(VALUE module);
+VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj);
 void common_method_swap(Class cls, SEL orig, SEL repl, const char *signature);
