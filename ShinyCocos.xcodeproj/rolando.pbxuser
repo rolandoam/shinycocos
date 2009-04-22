@@ -108,16 +108,6 @@
 			PBXPerProjectTemplateStateSaveDate = 262052920;
 			PBXWorkspaceStateSaveDate = 262052920;
 		};
-		perUserProjectItems = {
-			A9A057450F9E9C4400C85842 /* PBXBookmark */ = A9A057450F9E9C4400C85842 /* PBXBookmark */;
-			A9A057460F9E9C4400C85842 /* PBXTextBookmark */ = A9A057460F9E9C4400C85842 /* PBXTextBookmark */;
-			A9A057D00F9EA11D00C85842 /* PBXTextBookmark */ = A9A057D00F9EA11D00C85842 /* PBXTextBookmark */;
-			A9A057D10F9EA11D00C85842 /* PBXTextBookmark */ = A9A057D10F9EA11D00C85842 /* PBXTextBookmark */;
-			A9A057D20F9EA11D00C85842 /* PBXTextBookmark */ = A9A057D20F9EA11D00C85842 /* PBXTextBookmark */;
-			A9A057D30F9EA11D00C85842 /* PBXTextBookmark */ = A9A057D30F9EA11D00C85842 /* PBXTextBookmark */;
-			A9A057D40F9EA11D00C85842 /* PBXTextBookmark */ = A9A057D40F9EA11D00C85842 /* PBXTextBookmark */;
-			A9A057D50F9EA11D00C85842 /* PBXTextBookmark */ = A9A057D50F9EA11D00C85842 /* PBXTextBookmark */;
-		};
 		sourceControlManager = A9A1F6950F8B99320022755C /* Source Control */;
 		userBuildSettings = {
 		};
@@ -276,80 +266,6 @@
 			sepNavVisRange = "{0, 727}";
 			sepNavWindowFrame = "{{15, 95}, {1236, 778}}";
 		};
-	};
-	A9A057450F9E9C4400C85842 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = A99911AE0F8BEC160026A8BF /* SC_common.h */;
-	};
-	A9A057460F9E9C4400C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A99911AE0F8BEC160026A8BF /* SC_common.h */;
-		name = "SC_common.h: 28";
-		rLen = 0;
-		rLoc = 656;
-		rType = 0;
-		vrLen = 727;
-		vrLoc = 0;
-	};
-	A9A057D00F9EA11D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A99911AE0F8BEC160026A8BF /* SC_common.h */;
-		name = "SC_common.h: 28";
-		rLen = 0;
-		rLoc = 656;
-		rType = 0;
-		vrLen = 727;
-		vrLoc = 0;
-	};
-	A9A057D10F9EA11D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */;
-		name = "ShinyCocos.h: 9";
-		rLen = 0;
-		rLoc = 146;
-		rType = 0;
-		vrLen = 301;
-		vrLoc = 0;
-	};
-	A9A057D20F9EA11D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
-		name = "ShinyCocos.m: 136";
-		rLen = 0;
-		rLoc = 4051;
-		rType = 0;
-		vrLen = 1109;
-		vrLoc = 2942;
-	};
-	A9A057D30F9EA11D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A99911AE0F8BEC160026A8BF /* SC_common.h */;
-		name = "SC_common.h: 28";
-		rLen = 0;
-		rLoc = 656;
-		rType = 0;
-		vrLen = 727;
-		vrLoc = 0;
-	};
-	A9A057D40F9EA11D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */;
-		name = "ShinyCocos.h: 9";
-		rLen = 0;
-		rLoc = 146;
-		rType = 0;
-		vrLen = 301;
-		vrLoc = 0;
-	};
-	A9A057D50F9EA11D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */;
-		name = "ShinyCocos.m: 136";
-		rLen = 0;
-		rLoc = 4051;
-		rType = 0;
-		vrLen = 1110;
-		vrLoc = 2941;
 	};
 	A9A057D70F9EA14F00C85842 /* finite.c */ = {
 		uiCtxt = {

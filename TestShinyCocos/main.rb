@@ -12,9 +12,11 @@ include Cocos2D
 
 class TestScene < Scene
   def initialize
-    sprite = Sprite.sprite_with_file "logogff.png"
-    sprite.position = [240, 160]
-    add_child sprite
+    bg = Sprite.sprite_with_file "logogff.png"
+    bg.position = [240, 160]
+    # @sprite = Sprite.sprite_with_file "dante.png"
+    add_child bg, :z => -1
+    # add_child @sprite, :z => 1
   end
   
   def on_enter
@@ -25,7 +27,10 @@ class TestScene < Scene
   # acceleration[0..2] = x,y,z
   # acceleration[3] = absolute acceleration
   def got_acceleration(acceleration)
-    ns_log("acceleration abs:%f" % [acceleration[3]])
+    ns_log("acceleration abs:%0.2f" % acceleration[3])
+    # now move the sprite
+    # old_pos = @sprite.position
+    # @sprite.position = [old_pos[0] + acceleration[0], old_pos[1] + acceleration[1]]
   end
 end
 

@@ -31,6 +31,7 @@
 }
 
 -(void) applicationWillTerminate: (UIApplication*) application {
+	ShinyCocosStop();
 	[[Director sharedDirector] release];
 }
 

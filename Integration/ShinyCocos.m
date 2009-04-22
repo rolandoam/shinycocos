@@ -15,6 +15,7 @@
 VALUE rb_mCocos2D;
 VALUE rb_object_hash;
 VALUE rb_acc_delegate;
+id accDelegate;
 
 @interface AccDelegate : NSObject
 {
@@ -78,7 +79,9 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 }
 
 VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
-	return Qnil;
+	rb_acc_delegate = obj;
+	[UIAccelerometer sharedAccelerometer].delegate = accDelegate;
+	return obj;
 }
 
 void Init_ShinyCocos() {
@@ -132,4 +135,10 @@ void ShinyCocosStart() {
 		VALUE error = rb_gv_get("@");
 		NSLog(@"RubyError:%s\n%s", STR2CSTR(rb_gv_get("!")), STR2CSTR(rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"))));
 	}
+	accDelegate = [[AccDelegate alloc] init];
 }
+
+void ShinyCocosStop() {
+	[accDelegate release];
+}
+

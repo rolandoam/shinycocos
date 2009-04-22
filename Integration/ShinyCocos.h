@@ -9,5 +9,7 @@
 
 /* setup cocos2d <-> ruby integration */
 void ShinyCocosSetup(UIWindow *window);
-/* will require a file from the Resource Path */
+/* will require "main.rb" from the Resource Path */
 void ShinyCocosStart();
+/* clean up things */
+void ShinyCocosStop();
