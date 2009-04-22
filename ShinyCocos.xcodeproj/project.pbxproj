@@ -56,6 +56,7 @@
 		A9A054F90F9E8D5300C85842 /* strscan.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A054F80F9E8D5300C85842 /* strscan.c */; };
 		A9A054FB0F9E8D8800C85842 /* regex.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A054FA0F9E8D8800C85842 /* regex.c */; };
 		A9A055210F9E8DB800C85842 /* prec.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A055200F9E8DB800C85842 /* prec.c */; };
+		A9A057D80F9EA14F00C85842 /* finite.c in Sources */ = {isa = PBXBuildFile; fileRef = A9A057D70F9EA14F00C85842 /* finite.c */; };
 		A9AC08880F93856600398C9B /* SC_Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC08860F93856600398C9B /* SC_Sprite.h */; };
 		A9AC08890F93856600398C9B /* SC_Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC08870F93856600398C9B /* SC_Sprite.m */; };
 		A9AC08A00F93860400398C9B /* SC_TextureNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC089E0F93860400398C9B /* SC_TextureNode.h */; };
@@ -112,6 +113,7 @@
 		A9A054F80F9E8D5300C85842 /* strscan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = strscan.c; path = ruby/ext/strscan/strscan.c; sourceTree = "<group>"; };
 		A9A054FA0F9E8D8800C85842 /* regex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = regex.c; path = ruby/regex.c; sourceTree = "<group>"; };
 		A9A055200F9E8DB800C85842 /* prec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = prec.c; path = ruby/prec.c; sourceTree = "<group>"; };
+		A9A057D70F9EA14F00C85842 /* finite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = finite.c; path = ruby/missing/finite.c; sourceTree = "<group>"; };
 		A9AC08860F93856600398C9B /* SC_Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Sprite.h; path = Integration/SC_Sprite.h; sourceTree = "<group>"; };
 		A9AC08870F93856600398C9B /* SC_Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Sprite.m; path = Integration/SC_Sprite.m; sourceTree = "<group>"; };
 		A9AC089E0F93860400398C9B /* SC_TextureNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TextureNode.h; path = Integration/SC_TextureNode.h; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		A9515C230F9D0C2D00B2B839 /* ruby */ = {
 			isa = PBXGroup;
 			children = (
+				A9A057D60F9EA14000C85842 /* missing */,
 				A9A054F70F9E8D3F00C85842 /* ext */,
 				A9515C240F9D0C2F00B2B839 /* array.c */,
 				A9515C250F9D0C2F00B2B839 /* bignum.c */,
@@ -222,6 +225,14 @@
 				A9A054F80F9E8D5300C85842 /* strscan.c */,
 			);
 			name = ext;
+			sourceTree = "<group>";
+		};
+		A9A057D60F9EA14000C85842 /* missing */ = {
+			isa = PBXGroup;
+			children = (
+				A9A057D70F9EA14F00C85842 /* finite.c */,
+			);
+			name = missing;
 			sourceTree = "<group>";
 		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
@@ -336,6 +347,7 @@
 				A9A054F90F9E8D5300C85842 /* strscan.c in Sources */,
 				A9A054FB0F9E8D8800C85842 /* regex.c in Sources */,
 				A9A055210F9E8DB800C85842 /* prec.c in Sources */,
+				A9A057D80F9EA14F00C85842 /* finite.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,6 +29,8 @@ do_shell "configuring ruby 1.9..." do
   ruby_dir = File.basename(ruby_tar, ".tar.gz")
   system("tar xzf #{ruby_tar}")
   system("cd ruby; ./configure > /dev/null")
+  # copy the header we need to compile in the device
+  cp "/usr/include/crt_externs.h", "ruby/crt_externs.h"
   rm ruby_tar
 end
 

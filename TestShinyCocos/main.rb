@@ -14,7 +14,7 @@ class TestScene < Scene
   def initialize
     sprite = Sprite.sprite_with_file "logogff.png"
     sprite.position = [240, 160]
-    add_child sprites
+    add_child sprite
   end
   
   def on_enter
@@ -25,7 +25,7 @@ class TestScene < Scene
   # acceleration[0..2] = x,y,z
   # acceleration[3] = absolute acceleration
   def got_acceleration(acceleration)
-    ns_log("acceleration x:%f" % [acceleration[0]])
+    ns_log("acceleration abs:%f" % [acceleration[3]])
   end
 end
 
