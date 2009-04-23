@@ -39,3 +39,5 @@ static inline CGRect common_sc_make_rect(VALUE rb_rect) {
 		NUM2DBL(rb_ary_entry(rb_rect, 3))
 	);
 }
+#define INSPECT(obj) rb_funcall(obj, rb_intern("inspect"), 0)
+#define RBCALL(obj, func) rb_funcall(obj, rb_intern(func), 0)

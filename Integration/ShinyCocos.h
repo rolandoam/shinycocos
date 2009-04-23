@@ -11,5 +11,7 @@
 void ShinyCocosSetup(UIWindow *window);
 /* will require "main.rb" from the Resource Path */
 void ShinyCocosStart();
+/* init chipmunk, call this before ShinyCocosStart() */
+void ShinyCocosInitChipmunk();
 /* clean up things */
 void ShinyCocosStop();

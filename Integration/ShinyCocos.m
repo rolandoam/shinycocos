@@ -86,22 +86,27 @@ VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
 
 void Init_ShinyCocos() {
 	rb_mCocos2D = rb_define_module("Cocos2D");
+	
 	/* init mini object table */
 	rb_object_hash = rb_hash_new();
-	/* init the ruby classes */
+	
+	/* init the integration classes */
+	init_rb_cTexture2D();
 	init_rb_cDirector();
 	init_rb_cCocosNode();
 	init_rb_cScene();
 	init_rb_cTextureNode();
 	init_rb_cSprite();
+	init_rb_cAtlasSpriteManager();
+	init_rb_cAtlasSprite();
+	
 	/* common utility functions */
-	rb_define_method(rb_mKernel, "ns_log", common_rb_ns_log, -1);
-	rb_define_method(rb_mKernel, "set_acceleration_delegate", common_rb_set_acceleration_delegate, 1);
+	rb_define_method(rb_mCocos2D, "ns_log", common_rb_ns_log, -1);
+	rb_define_method(rb_mCocos2D, "set_acceleration_delegate", common_rb_set_acceleration_delegate, 1);
 	rb_acc_delegate = Qnil;
 }
 
 void ShinyCocosSetup(UIWindow *window) {
-	NSLog(@"setting up shiny cocos");
 	RUBY_INIT_STACK;
 	ruby_init();
 
@@ -122,20 +127,23 @@ void ShinyCocosSetup(UIWindow *window) {
 	/* init the window stuff */
 	[window setUserInteractionEnabled:YES];
 	[window setMultipleTouchEnabled:YES];
-	[[Director sharedDirector] attachInView:window];
+	[[Director sharedDirector] attachInWindow:window];
 	[window makeKeyAndVisible];
 }
 
 void ShinyCocosStart() {
 	int state = 0;
 	accDelegate = [[AccDelegate alloc] init];
-	NSLog(@"starting shiny cocos");
 	ruby_script("main.rb");
 	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
 	if (state != 0) {
 		VALUE error = rb_gv_get("@");
-		NSLog(@"RubyError:%s\n%s", STR2CSTR(rb_gv_get("!")), STR2CSTR(rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"))));
+		NSLog(@"Ruby Error: %s\n%s", STR2CSTR(rb_gv_get("!")), STR2CSTR(rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"))));
 	}
+}
+
+void ShinyCocosInitChipmunk() {
+	Init_chipmunk();
 }
 
 void ShinyCocosStop() {
