@@ -213,11 +213,11 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	if (argc == 2) {
 		Check_Type(args[1], T_HASH);
 		VALUE _tmp = Qnil;
-		if (_tmp = rb_hash_aref(args[1], rb_intern("z")) != Qnil)
+		if (_tmp = rb_hash_aref(args[1], ID2SYM(rb_intern("z"))) != Qnil)
 			z_order = FIX2INT(_tmp);
-		if (_tmp = rb_hash_aref(args[1], rb_intern("tag")) != Qnil)
+		if (_tmp = rb_hash_aref(args[1], ID2SYM(rb_intern("tag"))) != Qnil)
 			tag = FIX2INT(_tmp);
-		if (_tmp = rb_hash_aref(args[1], rb_intern("parallax_ratio")) != Qnil)
+		if (_tmp = rb_hash_aref(args[1], ID2SYM(rb_intern("parallax_ratio"))) != Qnil)
 			parallaxRatio = _tmp;
 	}
 	cocos_holder *ptr;
