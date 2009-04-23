@@ -6,12 +6,14 @@ ShinyCocos is a ruby bindings for the Cocos2D-iphone game framework.
 
 The idea is to have a very rubyish binding for the awesome
 [cocos2d-iphone](http://code.google.com/p/cocos2d-iphone) game
-framework. Chipmunk integration is on the way, given that there are
-already bindings for that library.
+framework. It also includes the Chipmunk ruby bindings.
 
 ## Why?
 
 Why not?
+
+It makes things easier and faster to prototype, it's not a big overhead
+and also, ruby takes care of your GC.
 
 ## How?
 
@@ -23,22 +25,27 @@ there, you can have as many classes/files as you want.
 For each cocos2d class there is (or will be) a Ruby version of the
 class, right now, the following classes are implemented:
 
+* Texture2D
 * Director
 * CocosNode
 * Scene
 * TextureNode
 * Sprite
+* AtlasSprite
+* AtlasSpriteManager
 
-The idea is to support every class provided by cocos2d-iphone.
+The idea is to support every class provided by cocos2d-iphone. Please
+note that this is a project still starting, so most of the classes are
+not implemented 100%.
 
 ## Requirements
 
 There are only install requirements:
 
-* svn
-* curl (installed with Mac OS X)
+* svn (to fetch current branch-0.7 of cocos2d-iphone)
+* curl (installed with MacOS X, to fetch ruby)
 
-## Installation
+## Installation/Building
 
 First, run the script that will fetch ruby and cocos2d-iphone:
 
