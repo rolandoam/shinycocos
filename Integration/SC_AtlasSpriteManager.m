@@ -1,21 +1,21 @@
 /*
-    ShinyCocos - ruby bindings for the cocos2d-iphone game framework
-    Copyright (C) 2009, Rolando Abarca M.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ *   ShinyCocos - ruby bindings for the cocos2d-iphone game framework
+ *   Copyright (C) 2009, Rolando Abarca M.
+ *
+ *   This library is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU Lesser General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2.1 of the License.
+ *
+ *   This library is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *   Lesser General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Lesser General Public
+ *   License along with this library; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 #import "SC_common.h"
 #import "SC_AtlasSpriteManager.h"
@@ -24,7 +24,7 @@
 
 VALUE rb_cAtlasSpriteManager;
 
-VALUE rb_cAtlasSpriteManager_s_Sprite_Manager_With_File(int argc, VALUE *argv, VALUE klass) {
+VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, VALUE klass) {
 	AtlasSpriteManager *manager;
 	if (argc < 1 || argc > 2)
 		rb_raise(rb_eArgError, "invalid number of arguments");
@@ -63,7 +63,10 @@ VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 }
 
 void init_rb_cAtlasSpriteManager() {
+#if 0
+	rb_mCocos2D = rb_define_module("Cocos2D");
+#endif
 	rb_cAtlasSpriteManager = rb_define_class_under(rb_mCocos2D, "AtlasSpriteManager", rb_cCocosNode);
-	rb_define_singleton_method(rb_cAtlasSpriteManager, "manager_with_file", rb_cAtlasSpriteManager_s_Sprite_Manager_With_File, -1);
+	rb_define_singleton_method(rb_cAtlasSpriteManager, "manager_with_file", rb_cAtlasSpriteManager_s_sprite_manager_with_file, -1);
 	rb_define_method(rb_cAtlasSpriteManager, "create_sprite", rb_cAtlasSpriteManager_create_sprite, 1);
 }
