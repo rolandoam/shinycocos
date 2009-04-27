@@ -1,6 +1,8 @@
 *.tmproj
 *.tar.gz
+_DC/
 ruby/
 cocos2d-iphone/
 build/
+Integration/doc/
 .DS_Store
