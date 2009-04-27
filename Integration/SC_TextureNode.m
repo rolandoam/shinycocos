@@ -27,9 +27,7 @@ VALUE rb_cTextureNode;
 
 VALUE rb_cTextureNode_s_new(VALUE klass) {
 	TextureNode *node = [[TextureNode alloc] init];
-	cocos_holder *ptr = ALLOC(cocos_holder);
-	ptr->_obj = node;
-	VALUE rb_obj = common_init(klass, ptr, YES);
+	VALUE rb_obj = common_init(klass, nil, node, YES);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)node), rb_obj);
 
 	return rb_obj;

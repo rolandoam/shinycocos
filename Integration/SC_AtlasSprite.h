@@ -22,20 +22,11 @@ extern VALUE rb_cAtlasAnimation;
 
 #pragma mark AtlasSprite
 
-/* sprite = AtlasSprite.sprite_with_options(:rect => [top, left, width, height], :manager => manager) */
 VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts);
-
 void init_rb_cAtlasSprite();
 
 #pragma mark AtlasAnimation
 
-/*
-frame argument is optional
-  animation = AltasAnimation.animation(:name => "name", :delay => 1/60.0, :frame => [frame1, frame2])
-*/
 VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts);
-/*
-animation.add(frame, rect)
-*/
-VALUE rb_cAtlasAnimation_add(VALUE obj, VALUE frame, VALUE rect);
+VALUE rb_cAtlasAnimation_add_frame(VALUE obj, VALUE rect);
 void init_rb_cAtlasAnimation();

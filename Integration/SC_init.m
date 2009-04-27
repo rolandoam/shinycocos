@@ -26,13 +26,17 @@ id accDelegate;
 
 #pragma mark Common
 
-VALUE common_init(VALUE klass, cocos_holder *ptr, BOOL release_on_free) {
+VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, BOOL release_on_free) {
 	VALUE tdata;
+	cocos_holder *ptr;
 	if (release_on_free)
-		tdata = Data_Wrap_Struct(klass, 0, common_free, ptr);
+		tdata = Data_Make_Struct(klass, cocos_holder, 0, common_free, ptr);
 	else
-		tdata = Data_Wrap_Struct(klass, 0, common_free_no_release, ptr);
+		tdata = Data_Make_Struct(klass, cocos_holder, 0, common_free_no_release, ptr);
+	ptr->_obj = object;
 	rb_obj_call_init(tdata, 0, 0);
+	if (ret_ptr != nil)
+		*ret_ptr = ptr;
 	return tdata;
 }
 
@@ -74,6 +78,7 @@ void Init_ShinyCocos() {
 	init_rb_cSprite();
 	init_rb_cAtlasSpriteManager();
 	init_rb_cAtlasSprite();
+	init_rb_cAtlasAnimation();
 	
 	/* common utility functions */
 	rb_define_method(rb_mCocos2D, "ns_log", common_rb_ns_log, -1);

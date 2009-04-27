@@ -18,9 +18,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ruby.h"
 #import "SC_common.h"
 #import "SC_CocosNode.h"
+
+static ID id_animate;
+static ID id_repeat_forever;
 
 #pragma mark CocosNode extension
 
@@ -189,9 +191,7 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 
 VALUE rb_cCocosNode_s_node(VALUE klass) {
 	CocosNode *node = [CocosNode node];
-	cocos_holder *ptr = ALLOC(cocos_holder);
-	ptr->_obj = node;
-	VALUE obj = common_init(klass, ptr, NO);
+	VALUE obj = common_init(klass, nil, node, NO);
 	// add the pointer to the object hash
 	rb_hash_aset(rb_object_hash, INT2FIX((long)node), obj);
 	return obj;
@@ -199,17 +199,15 @@ VALUE rb_cCocosNode_s_node(VALUE klass) {
 
 VALUE rb_cCocosNode_s_new(VALUE klass) {
 	CocosNode *node = [[CocosNode alloc] init];
-	cocos_holder *ptr = ALLOC(cocos_holder);
-	ptr->_obj = node;
-	VALUE obj = common_init(klass, ptr, YES);
+	VALUE obj = common_init(klass, nil, node, YES);
 	// add the pointer to the object hash
 	rb_hash_aset(rb_object_hash, INT2FIX((long)node), obj);
 	return obj;
 }
 
 /*
- add_child(obj)
- add_child(obj, :z => z, :tag => tag, :parallax_ratio => ratio)
+ *   add_child(obj)
+ *   add_child(obj, :z => z, :tag => tag, :parallaxRatio => ratio)
  */
 VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	if (argc < 1 || argc > 2) {
@@ -241,6 +239,65 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 		[((CocosNode *)GET_OBJC(ptr)) addChild:GET_OBJC(ptr_child) z:z_order tag:tag];
 	}
 	return args[0];
+}
+
+/*
+ *    node.run_action(action, *args) do |action|
+ *    end
+ *
+ *  +action+ it's a symbol representing an action. Valid symbols are all
+ *  Cocos2D-iphone (0.7.2) actions, camel cased. e.g.: RepeatForever =>
+ *  repeat_forever; RotateBy => rotate_by.
+ *  
+ *  The other arguments are the valid arguments for the new action:
+ *  
+ *    node.run_action(:rotate_by, duration, angle)
+ *  
+ *  The optional block passes the newly created action. You can there
+ *  further configure the action. Each action has it's own properties. In
+ *  order to simplify the configuration, each action is a struct, where the
+ *  +name+ property specifies the corresponding Objective-C class.
+ *  
+ *  The way to specify nested actions is with an array. This is commonly
+ *  used in the repeat actions:
+ *  
+ *    animation = AtlasAnimation.animation(:name => "walk", :delay => 1/30.0) do |walk|
+ *      (0..37).each { |i|
+ *        x = i % 10
+ *        y = i / 10
+ *        walk.add_frame [x*100, y*160, 100, 160]
+ *      }
+ *    end
+ *  
+ *    node.run_action(:repeat_forever) do |action|
+ *      action.action = [:animate, animation]
+ *    end
+ */
+VALUE rb_cCocosNode_run_action(int argc, VALUE *_args, VALUE object) {
+	cocos_holder *ptr;
+
+	if (argc < 1) {
+		rb_raise(rb_eArgError, "Invalid number of arguments");
+	}
+	Check_Type(_args[0], T_SYMBOL);
+	VALUE action_struct = Qnil; // the Struct to be passed to the block (if any)
+	id action;                  // the Obj-C action
+	ID rb_action = SYM2ID(_args[0]);
+	if (rb_action == id_animate) {
+		Data_Get_Struct(_args[1], cocos_holder, ptr);
+		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
+	} else {
+		rb_raise(rb_eArgError, "Invalid Action");
+	}
+	if (rb_block_given_p()) {
+		rb_yield(action_struct);
+	}
+
+	// here we should do something with the modified struct
+	Data_Get_Struct(object, cocos_holder, ptr);
+	[GET_OBJC(ptr) runAction:action];
+
+	return object;
 }
 
 #pragma mark Override Points
@@ -291,6 +348,7 @@ void init_rb_cCocosNode() {
 	
 	// misc
 	rb_define_method(rb_cCocosNode, "add_child", rb_cCocosNode_add_child, -1);
+	rb_define_method(rb_cCocosNode, "run_action", rb_cCocosNode_run_action, -1);
 	
 	// actions
 	rb_define_method(rb_cCocosNode, "on_enter", rb_cCocosNode_on_enter, 0);
@@ -299,9 +357,13 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "transform", rb_cCocosNode_on_exit, 0);
 	
 	// replace the init and dealloc methods in the CocosNode class
-	common_method_swap([CocosNode class], @selector(init), @selector(rb_init), "@@:");
-	common_method_swap([CocosNode class], @selector(dealloc), @selector(rb_dealloc), "v@:");
+	common_method_swap([CocosNode class], @selector(init), @selector(rb_init));
+	common_method_swap([CocosNode class], @selector(dealloc), @selector(rb_dealloc));
 	// replace the common actions on the CocosNode class
-	common_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter), "v@:");
-	common_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit), "v@:");
+	common_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));
+	common_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
+	
+	// setup the valid_actions array
+	id_animate = rb_intern("animate");
+	id_repeat_forever = rb_intern("repeat_forever");
 }

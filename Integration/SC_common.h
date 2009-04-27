@@ -34,10 +34,10 @@ extern id accDelegate;
 
 void common_free(void *ptr);
 void common_free_no_release(void *ptr);
-VALUE common_init(VALUE klass, cocos_holder *ptr, BOOL release_on_free);
+VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, BOOL release_on_free);
 VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module);
 VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj);
-void common_method_swap(Class cls, SEL orig, SEL repl, const char *signature);
+void common_method_swap(Class cls, SEL orig, SEL repl);
 
 static inline CGRect common_sc_make_rect(VALUE rb_rect) {
 	Check_Type(rb_rect, T_ARRAY);

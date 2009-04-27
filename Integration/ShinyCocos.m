@@ -48,8 +48,8 @@ void common_free_no_release(void *ptr) {
 	free(ptr);
 }
 
-void common_method_swap(Class cls, SEL orig, SEL repl, const char *signature) {
-	//NSLog(@"replacing %@ with %@ in %@", NSStringFromSelector(orig), NSStringFromSelector(repl), cls);
+void common_method_swap(Class cls, SEL orig, SEL repl) {
+//	NSLog(@"replacing %@ with %@ in %@", NSStringFromSelector(orig), NSStringFromSelector(repl), cls);
 	Method m1 = class_getInstanceMethod(cls, orig);
 	Method m2 = class_getInstanceMethod(cls, repl);
 	method_exchangeImplementations(m1, m2);
