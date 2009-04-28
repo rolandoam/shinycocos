@@ -41,14 +41,14 @@ void common_method_swap(Class cls, SEL orig, SEL repl);
 
 static inline CGRect common_sc_make_rect(VALUE rb_rect) {
 	Check_Type(rb_rect, T_ARRAY);
-	if (FIX2INT(rb_funcall(rb_rect, rb_intern("length"), 0)) < 4) {
+	if (RARRAY(rb_rect)->len < 4) {
 		rb_raise(rb_eArgError, "rect must be of at least 4 elements");
 	}
 	return CGRectMake(
-		NUM2DBL(rb_ary_entry(rb_rect, 0)),
-		NUM2DBL(rb_ary_entry(rb_rect, 1)),
-		NUM2DBL(rb_ary_entry(rb_rect, 2)),
-		NUM2DBL(rb_ary_entry(rb_rect, 3))
+		NUM2DBL(RARRAY(rb_rect)->ptr[0]),
+		NUM2DBL(RARRAY(rb_rect)->ptr[1]),
+		NUM2DBL(RARRAY(rb_rect)->ptr[2]),
+		NUM2DBL(RARRAY(rb_rect)->ptr[3])
 	);
 }
 #define INSPECT(obj) rb_funcall(obj, rb_intern("inspect"), 0)
