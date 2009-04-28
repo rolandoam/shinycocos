@@ -33,6 +33,7 @@ class, right now, the following classes are implemented:
 * Sprite
 * AtlasSprite
 * AtlasSpriteManager
+* AtlasAnimation
 
 The idea is to support every class provided by cocos2d-iphone. Please
 note that this is a project still starting, so most of the classes are
