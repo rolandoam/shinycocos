@@ -228,6 +228,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -274,6 +276,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>16</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -325,13 +328,13 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A9E53EA10F9F6DB0001DC55F</string>
+										<string>A9CD67290FA22E6100128F38</string>
 										<key>history</key>
 										<array>
 											<string>A9A057E60F9EA66D00C85842</string>
 											<string>A9E53E980F9F6BE2001DC55F</string>
 											<string>A9E53E990F9F6BE2001DC55F</string>
-											<string>A9E53E9A0F9F6BE2001DC55F</string>
+											<string>A92437190FA22DF1003C6EED</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -395,9 +398,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A9E53E600F9F6B6A001DC55F</string>
+				<string>A9CD672A0FA22E6100128F38</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>A9E53E610F9F6B6A001DC55F</string>
+				<string>A9CD672B0FA22E6100128F38</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -531,11 +534,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>A9E53E9E0F9F6BE2001DC55F</string>
-		<string>A9E53EA00F9F6BE2001DC55F</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>A9A0572E0F9E9B1C00C85842</string>
 		<string>/Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/TestShinyCocos.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

@@ -77,18 +77,20 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 262105954;
-			PBXWorkspaceStateSaveDate = 262105954;
+			PBXPerProjectTemplateStateSaveDate = 262286944;
+			PBXWorkspaceStateSaveDate = 262286944;
 		};
 		perUserProjectItems = {
-			A9A057E60F9EA66D00C85842 /* PBXTextBookmark */ = A9A057E60F9EA66D00C85842 /* PBXTextBookmark */;
-			A9A057E80F9EA66D00C85842 /* PBXTextBookmark */ = A9A057E80F9EA66D00C85842 /* PBXTextBookmark */;
-			A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */ = A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */;
-			A9E53E990F9F6BE2001DC55F /* PlistBookmark */ = A9E53E990F9F6BE2001DC55F /* PlistBookmark */;
-			A9E53E9A0F9F6BE2001DC55F /* PlistBookmark */ = A9E53E9A0F9F6BE2001DC55F /* PlistBookmark */;
-			A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */ = A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */;
-			A9E53E9C0F9F6BE2001DC55F /* PlistBookmark */ = A9E53E9C0F9F6BE2001DC55F /* PlistBookmark */;
-			A9E53EA10F9F6DB0001DC55F /* PlistBookmark */ = A9E53EA10F9F6DB0001DC55F /* PlistBookmark */;
+			A92437190FA22DF1003C6EED = A92437190FA22DF1003C6EED /* PlistBookmark */;
+			A9A057E60F9EA66D00C85842 = A9A057E60F9EA66D00C85842 /* PBXTextBookmark */;
+			A9A057E80F9EA66D00C85842 = A9A057E80F9EA66D00C85842 /* PBXTextBookmark */;
+			A9CD67290FA22E6100128F38 /* PlistBookmark */ = A9CD67290FA22E6100128F38 /* PlistBookmark */;
+			A9E53E980F9F6BE2001DC55F = A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */;
+			A9E53E990F9F6BE2001DC55F = A9E53E990F9F6BE2001DC55F /* PlistBookmark */;
+			A9E53E9A0F9F6BE2001DC55F = A9E53E9A0F9F6BE2001DC55F /* PlistBookmark */;
+			A9E53E9B0F9F6BE2001DC55F = A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */;
+			A9E53E9C0F9F6BE2001DC55F = A9E53E9C0F9F6BE2001DC55F /* PlistBookmark */;
+			A9E53EA10F9F6DB0001DC55F = A9E53EA10F9F6DB0001DC55F /* PlistBookmark */;
 		};
 		sourceControlManager = A9A056950F9E9A9000C85842 /* Source Control */;
 		userBuildSettings = {
@@ -100,6 +102,17 @@
 			sepNavSelRange = "{351, 0}";
 			sepNavVisRange = "{0, 396}";
 		};
+	};
+	A92437190FA22DF1003C6EED /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
+		rLen = 0;
+		rLoc = 2147483647;
 	};
 	A9A0568C0F9E9A8A00C85842 /* TestShinyCocos */ = {
 		isa = PBXExecutable;
@@ -166,6 +179,17 @@
 		rType = 0;
 		vrLen = 848;
 		vrLoc = 99;
+	};
+	A9CD67290FA22E6100128F38 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
+		rLen = 0;
+		rLoc = 2147483647;
 	};
 	A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

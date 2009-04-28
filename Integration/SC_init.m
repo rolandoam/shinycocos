@@ -40,6 +40,9 @@ VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, BOOL release_o
 	return tdata;
 }
 
+/*
+ * use this with caution, since it's really slow!
+ */
 VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 	/* create the template string */
 	VALUE template_ary = rb_ary_new();
@@ -56,6 +59,12 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 	return Qnil;
 }
 
+/*
+ * set the acceleration delegate. It will receive an array with 4
+ * floats: acceleration on axis x, y, z and the absolute acceleration.
+ * 
+ * The object must respond to <tt>got_acceleration(accel)</tt>.
+ */
 VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
 	rb_acc_delegate = obj;
 	rb_gv_set("sc_acc_delegate", obj); // we set it as a global variable, or else ruby will clean it on GC

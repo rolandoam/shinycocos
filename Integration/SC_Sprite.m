@@ -26,6 +26,9 @@
 
 VALUE rb_cSprite;
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cSprite_s_sprite_with_file(VALUE klass, VALUE filepath) {
 	Check_Type(filepath, T_STRING);
 	Sprite *obj = [Sprite spriteWithFile:[NSString stringWithCString:STR2CSTR(filepath) encoding:NSUTF8StringEncoding]];

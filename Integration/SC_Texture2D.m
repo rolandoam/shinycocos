@@ -22,21 +22,33 @@
 
 VALUE rb_cTexture2D;
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cTexture2D_s_save_tex_parameters(VALUE klass) {
 	[Texture2D saveTexParameters];
 	return Qnil;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cTexture2D_s_set_alias_tex_parameters(VALUE klass) {
 	[Texture2D setAliasTexParameters];
 	return Qnil;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cTexture2D_s_restore_tex_parameters(VALUE klass) {
 	[Texture2D restoreTexParameters];
 	return Qnil;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cTexture2D_s_aliased(VALUE klass) {
 	if (rb_block_given_p()) {
 		[Texture2D saveTexParameters];

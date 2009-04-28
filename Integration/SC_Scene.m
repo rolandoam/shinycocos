@@ -25,6 +25,9 @@
 
 VALUE rb_cScene;
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cScene_s_new(VALUE klass) {
 	Scene *obj = [[Scene alloc] init];
 	VALUE rb_obj = common_init(klass, nil, obj, YES);

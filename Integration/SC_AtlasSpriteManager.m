@@ -24,6 +24,9 @@
 
 VALUE rb_cAtlasSpriteManager;
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, VALUE klass) {
 	AtlasSpriteManager *manager;
 	if (argc < 1 || argc > 2)
@@ -45,6 +48,9 @@ VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, V
 	return obj;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 	cocos_holder *ptr;
 	Data_Get_Struct(obj, cocos_holder, ptr);

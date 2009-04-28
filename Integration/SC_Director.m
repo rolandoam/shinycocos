@@ -24,17 +24,26 @@
 
 VALUE rb_cDirector;
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cDirector_landscape(VALUE klass, VALUE landscape) {
 	[Director sharedDirector].landscape = (landscape == Qtrue) ? YES : NO;
 	return landscape;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cDirector_animation_interval(VALUE klass, VALUE interval) {
 	Check_Type(interval, T_FLOAT);
 	[Director sharedDirector].animationInterval = NUM2DBL(interval);
 	return interval;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cDirector_run_scene(VALUE klass, VALUE scene) {
 	Check_Type(scene, T_DATA);
 	cocos_holder *ptr;

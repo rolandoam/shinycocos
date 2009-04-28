@@ -75,6 +75,7 @@
 		A9AC08890F93856600398C9B /* SC_Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC08870F93856600398C9B /* SC_Sprite.m */; };
 		A9AC08A00F93860400398C9B /* SC_TextureNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC089E0F93860400398C9B /* SC_TextureNode.h */; };
 		A9AC08A10F93860400398C9B /* SC_TextureNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC089F0F93860400398C9B /* SC_TextureNode.m */; };
+		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,7 @@
 		A9AC08870F93856600398C9B /* SC_Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Sprite.m; path = Integration/SC_Sprite.m; sourceTree = "<group>"; };
 		A9AC089E0F93860400398C9B /* SC_TextureNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TextureNode.h; path = Integration/SC_TextureNode.h; sourceTree = "<group>"; };
 		A9AC089F0F93860400398C9B /* SC_TextureNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TextureNode.m; path = Integration/SC_TextureNode.m; sourceTree = "<group>"; };
+		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libShinyCocos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShinyCocos.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -263,6 +265,7 @@
 				A94FBF530FA096910073C00F /* SC_AtlasSprite.m */,
 				A94FBF540FA096910073C00F /* SC_AtlasSpriteManager.h */,
 				A94FBF550FA096910073C00F /* SC_AtlasSpriteManager.m */,
+				A9E436C70FA609A300D00AC1 /* SC_init.m */,
 				A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */,
 				A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */,
 			);
@@ -412,6 +415,7 @@
 				A94FC25A0FA0F5370073C00F /* rb_cpShape.c in Sources */,
 				A94FC25B0FA0F5370073C00F /* rb_cpSpace.c in Sources */,
 				A94FC25C0FA0F5370073C00F /* rb_cpVect.c in Sources */,
+				A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

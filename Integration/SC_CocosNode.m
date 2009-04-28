@@ -20,11 +20,27 @@
 #import <Foundation/Foundation.h>
 #import "SC_common.h"
 #import "SC_CocosNode.h"
+#import "rb_chipmunk.h"
 
 static ID id_animate;
 static ID id_repeat_forever;
 
 #pragma mark CocosNode extension
+
+static void eachShape(void *ptr, void* unused)
+{
+	cpShape *shape = (cpShape*) ptr;
+	CocosNode *sprite = shape->data;
+	if (sprite) {
+		cpBody *body = shape->body;
+		
+		sprite.position = body->p;
+		sprite.rotation = (float)CC_RADIANS_TO_DEGREES(-body->a);
+		// reset forces (we could add a check against a iv to see if we
+		// need to reset forces)
+		cpBodyResetForces(shape->body);
+	}
+}
 
 @interface CocosNode (SC_Extension)
 - (id)rb_init;
@@ -34,6 +50,8 @@ static ID id_repeat_forever;
 - (void)rb_on_exit;
 - (void)rb_draw;
 - (void)rb_transform;
+// chipmunk support
+- (void)step:(ccTime)delta;
 @end
 
 @implementation CocosNode (SC_Extension)
@@ -73,24 +91,43 @@ static ID id_repeat_forever;
 - (void)rb_transform {
 	[self rb_transform];
 }
+
+- (void)step:(ccTime)delta {
+	int steps = 2, i;
+	cpSpace *space = SPACE(rb_gv_get("space"));
+	cpFloat dt = delta/(cpFloat)steps;
+	for (i=0; i < steps; i++)
+		cpSpaceStep(space, dt);
+	cpSpaceHashEach(space->activeShapes, &eachShape, nil);
+	//cpSpaceHashEach(space->staticShapes, &eachShape, nil);
+}
 @end
 
 VALUE rb_cCocosNode;
 
 # pragma mark Properties
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_z_order(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return INT2FIX(((CocosNode *)GET_OBJC(ptr)).zOrder);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_rotation(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return rb_float_new(((CocosNode *)GET_OBJC(ptr)).rotation);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_rotation(VALUE object, VALUE rotation) {
 	cocos_holder *ptr;
 	Check_Type(rotation, T_FLOAT);
@@ -99,12 +136,18 @@ VALUE rb_cCocosNode_set_rotation(VALUE object, VALUE rotation) {
 	return rotation;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_scale(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return rb_float_new(((CocosNode *)GET_OBJC(ptr)).scale);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_scale(VALUE object, VALUE scale) {
 	cocos_holder *ptr;
 	Check_Type(scale, T_FLOAT);
@@ -113,12 +156,18 @@ VALUE rb_cCocosNode_set_scale(VALUE object, VALUE scale) {
 	return scale;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_scale_x(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return rb_float_new(((CocosNode *)GET_OBJC(ptr)).scaleX);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_scale_x(VALUE object, VALUE scale_x) {
 	cocos_holder *ptr;
 	Check_Type(scale_x, T_FLOAT);
@@ -127,12 +176,18 @@ VALUE rb_cCocosNode_set_scale_x(VALUE object, VALUE scale_x) {
 	return scale_x;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_scale_y(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return rb_float_new(((CocosNode *)GET_OBJC(ptr)).scaleY);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_scale_y(VALUE object, VALUE scale_y) {
 	cocos_holder *ptr;
 	Check_Type(scale_y, T_FLOAT);
@@ -141,6 +196,9 @@ VALUE rb_cCocosNode_set_scale_y(VALUE object, VALUE scale_y) {
 	return scale_y;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_position(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
@@ -148,12 +206,15 @@ VALUE rb_cCocosNode_position(VALUE object) {
 	return rb_ary_new3(2, v.x, v.y);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) {
 	cocos_holder *ptr;
 	Check_Type(position, T_ARRAY);
-	if (FIX2INT(rb_funcall(position, rb_intern("size"), 0, 0)) == 2) {
+	if (RARRAY(position)->len == 2) {
 		Data_Get_Struct(object, cocos_holder, ptr);
-		((CocosNode *)GET_OBJC(ptr)).position = cpv(FIX2INT(rb_ary_entry(position, 0)), FIX2INT(rb_ary_entry(position, 1)));
+		((CocosNode *)GET_OBJC(ptr)).position = cpv(FIX2INT(RARRAY(position)->ptr[0]), FIX2INT(RARRAY(position)->ptr[1]));
 		return position;
 	} else {
 		NSLog(@"Invalid array size for position");
@@ -161,12 +222,18 @@ VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) {
 	}
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_visible(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return ((CocosNode *)GET_OBJC(ptr)).visible ? Qtrue : Qfalse;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_visible(VALUE object, VALUE visible) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
@@ -174,12 +241,18 @@ VALUE rb_cCocosNode_set_visible(VALUE object, VALUE visible) {
 	return (visible == Qfalse) ? Qfalse : Qtrue;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_tag(VALUE object) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	return INT2FIX(((CocosNode *)GET_OBJC(ptr)).tag);
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
@@ -189,6 +262,9 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 
 #pragma mark Methods
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_s_node(VALUE klass) {
 	CocosNode *node = [CocosNode node];
 	VALUE obj = common_init(klass, nil, node, NO);
@@ -197,6 +273,9 @@ VALUE rb_cCocosNode_s_node(VALUE klass) {
 	return obj;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_s_new(VALUE klass) {
 	CocosNode *node = [[CocosNode alloc] init];
 	VALUE obj = common_init(klass, nil, node, YES);
@@ -233,7 +312,7 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	Data_Get_Struct(object, cocos_holder, ptr);
 	if (parallaxRatio != Qnil) {
 		Check_Type(parallaxRatio, T_ARRAY);
-		cpVect v = cpv(NUM2DBL(rb_ary_entry(parallaxRatio, 0)), NUM2DBL(rb_ary_entry(parallaxRatio, 1)));
+		cpVect v = cpv(NUM2DBL(RARRAY(parallaxRatio)->ptr[0]), NUM2DBL(RARRAY(parallaxRatio)->ptr[1]));
 		[((CocosNode *)GET_OBJC(ptr)) addChild:GET_OBJC(ptr_child) z:z_order parallaxRatio:v];
 	} else {
 		[((CocosNode *)GET_OBJC(ptr)) addChild:GET_OBJC(ptr_child) z:z_order tag:tag];
@@ -273,18 +352,17 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
  *      action.action = [:animate, animation]
  *    end
  */
-VALUE rb_cCocosNode_run_action(int argc, VALUE *_args, VALUE object) {
-	cocos_holder *ptr;
-
+VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
 	if (argc < 1) {
 		rb_raise(rb_eArgError, "Invalid number of arguments");
 	}
-	Check_Type(_args[0], T_SYMBOL);
+	Check_Type(args[0], T_SYMBOL);
 	VALUE action_struct = Qnil; // the Struct to be passed to the block (if any)
 	id action;                  // the Obj-C action
-	ID rb_action = SYM2ID(_args[0]);
+	ID rb_action = SYM2ID(args[0]);
+	cocos_holder *ptr;
 	if (rb_action == id_animate) {
-		Data_Get_Struct(_args[1], cocos_holder, ptr);
+		Data_Get_Struct(args[1], cocos_holder, ptr);
 		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
 	} else {
 		rb_raise(rb_eArgError, "Invalid Action");
@@ -292,33 +370,72 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *_args, VALUE object) {
 	if (rb_block_given_p()) {
 		rb_yield(action_struct);
 	}
-
+	
 	// here we should do something with the modified struct
 	Data_Get_Struct(object, cocos_holder, ptr);
 	[GET_OBJC(ptr) runAction:action];
+	
+	return object;
+}
 
+/*
+ * will set the current CocosNode as the stepper for chipmunk (will run
+ * the <tt>step:</tt> selector).
+ */
+VALUE rb_cCocosNode_set_chipmunk_stepper(VALUE object) {
+	cocos_holder *ptr;
+	Data_Get_Struct(object, cocos_holder, ptr);
+	[GET_OBJC(ptr) schedule:@selector(step:)];
+	
+	return object;
+}
+
+/*
+ * will set the internal data attribute of the shape to the internal
+ * objective-c object of the CocosNode.
+ */
+VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
+	cocos_holder *ptr;
+	Data_Get_Struct(object, cocos_holder, ptr);
+	cpShape *shape = SHAPE(rb_shape);
+	shape->data = ptr->_obj;
+	
 	return object;
 }
 
 #pragma mark Override Points
 
-/* call node's onEnter */
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_on_enter(VALUE object) {
 	return Qnil;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_on_exit(VALUE object) {
 	return Qnil;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_draw(VALUE object) {
 	return Qnil;
 }
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cCocosNode_transform(VALUE object) {
 	return Qnil;
 }
 
+/*
+ * The ruby equivalent of the CocosNode class - not yet complete
+ */
 void init_rb_cCocosNode() {
 #if 0
 	rb_mCocos2D = rb_define_module("Cocos2D");
@@ -349,6 +466,8 @@ void init_rb_cCocosNode() {
 	// misc
 	rb_define_method(rb_cCocosNode, "add_child", rb_cCocosNode_add_child, -1);
 	rb_define_method(rb_cCocosNode, "run_action", rb_cCocosNode_run_action, -1);
+	rb_define_method(rb_cCocosNode, "set_chipmunk_stepper", rb_cCocosNode_set_chipmunk_stepper, 0);
+	rb_define_method(rb_cCocosNode, "attach_chipmunk_shape", rb_cCocosNode_attach_chipmunk_shape, 1);
 	
 	// actions
 	rb_define_method(rb_cCocosNode, "on_enter", rb_cCocosNode_on_enter, 0);

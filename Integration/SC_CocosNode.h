@@ -41,8 +41,8 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag);
 
 VALUE rb_cCocosNode_s_node(VALUE klass);
 VALUE rb_cCocosNode_s_new(VALUE klass);
-VALUE rb_cCocosNode_add_child(int argc, VALUE *_args, VALUE object);
-VALUE rb_cCocosNode_run_action(int argc, VALUE *_args, VALUE object);
+VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object);
+VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object);
 
 #pragma mark Override Points
 
