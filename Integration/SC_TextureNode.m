@@ -25,6 +25,9 @@
 
 VALUE rb_cTextureNode;
 
+/* 
+ * Must complete doc
+ */
 VALUE rb_cTextureNode_s_new(VALUE klass) {
 	TextureNode *node = [[TextureNode alloc] init];
 	VALUE rb_obj = common_init(klass, nil, node, YES);
