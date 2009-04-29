@@ -24,6 +24,8 @@
 
 static ID id_animate;
 static ID id_repeat_forever;
+VALUE rb_cCocosNode;
+VALUE rb_handler_hash;
 
 #pragma mark CocosNode extension
 
@@ -103,7 +105,25 @@ static void eachShape(void *ptr, void* unused)
 }
 @end
 
-VALUE rb_cCocosNode;
+# pragma mark Action Extension
+
+@interface Action (SC_Extension)
+- (void)rb_stop;
+@end
+
+@implementation Action (SC_Extension)
+- (void)rb_stop {
+	[self rb_stop];
+	VALUE handler = rb_hash_aref(rb_handler_hash, INT2FIX((long)self));
+	// handler should be an array with two items: the handler and the
+	// method to be called. This will be good if the handler could also
+	// be a block/proc. It shouldn't be hard to implement, just check
+	// the type
+	if (handler && TYPE(handler) == T_ARRAY && RARRAY(handler)->len == 2) {
+		rb_funcall(RARRAY(handler)->ptr[0], rb_to_id(RARRAY(handler)->ptr[1]), 0);
+	}
+}
+@end
 
 # pragma mark Properties
 
@@ -321,14 +341,19 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 }
 
 /*
- *    node.run_action(action, *args) do |action|
+ *    node.run_action(action, options, *args) do |action|
  *    end
  *
  *  +action+ it's a symbol representing an action. Valid symbols are all
  *  Cocos2D-iphone (0.7.2) actions, camel cased. e.g.: RepeatForever =>
  *  repeat_forever; RotateBy => rotate_by.
+ * 
+ *  Valid options:
+ * 
+ *  * <tt>:on_stop</tt>:: Will be called when the generated action.
+ *  stops.
  *  
- *  The other arguments are the valid arguments for the new action:
+ *  The rest of arguments are the valid arguments for the new action:
  *  
  *    node.run_action(:rotate_by, duration, angle)
  *  
@@ -353,22 +378,30 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
  *    end
  */
 VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
-	if (argc < 1) {
-		rb_raise(rb_eArgError, "Invalid number of arguments");
+	if (argc < 2) {
+		rb_raise(rb_eArgError, "Invalid number of arguments (need to pass the action and its options)");
 	}
 	Check_Type(args[0], T_SYMBOL);
+	Check_Type(args[1], T_HASH);
+	
 	VALUE action_struct = Qnil; // the Struct to be passed to the block (if any)
 	id action;                  // the Obj-C action
 	ID rb_action = SYM2ID(args[0]);
 	cocos_holder *ptr;
-	if (rb_action == id_animate) {
-		Data_Get_Struct(args[1], cocos_holder, ptr);
+	if (rb_action == id_animate && argc == 3) {
+		Data_Get_Struct(args[2], cocos_holder, ptr);
 		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
 	} else {
 		rb_raise(rb_eArgError, "Invalid Action");
 	}
 	if (rb_block_given_p()) {
 		rb_yield(action_struct);
+	}
+	// add an on_stop handler here. This will require modification to Action.h
+	VALUE on_stop_handler = rb_hash_aref(args[1], ID2SYM(rb_intern("on_stop")));
+	if (on_stop_handler && TYPE(on_stop_handler) == T_SYMBOL) {
+		VALUE handler_ary = rb_ary_new3(2, object, on_stop_handler);
+		rb_hash_aset(rb_handler_hash, INT2FIX((long)action), handler_ary);
 	}
 	
 	// here we should do something with the modified struct
@@ -481,6 +514,12 @@ void init_rb_cCocosNode() {
 	// replace the common actions on the CocosNode class
 	common_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));
 	common_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
+	// replace the stop method on Action (to be able to call the stop handler in ruby)
+	common_method_swap([Action class], @selector(stop), @selector(rb_stop));
+	
+	// init the handler hash
+	rb_handler_hash = rb_hash_new();
+	rb_gv_set("_sc_handler_hash", rb_handler_hash);
 	
 	// setup the valid_actions array
 	id_animate = rb_intern("animate");

@@ -67,7 +67,7 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
  */
 VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
 	rb_acc_delegate = obj;
-	rb_gv_set("sc_acc_delegate", obj); // we set it as a global variable, or else ruby will clean it on GC
+	rb_gv_set("_sc_acc_delegate", obj); // we set it as a global variable, or else ruby will clean it on GC
 	[UIAccelerometer sharedAccelerometer].delegate = accDelegate;
 	return obj;
 }
