@@ -266,14 +266,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>08FB7794FE84155DC02AAC07</string>
-								<string>A94FC0BA0FA0D05C0073C00F</string>
+								<string>A9990E8D0F8BAA7F0026A8BF</string>
 								<string>1C37FBAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>5</integer>
-									<integer>1</integer>
+									<integer>6</integer>
+									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -378,9 +378,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A926E9620FA7648F0068A8FC</string>
+				<string>A96080D00FA8A0A300FC3D43</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>A926E9630FA7648F0068A8FC</string>
+				<string>A96080D10FA8A0A300FC3D43</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -514,7 +514,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>A9A1F9070F8B9A510022755C</string>
 		<string>/Users/rolando/Documents/GFF/ShinyCocos/ShinyCocos.xcodeproj</string>
 	</array>
@@ -557,6 +556,8 @@
 							<string>355pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -596,7 +597,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>A9A1F9070F8B9A510022755C</string>
-				<string>A926E9590FA762620068A8FC</string>
+				<string>A96080DB0FA8A7F100FC3D43</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

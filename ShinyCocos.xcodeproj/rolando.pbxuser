@@ -105,8 +105,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 262627892;
-			PBXWorkspaceStateSaveDate = 262627892;
+			PBXPerProjectTemplateStateSaveDate = 262709408;
+			PBXWorkspaceStateSaveDate = 262709408;
+		};
+		perUserProjectItems = {
+			A96080D90FA8A7F100FC3D43 /* PBXTextBookmark */ = A96080D90FA8A7F100FC3D43 /* PBXTextBookmark */;
+			A96080DA0FA8A7F100FC3D43 /* PBXTextBookmark */ = A96080DA0FA8A7F100FC3D43 /* PBXTextBookmark */;
+			A96080DD0FA8A82000FC3D43 /* PBXTextBookmark */ = A96080DD0FA8A82000FC3D43 /* PBXTextBookmark */;
+			A96080DE0FA8A82000FC3D43 /* PBXTextBookmark */ = A96080DE0FA8A82000FC3D43 /* PBXTextBookmark */;
 		};
 		sourceControlManager = A9A1F6950F8B99320022755C /* Source Control */;
 		userBuildSettings = {
@@ -205,9 +211,9 @@
 	};
 	A9515C240F9D0C2F00B2B839 /* array.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1177, 54810}}";
-			sepNavSelRange = "{62082, 27}";
-			sepNavVisRange = "{61539, 919}";
+			sepNavIntBoundsRect = "{{0, 0}, {1177, 55342}}";
+			sepNavSelRange = "{3430, 25}";
+			sepNavVisRange = "{3086, 670}";
 			sepNavWindowFrame = "{{38, 74}, {1236, 778}}";
 		};
 	};
@@ -348,9 +354,9 @@
 	};
 	A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {879, 5992}}";
-			sepNavSelRange = "{10360, 25}";
-			sepNavVisRange = "{10051, 531}";
+			sepNavIntBoundsRect = "{{0, 0}, {1177, 7378}}";
+			sepNavSelRange = "{15740, 0}";
+			sepNavVisRange = "{9704, 1853}";
 			sepNavWindowFrame = "{{15, 95}, {1236, 778}}";
 		};
 	};
@@ -360,6 +366,42 @@
 			sepNavSelRange = "{1102, 0}";
 			sepNavVisRange = "{848, 564}";
 		};
+	};
+	A96080D90FA8A7F100FC3D43 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: no '-setOnStopDelegate:' method found";
+		fRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */;
+		rLen = 1;
+		rLoc = 418;
+		rType = 1;
+	};
+	A96080DA0FA8A7F100FC3D43 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */;
+		name = "SC_CocosNode.m: 419";
+		rLen = 42;
+		rLoc = 11727;
+		rType = 0;
+		vrLen = 897;
+		vrLoc = 10830;
+	};
+	A96080DD0FA8A82000FC3D43 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "(Messages without a matching method signature will be assumed to return 'id' and accept '...' as arguments.)";
+		fRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */;
+		rLen = 1;
+		rLoc = 418;
+		rType = 1;
+	};
+	A96080DE0FA8A82000FC3D43 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */;
+		name = "SC_CocosNode.m: 419";
+		rLen = 42;
+		rLoc = 11727;
+		rType = 0;
+		vrLen = 591;
+		vrLoc = 11341;
 	};
 	A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */ = {
 		uiCtxt = {

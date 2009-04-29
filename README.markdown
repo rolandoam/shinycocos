@@ -63,6 +63,13 @@ Open the TestShinyCocos project and build.
 
 Now you're ready to rock :-)
 
+## Documentation
+
+Use rdoc:
+
+    rdoc -E m=c Integration/*
+    open doc/index.html
+
 ## TODO
 
 * Add documentation :-)
