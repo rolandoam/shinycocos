@@ -19,8 +19,4 @@
 
 extern VALUE rb_cDirector;
 
-VALUE rb_cDirector_landscape(VALUE klass, VALUE landscape);
-VALUE rb_cDirector_animation_interval(VALUE klass, VALUE interval);
-VALUE rb_cDirector_run_scene(VALUE klass, VALUE scene);
-
 void init_rb_cDirector();

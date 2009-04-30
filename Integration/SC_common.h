@@ -26,6 +26,7 @@ typedef struct {
 	id _obj;
 } cocos_holder;
 #define GET_OBJC(ptr) ((cocos_holder *)ptr)->_obj
+#define CC_NODE(ptr) ((CocosNode *)ptr->_obj)
 
 extern VALUE rb_mCocos2D;
 extern VALUE rb_object_hash;

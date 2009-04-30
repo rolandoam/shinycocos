@@ -53,6 +53,7 @@ void init_rb_cAtlasSprite() {
 
 /*
  * frames is optional
+ * 
  *   animation = AltasAnimation.animation(:name => "name", :delay => 1/60.0, :frames => [frame1, frame2])
  */
 VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
@@ -74,6 +75,7 @@ VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
 
 /*
  *   animation.add_frame(rect) #=> rect
+ * 
  * rect is an array that will be converted to a CGRect
  */
 VALUE rb_cAtlasAnimation_add_frame(VALUE obj, VALUE rect) {

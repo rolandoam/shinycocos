@@ -25,7 +25,7 @@
 VALUE rb_cDirector;
 
 /* 
- * Must complete doc
+ * Sets the orientation to landscape
  */
 VALUE rb_cDirector_landscape(VALUE klass, VALUE landscape) {
 	[Director sharedDirector].landscape = (landscape == Qtrue) ? YES : NO;
@@ -33,7 +33,7 @@ VALUE rb_cDirector_landscape(VALUE klass, VALUE landscape) {
 }
 
 /* 
- * Must complete doc
+ * Sets the animation interval of the Director
  */
 VALUE rb_cDirector_animation_interval(VALUE klass, VALUE interval) {
 	Check_Type(interval, T_FLOAT);
@@ -42,14 +42,25 @@ VALUE rb_cDirector_animation_interval(VALUE klass, VALUE interval) {
 }
 
 /* 
- * Must complete doc
+ * Will run a scene
  */
 VALUE rb_cDirector_run_scene(VALUE klass, VALUE scene) {
 	Check_Type(scene, T_DATA);
 	cocos_holder *ptr;
 	Data_Get_Struct(scene, cocos_holder, ptr);
 	[[Director sharedDirector] runWithScene:GET_OBJC(ptr)];
-	return Qnil;
+	return scene;
+}
+
+/*
+ * call-seq:
+ *   Director.display_fps(true)
+ *
+ * Will display (or not) the fps
+ */
+VALUE rb_cDirector_display_fps(VALUE klass, VALUE display) {
+	[Director sharedDirector].displayFPS = (display == Qtrue) ? YES : NO;
+	return display;
 }
 
 /* create the Director class, set the methods */
@@ -61,4 +72,5 @@ void init_rb_cDirector() {
 	rb_define_singleton_method(rb_cDirector, "landscape=", rb_cDirector_landscape, 1);
 	rb_define_singleton_method(rb_cDirector, "animation_interval=", rb_cDirector_animation_interval, 1);
 	rb_define_singleton_method(rb_cDirector, "run_scene", rb_cDirector_run_scene, 1);
+	rb_define_singleton_method(rb_cDirector, "display_fps", rb_cDirector_display_fps, 1);
 }

@@ -19,6 +19,4 @@
 
 extern VALUE rb_cScene;
 
-VALUE rb_cScene_s_new(VALUE klass);
-
 void init_rb_cScene();

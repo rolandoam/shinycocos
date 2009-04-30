@@ -20,13 +20,4 @@
 extern VALUE rb_cAtlasSprite;
 extern VALUE rb_cAtlasAnimation;
 
-#pragma mark AtlasSprite
-
-VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts);
-void init_rb_cAtlasSprite();
-
-#pragma mark AtlasAnimation
-
-VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts);
-VALUE rb_cAtlasAnimation_add_frame(VALUE obj, VALUE rect);
 void init_rb_cAtlasAnimation();

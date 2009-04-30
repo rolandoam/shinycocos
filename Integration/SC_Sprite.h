@@ -19,6 +19,4 @@
 
 extern VALUE rb_cSprite;
 
-VALUE rb_cSprite_s_sprite_with_file(VALUE klass, VALUE filepath);
-
 void init_rb_cSprite();

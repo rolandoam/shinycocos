@@ -51,7 +51,7 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 		if (TYPE(argv[i]) == T_STRING)
 			rb_funcall(template_ary, rb_intern("push"), 1, argv[i]);
 		else
-			rb_funcall(template_ary, rb_intern("push"), 1, rb_funcall(argv[i], rb_intern("inspect"), 0, 0));
+			rb_funcall(template_ary, rb_intern("push"), 1, INSPECT(argv[i]));
 	}
 	VALUE template_final = rb_funcall(template_ary, rb_intern("join"), 1, rb_str_new2(" "));	
 	

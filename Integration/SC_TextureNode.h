@@ -19,6 +19,4 @@
 
 extern VALUE rb_cTextureNode;
 
-VALUE rb_cTextureNode_s_new(VALUE klass);
-
 void init_rb_cTextureNode();
