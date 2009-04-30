@@ -36,14 +36,20 @@ end
 # configure ruby 1.9
 do_shell "configuring ruby 1.9..." do
   ruby_tar = RUBY_1_9_1.split('/').last
-  ruby_dir = File.basename(ruby_tar, ".tar.gz")
+  ruby_dir = "ruby" #File.basename(ruby_tar, ".tar.gz")
+  if File.exists?(ruby_dir) and File.directory?(ruby_dir)
+    system("rm -rf #{ruby_dir}")
+  end
   system("tar xzf #{ruby_tar}")
-  system("cd ruby; ./configure > /dev/null")
+  system("cd #{ruby_dir}; ./configure > /dev/null")
   # copy the header we need to compile in the device
   cp "/usr/include/crt_externs.h", "ruby/crt_externs.h"
   rm ruby_tar
 end
 
 do_shell "making ruby 1.9 (we need some auto-generated files)..." do
-  system("cd ruby; make > /dev/null")
+  ruby_tar = RUBY_1_9_1.split('/').last
+  ruby_dir = "ruby" #File.basename(ruby_tar, ".tar.gz")
+  system("cd #{ruby_dir}; make > /dev/null")
 end
+
