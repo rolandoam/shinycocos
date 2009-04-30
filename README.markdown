@@ -43,7 +43,7 @@ not implemented 100%.
 
 There are only install requirements:
 
-* svn (to fetch current branch-0.7 of cocos2d-iphone)
+* subversion (to fetch current branch-0.7 of cocos2d-iphone)
 * curl (installed with MacOS X, to fetch ruby)
 
 ## Installation/Building
