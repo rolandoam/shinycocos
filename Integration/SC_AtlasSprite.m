@@ -60,7 +60,7 @@ VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
 	VALUE rb_frames = rb_hash_aref(opts, ID2SYM(rb_intern("frames")));
 	AtlasAnimation *anim;
 	if (rb_frames == Qnil) {
-		anim = [[AtlasAnimation alloc] initWithName:[NSString stringWithCString:STR2CSTR(rb_name) encoding:NSUTF8StringEncoding] delay:NUM2DBL(rb_delay)];
+		anim = [[AtlasAnimation alloc] initWithName:[NSString stringWithCString:StringValueCStr(rb_name) encoding:NSUTF8StringEncoding] delay:NUM2DBL(rb_delay)];
 	} else {
 	}
 	VALUE ret = common_init(klass, nil, anim, 0, 0, YES);

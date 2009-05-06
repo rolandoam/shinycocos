@@ -91,8 +91,10 @@ void ShinyCocosStart() {
 	ruby_script("main.rb");
 	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
 	if (state != 0) {
-		VALUE error = rb_gv_get("@");
-		NSLog(@"Ruby Error: %s\n%s", STR2CSTR(rb_gv_get("!")), STR2CSTR(rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"))));
+		VALUE error = rb_gv_get("$@");
+		VALUE error_str = rb_funcall(rb_gv_get("$!"), rb_intern("message"), 0);
+		VALUE error_bt = rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"));
+		NSLog(@"Ruby Error:%s\n%s", StringValueCStr(error_str), StringValueCStr(error_bt));//, StringValueCStr(error_bt));
 	}
 }
 

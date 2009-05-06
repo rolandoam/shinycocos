@@ -55,7 +55,7 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 	}
 	VALUE template_final = rb_funcall(template_ary, rb_intern("join"), 1, rb_str_new2(" "));	
 	
-	NSLog([NSString stringWithCString:STR2CSTR(template_final) encoding:NSUTF8StringEncoding]);
+	NSLog([NSString stringWithCString:StringValueCStr(template_final) encoding:NSUTF8StringEncoding]);
 	return Qnil;
 }
 
@@ -107,7 +107,8 @@ void Init_ShinyCocos() {
 }
 
 void Init_SC_Ruby_Extensions() {
+	Init_encdb();
 	Init_stringio();
-	Init_nkf();
+	Init_syck();
 	// add your extensions init here!
 }

@@ -33,7 +33,7 @@ VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, V
 		rb_raise(rb_eArgError, "invalid number of arguments");
 	
 	Check_Type(argv[0], T_STRING);
-	NSString *file = [NSString stringWithCString:STR2CSTR(argv[0]) encoding:NSUTF8StringEncoding];
+	NSString *file = [NSString stringWithCString:StringValueCStr(argv[0]) encoding:NSUTF8StringEncoding];
 	if (argc == 1) {
 		manager = [AtlasSpriteManager spriteManagerWithFile:file];
 	} else {

@@ -31,7 +31,7 @@ VALUE rb_cSprite;
  */
 VALUE rb_cSprite_s_sprite_with_file(VALUE klass, VALUE filepath) {
 	Check_Type(filepath, T_STRING);
-	Sprite *obj = [Sprite spriteWithFile:[NSString stringWithCString:STR2CSTR(filepath) encoding:NSUTF8StringEncoding]];
+	Sprite *obj = [Sprite spriteWithFile:[NSString stringWithCString:StringValueCStr(filepath) encoding:NSUTF8StringEncoding]];
 	VALUE rb_obj = common_init(klass, nil, obj, 0, 0, NO);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)obj), rb_obj);
 

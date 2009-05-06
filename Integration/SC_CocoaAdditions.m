@@ -31,7 +31,7 @@
  */
 VALUE rb_cFile_s_read_from_resources(VALUE klass, VALUE fpath) {
 	Check_Type(fpath, T_STRING);
-	NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithCString:STR2CSTR(fpath) encoding:NSUTF8StringEncoding] ofType:nil];
+	NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithCString:StringValueCStr(fpath) encoding:NSUTF8StringEncoding] ofType:nil];
 	if (path == nil)
 		return Qnil;
 	return rb_funcall(klass, rb_intern("read"), 1, rb_str_new2([path cStringUsingEncoding:NSUTF8StringEncoding]));
