@@ -54,6 +54,9 @@ static void eachShape(void *ptr, void* unused)
 - (void)rb_on_enter;
 - (void)rb_on_exit;
 - (void)rb_draw;
+// TODO
+// add ccTouches*
+
 // chipmunk support
 - (void)chipmunk_step:(ccTime)delta;
 // ruby schedule support
@@ -307,25 +310,37 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 #pragma mark Methods
 
 /* 
- * Creates a new node. Try to use this instead of the other version.
+ * call-seq:
+ *     node = CocosNode.node   #=> CocosNode
+ * 
+ * Creates a new node. Use the other version when subclassing
+ * CocosNode.
+ * 
  * This one creates an autoreleaseable version (although this doesn't
- * matter on the ruby side). Maybe we should keep only one of them.
+ * matter on the ruby side).
  */
 VALUE rb_cCocosNode_s_node(VALUE klass) {
 	CocosNode *node = [CocosNode node];
-	VALUE obj = common_init(klass, nil, node, NO);
+	VALUE obj = common_init(klass, nil, node, 0, 0, NO);
 	// add the pointer to the object hash
-	rb_hash_aset(rb_object_hash, INT2FIX((long)node), obj);
+	//rb_hash_aset(rb_object_hash, INT2FIX((long)node), obj);
 	return obj;
 }
 
 /* 
+ * call-seq:
+ *     node = CocosNode.new    #=> CocosNode
+ *     node = CocosNodeSubclass.new(a,b)   #=> CocosNode
+ * 
  * Same as CocosNode.node, althought the Obj-C object is not
  * autoreleaseable. It will be safely released by ruby's GC.
+ * 
+ * Use this when subclassing CocosNode and your initializer uses
+ * arguments.
  */
-VALUE rb_cCocosNode_s_new(VALUE klass) {
+VALUE rb_cCocosNode_s_new(int argc, VALUE *argv, VALUE klass) {
 	CocosNode *node = [[CocosNode alloc] init];
-	VALUE obj = common_init(klass, nil, node, YES);
+	VALUE obj = common_init(klass, nil, node, argc, argv, YES);
 	// add the pointer to the object hash
 	rb_hash_aset(rb_object_hash, INT2FIX((long)node), obj);
 	return obj;
@@ -622,12 +637,9 @@ VALUE rb_cCocosNode_draw(VALUE object) {
  * The ruby equivalent of the CocosNode class - not yet complete
  */
 void init_rb_cCocosNode() {
-#if 0
-	rb_mCocos2D = rb_define_module("Cocos2D");
-#endif
 	rb_cCocosNode = rb_define_class_under(rb_mCocos2D, "CocosNode", rb_cObject);
 	rb_define_singleton_method(rb_cCocosNode, "node", rb_cCocosNode_s_node, 0);
-	rb_define_singleton_method(rb_cCocosNode, "new", rb_cCocosNode_s_new, 0);
+	rb_define_singleton_method(rb_cCocosNode, "new", rb_cCocosNode_s_new, -1);
 	
 	// getters
 	rb_define_method(rb_cCocosNode, "z_order", rb_cCocosNode_z_order, 0);

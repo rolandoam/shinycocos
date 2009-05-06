@@ -43,7 +43,7 @@ VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, V
 			rb_raise(rb_eArgError, "no :capacity key in hash");
 		manager = [AtlasSpriteManager spriteManagerWithFile:file capacity:FIX2INT(cap)];
 	}
-	VALUE obj = common_init(klass, nil, manager, NO);
+	VALUE obj = common_init(klass, nil, manager, 0, 0, NO);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)manager), obj);
 	return obj;
 }
@@ -58,15 +58,12 @@ VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 	// create the sprite
 	AtlasSprite* sprite = [GET_OBJC(ptr) createSpriteWithRect:rect];
 	// return the sprite as a ruby object
-	VALUE ret = common_init(rb_cAtlasSprite, nil, sprite, NO);
+	VALUE ret = common_init(rb_cAtlasSprite, nil, sprite, 0, 0, NO);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)sprite), ret);
 	return ret;
 }
 
 void init_rb_cAtlasSpriteManager() {
-#if 0
-	rb_mCocos2D = rb_define_module("Cocos2D");
-#endif
 	rb_cAtlasSpriteManager = rb_define_class_under(rb_mCocos2D, "AtlasSpriteManager", rb_cCocosNode);
 	rb_define_singleton_method(rb_cAtlasSpriteManager, "manager_with_file", rb_cAtlasSpriteManager_s_sprite_manager_with_file, -1);
 	rb_define_method(rb_cAtlasSpriteManager, "create_sprite", rb_cAtlasSpriteManager_create_sprite, 1);

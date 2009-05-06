@@ -65,9 +65,6 @@ VALUE rb_cDirector_display_fps(VALUE klass, VALUE display) {
 
 /* create the Director class, set the methods */
 void init_rb_cDirector() {
-#if 0
-	rb_mCocos2D = rb_define_module("Cocos2D");
-#endif
 	rb_cDirector = rb_define_class_under(rb_mCocos2D, "Director", rb_cObject);
 	rb_define_singleton_method(rb_cDirector, "landscape=", rb_cDirector_landscape, 1);
 	rb_define_singleton_method(rb_cDirector, "animation_interval=", rb_cDirector_animation_interval, 1);

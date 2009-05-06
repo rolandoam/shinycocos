@@ -36,15 +36,12 @@ VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts) {
 	cocos_holder *ptr;
 	Data_Get_Struct(rb_manager, cocos_holder, ptr);
 	AtlasSprite *sprite = [AtlasSprite spriteWithRect:rect spriteManager:ptr->_obj];
-	VALUE ret = common_init(klass, nil, sprite, NO);
+	VALUE ret = common_init(klass, nil, sprite, 0, 0, NO);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)sprite), ret);
 	return ret;
 }
 
 void init_rb_cAtlasSprite() {
-#if 0
-	rb_mCocos2D = rb_define_module("Cocos2D");
-#endif
 	rb_cAtlasSprite = rb_define_class_under(rb_mCocos2D, "AtlasSprite", rb_cCocosNode);
 	rb_define_singleton_method(rb_cAtlasSprite, "sprite", rb_cAtlasSprite_s_sprite, 1);
 }
@@ -66,7 +63,7 @@ VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
 		anim = [[AtlasAnimation alloc] initWithName:[NSString stringWithCString:STR2CSTR(rb_name) encoding:NSUTF8StringEncoding] delay:NUM2DBL(rb_delay)];
 	} else {
 	}
-	VALUE ret = common_init(klass, nil, anim, YES);
+	VALUE ret = common_init(klass, nil, anim, 0, 0, YES);
 	if (rb_block_given_p()) {
 		rb_yield(ret);
 	}

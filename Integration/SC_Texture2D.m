@@ -60,9 +60,6 @@ VALUE rb_cTexture2D_s_aliased(VALUE klass) {
 }
 
 void init_rb_cTexture2D() {
-#if 0
-	rb_mCocos2D = rb_define_module("Cocos2D");
-#endif
 	rb_cTexture2D = rb_define_class_under(rb_mCocos2D, "Texture2D", rb_cObject);
 	rb_define_singleton_method(rb_cTexture2D, "save_tex_parameters", rb_cTexture2D_s_save_tex_parameters, 0);
 	rb_define_singleton_method(rb_cTexture2D, "set_alias_tex_parameters", rb_cTexture2D_s_set_alias_tex_parameters, 0);

@@ -65,11 +65,16 @@ void ShinyCocosSetup(UIWindow *window) {
 	
 	/* add the bundle resource path to the search path */
 	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+	NSString *rubyLib = [NSString stringWithFormat:@"%@/lib", resourcePath];
+	NSString *rubyVendor = [NSString stringWithFormat:@"%@/vendor", resourcePath];
 	VALUE load_path = rb_gv_get(":");
 	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]));
+	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyLib cStringUsingEncoding:NSUTF8StringEncoding]));
+	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyVendor cStringUsingEncoding:NSUTF8StringEncoding]));
 
 	/* init our stuff */
 	Init_ShinyCocos();
+	Init_SC_Ruby_Extensions();
 	
 	/* hide the top bar */
 	[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];

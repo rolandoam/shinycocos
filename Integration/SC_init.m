@@ -26,7 +26,7 @@ id accDelegate;
 
 #pragma mark Common
 
-VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, BOOL release_on_free) {
+VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *argv, BOOL release_on_free) {
 	VALUE tdata;
 	cocos_holder *ptr;
 	if (release_on_free)
@@ -34,7 +34,7 @@ VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, BOOL release_o
 	else
 		tdata = Data_Make_Struct(klass, cocos_holder, 0, common_free_no_release, ptr);
 	ptr->_obj = object;
-	rb_obj_call_init(tdata, 0, 0);
+	rb_obj_call_init(tdata, argc, argv);
 	if (ret_ptr != nil)
 		*ret_ptr = ptr;
 	return tdata;
@@ -72,6 +72,16 @@ VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
 	return obj;
 }
 
+/*
+ * ShinyCocos
+ * 
+ * ## Notes
+ * 
+ * The "vendor" directory is where you put your ruby code. Make sure
+ * that when adding the directory to your project, the option "Create
+ * Folder References for any added folder" is set. That way, the
+ * directory structure will be created in the app package.
+ */
 void Init_ShinyCocos() {
 	rb_mCocos2D = rb_define_module("Cocos2D");
 	
@@ -88,9 +98,16 @@ void Init_ShinyCocos() {
 	init_rb_cAtlasSpriteManager();
 	init_rb_cAtlasSprite();
 	init_rb_cAtlasAnimation();
+	init_sc_cocoa_additions();
 	
 	/* common utility functions */
 	rb_define_method(rb_mCocos2D, "ns_log", common_rb_ns_log, -1);
 	rb_define_method(rb_mCocos2D, "set_acceleration_delegate", common_rb_set_acceleration_delegate, 1);
 	rb_acc_delegate = Qnil;
+}
+
+void Init_SC_Ruby_Extensions() {
+	Init_stringio();
+	Init_nkf();
+	// add your extensions init here!
 }

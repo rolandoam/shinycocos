@@ -28,18 +28,15 @@ VALUE rb_cScene;
 /* 
  * Must complete doc
  */
-VALUE rb_cScene_s_new(VALUE klass) {
+VALUE rb_cScene_s_new(int argc, VALUE *argv, VALUE klass) {
 	Scene *obj = [[Scene alloc] init];
-	VALUE rb_obj = common_init(klass, nil, obj, YES);
+	VALUE rb_obj = common_init(klass, nil, obj, argc, argv, YES);
 	rb_hash_aset(rb_object_hash, INT2FIX((long)obj), rb_obj);
 
 	return rb_obj;
 }
 
 void init_rb_cScene() {
-#if 0
-	rb_mCocos2D = rb_define_module("Cocos2D");
-#endif
 	rb_cScene = rb_define_class_under(rb_mCocos2D, "Scene", rb_cCocosNode);
-	rb_define_singleton_method(rb_cScene, "new", rb_cScene_s_new, 0);
+	rb_define_singleton_method(rb_cScene, "new", rb_cScene_s_new, -1);
 }
