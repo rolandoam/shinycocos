@@ -46,18 +46,37 @@ void common_method_swap(Class cls, SEL orig, SEL repl) {
 	method_exchangeImplementations(m1, m2);
 }
 
+static char **sc_argv;
+static int    sc_argc;
+
 void ShinyCocosSetup(UIWindow *window) {
+	if (![NSThread isMainThread]) {
+		NSLog(@"must call ShiniCocosSetup from main thread!");
+		exit(0);
+	}
+	
+	/* prepare ruby stuff */
+	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+	NSString *rubyLib = [NSString stringWithFormat:@"%@/lib", resourcePath];
+	NSString *rubyVendor = [NSString stringWithFormat:@"%@/vendor", resourcePath];
+	NSString *entryPoint = [NSString stringWithFormat:@"%@/main.rb", resourcePath];
+
+	sc_argc = 2;
+	sc_argv = (char **)malloc(sizeof(char *) * 2);
+	sc_argv[0] = "ShinyCocos";
+	sc_argv[1] = (char *)[entryPoint cStringUsingEncoding:NSUTF8StringEncoding];
+	
+	ruby_sysinit(&sc_argc, &sc_argv);
+	{
 	RUBY_INIT_STACK;
 	ruby_init();
+	}
 
 #if defined(DEBUG)
 //	enable_gc_profile();
 #endif
 	
 	/* add the bundle resource path to the search path */
-	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
-	NSString *rubyLib = [NSString stringWithFormat:@"%@/lib", resourcePath];
-	NSString *rubyVendor = [NSString stringWithFormat:@"%@/vendor", resourcePath];
 	VALUE load_path = rb_gv_get(":");
 	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]));
 	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyLib cStringUsingEncoding:NSUTF8StringEncoding]));
@@ -79,14 +98,7 @@ void ShinyCocosSetup(UIWindow *window) {
 void ShinyCocosStart() {
 	int state = 0;
 	accDelegate = [[AccDelegate alloc] init];
-	ruby_script("main.rb");
-	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
-	if (state != 0) {
-		VALUE error = rb_gv_get("$@");
-		VALUE error_str = rb_funcall(rb_gv_get("$!"), rb_intern("message"), 0);
-		VALUE error_bt = rb_funcall(error, rb_intern("join"), 1, rb_str_new2("\n"));
-		NSLog(@"Ruby Error:%s\n%s", StringValueCStr(error_str), StringValueCStr(error_bt));//, StringValueCStr(error_bt));
-	}
+	ruby_run_node(ruby_options(sc_argc, sc_argv));
 }
 
 void ShinyCocosInitChipmunk() {
