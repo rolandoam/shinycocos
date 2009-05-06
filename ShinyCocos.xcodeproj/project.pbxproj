@@ -67,7 +67,25 @@
 		A9515E240F9D19E200B2B839 /* SC_Director.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E1E0F9D19E200B2B839 /* SC_Director.m */; };
 		A9515E250F9D19E200B2B839 /* SC_Scene.h in Headers */ = {isa = PBXBuildFile; fileRef = A9515E1F0F9D19E200B2B839 /* SC_Scene.h */; };
 		A9515E260F9D19E200B2B839 /* SC_Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E200F9D19E200B2B839 /* SC_Scene.m */; };
-		A98FBFDF0FB11D370030BE36 /* nkf.c in Sources */ = {isa = PBXBuildFile; fileRef = A98FBFDE0FB11D370030BE36 /* nkf.c */; };
+		A996A3BA0FB1C7F70040FDF4 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B50FB1C7F70040FDF4 /* big5.c */; };
+		A996A3BB0FB1C7F70040FDF4 /* cp949.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B60FB1C7F70040FDF4 /* cp949.c */; };
+		A996A3BC0FB1C7F70040FDF4 /* euc_jp.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B70FB1C7F70040FDF4 /* euc_jp.c */; };
+		A996A3BD0FB1C7F70040FDF4 /* utf_16be.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B80FB1C7F70040FDF4 /* utf_16be.c */; };
+		A996A3BE0FB1C7F70040FDF4 /* utf_32be.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B90FB1C7F70040FDF4 /* utf_32be.c */; };
+		A996A58B0FB1D10B0040FDF4 /* shift_jis.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A58A0FB1D10B0040FDF4 /* shift_jis.c */; };
+		A996A69F0FB1D23B0040FDF4 /* bytecode.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A6830FB1D23B0040FDF4 /* bytecode.c */; };
+		A996A6A10FB1D23B0040FDF4 /* emitter.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A6860FB1D23B0040FDF4 /* emitter.c */; };
+		A996A6A40FB1D23B0040FDF4 /* gram.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A68A0FB1D23B0040FDF4 /* gram.c */; };
+		A996A6A50FB1D23B0040FDF4 /* gram.h in Headers */ = {isa = PBXBuildFile; fileRef = A996A68B0FB1D23B0040FDF4 /* gram.h */; };
+		A996A6A70FB1D23B0040FDF4 /* handler.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A68D0FB1D23B0040FDF4 /* handler.c */; };
+		A996A6A90FB1D23B0040FDF4 /* implicit.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A68F0FB1D23B0040FDF4 /* implicit.c */; };
+		A996A6AC0FB1D23B0040FDF4 /* node.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A6930FB1D23B0040FDF4 /* node.c */; };
+		A996A6AE0FB1D23B0040FDF4 /* rubyext.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A6950FB1D23B0040FDF4 /* rubyext.c */; };
+		A996A6B00FB1D23B0040FDF4 /* syck.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A6970FB1D23B0040FDF4 /* syck.c */; };
+		A996A6B10FB1D23B0040FDF4 /* syck.h in Headers */ = {isa = PBXBuildFile; fileRef = A996A6980FB1D23B0040FDF4 /* syck.h */; };
+		A996A6B30FB1D23B0040FDF4 /* token.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A69A0FB1D23B0040FDF4 /* token.c */; };
+		A996A6B50FB1D23B0040FDF4 /* yaml2byte.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A69C0FB1D23B0040FDF4 /* yaml2byte.c */; };
+		A996A6B70FB1D23B0040FDF4 /* yamlbyte.h in Headers */ = {isa = PBXBuildFile; fileRef = A996A69E0FB1D23B0040FDF4 /* yamlbyte.h */; };
 		A9990E8F0F8BAA9D0026A8BF /* ShinyCocos.m in Sources */ = {isa = PBXBuildFile; fileRef = A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */; };
 		A9990EA80F8BADDA0026A8BF /* ShinyCocos.h in Headers */ = {isa = PBXBuildFile; fileRef = A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */; };
 		A99911AF0F8BEC160026A8BF /* SC_common.h in Headers */ = {isa = PBXBuildFile; fileRef = A99911AE0F8BEC160026A8BF /* SC_common.h */; };
@@ -170,7 +188,25 @@
 		A9515E1E0F9D19E200B2B839 /* SC_Director.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Director.m; path = Integration/SC_Director.m; sourceTree = "<group>"; };
 		A9515E1F0F9D19E200B2B839 /* SC_Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Scene.h; path = Integration/SC_Scene.h; sourceTree = "<group>"; };
 		A9515E200F9D19E200B2B839 /* SC_Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Scene.m; path = Integration/SC_Scene.m; sourceTree = "<group>"; };
-		A98FBFDE0FB11D370030BE36 /* nkf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = nkf.c; path = ruby/ext/nkf/nkf.c; sourceTree = "<group>"; };
+		A996A3B50FB1C7F70040FDF4 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = big5.c; path = ruby/enc/big5.c; sourceTree = "<group>"; };
+		A996A3B60FB1C7F70040FDF4 /* cp949.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cp949.c; path = ruby/enc/cp949.c; sourceTree = "<group>"; };
+		A996A3B70FB1C7F70040FDF4 /* euc_jp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = euc_jp.c; path = ruby/enc/euc_jp.c; sourceTree = "<group>"; };
+		A996A3B80FB1C7F70040FDF4 /* utf_16be.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utf_16be.c; path = ruby/enc/utf_16be.c; sourceTree = "<group>"; };
+		A996A3B90FB1C7F70040FDF4 /* utf_32be.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utf_32be.c; path = ruby/enc/utf_32be.c; sourceTree = "<group>"; };
+		A996A58A0FB1D10B0040FDF4 /* shift_jis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = shift_jis.c; path = ruby/enc/shift_jis.c; sourceTree = "<group>"; };
+		A996A6830FB1D23B0040FDF4 /* bytecode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bytecode.c; sourceTree = "<group>"; };
+		A996A6860FB1D23B0040FDF4 /* emitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = emitter.c; sourceTree = "<group>"; };
+		A996A68A0FB1D23B0040FDF4 /* gram.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gram.c; sourceTree = "<group>"; };
+		A996A68B0FB1D23B0040FDF4 /* gram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gram.h; sourceTree = "<group>"; };
+		A996A68D0FB1D23B0040FDF4 /* handler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = handler.c; sourceTree = "<group>"; };
+		A996A68F0FB1D23B0040FDF4 /* implicit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = implicit.c; sourceTree = "<group>"; };
+		A996A6930FB1D23B0040FDF4 /* node.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = node.c; sourceTree = "<group>"; };
+		A996A6950FB1D23B0040FDF4 /* rubyext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rubyext.c; sourceTree = "<group>"; };
+		A996A6970FB1D23B0040FDF4 /* syck.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = syck.c; sourceTree = "<group>"; };
+		A996A6980FB1D23B0040FDF4 /* syck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syck.h; sourceTree = "<group>"; };
+		A996A69A0FB1D23B0040FDF4 /* token.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = token.c; sourceTree = "<group>"; };
+		A996A69C0FB1D23B0040FDF4 /* yaml2byte.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yaml2byte.c; sourceTree = "<group>"; };
+		A996A69E0FB1D23B0040FDF4 /* yamlbyte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yamlbyte.h; sourceTree = "<group>"; };
 		A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShinyCocos.m; path = Integration/ShinyCocos.m; sourceTree = "<group>"; };
 		A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ShinyCocos.h; path = Integration/ShinyCocos.h; sourceTree = "<group>"; };
 		A99911AE0F8BEC160026A8BF /* SC_common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SC_common.h; path = Integration/SC_common.h; sourceTree = "<group>"; };
@@ -229,9 +265,9 @@
 			children = (
 				A94FC0BA0FA0D05C0073C00F /* Chipmunk */,
 				A9990E8D0F8BAA7F0026A8BF /* Integration */,
+				A9515C230F9D0C2D00B2B839 /* ruby */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				A9515C230F9D0C2D00B2B839 /* ruby */,
 			);
 			name = ShinyCocos;
 			sourceTree = "<group>";
@@ -329,6 +365,27 @@
 			name = ruby;
 			sourceTree = "<group>";
 		};
+		A996A6810FB1D23B0040FDF4 /* syck */ = {
+			isa = PBXGroup;
+			children = (
+				A996A6830FB1D23B0040FDF4 /* bytecode.c */,
+				A996A6860FB1D23B0040FDF4 /* emitter.c */,
+				A996A68A0FB1D23B0040FDF4 /* gram.c */,
+				A996A68B0FB1D23B0040FDF4 /* gram.h */,
+				A996A68D0FB1D23B0040FDF4 /* handler.c */,
+				A996A68F0FB1D23B0040FDF4 /* implicit.c */,
+				A996A6930FB1D23B0040FDF4 /* node.c */,
+				A996A6950FB1D23B0040FDF4 /* rubyext.c */,
+				A996A6970FB1D23B0040FDF4 /* syck.c */,
+				A996A6980FB1D23B0040FDF4 /* syck.h */,
+				A996A69A0FB1D23B0040FDF4 /* token.c */,
+				A996A69C0FB1D23B0040FDF4 /* yaml2byte.c */,
+				A996A69E0FB1D23B0040FDF4 /* yamlbyte.h */,
+			);
+			name = syck;
+			path = ruby/ext/syck;
+			sourceTree = "<group>";
+		};
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,7 +418,7 @@
 		A9A054F70F9E8D3F00C85842 /* ext */ = {
 			isa = PBXGroup;
 			children = (
-				A98FBFDE0FB11D370030BE36 /* nkf.c */,
+				A996A6810FB1D23B0040FDF4 /* syck */,
 				A938D75B0FB11B8600F46FEA /* stringio.c */,
 				A9A054F80F9E8D5300C85842 /* strscan.c */,
 			);
@@ -380,11 +437,17 @@
 		A9A6EEE60FB1C388000BDD93 /* enc */ = {
 			isa = PBXGroup;
 			children = (
-				A9A6EF340FB1C6DF000BDD93 /* unicode.c */,
 				A9A6EF320FB1C6C6000BDD93 /* ascii.c */,
+				A996A3B50FB1C7F70040FDF4 /* big5.c */,
+				A996A3B60FB1C7F70040FDF4 /* cp949.c */,
 				A9A6EF2B0FB1C69D000BDD93 /* encdb.c */,
+				A996A3B70FB1C7F70040FDF4 /* euc_jp.c */,
+				A996A58A0FB1D10B0040FDF4 /* shift_jis.c */,
+				A9A6EF340FB1C6DF000BDD93 /* unicode.c */,
 				A9A6EF240FB1C678000BDD93 /* us_ascii.c */,
 				A9A6EF250FB1C678000BDD93 /* utf_8.c */,
+				A996A3B80FB1C7F70040FDF4 /* utf_16be.c */,
+				A996A3B90FB1C7F70040FDF4 /* utf_32be.c */,
 			);
 			name = enc;
 			sourceTree = "<group>";
@@ -415,6 +478,9 @@
 				A94FC0230FA0B5710073C00F /* SC_Texture2D.h in Headers */,
 				A94FC2560FA0F5370073C00F /* rb_chipmunk.h in Headers */,
 				A94A1D430FB0E5230099E6BE /* SC_CocoaAdditions.h in Headers */,
+				A996A6A50FB1D23B0040FDF4 /* gram.h in Headers */,
+				A996A6B10FB1D23B0040FDF4 /* syck.h in Headers */,
+				A996A6B70FB1D23B0040FDF4 /* yamlbyte.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +584,6 @@
 				A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */,
 				A94A1D3C0FB0E4630099E6BE /* SC_CocoaAdditions.m in Sources */,
 				A938D75C0FB11B8600F46FEA /* stringio.c in Sources */,
-				A98FBFDF0FB11D370030BE36 /* nkf.c in Sources */,
 				A9A6EE800FB1BDD6000BDD93 /* compile.c in Sources */,
 				A9A6EE860FB1BE15000BDD93 /* iseq.c in Sources */,
 				A9A6EE880FB1BE42000BDD93 /* thread.c in Sources */,
@@ -548,6 +613,22 @@
 				A9A6EF2D0FB1C69D000BDD93 /* encdb.c in Sources */,
 				A9A6EF330FB1C6C6000BDD93 /* ascii.c in Sources */,
 				A9A6EF350FB1C6DF000BDD93 /* unicode.c in Sources */,
+				A996A3BA0FB1C7F70040FDF4 /* big5.c in Sources */,
+				A996A3BB0FB1C7F70040FDF4 /* cp949.c in Sources */,
+				A996A3BC0FB1C7F70040FDF4 /* euc_jp.c in Sources */,
+				A996A3BD0FB1C7F70040FDF4 /* utf_16be.c in Sources */,
+				A996A3BE0FB1C7F70040FDF4 /* utf_32be.c in Sources */,
+				A996A58B0FB1D10B0040FDF4 /* shift_jis.c in Sources */,
+				A996A69F0FB1D23B0040FDF4 /* bytecode.c in Sources */,
+				A996A6A10FB1D23B0040FDF4 /* emitter.c in Sources */,
+				A996A6A40FB1D23B0040FDF4 /* gram.c in Sources */,
+				A996A6A70FB1D23B0040FDF4 /* handler.c in Sources */,
+				A996A6A90FB1D23B0040FDF4 /* implicit.c in Sources */,
+				A996A6AC0FB1D23B0040FDF4 /* node.c in Sources */,
+				A996A6AE0FB1D23B0040FDF4 /* rubyext.c in Sources */,
+				A996A6B00FB1D23B0040FDF4 /* syck.c in Sources */,
+				A996A6B30FB1D23B0040FDF4 /* token.c in Sources */,
+				A996A6B50FB1D23B0040FDF4 /* yaml2byte.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
