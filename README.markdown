@@ -50,11 +50,11 @@ There are only install requirements:
 
 First, run the script that will fetch ruby and cocos2d-iphone:
 
-    > ./get_dependencies.rb
+    ./get_dependencies.rb
 
 or:
 
-    > ruby get_dependencies.rb
+    ruby get_dependencies.rb
 
 Open the cocos2d-iphone project and set the output directory to
 "../build" instead of "build".
@@ -67,8 +67,32 @@ Now you're ready to rock :-)
 
 Use rdoc:
 
-    rdoc -E m=c Integration/*
+    rdoc -E m=c Integration --main Cocos2D
     open doc/index.html
+
+You might need a newer version of rdoc:
+
+    sudo gem install rdoc
+
+The one that comes with Leopard is too old and complains about the
+enclosing module not being found.
+
+## Adding extensions from the stdlib
+
+If you need to add an extension from the stdlib (or your own extension)
+add the source file to the "ext" group in the ShinyCocos project file.
+It will be statically linked to ruby. You should also add the Init call
+in the function <tt>Init_SC_Ruby_Extensions</tt>, in the
+<tt>SC_init.m</tt> file.
+
+After that, make sure you add an empty file named after your extension,
+i.e: stringio.rb for the StringIO extension, inside the "lib" directory
+of your project. That way, your code can still call
+<tt>require 'stringio'</tt>.
+
+I will try to find an easier way :-).
+
+For ruby-only extensions, just add them to the lib directory.
 
 ## TODO
 
