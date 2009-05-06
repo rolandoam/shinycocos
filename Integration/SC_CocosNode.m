@@ -26,9 +26,10 @@ static ID id_action_animate;
 static ID id_action_repeat_forever;
 static ID id_action_move_to;
 static ID id_action_move_by;
+
 VALUE rb_cCocosNode;
-VALUE rb_handler_hash;
-VALUE rb_schelue_methods;
+VALUE sc_handler_hash;
+VALUE sc_schedule_methods;
 
 #pragma mark CocosNode extension
 
@@ -72,13 +73,13 @@ static void eachShape(void *ptr, void* unused)
 - (void)rb_dealloc {
 	[self rb_dealloc]; // will call the old dealloc
 	// remove the object from the object hash
-	rb_funcall(rb_object_hash, rb_intern("delete"), 1, INT2FIX((long)self));
+	rb_funcall(sc_object_hash, rb_intern("delete"), 1, INT2FIX((long)self));
 }
 
 - (void)rb_on_enter {
 	[self rb_on_enter];
 	// call the ruby version
-	VALUE rb_obj = rb_hash_aref(rb_object_hash, INT2FIX((long)self));
+	VALUE rb_obj = rb_hash_aref(sc_object_hash, INT2FIX((long)self));
 //	cocos_holder *ptr;
 //	NSAssert(self == GET_OBJC(ptr), @"Invalid pointer from rb_object!");
 	rb_funcall(rb_obj, rb_intern("on_enter"), 0, 0);
@@ -87,7 +88,7 @@ static void eachShape(void *ptr, void* unused)
 - (void)rb_on_exit {
 	[self rb_on_exit];
 	// call the ruby version
-	VALUE rb_obj = rb_hash_aref(rb_object_hash, INT2FIX((long)self));
+	VALUE rb_obj = rb_hash_aref(sc_object_hash, INT2FIX((long)self));
 //	cocos_holder *ptr;
 //	NSAssert(self == GET_OBJC(ptr), @"Invalid pointer from rb_object!");
 	rb_funcall(rb_obj, rb_intern("on_exit"), 0, 0);
@@ -108,7 +109,7 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (void)rbScheduler {
-	VALUE methods = rb_hash_aref(rb_schelue_methods, INT2FIX((long)self));
+	VALUE methods = rb_hash_aref(sc_schedule_methods, INT2FIX((long)self));
 	if (methods != Qnil && TYPE(methods) == T_ARRAY) {
 		int i;
 		VALUE target = RARRAY_PTR(methods)[0];
@@ -128,7 +129,7 @@ static void eachShape(void *ptr, void* unused)
 @implementation Action (SC_Extension)
 - (void)rb_stop {
 	[self rb_stop];
-	VALUE handler = rb_hash_aref(rb_handler_hash, INT2FIX((long)self));
+	VALUE handler = rb_hash_aref(sc_handler_hash, INT2FIX((long)self));
 	// handler should be an array with two items: the handler and the
 	// method to be called. This will be good if the handler could also
 	// be a block/proc. It shouldn't be hard to implement, just check
@@ -342,7 +343,7 @@ VALUE rb_cCocosNode_s_new(int argc, VALUE *argv, VALUE klass) {
 	CocosNode *node = [[CocosNode alloc] init];
 	VALUE obj = common_init(klass, nil, node, argc, argv, YES);
 	// add the pointer to the object hash
-	rb_hash_aset(rb_object_hash, INT2FIX((long)node), obj);
+	rb_hash_aset(sc_object_hash, INT2FIX((long)node), obj);
 	return obj;
 }
 
@@ -459,7 +460,7 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
 	VALUE on_stop_handler = rb_hash_aref(args[1], ID2SYM(rb_intern("on_stop")));
 	if (on_stop_handler && TYPE(on_stop_handler) == T_SYMBOL) {
 		VALUE handler_ary = rb_ary_new3(2, object, on_stop_handler);
-		rb_hash_aset(rb_handler_hash, INT2FIX((long)action), handler_ary);
+		rb_hash_aset(sc_handler_hash, INT2FIX((long)action), handler_ary);
 	}
 	
 	// here we should do something with the modified struct (when the yield works)
@@ -504,10 +505,10 @@ VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {
 	Check_Type(method, T_SYMBOL);
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
-	VALUE methods = rb_hash_aref(rb_schelue_methods, INT2FIX((long)GET_OBJC(ptr)));
+	VALUE methods = rb_hash_aref(sc_schedule_methods, INT2FIX((long)GET_OBJC(ptr)));
 	if (methods == Qnil) {
 		methods = rb_ary_new3(2, object, method);
-		rb_hash_aset(rb_schelue_methods, INT2FIX((long)GET_OBJC(ptr)), methods);
+		rb_hash_aset(sc_schedule_methods, INT2FIX((long)GET_OBJC(ptr)), methods);
 		[CC_NODE(ptr) schedule:@selector(rbScheduler)];
 	} else {
 		rb_ary_push(methods, method);
@@ -524,14 +525,14 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	ID method_sym = rb_to_id(method);
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
-	VALUE methods = rb_hash_aref(rb_schelue_methods, INT2FIX((long)GET_OBJC(ptr)));
+	VALUE methods = rb_hash_aref(sc_schedule_methods, INT2FIX((long)GET_OBJC(ptr)));
 	if (methods != Qnil) {
 		rb_funcall(methods, rb_intern("delete"), 1, method_sym);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[GET_OBJC(ptr) unschedule:@selector(rbScheduler)];
 			// remove the array from the hash
-			rb_hash_aset(rb_schelue_methods, INT2FIX((long)GET_OBJC(ptr)), Qnil);
+			rb_hash_aset(sc_schedule_methods, INT2FIX((long)GET_OBJC(ptr)), Qnil);
 		}
 	}
 	return methods;
@@ -689,12 +690,12 @@ void init_rb_cCocosNode() {
 	common_method_swap([Action class], @selector(stop), @selector(rb_stop));
 	
 	// init the handler hash
-	rb_handler_hash = rb_hash_new();
-	rb_gv_set("_sc_handler_hash", rb_handler_hash);
+	sc_handler_hash = rb_hash_new();
+	rb_global_variable(&sc_handler_hash);
 	
 	// init the schedule methods hash
-	rb_schelue_methods = rb_hash_new();
-	rb_gv_set("_sc_schedule_methods", rb_schelue_methods);
+	sc_schedule_methods = rb_hash_new();
+	rb_global_variable(&sc_schedule_methods);
 	
 	// setup the valid_actions array
 	id_action_animate = rb_intern("animate");

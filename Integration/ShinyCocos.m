@@ -31,22 +31,13 @@
 
 @implementation AccDelegate
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-	if (rb_acc_delegate != Qnil) {
+	if (sc_acc_delegate != Qnil) {
 		float acc_abs = sqrt(acceleration.x * acceleration.x + acceleration.y * acceleration.y + acceleration.z * acceleration.z);
 		VALUE acc_ary = rb_ary_new3(4, rb_float_new(acceleration.x), rb_float_new(acceleration.y), rb_float_new(acceleration.z), rb_float_new(acc_abs));
-		rb_funcall(rb_acc_delegate, rb_intern("got_acceleration"), 1, acc_ary);
+		rb_funcall(sc_acc_delegate, rb_intern("got_acceleration"), 1, acc_ary);
 	}
 }
 @end
-
-void common_free(void *ptr) {
-	[GET_OBJC(ptr) release];
-	common_free_no_release(ptr);
-}
-
-void common_free_no_release(void *ptr) {
-	free(ptr);
-}
 
 void common_method_swap(Class cls, SEL orig, SEL repl) {
 //	NSLog(@"replacing %@ with %@ in %@", NSStringFromSelector(orig), NSStringFromSelector(repl), cls);

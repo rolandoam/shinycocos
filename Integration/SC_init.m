@@ -20,28 +20,37 @@
 #import "SC_common.h"
 
 VALUE rb_mCocos2D;
-VALUE rb_object_hash;
-VALUE rb_acc_delegate;
+VALUE sc_object_hash;
+VALUE sc_acc_delegate;
 id accDelegate;
 
 #pragma mark Common
 
+void common_free_no_release(void *ptr) {
+	free(ptr);
+}
+
+void common_free(void *ptr) {
+	[GET_OBJC(ptr) release];
+	common_free_no_release(ptr);
+}
+
 VALUE common_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *argv, BOOL release_on_free) {
-	VALUE tdata;
+	VALUE obj;
 	cocos_holder *ptr;
 	if (release_on_free)
-		tdata = Data_Make_Struct(klass, cocos_holder, 0, common_free, ptr);
+		obj = Data_Make_Struct(klass, cocos_holder, 0, common_free, ptr);
 	else
-		tdata = Data_Make_Struct(klass, cocos_holder, 0, common_free_no_release, ptr);
+		obj = Data_Make_Struct(klass, cocos_holder, 0, common_free_no_release, ptr);
 	ptr->_obj = object;
-	rb_obj_call_init(tdata, argc, argv);
+	rb_obj_call_init(obj, argc, argv);
 	if (ret_ptr != nil)
 		*ret_ptr = ptr;
-	return tdata;
+	return obj;
 }
 
 /*
- * use this with caution, since it's really slow!
+ * use this with caution, this is really slow!
  */
 VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
 	/* create the template string */
@@ -66,8 +75,9 @@ VALUE common_rb_ns_log(int argc, VALUE *argv, VALUE module) {
  * The object must respond to <tt>got_acceleration(accel)</tt>.
  */
 VALUE common_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
-	rb_acc_delegate = obj;
-	rb_gv_set("_sc_acc_delegate", obj); // we set it as a global variable, or else ruby will clean it on GC
+	sc_acc_delegate = obj;
+	// let know the GC that we're using it
+	rb_global_variable(&sc_acc_delegate);
 	[UIAccelerometer sharedAccelerometer].delegate = accDelegate;
 	return obj;
 }
@@ -86,7 +96,8 @@ void Init_ShinyCocos() {
 	rb_mCocos2D = rb_define_module("Cocos2D");
 	
 	/* init mini object table */
-	rb_object_hash = rb_hash_new();
+	sc_object_hash = rb_hash_new();
+	sc_acc_delegate = Qnil;
 	
 	/* init the integration classes */
 	init_rb_cTexture2D();
@@ -103,7 +114,6 @@ void Init_ShinyCocos() {
 	/* common utility functions */
 	rb_define_method(rb_mCocos2D, "ns_log", common_rb_ns_log, -1);
 	rb_define_method(rb_mCocos2D, "set_acceleration_delegate", common_rb_set_acceleration_delegate, 1);
-	rb_acc_delegate = Qnil;
 }
 
 void Init_SC_Ruby_Extensions() {

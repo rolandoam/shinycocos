@@ -31,7 +31,7 @@ VALUE rb_cTextureNode;
 VALUE rb_cTextureNode_s_new(int argc, VALUE *argv, VALUE klass) {
 	TextureNode *node = [[TextureNode alloc] init];
 	VALUE rb_obj = common_init(klass, nil, node, argc, argv, YES);
-	rb_hash_aset(rb_object_hash, INT2FIX((long)node), rb_obj);
+	rb_hash_aset(sc_object_hash, INT2FIX((long)node), rb_obj);
 
 	return rb_obj;
 }

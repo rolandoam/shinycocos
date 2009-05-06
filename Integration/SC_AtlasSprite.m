@@ -37,7 +37,7 @@ VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts) {
 	Data_Get_Struct(rb_manager, cocos_holder, ptr);
 	AtlasSprite *sprite = [AtlasSprite spriteWithRect:rect spriteManager:ptr->_obj];
 	VALUE ret = common_init(klass, nil, sprite, 0, 0, NO);
-	rb_hash_aset(rb_object_hash, INT2FIX((long)sprite), ret);
+	rb_hash_aset(sc_object_hash, INT2FIX((long)sprite), ret);
 	return ret;
 }
 
