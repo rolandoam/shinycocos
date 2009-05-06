@@ -111,9 +111,9 @@ static void eachShape(void *ptr, void* unused)
 	VALUE methods = rb_hash_aref(rb_schelue_methods, INT2FIX((long)self));
 	if (methods != Qnil && TYPE(methods) == T_ARRAY) {
 		int i;
-		VALUE target = RARRAY(methods)->ptr[0];
-		for (i=1; i < RARRAY(methods)->len; i++) {
-			rb_funcall(target, rb_to_id(RARRAY(methods)->ptr[i]), 0);
+		VALUE target = RARRAY_PTR(methods)[0];
+		for (i=1; i < RARRAY_LEN(methods); i++) {
+			rb_funcall(target, rb_to_id(RARRAY_PTR(methods)[i]), 0);
 		}
 	}
 }
@@ -133,8 +133,8 @@ static void eachShape(void *ptr, void* unused)
 	// method to be called. This will be good if the handler could also
 	// be a block/proc. It shouldn't be hard to implement, just check
 	// the type
-	if (handler && TYPE(handler) == T_ARRAY && RARRAY(handler)->len == 2) {
-		rb_funcall(RARRAY(handler)->ptr[0], rb_to_id(RARRAY(handler)->ptr[1]), 0);
+	if (handler && TYPE(handler) == T_ARRAY && RARRAY_LEN(handler) == 2) {
+		rb_funcall(RARRAY_PTR(handler)[0], rb_to_id(RARRAY_PTR(handler)[1]), 0);
 	}
 }
 @end
@@ -255,9 +255,9 @@ VALUE rb_cCocosNode_position(VALUE object) {
 VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) {
 	cocos_holder *ptr;
 	Check_Type(position, T_ARRAY);
-	if (RARRAY(position)->len == 2) {
+	if (RARRAY_LEN(position) == 2) {
 		Data_Get_Struct(object, cocos_holder, ptr);
-		CC_NODE(ptr).position = cpv(NUM2DBL(RARRAY(position)->ptr[0]), NUM2DBL(RARRAY(position)->ptr[1]));
+		CC_NODE(ptr).position = cpv(NUM2DBL(RARRAY_PTR(position)[0]), NUM2DBL(RARRAY_PTR(position)[1]));
 		return position;
 	} else {
 		NSLog(@"Invalid array size for position");
@@ -377,7 +377,7 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	Data_Get_Struct(object, cocos_holder, ptr);
 	if (parallaxRatio != Qnil) {
 		Check_Type(parallaxRatio, T_ARRAY);
-		cpVect v = cpv(NUM2DBL(RARRAY(parallaxRatio)->ptr[0]), NUM2DBL(RARRAY(parallaxRatio)->ptr[1]));
+		cpVect v = cpv(NUM2DBL(RARRAY_PTR(parallaxRatio)[0]), NUM2DBL(RARRAY_PTR(parallaxRatio)[1]));
 		[CC_NODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order parallaxRatio:v];
 	} else {
 		[CC_NODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order tag:tag];
@@ -443,7 +443,7 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
 	} else if ((rb_action == id_action_move_to || rb_action == id_action_move_by) && argc == 4) {
 		Check_Type(args[2], T_FLOAT);
 		Check_Type(args[3], T_ARRAY);
-		cpVect pos = cpv(NUM2DBL(RARRAY(args[3])->ptr[0]), NUM2DBL(RARRAY(args[3])->ptr[1]));
+		cpVect pos = cpv(NUM2DBL(RARRAY_PTR(args[3])[0]), NUM2DBL(RARRAY_PTR(args[3])[1]));
 		if (rb_action == id_action_move_to)
 			action = [MoveTo actionWithDuration:NUM2DBL(args[2]) position:pos];
 		else
@@ -527,7 +527,7 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	VALUE methods = rb_hash_aref(rb_schelue_methods, INT2FIX((long)GET_OBJC(ptr)));
 	if (methods != Qnil) {
 		rb_funcall(methods, rb_intern("delete"), 1, method_sym);
-		if (RARRAY(methods)->len == 0) {
+		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[GET_OBJC(ptr) unschedule:@selector(rbScheduler)];
 			// remove the array from the hash
@@ -560,14 +560,14 @@ VALUE rb_cCocosNode_camera_eye(VALUE object) {
  */
 VALUE rb_cCocosNode_set_camera_eye(VALUE object, VALUE position) {
 	Check_Type(position, T_ARRAY);
-	if (RARRAY(position)->len < 3) {
+	if (RARRAY_LEN(position) < 3) {
 		rb_raise(rb_eArgError, "Invalid position array");
 	}
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
-	VALUE x = RARRAY(position)->ptr[0];
-	VALUE y = RARRAY(position)->ptr[1];
-	VALUE z = RARRAY(position)->ptr[2];
+	VALUE x = RARRAY_PTR(position)[0];
+	VALUE y = RARRAY_PTR(position)[1];
+	VALUE z = RARRAY_PTR(position)[2];
 	[CC_NODE(ptr).camera setEyeX:NUM2DBL(x) eyeY:NUM2DBL(y) eyeZ:NUM2DBL(z)];
 	
 	return position;
@@ -596,14 +596,14 @@ VALUE rb_cCocosNode_camera_center(VALUE object) {
  */
 VALUE rb_cCocosNode_set_camera_center(VALUE object, VALUE position) {
 	Check_Type(position, T_ARRAY);
-	if (RARRAY(position)->len < 3) {
+	if (RARRAY_LEN(position) < 3) {
 		rb_raise(rb_eArgError, "Invalid position array");
 	}
 	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
-	VALUE x = RARRAY(position)->ptr[0];
-	VALUE y = RARRAY(position)->ptr[1];
-	VALUE z = RARRAY(position)->ptr[2];
+	VALUE x = RARRAY_PTR(position)[0];
+	VALUE y = RARRAY_PTR(position)[1];
+	VALUE z = RARRAY_PTR(position)[2];
 	[CC_NODE(ptr).camera setCenterX:NUM2DBL(x) centerY:NUM2DBL(y) centerZ:NUM2DBL(z)];
 	
 	return position;
