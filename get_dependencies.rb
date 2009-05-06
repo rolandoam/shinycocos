@@ -3,7 +3,7 @@
 require 'fileutils'
 include FileUtils
 
-RUBY_1_9_1      = "ftp://ftp.ruby-lang.org/pub/ruby/stable-snapshot.tar.gz"
+RUBY_1_9_1      = "http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1"
 COCOS_2D_IPHONE = "http://cocos2d-iphone.googlecode.com/svn/branches/branch-0.7"
 
 def do_shell(msg)
@@ -13,11 +13,17 @@ def do_shell(msg)
   puts "done!"
 end
 
-# get ruby 1.9
-do_shell "downloading ruby 1.9..." do
-  ruby_tar = RUBY_1_9_1.split('/').last
-  rm ruby_tar if File.exists?(ruby_tar)
-  system("curl -sLO '#{RUBY_1_9_1}' > /dev/null")
+# checking out ruby 1.9
+do_shell "checking out ruby 1.9..." do
+  if File.exists?("ruby")
+    # ok, the directory exists, check if it's a subversion checkout, if so, update
+    # else... keep it that way
+    if File.exists?("ruby/.svn")
+      system("cd ruby; svn up > /dev/null")
+    end
+  else
+    system("svn co '#{RUBY_1_9_1}' ruby > /dev/null")
+  end
 end
 
 # checking out cocos-2d
@@ -35,21 +41,20 @@ end
 
 # configure ruby 1.9
 do_shell "configuring ruby 1.9..." do
-  ruby_tar = RUBY_1_9_1.split('/').last
-  ruby_dir = "ruby" #File.basename(ruby_tar, ".tar.gz")
+  ruby_dir = "ruby"
   if File.exists?(ruby_dir) and File.directory?(ruby_dir)
-    system("rm -rf #{ruby_dir}")
+    if !File.exists?("#{ruby_dir}/configure")
+      system("cd #{ruby_dir}; sh autoconf")
+      system("cd #{ruby_dir}; ./configure > /dev/null")
+    end
+    system("cd #{ruby_dir}; make clean > /dev/null")
+    # copy the header we need to compile in the device
+    cp "/usr/include/crt_externs.h", "ruby/crt_externs.h"
   end
-  system("tar xzf #{ruby_tar}")
-  system("cd #{ruby_dir}; ./configure > /dev/null")
-  # copy the header we need to compile in the device
-  cp "/usr/include/crt_externs.h", "ruby/crt_externs.h"
-  rm ruby_tar
 end
 
-do_shell "making ruby 1.9 (we need some auto-generated files)..." do
-  ruby_tar = RUBY_1_9_1.split('/').last
-  ruby_dir = "ruby" #File.basename(ruby_tar, ".tar.gz")
+do_shell "making ruby 1.9.1 (we need some auto-generated files)..." do
+  ruby_dir = "ruby"
   system("cd #{ruby_dir}; make > /dev/null")
 end
 
