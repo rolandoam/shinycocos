@@ -92,8 +92,14 @@ void ShinyCocosSetup(UIWindow *window) {
 }
 
 void ShinyCocosStart() {
+	int state;
 	accDelegate = [[AccDelegate alloc] init];
-	ruby_run_node(ruby_options(sc_argc, sc_argv));
+	
+	//ruby_run_node(ruby_options(sc_argc, sc_argv));
+	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
+	if (state != 0) {
+		NSLog(@"put your ruby error here");
+	}
 }
 
 void ShinyCocosInitChipmunk() {

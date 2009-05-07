@@ -58,9 +58,6 @@ static inline CGRect sc_make_rect(VALUE rb_rect) {
  * link an ruby object with an objective C one, throught a hash table
  */
 static inline void sc_add_tracking(NSMutableDictionary *hash, CocosNode *obj1, VALUE obj2) {
-	VALUE klass = CLASS_OF(obj2);
-	VALUE string_rep = INSPECT(klass);
-	NSLog(@"tracking ruby object (%ld; %s) for object %ld", obj2, StringValueCStr(string_rep), obj1);
 	[hash setObject:[NSValue valueWithPointer:(void *)obj2] forKey:[NSValue valueWithPointer:obj1]];
 }
 
@@ -78,12 +75,13 @@ static inline void sc_remove_tracking_for(NSMutableDictionary *hash, CocosNode *
 static inline VALUE sc_ruby_instance_for(NSMutableDictionary *hash, CocosNode *obj1) {
 	NSValue *v = [hash objectForKey:[NSValue valueWithPointer:obj1]];
 	if (v == nil) {
-		NSLog(@"no ruby object for %ld", obj1);
 		return Qnil;
 	}
 	VALUE rv = (VALUE)[v pointerValue];
-	VALUE klass = CLASS_OF(rv);
-	VALUE string_rep = INSPECT(klass);
-	NSLog(@"getting ruby instance (%ld; %s) for object %ld", rv, StringValueCStr(string_rep), obj1);
-	return rv;
+	if (TYPE(rv) != T_NONE) {
+		return rv;
+	}
+	// should never reach this
+	assert(0);
+	return Qnil;
 }
