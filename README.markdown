@@ -98,4 +98,5 @@ For ruby-only extensions, just add them to the lib directory.
 
 * Add documentation :-)
 * Integrate the rest of the cocos2d-iphone API
+* Check for leaks
 * Benchmarks

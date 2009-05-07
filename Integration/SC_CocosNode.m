@@ -126,6 +126,11 @@ static void eachShape(void *ptr, void* unused)
 	if (handler && TYPE(handler) == T_ARRAY && RARRAY_LEN(handler) == 2) {
 		rb_funcall(RARRAY_PTR(handler)[0], rb_to_id(RARRAY_PTR(handler)[1]), 0);
 	}
+	// unregister the handler
+	// NOTE
+	// this might break things for actions that will be executed more than once.
+	//sc_remove_tracking_for(sc_handler_hash, (CocosNode *)self);
+	//rb_gc_unregister_address(&handler);
 }
 @end
 
@@ -450,6 +455,8 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
 	VALUE on_stop_handler = rb_hash_aref(args[1], ID2SYM(rb_intern("on_stop")));
 	if (on_stop_handler && TYPE(on_stop_handler) == T_SYMBOL) {
 		VALUE handler_ary = rb_ary_new3(2, object, on_stop_handler);
+		// protect variable, we should remove it later
+		rb_global_variable(&handler_ary);
 		sc_add_tracking(sc_handler_hash, action, handler_ary);
 	}
 	

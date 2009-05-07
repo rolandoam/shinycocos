@@ -82,6 +82,6 @@ static inline VALUE sc_ruby_instance_for(NSMutableDictionary *hash, CocosNode *o
 		return rv;
 	}
 	// should never reach this
-	assert(0);
+	NSLog(@"probably trying to call a hook on a dead ruby object: %@, %@", hash, obj1);
 	return Qnil;
 }
