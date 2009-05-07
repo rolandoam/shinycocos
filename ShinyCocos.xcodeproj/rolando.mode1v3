@@ -271,7 +271,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>0</integer>
+									<integer>7</integer>
+									<integer>6</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -375,9 +376,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A996A3D30FB1C8D60040FDF4</string>
+				<string>A9530F470FB33C44002C0D24</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>A996A3D40FB1C8D60040FDF4</string>
+				<string>A9530F480FB33C44002C0D24</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -592,7 +593,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>A9A1F9070F8B9A510022755C</string>
-				<string>A996A3D50FB1C8D60040FDF4</string>
+				<string>A9530FAB0FB33F7C002C0D24</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

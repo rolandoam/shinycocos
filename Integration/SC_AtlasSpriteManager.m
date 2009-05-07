@@ -35,15 +35,15 @@ VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, V
 	Check_Type(argv[0], T_STRING);
 	NSString *file = [NSString stringWithCString:StringValueCStr(argv[0]) encoding:NSUTF8StringEncoding];
 	if (argc == 1) {
-		manager = [AtlasSpriteManager spriteManagerWithFile:file];
+		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:29]; // default capacity
 	} else {
 		Check_Type(argv[1], T_HASH);
 		VALUE cap = rb_hash_aref(argv[1], ID2SYM(rb_intern("capacity")));
 		if (cap == Qnil)
 			rb_raise(rb_eArgError, "no :capacity key in hash");
-		manager = [AtlasSpriteManager spriteManagerWithFile:file capacity:FIX2INT(cap)];
+		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:FIX2INT(cap)];
 	}
-	VALUE obj = sc_init(klass, nil, manager, 0, 0, NO);
+	VALUE obj = sc_init(klass, nil, manager, 0, 0, YES);
 	sc_add_tracking(sc_object_hash, manager, obj);
 	return obj;
 }

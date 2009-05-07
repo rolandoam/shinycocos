@@ -50,6 +50,7 @@ static void eachShape(void *ptr, void* unused)
 
 @interface CocosNode (SC_Extension)
 // actions
+- (void)rb_step_:(ccTime)dt;
 - (void)rb_on_enter;
 - (void)rb_on_exit;
 - (void)rb_draw;
@@ -63,11 +64,20 @@ static void eachShape(void *ptr, void* unused)
 @end
 
 @implementation CocosNode (SC_Extension)
+- (void)rb_step_:(ccTime)dt {
+	// if there's a ruby object associated with us, mark it
+	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbObject != Qnil)
+		rb_gc_mark(rbObject);
+	// now, let's continue with our job
+	[self rb_step_:dt];
+}
+
 - (void)rb_on_enter {
 	[self rb_on_enter];
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject) {
+	if (rbObject != Qnil) {
 		rb_funcall(rbObject, id_cb_on_enter, 0, 0);
 	}
 }
@@ -76,7 +86,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_exit];
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject) {
+	if (rbObject != Qnil) {
 		rb_funcall(rbObject, id_cb_on_exit, 0, 0);
 	}
 }
@@ -118,7 +128,7 @@ static void eachShape(void *ptr, void* unused)
 @implementation Action (SC_Extension)
 - (void)rb_stop {
 	[self rb_stop];
-	VALUE handler = sc_ruby_instance_for(sc_handler_hash, self);
+	VALUE handler = sc_ruby_instance_for(sc_handler_hash, (CocosNode *)self);
 	// handler should be an array with two items: the handler and the
 	// method to be called. This will be good if the handler could also
 	// be a block/proc. It shouldn't be hard to implement, just check
@@ -310,6 +320,7 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
  * matter on the ruby side).
  */
 VALUE rb_cCocosNode_s_node(VALUE klass) {
+	NSLog(@"alguien esta haciendo las cosas mal...");
 	CocosNode *node = [CocosNode node];
 	VALUE obj = sc_init(klass, nil, node, 0, 0, NO);
 	// add the pointer to the object hash
@@ -669,6 +680,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "draw", rb_cCocosNode_on_exit, 0);
 	
 	// replace the common actions on the CocosNode class
+	sc_method_swap([CocosNode class], @selector(step_:), @selector(rb_step_:));
 	sc_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));
 	sc_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
 	// replace the stop method on Action (to be able to call the stop handler in ruby)

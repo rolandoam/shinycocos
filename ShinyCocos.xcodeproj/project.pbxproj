@@ -647,14 +647,13 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = (
-					./ruby,
 					./ruby/include,
-					"./ruby/iphone/**",
+					./ruby,
 					"./cocos2d-iphone/external/Chipmunk/src/",
 					"./cocos2d-iphone/cocos2d/**",
 				);
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ShinyCocos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
@@ -669,14 +668,13 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = (
-					./ruby,
 					./ruby/include,
-					"./ruby/iphone/**",
+					./ruby,
 					"./cocos2d-iphone/external/Chipmunk/src/",
 					"./cocos2d-iphone/cocos2d/**",
 				);
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ShinyCocos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
