@@ -39,7 +39,7 @@
 }
 @end
 
-void common_method_swap(Class cls, SEL orig, SEL repl) {
+void sc_method_swap(Class cls, SEL orig, SEL repl) {
 //	NSLog(@"replacing %@ with %@ in %@", NSStringFromSelector(orig), NSStringFromSelector(repl), cls);
 	Method m1 = class_getInstanceMethod(cls, orig);
 	Method m2 = class_getInstanceMethod(cls, repl);
@@ -71,10 +71,6 @@ void ShinyCocosSetup(UIWindow *window) {
 	RUBY_INIT_STACK;
 	ruby_init();
 	}
-
-#if defined(DEBUG)
-//	enable_gc_profile();
-#endif
 	
 	/* add the bundle resource path to the search path */
 	VALUE load_path = rb_gv_get(":");
@@ -96,7 +92,6 @@ void ShinyCocosSetup(UIWindow *window) {
 }
 
 void ShinyCocosStart() {
-	int state = 0;
 	accDelegate = [[AccDelegate alloc] init];
 	ruby_run_node(ruby_options(sc_argc, sc_argv));
 }
@@ -107,4 +102,11 @@ void ShinyCocosInitChipmunk() {
 
 void ShinyCocosStop() {
 	[accDelegate release];
+	// release handlers
+	[sc_object_hash release];
+	[sc_handler_hash release];
+	[sc_schedule_methods release];
+
+	ruby_stop(0);
+	free(sc_argv);
 }

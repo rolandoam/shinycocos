@@ -30,8 +30,8 @@ VALUE rb_cScene;
  */
 VALUE rb_cScene_s_new(int argc, VALUE *argv, VALUE klass) {
 	Scene *obj = [[Scene alloc] init];
-	VALUE rb_obj = common_init(klass, nil, obj, argc, argv, YES);
-	rb_hash_aset(sc_object_hash, INT2FIX((long)obj), rb_obj);
+	VALUE rb_obj = sc_init(klass, nil, obj, argc, argv, YES);
+	sc_add_tracking(sc_object_hash, obj, rb_obj);
 
 	return rb_obj;
 }

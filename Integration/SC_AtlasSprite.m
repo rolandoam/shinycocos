@@ -31,13 +31,13 @@ VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	VALUE rb_manager = rb_hash_aref(opts, ID2SYM(rb_intern("manager")));
 	VALUE rb_rect = rb_hash_aref(opts, ID2SYM(rb_intern("rect")));
-	CGRect rect = common_sc_make_rect(rb_rect);
+	CGRect rect = sc_make_rect(rb_rect);
 	
 	cocos_holder *ptr;
 	Data_Get_Struct(rb_manager, cocos_holder, ptr);
 	AtlasSprite *sprite = [AtlasSprite spriteWithRect:rect spriteManager:ptr->_obj];
-	VALUE ret = common_init(klass, nil, sprite, 0, 0, NO);
-	rb_hash_aset(sc_object_hash, INT2FIX((long)sprite), ret);
+	VALUE ret = sc_init(klass, nil, sprite, 0, 0, NO);
+	sc_add_tracking(sc_object_hash, sprite, ret);
 	return ret;
 }
 
@@ -63,7 +63,7 @@ VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
 		anim = [[AtlasAnimation alloc] initWithName:[NSString stringWithCString:StringValueCStr(rb_name) encoding:NSUTF8StringEncoding] delay:NUM2DBL(rb_delay)];
 	} else {
 	}
-	VALUE ret = common_init(klass, nil, anim, 0, 0, YES);
+	VALUE ret = sc_init(klass, nil, anim, 0, 0, YES);
 	if (rb_block_given_p()) {
 		rb_yield(ret);
 	}
@@ -78,7 +78,7 @@ VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
 VALUE rb_cAtlasAnimation_add_frame(VALUE obj, VALUE rect) {
 	cocos_holder *ptr;
 	Data_Get_Struct(obj, cocos_holder, ptr);
-	[GET_OBJC(ptr) addFrameWithRect:common_sc_make_rect(rect)];
+	[GET_OBJC(ptr) addFrameWithRect:sc_make_rect(rect)];
 
 	return rect;
 }

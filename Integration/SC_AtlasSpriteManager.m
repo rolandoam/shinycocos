@@ -43,8 +43,8 @@ VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, V
 			rb_raise(rb_eArgError, "no :capacity key in hash");
 		manager = [AtlasSpriteManager spriteManagerWithFile:file capacity:FIX2INT(cap)];
 	}
-	VALUE obj = common_init(klass, nil, manager, 0, 0, NO);
-	rb_hash_aset(sc_object_hash, INT2FIX((long)manager), obj);
+	VALUE obj = sc_init(klass, nil, manager, 0, 0, NO);
+	sc_add_tracking(sc_object_hash, manager, obj);
 	return obj;
 }
 
@@ -54,12 +54,12 @@ VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, V
 VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 	cocos_holder *ptr;
 	Data_Get_Struct(obj, cocos_holder, ptr);
-	CGRect rect = common_sc_make_rect(rb_rect);
+	CGRect rect = sc_make_rect(rb_rect);
 	// create the sprite
 	AtlasSprite* sprite = [GET_OBJC(ptr) createSpriteWithRect:rect];
 	// return the sprite as a ruby object
-	VALUE ret = common_init(rb_cAtlasSprite, nil, sprite, 0, 0, NO);
-	rb_hash_aset(sc_object_hash, INT2FIX((long)sprite), ret);
+	VALUE ret = sc_init(rb_cAtlasSprite, nil, sprite, 0, 0, NO);
+	sc_add_tracking(sc_object_hash, sprite, ret);
 	return ret;
 }
 
