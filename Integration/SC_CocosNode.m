@@ -315,7 +315,6 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
  * matter on the ruby side).
  */
 VALUE rb_cCocosNode_s_node(VALUE klass) {
-	NSLog(@"alguien esta haciendo las cosas mal...");
 	CocosNode *node = [CocosNode node];
 	VALUE obj = sc_init(klass, nil, node, 0, 0, NO);
 	// add the pointer to the object hash
