@@ -5,12 +5,18 @@ include FileUtils
 
 RUBY_1_9_1      = "http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1"
 COCOS_2D_IPHONE = "http://cocos2d-iphone.googlecode.com/svn/branches/branch-0.7"
+SVN = `which svn`
 
 def do_shell(msg)
   print msg + " "
   $stdout.flush
   yield if block_given?
   puts "done!"
+end
+
+if !SVN || !File.exists?(SVN)
+  puts "Subversion not installed!"
+  exit(1)
 end
 
 # checking out ruby 1.9
