@@ -5,7 +5,7 @@ include FileUtils
 
 RUBY_1_9_1      = "http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1"
 COCOS_2D_IPHONE = "http://cocos2d-iphone.googlecode.com/svn/branches/branch-0.7"
-SVN = `which svn`
+SVN = `which svn`.strip
 
 def do_shell(msg)
   print msg + " "
