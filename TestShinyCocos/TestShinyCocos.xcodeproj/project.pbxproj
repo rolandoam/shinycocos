@@ -14,6 +14,7 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		A95E96E30FB459A9001A6523 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = A95E96C20FB459A9001A6523 /* lib */; };
 		A95E96E40FB459A9001A6523 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A95E96E00FB459A9001A6523 /* vendor */; };
+		A95E97B90FB45FDA001A6523 /* libChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056CE0F9E9AB600C85842 /* libChipmunk.a */; };
 		A9A057090F9E9B1600C85842 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057060F9E9B1600C85842 /* fps_images.png */; };
 		A9A0570A0F9E9B1600C85842 /* logogff.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057070F9E9B1600C85842 /* logogff.png */; };
 		A9A0570B0F9E9B1600C85842 /* main.rb in Resources */ = {isa = PBXBuildFile; fileRef = A9A057080F9E9B1600C85842 /* main.rb */; };
@@ -25,6 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A95E97770FB45F32001A6523 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 50B2C4D00E100AEA00AE9530 /* Chipmunk */;
+			remoteInfo = Chipmunk;
+		};
 		A9A056A00F9E9AAD00C85842 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */;
@@ -294,6 +302,7 @@
 			files = (
 				A9A057340F9E9B6200C85842 /* libShinyCocos.a in Frameworks */,
 				A9A057350F9E9B6800C85842 /* libcocos2d.a in Frameworks */,
+				A95E97B90FB45FDA001A6523 /* libChipmunk.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -440,6 +449,7 @@
 			);
 			dependencies = (
 				A9A057310F9E9B3400C85842 /* PBXTargetDependency */,
+				A95E97780FB45F32001A6523 /* PBXTargetDependency */,
 				A9A057330F9E9B3700C85842 /* PBXTargetDependency */,
 			);
 			name = TestShinyCocos;
@@ -730,6 +740,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A95E97780FB45F32001A6523 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Chipmunk;
+			targetProxy = A95E97770FB45F32001A6523 /* PBXContainerItemProxy */;
+		};
 		A9A057310F9E9B3400C85842 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = cocos2d;

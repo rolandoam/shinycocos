@@ -36,6 +36,6 @@ end
 
 Director.landscape = true
 Director.animation_interval = 1/60.0
-test = TestScene.node
+test = TestScene.new
 set_acceleration_delegate test
 Director.run_scene test
