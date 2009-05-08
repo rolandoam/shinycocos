@@ -15,8 +15,9 @@
 		A95E96E30FB459A9001A6523 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = A95E96C20FB459A9001A6523 /* lib */; };
 		A95E96E40FB459A9001A6523 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A95E96E00FB459A9001A6523 /* vendor */; };
 		A95E97B90FB45FDA001A6523 /* libChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056CE0F9E9AB600C85842 /* libChipmunk.a */; };
+		A98CD4320FB4B2750017E521 /* grossini_dance_atlas.pvr in Resources */ = {isa = PBXBuildFile; fileRef = A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */; };
+		A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */; };
 		A9A057090F9E9B1600C85842 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057060F9E9B1600C85842 /* fps_images.png */; };
-		A9A0570A0F9E9B1600C85842 /* logogff.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057070F9E9B1600C85842 /* logogff.png */; };
 		A9A0570B0F9E9B1600C85842 /* main.rb in Resources */ = {isa = PBXBuildFile; fileRef = A9A057080F9E9B1600C85842 /* main.rb */; };
 		A9A057340F9E9B6200C85842 /* libShinyCocos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056A10F9E9AAD00C85842 /* libShinyCocos.a */; };
 		A9A057350F9E9B6800C85842 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056D00F9E9AB600C85842 /* libcocos2d.a */; };
@@ -285,10 +286,12 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95E96C20FB459A9001A6523 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		A95E96E00FB459A9001A6523 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
+		A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = grossini_dance_atlas.pvr; sourceTree = "<group>"; };
+		A98CD4A50FB4BBA90017E521 /* AccelerometerSimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSimulation.h; sourceTree = "<group>"; };
+		A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerSimulation.m; sourceTree = "<group>"; };
 		A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShinyCocos.xcodeproj; path = ../ShinyCocos.xcodeproj; sourceTree = SOURCE_ROOT; };
 		A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-iphone.xcodeproj"; path = "../cocos2d-iphone/cocos2d-iphone.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		A9A057060F9E9B1600C85842 /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
-		A9A057070F9E9B1600C85842 /* logogff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logogff.png; sourceTree = "<group>"; };
 		A9A057080F9E9B1600C85842 /* main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = main.rb; sourceTree = "<group>"; };
 		A9A0574C0F9E9CAE00C85842 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		A9A057520F9E9CBA00C85842 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -336,6 +339,7 @@
 			children = (
 				A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */,
 				A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */,
+				A98CD4A80FB4BBAE0017E521 /* AccSim */,
 				A9A057050F9E9B0400C85842 /* Ruby */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -361,7 +365,7 @@
 				A95E96C20FB459A9001A6523 /* lib */,
 				A95E96E00FB459A9001A6523 /* vendor */,
 				A9A057060F9E9B1600C85842 /* fps_images.png */,
-				A9A057070F9E9B1600C85842 /* logogff.png */,
+				A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				A9E53E950F9F6BB9001DC55F /* Entitlements.plist */,
 			);
@@ -378,6 +382,15 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A98CD4A80FB4BBAE0017E521 /* AccSim */ = {
+			isa = PBXGroup;
+			children = (
+				A98CD4A50FB4BBA90017E521 /* AccelerometerSimulation.h */,
+				A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */,
+			);
+			name = AccSim;
 			sourceTree = "<group>";
 		};
 		A9A0569A0F9E9AAD00C85842 /* Products */ = {
@@ -717,11 +730,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9A057090F9E9B1600C85842 /* fps_images.png in Resources */,
-				A9A0570A0F9E9B1600C85842 /* logogff.png in Resources */,
 				A9A0570B0F9E9B1600C85842 /* main.rb in Resources */,
 				A9E53E960F9F6BB9001DC55F /* Entitlements.plist in Resources */,
 				A95E96E30FB459A9001A6523 /* lib in Resources */,
 				A95E96E40FB459A9001A6523 /* vendor in Resources */,
+				A98CD4320FB4B2750017E521 /* grossini_dance_atlas.pvr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +747,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* TestShinyCocosAppDelegate.m in Sources */,
+				A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
