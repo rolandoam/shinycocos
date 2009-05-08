@@ -15,6 +15,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	ShinyCocosSetup(window);
+	ShinyCocosInitChipmunk();
 	ShinyCocosStart();
 }
 

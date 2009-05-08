@@ -30,7 +30,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 50B2C4D00E100AEA00AE9530 /* Chipmunk */;
+			remoteGlobalIDString = 50B2C4D00E100AEA00AE9530;
 			remoteInfo = Chipmunk;
 		};
 		A9A056A00F9E9AAD00C85842 /* PBXContainerItemProxy */ = {
