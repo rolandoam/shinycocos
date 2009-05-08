@@ -64,5 +64,6 @@ do_shell "making ruby 1.9.1 (we need some auto-generated files)..." do
   system("cd #{ruby_dir}; make > /dev/null")
   # copy ruby config.h to where it should be
   cp ".ext/include/i386-darwin9.6.0/ruby/config.h", "ruby/include/ruby/config.h"
+  cp "/usr/include/crt_externs.h", "ruby/include/crt_externs.h"
 end
 
