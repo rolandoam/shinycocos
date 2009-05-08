@@ -1,21 +1,21 @@
-# ShinyCocos
+= ShinyCocos
 
-## About
+== About
 
 ShinyCocos is a ruby bindings for the Cocos2D-iphone game framework.
 
 The idea is to have a very rubyish binding for the awesome
-[cocos2d-iphone](http://code.google.com/p/cocos2d-iphone) game
+{cocos2d-iphone}[http://code.google.com/p/cocos2d-iphone] game
 framework. It also includes the Chipmunk ruby bindings.
 
-## Why?
+== Why?
 
 Why not?
 
 It makes things easier and faster to prototype, it's not a big overhead
 and also, ruby takes care of your GC.
 
-## How?
+== How?
 
 Bundled with your application there is a ruby interpreter (ruby 1.9.1,
 stable-snapshot). The interpreter is loaded with a simple call from
@@ -39,22 +39,39 @@ The idea is to support every class provided by cocos2d-iphone. Please
 note that this is a project still starting, so most of the classes are
 not implemented 100%.
 
-## Requirements
-
-There are only install requirements:
+== Requirements
 
 * subversion (to fetch current branch-0.7 of cocos2d-iphone)
-* curl (installed with MacOS X, to fetch ruby)
+* rake (in order to generate the documentation)
+* rdoc >= 2.4.0 (you can install it with: <tt>sudo gem install rdoc</tt>)
 
-## Installation/Building
+NOTE:
+
+Rdoc has a broken support for the <tt>-E</tt> option, so if you have
+installed the latest version, the fix is easy:
+
+  # file: /Library/Ruby/Gems/1.8/gems/rdoc-2.4.3/lib/rdoc/options.rb
+  # line: 215
+  # says:
+  
+  unless RDoc::ParserFactory.alias_extension old, new then
+  
+  # should say:
+  
+  unless RDoc::Parser.alias_extension old, new then
+
+That will fix the <tt>-E</tt> option (needed to treat <tt>.m</tt> files
+as <tt>.c</tt>)
+
+== Installation/Building
 
 First, run the script that will fetch ruby and cocos2d-iphone:
 
-    ./get_dependencies.rb
+  ./get_dependencies.rb
 
 or:
 
-    ruby get_dependencies.rb
+  ruby get_dependencies.rb
 
 Open the cocos2d-iphone project and set the output directory to
 "../build" instead of "build".
@@ -63,12 +80,12 @@ Open the TestShinyCocos project and build.
 
 Now you're ready to rock :-)
 
-## Documentation
+== Documentation
 
-Use rdoc:
+Use the rakefile:
 
-    rdoc -E m=c Integration --main Cocos2D
-    open doc/index.html
+    rake rdoc
+    open html/index.html
 
 You might need a newer version of rdoc:
 
@@ -77,7 +94,7 @@ You might need a newer version of rdoc:
 The one that comes with Leopard is too old and complains about the
 enclosing module not being found.
 
-## Adding extensions from the stdlib
+== Adding extensions from the stdlib
 
 If you need to add an extension from the stdlib (or your own extension)
 add the source file to the "ext" group in the ShinyCocos project file.
@@ -94,9 +111,10 @@ I will try to find an easier way :-).
 
 For ruby-only extensions, just add them to the lib directory.
 
-## TODO
+== TODO
 
 * Add documentation :-)
 * Integrate the rest of the cocos2d-iphone API
 * Check for leaks
 * Benchmarks
+

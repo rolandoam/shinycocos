@@ -295,7 +295,7 @@
 							<real>245</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>113 384 856 494 0 0 1440 878 </string>
+						<string>33 384 856 494 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -332,7 +332,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {589, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>113 384 856 494 0 0 1440 878 </string>
+								<string>33 384 856 494 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -352,7 +352,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {589, 448}}</string>
 								<key>RubberWindowFrame</key>
-								<string>113 384 856 494 0 0 1440 878 </string>
+								<string>33 384 856 494 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -376,9 +376,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A9530F470FB33C44002C0D24</string>
+				<string>A95E97D50FB460BD001A6523</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>A9530F480FB33C44002C0D24</string>
+				<string>A95E97D60FB460BD001A6523</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -516,7 +516,7 @@
 		<string>/Users/rolando/Documents/GFF/ShinyCocos/ShinyCocos.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>113 384 856 494 0 0 1440 878 </string>
+	<string>33 384 856 494 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -593,7 +593,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>A9A1F9070F8B9A510022755C</string>
-				<string>A9530FAB0FB33F7C002C0D24</string>
+				<string>A95E97CF0FB460A2001A6523</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
