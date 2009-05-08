@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/ruby/!svn/ver/20880/branches/ruby_1_9_1/lib/yaml
+END
+basenode.rb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/basenode.rb
+END
+ypath.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/ypath.rb
+END
+encoding.rb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/encoding.rb
+END
+error.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/error.rb
+END
+stream.rb
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/stream.rb
+END
+store.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/store.rb
+END
+stringio.rb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/stringio.rb
+END
+dbm.rb
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/dbm.rb
+END
+baseemitter.rb
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repos/ruby/!svn/ver/20880/branches/ruby_1_9_1/lib/yaml/baseemitter.rb
+END
+types.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/types.rb
+END
+loader.rb
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/loader.rb
+END
+rubytypes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repos/ruby/!svn/ver/20184/branches/ruby_1_9_1/lib/yaml/rubytypes.rb
+END
+yamlnode.rb
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/ruby/!svn/ver/20880/branches/ruby_1_9_1/lib/yaml/yamlnode.rb
+END
+syck.rb
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/syck.rb
+END
+tag.rb
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/tag.rb
+END
+constants.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/lib/yaml/constants.rb
+END

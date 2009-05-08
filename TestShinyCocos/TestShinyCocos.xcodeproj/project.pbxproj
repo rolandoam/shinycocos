@@ -12,6 +12,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		A95E96E30FB459A9001A6523 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = A95E96C20FB459A9001A6523 /* lib */; };
+		A95E96E40FB459A9001A6523 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A95E96E00FB459A9001A6523 /* vendor */; };
 		A9A057090F9E9B1600C85842 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057060F9E9B1600C85842 /* fps_images.png */; };
 		A9A0570A0F9E9B1600C85842 /* logogff.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057070F9E9B1600C85842 /* logogff.png */; };
 		A9A0570B0F9E9B1600C85842 /* main.rb in Resources */ = {isa = PBXBuildFile; fileRef = A9A057080F9E9B1600C85842 /* main.rb */; };
@@ -273,6 +275,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* TestShinyCocos_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestShinyCocos_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A95E96C20FB459A9001A6523 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		A95E96E00FB459A9001A6523 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
 		A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShinyCocos.xcodeproj; path = ../ShinyCocos.xcodeproj; sourceTree = SOURCE_ROOT; };
 		A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-iphone.xcodeproj"; path = "../cocos2d-iphone/cocos2d-iphone.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		A9A057060F9E9B1600C85842 /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
@@ -345,6 +349,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A95E96C20FB459A9001A6523 /* lib */,
+				A95E96E00FB459A9001A6523 /* vendor */,
 				A9A057060F9E9B1600C85842 /* fps_images.png */,
 				A9A057070F9E9B1600C85842 /* logogff.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -704,6 +710,8 @@
 				A9A0570A0F9E9B1600C85842 /* logogff.png in Resources */,
 				A9A0570B0F9E9B1600C85842 /* main.rb in Resources */,
 				A9E53E960F9F6BB9001DC55F /* Entitlements.plist in Resources */,
+				A95E96E30FB459A9001A6523 /* lib in Resources */,
+				A95E96E40FB459A9001A6523 /* vendor in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

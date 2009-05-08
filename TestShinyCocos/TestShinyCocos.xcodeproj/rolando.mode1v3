@@ -276,7 +276,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>16</integer>
+									<integer>4</integer>
+									<integer>3</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -316,7 +317,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Entitlements.plist</string>
+								<string>main.rb</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,23 +325,31 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Entitlements.plist</string>
+										<string>main.rb</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A9CD67290FA22E6100128F38</string>
+										<string>A95E970D0FB459BB001A6523</string>
 										<key>history</key>
 										<array>
-											<string>A9A057E60F9EA66D00C85842</string>
-											<string>A9E53E980F9F6BE2001DC55F</string>
 											<string>A9E53E990F9F6BE2001DC55F</string>
-											<string>A92437190FA22DF1003C6EED</string>
+											<string>A95E97030FB459BB001A6523</string>
+											<string>A95E97040FB459BB001A6523</string>
+											<string>A95E97050FB459BB001A6523</string>
+											<string>A95E97060FB459BB001A6523</string>
+											<string>A95E97070FB459BB001A6523</string>
+											<string>A9E53E980F9F6BE2001DC55F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>A9A057E80F9EA66D00C85842</string>
 											<string>A9E53E9B0F9F6BE2001DC55F</string>
 											<string>A9E53E9C0F9F6BE2001DC55F</string>
+											<string>A95E97080FB459BB001A6523</string>
+											<string>A95E97090FB459BB001A6523</string>
+											<string>A95E970A0FB459BB001A6523</string>
+											<string>A95E970B0FB459BB001A6523</string>
+											<string>A95E970C0FB459BB001A6523</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -398,9 +407,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A9CD672A0FA22E6100128F38</string>
+				<string>A95E970E0FB459BB001A6523</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>A9CD672B0FA22E6100128F38</string>
+				<string>A95E970F0FB459BB001A6523</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>

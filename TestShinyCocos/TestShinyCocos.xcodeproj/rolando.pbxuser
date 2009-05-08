@@ -2,7 +2,7 @@
 {
 	1D3623240D0F684500981E51 /* TestShinyCocosAppDelegate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {690, 415}}";
+			sepNavIntBoundsRect = "{{0, 0}, {861, 543}}";
 			sepNavSelRange = "{286, 0}";
 			sepNavVisRange = "{0, 293}";
 		};
@@ -77,20 +77,26 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 262286944;
-			PBXWorkspaceStateSaveDate = 262286944;
+			PBXPerProjectTemplateStateSaveDate = 263477657;
+			PBXWorkspaceStateSaveDate = 263477657;
 		};
 		perUserProjectItems = {
-			A92437190FA22DF1003C6EED = A92437190FA22DF1003C6EED /* PlistBookmark */;
-			A9A057E60F9EA66D00C85842 = A9A057E60F9EA66D00C85842 /* PBXTextBookmark */;
-			A9A057E80F9EA66D00C85842 = A9A057E80F9EA66D00C85842 /* PBXTextBookmark */;
-			A9CD67290FA22E6100128F38 /* PlistBookmark */ = A9CD67290FA22E6100128F38 /* PlistBookmark */;
-			A9E53E980F9F6BE2001DC55F = A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */;
-			A9E53E990F9F6BE2001DC55F = A9E53E990F9F6BE2001DC55F /* PlistBookmark */;
-			A9E53E9A0F9F6BE2001DC55F = A9E53E9A0F9F6BE2001DC55F /* PlistBookmark */;
-			A9E53E9B0F9F6BE2001DC55F = A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */;
-			A9E53E9C0F9F6BE2001DC55F = A9E53E9C0F9F6BE2001DC55F /* PlistBookmark */;
-			A9E53EA10F9F6DB0001DC55F = A9E53EA10F9F6DB0001DC55F /* PlistBookmark */;
+			A95E97030FB459BB001A6523 /* PlistBookmark */ = A95E97030FB459BB001A6523 /* PlistBookmark */;
+			A95E97040FB459BB001A6523 /* PBXTextBookmark */ = A95E97040FB459BB001A6523 /* PBXTextBookmark */;
+			A95E97050FB459BB001A6523 /* PBXTextBookmark */ = A95E97050FB459BB001A6523 /* PBXTextBookmark */;
+			A95E97060FB459BB001A6523 /* PBXTextBookmark */ = A95E97060FB459BB001A6523 /* PBXTextBookmark */;
+			A95E97070FB459BB001A6523 /* PBXTextBookmark */ = A95E97070FB459BB001A6523 /* PBXTextBookmark */;
+			A95E97080FB459BB001A6523 /* PlistBookmark */ = A95E97080FB459BB001A6523 /* PlistBookmark */;
+			A95E97090FB459BB001A6523 /* PBXTextBookmark */ = A95E97090FB459BB001A6523 /* PBXTextBookmark */;
+			A95E970A0FB459BB001A6523 /* PBXTextBookmark */ = A95E970A0FB459BB001A6523 /* PBXTextBookmark */;
+			A95E970B0FB459BB001A6523 /* PBXTextBookmark */ = A95E970B0FB459BB001A6523 /* PBXTextBookmark */;
+			A95E970C0FB459BB001A6523 /* PBXTextBookmark */ = A95E970C0FB459BB001A6523 /* PBXTextBookmark */;
+			A95E970D0FB459BB001A6523 /* PBXTextBookmark */ = A95E970D0FB459BB001A6523 /* PBXTextBookmark */;
+			A9A057E80F9EA66D00C85842 /* PBXTextBookmark */ = A9A057E80F9EA66D00C85842 /* PBXTextBookmark */;
+			A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */ = A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */;
+			A9E53E990F9F6BE2001DC55F /* PlistBookmark */ = A9E53E990F9F6BE2001DC55F /* PlistBookmark */;
+			A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */ = A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */;
+			A9E53E9C0F9F6BE2001DC55F /* PlistBookmark */ = A9E53E9C0F9F6BE2001DC55F /* PlistBookmark */;
 		};
 		sourceControlManager = A9A056950F9E9A9000C85842 /* Source Control */;
 		userBuildSettings = {
@@ -98,12 +104,19 @@
 	};
 	29B97316FDCFA39411CA2CEA /* main.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {630, 415}}";
+			sepNavIntBoundsRect = "{{0, 0}, {861, 543}}";
 			sepNavSelRange = "{351, 0}";
 			sepNavVisRange = "{0, 396}";
 		};
 	};
-	A92437190FA22DF1003C6EED /* PlistBookmark */ = {
+	32CA4F630368D1EE00C91783 /* TestShinyCocos_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {861, 543}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 197}";
+		};
+	};
+	A95E97030FB459BB001A6523 /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
 		fallbackIsa = PBXBookmark;
@@ -113,6 +126,107 @@
 		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
 		rLen = 0;
 		rLoc = 2147483647;
+	};
+	A95E97040FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 14";
+		rLen = 0;
+		rLoc = 351;
+		rType = 0;
+		vrLen = 396;
+		vrLoc = 0;
+	};
+	A95E97050FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* TestShinyCocos_Prefix.pch */;
+		name = "TestShinyCocos_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 197;
+		vrLoc = 0;
+	};
+	A95E97060FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TestShinyCocosAppDelegate.m */;
+		name = "TestShinyCocosAppDelegate.m: 35";
+		rLen = 0;
+		rLoc = 836;
+		rType = 0;
+		vrLen = 848;
+		vrLoc = 99;
+	};
+	A95E97070FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* TestShinyCocosAppDelegate.h */;
+		name = "TestShinyCocosAppDelegate.h: 14";
+		rLen = 0;
+		rLoc = 286;
+		rType = 0;
+		vrLen = 293;
+		vrLoc = 0;
+	};
+	A95E97080FB459BB001A6523 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	A95E97090FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 14";
+		rLen = 0;
+		rLoc = 351;
+		rType = 0;
+		vrLen = 396;
+		vrLoc = 0;
+	};
+	A95E970A0FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* TestShinyCocos_Prefix.pch */;
+		name = "TestShinyCocos_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 197;
+		vrLoc = 0;
+	};
+	A95E970B0FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TestShinyCocosAppDelegate.m */;
+		name = "TestShinyCocosAppDelegate.m: 35";
+		rLen = 0;
+		rLoc = 836;
+		rType = 0;
+		vrLen = 848;
+		vrLoc = 99;
+	};
+	A95E970C0FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* TestShinyCocosAppDelegate.h */;
+		name = "TestShinyCocosAppDelegate.h: 14";
+		rLen = 0;
+		rLoc = 286;
+		rType = 0;
+		vrLen = 293;
+		vrLoc = 0;
+	};
+	A95E970D0FB459BB001A6523 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9A057080F9E9B1600C85842 /* main.rb */;
+		name = "main.rb: 9";
+		rLen = 0;
+		rLoc = 149;
+		rType = 0;
+		vrLen = 921;
+		vrLoc = 0;
 	};
 	A9A0568C0F9E9A8A00C85842 /* TestShinyCocos */ = {
 		isa = PBXExecutable;
@@ -157,18 +271,8 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {861, 588}}";
 			sepNavSelRange = "{149, 0}";
-			sepNavVisRange = "{0, 899}";
+			sepNavVisRange = "{0, 921}";
 		};
-	};
-	A9A057E60F9EA66D00C85842 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 1D3623250D0F684500981E51 /* TestShinyCocosAppDelegate.m */;
-		name = "TestShinyCocosAppDelegate.m: 35";
-		rLen = 0;
-		rLoc = 836;
-		rType = 0;
-		vrLen = 848;
-		vrLoc = 99;
 	};
 	A9A057E80F9EA66D00C85842 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -179,17 +283,6 @@
 		rType = 0;
 		vrLen = 848;
 		vrLoc = 99;
-	};
-	A9CD67290FA22E6100128F38 /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-		);
-		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
-		rLen = 0;
-		rLoc = 2147483647;
 	};
 	A9E53E980F9F6BE2001DC55F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -212,17 +305,6 @@
 		rLen = 0;
 		rLoc = 2147483647;
 	};
-	A9E53E9A0F9F6BE2001DC55F /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-		);
-		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
-		rLen = 0;
-		rLoc = 2147483647;
-	};
 	A9E53E9B0F9F6BE2001DC55F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = A9A057080F9E9B1600C85842 /* main.rb */;
@@ -241,17 +323,6 @@
 		kPath = (
 		);
 		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Info.plist;
-		rLen = 0;
-		rLoc = 2147483647;
-	};
-	A9E53EA10F9F6DB0001DC55F /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = A9E53E950F9F6BB9001DC55F /* Entitlements.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-		);
-		name = /Users/rolando/Documents/GFF/ShinyCocos/TestShinyCocos/Entitlements.plist;
 		rLen = 0;
 		rLoc = 2147483647;
 	};
