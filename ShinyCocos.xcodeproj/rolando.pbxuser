@@ -105,8 +105,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 263479433;
-			PBXWorkspaceStateSaveDate = 263479433;
+			PBXPerProjectTemplateStateSaveDate = 263501898;
+			PBXWorkspaceStateSaveDate = 263501898;
+		};
+		perUserProjectItems = {
+			A98CD4570FB4B8910017E521 /* PBXTextBookmark */ = A98CD4570FB4B8910017E521 /* PBXTextBookmark */;
+			A98CD4580FB4B8910017E521 /* PBXTextBookmark */ = A98CD4580FB4B8910017E521 /* PBXTextBookmark */;
 		};
 		sourceControlManager = A9A1F6950F8B99320022755C /* Source Control */;
 		userBuildSettings = {
@@ -377,9 +381,9 @@
 	};
 	A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {879, 10272}}";
-			sepNavSelRange = "{1947, 49}";
-			sepNavVisRange = "{1619, 538}";
+			sepNavIntBoundsRect = "{{0, 0}, {879, 9884}}";
+			sepNavSelRange = "{13109, 0}";
+			sepNavVisRange = "{12782, 833}";
 			sepNavWindowFrame = "{{15, 95}, {1236, 778}}";
 		};
 	};
@@ -396,6 +400,24 @@
 			sepNavSelRange = "{1420, 0}";
 			sepNavVisRange = "{616, 636}";
 		};
+	};
+	A98CD4570FB4B8910017E521 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: 'args' undeclared (first use in this function)";
+		fRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */;
+		rLen = 1;
+		rLoc = 459;
+		rType = 1;
+	};
+	A98CD4580FB4B8910017E521 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */;
+		name = "SC_CocosNode.m: 472";
+		rLen = 0;
+		rLoc = 13109;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 12782;
 	};
 	A996A3B50FB1C7F70040FDF4 /* big5.c */ = {
 		uiCtxt = {

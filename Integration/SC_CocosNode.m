@@ -380,6 +380,38 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	return args[0];
 }
 
+id create_action(ID name, int argc, VALUE *argv) {
+	cocos_holder *ptr;
+	id action = nil;
+	
+	if (name == id_action_repeat_forever) {
+		// argv[0] should be an action name, different from repeat_forever
+		id nested_action = nil;
+		if (argc > 0 && argv[0] != id_action_repeat_forever && TYPE(argv[0]) == T_SYMBOL) {
+			nested_action = create_action(SYM2ID(argv[0]), argc-1, argv+1);
+		}
+		if (nested_action == nil) {
+			rb_raise(rb_eArgError, "Invalid Nested Action");
+			return nil;
+		}
+		action = [RepeatForever actionWithAction:nested_action];
+	} else if (name == 	id_action_animate && argc == 1) {
+		Data_Get_Struct(argv[0], cocos_holder, ptr);
+		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
+	} else if ((name == id_action_move_to || name == id_action_move_by) && argc == 2) {
+		Check_Type(argv[0], T_FLOAT);
+		Check_Type(argv[1], T_ARRAY);
+		cpVect pos = cpv(NUM2DBL(RARRAY_PTR(argv[0])[0]), NUM2DBL(RARRAY_PTR(argv[0])[1]));
+		if (name == id_action_move_to)
+			action = [MoveTo actionWithDuration:NUM2DBL(argv[1]) position:pos];
+		else
+			action = [MoveBy actionWithDuration:NUM2DBL(argv[1]) position:pos];
+	} else {
+		rb_raise(rb_eArgError, "Invalid Action");
+	}
+	return action;
+}
+
 /*
  *    node.run_action(action, options, *args) do |action|
  *    end
@@ -421,37 +453,23 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
  * 
  * Returns the object that will run the action.
  */
-VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
+VALUE rb_cCocosNode_run_action(int argc, VALUE *argv, VALUE object) {
 	if (argc < 2) {
 		rb_raise(rb_eArgError, "Invalid number of arguments (need to pass the action and its options)");
 	}
-	Check_Type(args[0], T_SYMBOL);
-	Check_Type(args[1], T_HASH);
+	Check_Type(argv[0], T_SYMBOL);
+	Check_Type(argv[1], T_HASH);
 	
 	VALUE action_struct = Qnil; // the Struct to be passed to the block (if any)
-	id action;                  // the Obj-C action
-	ID rb_action = SYM2ID(args[0]);
-	cocos_holder *ptr;
-	if (rb_action == id_action_animate && argc == 3) {
-		Data_Get_Struct(args[2], cocos_holder, ptr);
-		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
-	} else if ((rb_action == id_action_move_to || rb_action == id_action_move_by) && argc == 4) {
-		Check_Type(args[2], T_FLOAT);
-		Check_Type(args[3], T_ARRAY);
-		cpVect pos = cpv(NUM2DBL(RARRAY_PTR(args[3])[0]), NUM2DBL(RARRAY_PTR(args[3])[1]));
-		if (rb_action == id_action_move_to)
-			action = [MoveTo actionWithDuration:NUM2DBL(args[2]) position:pos];
-		else
-			action = [MoveBy actionWithDuration:NUM2DBL(args[2]) position:pos];
-	} else {
-		rb_raise(rb_eArgError, "Invalid Action");
-	}
+	ID rb_action = SYM2ID(argv[0]);
+	id action = create_action(rb_action, argc-2, argv+2);
+	
 	/* not yet working */
 	if (rb_block_given_p()) {
 		rb_yield(action_struct);
 	}
-	// add an on_stop handler
-	VALUE on_stop_handler = rb_hash_aref(args[1], ID2SYM(rb_intern("on_stop")));
+	// add an on_stop handler if needed
+	VALUE on_stop_handler = rb_hash_aref(argv[1], ID2SYM(rb_intern("on_stop")));
 	if (on_stop_handler && TYPE(on_stop_handler) == T_SYMBOL) {
 		VALUE handler_ary = rb_ary_new3(2, object, on_stop_handler);
 		// protect variable, we should remove it later
@@ -460,6 +478,7 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *args, VALUE object) {
 	}
 	
 	// here we should do something with the modified struct (when the yield works)
+	cocos_holder *ptr;
 	Data_Get_Struct(object, cocos_holder, ptr);
 	[CC_NODE(ptr) runAction:action];
 	
