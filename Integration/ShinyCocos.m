@@ -96,9 +96,15 @@ void ShinyCocosStart() {
 	accDelegate = [[AccDelegate alloc] init];
 	
 	//ruby_run_node(ruby_options(sc_argc, sc_argv));
+	ruby_script("ShinyCocos");
 	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
 	if (state != 0) {
-		NSLog(@"put your ruby error here");
+		VALUE err    = rb_funcall(rb_gv_get("$!"), rb_intern("message"), 0, 0);
+		VALUE err_bt = rb_gv_get("$@");
+		VALUE err_bt_str = rb_funcall(err_bt, rb_intern("join"), 1, rb_str_new2("\n"));
+		NSLog(@"RubyError: %s\n%s",
+			StringValueCStr(err),
+			StringValueCStr(err_bt_str));
 	}
 }
 
