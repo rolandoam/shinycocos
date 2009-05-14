@@ -124,6 +124,8 @@
 		A9AC08890F93856600398C9B /* SC_Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC08870F93856600398C9B /* SC_Sprite.m */; };
 		A9AC08A00F93860400398C9B /* SC_TextureNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC089E0F93860400398C9B /* SC_TextureNode.h */; };
 		A9AC08A10F93860400398C9B /* SC_TextureNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC089F0F93860400398C9B /* SC_TextureNode.m */; };
+		A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */; };
+		A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */; };
 		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
 /* End PBXBuildFile section */
 
@@ -245,6 +247,8 @@
 		A9AC08870F93856600398C9B /* SC_Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Sprite.m; path = Integration/SC_Sprite.m; sourceTree = "<group>"; };
 		A9AC089E0F93860400398C9B /* SC_TextureNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TextureNode.h; path = Integration/SC_TextureNode.h; sourceTree = "<group>"; };
 		A9AC089F0F93860400398C9B /* SC_TextureNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TextureNode.m; path = Integration/SC_TextureNode.m; sourceTree = "<group>"; };
+		A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TiledMap.h; path = Integration/SC_TiledMap.h; sourceTree = "<group>"; };
+		A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TiledMap.m; path = Integration/SC_TiledMap.m; sourceTree = "<group>"; };
 		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libShinyCocos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShinyCocos.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -408,6 +412,8 @@
 				A94FBF530FA096910073C00F /* SC_AtlasSprite.m */,
 				A94FBF540FA096910073C00F /* SC_AtlasSpriteManager.h */,
 				A94FBF550FA096910073C00F /* SC_AtlasSpriteManager.m */,
+				A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */,
+				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
 				A9E436C70FA609A300D00AC1 /* SC_init.m */,
 				A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */,
 				A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */,
@@ -481,6 +487,7 @@
 				A996A6A50FB1D23B0040FDF4 /* gram.h in Headers */,
 				A996A6B10FB1D23B0040FDF4 /* syck.h in Headers */,
 				A996A6B70FB1D23B0040FDF4 /* yamlbyte.h in Headers */,
+				A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +636,7 @@
 				A996A6B00FB1D23B0040FDF4 /* syck.c in Sources */,
 				A996A6B30FB1D23B0040FDF4 /* token.c in Sources */,
 				A996A6B50FB1D23B0040FDF4 /* yaml2byte.c in Sources */,
+				A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,7 +661,11 @@
 					"./cocos2d-iphone/cocos2d/**",
 				);
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS2.2.1.sdk/usr/lib,
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ShinyCocos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
@@ -674,7 +686,11 @@
 					"./cocos2d-iphone/cocos2d/**",
 				);
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS2.2.1.sdk/usr/lib,
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ShinyCocos;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
