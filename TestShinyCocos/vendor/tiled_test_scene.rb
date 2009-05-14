@@ -12,6 +12,8 @@ class TiledTest < Cocos2D::Scene
         :tile_height => @map.properties[:tile_height],
         :map_width => @map.properties[:width],
         :map_height => @map.properties[:height],
+        # note: the data should NOT be compressed!!
+        # you have to uncheck that option in Tiled preferences
         :data => layer[:data])
       add_child node
     }
