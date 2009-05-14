@@ -18,10 +18,6 @@ task :build do
   sh "#{xcodebuild_str} build"
 end
 
-task :go do
-  sh "#{xcodebuild_str} go"
-end
-
 desc "Clean ShinyCocos"
 task :clean do
   sh "#{xcodebuild_str} clean"
@@ -40,25 +36,4 @@ task :simulate do
     file.puts "(debug deny)"
     file.puts "(allow default)"
   end
-end
-
-Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_files = %w(
-Integration/SC_init.m
-Integration/SC_CocoaAdditions.m
-Integration/SC_Director.m
-Integration/SC_CocosNode.m
-Integration/SC_AtlasSprite.m
-Integration/SC_AtlasSpriteManager.m
-Integration/SC_Scene.m
-Integration/SC_Sprite.m
-Integration/SC_Texture2D.m
-Integration/SC_TextureNode.m
-Integration/ShinyCocos.m
-README.rdoc
-  )
-  rdoc.options += [
-    '-E', 'm=c',
-    '--main', 'README.rdoc'
-  ]
 end
