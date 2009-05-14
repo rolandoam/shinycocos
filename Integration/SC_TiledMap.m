@@ -77,7 +77,7 @@
 	texCoord.tl_y = col + texStepY;					// C - y
 	texCoord.tr_x = row + texStepX;					// D - x
 	texCoord.tr_y = col + texStepY;					// D - y
-		
+	
 	vertex.bl_x = (int) (x * itemWidth);				// A - x
 	vertex.bl_y = (int) (y * itemHeight);				// A - y
 	vertex.bl_z = 0.0f;									// A - z
@@ -97,19 +97,22 @@
 - (void)updateAtlasValues {
 	int total = 0, x, y;
 
-	for(x = 0; x < width_; x++ ) {
-		for(y = 0; y < height_; y++ ) {
+	printf("updateAtlasValues (%d)\n", itemsPerRow);
+	unsigned char* ptr = (unsigned char *)[data_ bytes];
+	for(y = 0; y < height_; y++ ) {
+		for(x = 0; x < width_; x++ ) {
 			if (total < itemsToRender) {
-				unsigned char* ptr = (unsigned char *)[data_ bytes];
-				int st = y*4*width_ + x*4;
+				NSUInteger st = y*4*width_ + x*4;
 				NSUInteger value = ptr[st] | ptr[st+1] << 8 | ptr[st+2] << 16 | ptr[st+3] << 24;
+				printf("%03d ", value);
 				if(value != 0) {
-					[self updateAtlasValueAt:ccg(x,y) withValue:value withIndex:total];
+					[self updateAtlasValueAt:ccg(x, (height_ - 1) - y) withValue:value-1 withIndex:total];
 					total++;
 				}
 			}
-		} // y
-	} // x
+		} // x
+		printf("\n");
+	} // y
 }
 
 - (void)dealloc {
