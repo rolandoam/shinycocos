@@ -124,13 +124,13 @@ static void eachShape(void *ptr, void* unused)
 	// be a block/proc. It shouldn't be hard to implement, just check
 	// the type
 	if (handler && TYPE(handler) == T_ARRAY && RARRAY_LEN(handler) == 2) {
-		rb_funcall(RARRAY_PTR(handler)[0], rb_to_id(RARRAY_PTR(handler)[1]), 0);
+		rb_funcall(RARRAY_PTR(handler)[0], rb_to_id(RARRAY_PTR(handler)[1]), 0, 0);
 	}
 	// unregister the handler
 	// NOTE
 	// this might break things for actions that will be executed more than once.
-	//sc_remove_tracking_for(sc_handler_hash, (CocosNode *)self);
-	//rb_gc_unregister_address(&handler);
+	sc_remove_tracking_for(sc_handler_hash, (CocosNode *)self);
+	rb_gc_unregister_address(&handler);
 }
 @end
 
