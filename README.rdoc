@@ -22,6 +22,10 @@ stable-snapshot). The interpreter is loaded with a simple call from
 within your App Delegate. The interpreter then loads "main.rb". From
 there, you can have as many classes/files as you want.
 
+Your own code should be under the directory <tt>vendor</tt>, the
+ruby libraries, and other common code should be under the directory
+<tt>lib</tt>.
+
 For each cocos2d class there is (or will be) a Ruby version of the
 class, right now, the following classes are implemented:
 
@@ -73,8 +77,8 @@ or:
 
   ruby get_dependencies.rb
 
-Open the cocos2d-iphone project and set the output directory to
-"../build" instead of "build".
+Open the cocos2d-iphone project and set the output directory for the
+cocos2d-iphone and chipmunk to "../build" instead of "build".
 
 Open the TestShinyCocos project and build.
 
@@ -111,10 +115,33 @@ I will try to find an easier way :-).
 
 For ruby-only extensions, just add them to the lib directory.
 
+== Included Extensions/Libraries (from stdlib)
+
+You don't need to <tt>require</tt> these, they're already bundled and
+initialized in the included interpreter.
+
+* encdb
+* stringio
+* syck
+* nkf
+
+These are pure-ruby libs (found in the <tt>lib</tt> directory):
+
+* base64
+* date
+* forwardable
+* rexml (no iconv support)
+* set
+* yaml
+
+ShinyCocos libraries (also pure-ruby):
+
+* map_reader (Tiled map support)
+
 == TODO
 
 * Add documentation :-)
 * Integrate the rest of the cocos2d-iphone API
 * Check for leaks
 * Benchmarks
-
+* Support for 'debug' (?)
