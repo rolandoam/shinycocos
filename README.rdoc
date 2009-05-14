@@ -138,6 +138,12 @@ ShinyCocos libraries (also pure-ruby):
 
 * map_reader (Tiled map support)
 
+== Hey, I found a bug!
+
+You sure did. Please report it in the
+{issues section}[http://github.com/funkaster/shinycocos/issues] of the
+github project page.
+
 == TODO
 
 * Add documentation :-)
