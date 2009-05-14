@@ -97,21 +97,18 @@
 - (void)updateAtlasValues {
 	int total = 0, x, y;
 
-	printf("updateAtlasValues (%d)\n", itemsPerRow);
 	unsigned char* ptr = (unsigned char *)[data_ bytes];
 	for(y = 0; y < height_; y++ ) {
 		for(x = 0; x < width_; x++ ) {
 			if (total < itemsToRender) {
 				NSUInteger st = y*4*width_ + x*4;
 				NSUInteger value = ptr[st] | ptr[st+1] << 8 | ptr[st+2] << 16 | ptr[st+3] << 24;
-				printf("%03d ", value);
 				if(value != 0) {
 					[self updateAtlasValueAt:ccg(x, (height_ - 1) - y) withValue:value-1 withIndex:total];
 					total++;
 				}
 			}
 		} // x
-		printf("\n");
 	} // y
 }
 
