@@ -1,5 +1,28 @@
 require 'rake/rdoctask'
 
+PROJECT    = "ShinyCocos.xcodeproj"
+TARGET     = "ShinyCocos"
+SDK_DEVICE = "iphoneos2.2.1"
+SDK_SIMUL  = "iphonesimulator2.2.1"
+XCODEBUILD = "/usr/bin/xcodebuild"
+
+def xcodebuild_str(config = "Debug")
+  sdk = ENV['DEVICE'] ? SDK_DEVICE : SDK_SIMUL
+  "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
+end
+
+task :default => [:build]
+
+desc "Build ShinyCocos"
+task :build do
+  sh "#{xcodebuild_str} build"
+end
+
+desc "Clean ShinyCocos"
+task :clean do
+  sh "#{xcodebuild_str} clean"
+end
+
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files = %w(
 Integration/SC_init.m
