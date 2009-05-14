@@ -50,7 +50,7 @@ VALUE sc_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *a
 /*
  * use this with caution, this is really slow!
  */
-VALUE sc_rb_ns_log(int argc, VALUE *argv, VALUE module) {
+VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 	/* create the template string */
 	VALUE template_ary = rb_ary_new();
 	int i;
@@ -72,7 +72,7 @@ VALUE sc_rb_ns_log(int argc, VALUE *argv, VALUE module) {
  * 
  * The object must respond to <tt>got_acceleration(accel)</tt>.
  */
-VALUE sc_rb_set_acceleration_delegate(VALUE module, VALUE obj) {
+VALUE sc_set_acceleration_delegate(VALUE module, VALUE obj) {
 	sc_acc_delegate = obj;
 	// let know the GC that we're using it
 	rb_global_variable(&sc_acc_delegate);
@@ -109,11 +109,12 @@ void Init_ShinyCocos() {
 	init_rb_cAtlasSpriteManager();
 	init_rb_cAtlasSprite();
 	init_rb_cAtlasAnimation();
+	init_rb_cTiledMap();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
-	rb_define_method(rb_mCocos2D, "ns_log", sc_rb_ns_log, -1);
-	rb_define_method(rb_mCocos2D, "set_acceleration_delegate", sc_rb_set_acceleration_delegate, 1);
+	rb_define_method(rb_mCocos2D, "ns_log", sc_ns_log, -1);
+	rb_define_method(rb_mCocos2D, "set_acceleration_delegate", sc_set_acceleration_delegate, 1);
 }
 
 void Init_SC_Ruby_Extensions() {
