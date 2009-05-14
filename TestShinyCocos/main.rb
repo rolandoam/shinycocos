@@ -9,7 +9,7 @@ require 'tiled_test_scene'
 
 Cocos2D::Director.landscape = true
 Cocos2D::Director.animation_interval = 1/60.0
-Cocos2D::Director.display_fps(true)
+Cocos2D::Director.display_fps = false
 
 test = TiledTest.new
 #set_acceleration_delegate test

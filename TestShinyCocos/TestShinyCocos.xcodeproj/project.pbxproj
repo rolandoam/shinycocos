@@ -786,13 +786,9 @@
 					"../cocos2d-iphone/cocos2d/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/SDK3.0/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator2.2.1.sdk/usr/lib,
-					/SDK3.0/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS2.2.1.sdk/usr/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TestShinyCocos;
-				SDKROOT = iphonesimulator2.2.1;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = Debug;
 		};
@@ -808,13 +804,9 @@
 					"../cocos2d-iphone/cocos2d/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/SDK3.0/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator2.2.1.sdk/usr/lib,
-					/SDK3.0/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS2.2.1.sdk/usr/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TestShinyCocos;
-				SDKROOT = iphonesimulator2.2.1;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = Release;
 		};
