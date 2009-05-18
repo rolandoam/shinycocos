@@ -141,20 +141,20 @@ VALUE rb_cTiledMap_s_new(VALUE klass, VALUE opts) {
 	NSString *tileFile;
 	NSData *data;
 	
-	VALUE tmp = rb_hash_aref(opts, ID2SYM(rb_intern("tile_width")));
+	VALUE tmp = rb_hash_aref(opts, ID2SYM(id_sc_tile_width));
 	VALUE obj = Qnil;
 	
 	if (tmp != Qnil)
 		tileWidth = FIX2INT(tmp);
-	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(rb_intern("tile_height")))) != Qnil)
+	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(id_sc_tile_height))) != Qnil)
 		tileHeight = FIX2INT(tmp);
-	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(rb_intern("map_width")))) != Qnil)
+	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(id_sc_map_width))) != Qnil)
 		mapWidth = FIX2INT(tmp);
-	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(rb_intern("map_height")))) != Qnil)
+	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(id_sc_map_height))) != Qnil)
 		mapHeight = FIX2INT(tmp);
-	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(rb_intern("tiles")))) != Qnil)
+	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(id_sc_tiles))) != Qnil)
 		tileFile = [NSString stringWithUTF8String:StringValueCStr(tmp)];
-	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(rb_intern("data")))) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(opts, ID2SYM(id_sc_data))) != Qnil) {
 		data = [[NSData alloc] initWithBytes:RSTRING_PTR(tmp) length:RSTRING_LEN(tmp)];
 		// init the objc counterpart
 		SC_TiledMap *tm = [[SC_TiledMap alloc] initWithFile:tileFile tileWidth:tileWidth tileHeight:tileHeight mapWidth:mapWidth mapHeight:mapHeight data:data];

@@ -34,7 +34,7 @@ VALUE rb_cFile_s_read_from_resources(VALUE klass, VALUE fpath) {
 	NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithCString:StringValueCStr(fpath) encoding:NSUTF8StringEncoding] ofType:nil];
 	if (path == nil)
 		return Qnil;
-	return rb_funcall(klass, rb_intern("read"), 1, rb_str_new2([path cStringUsingEncoding:NSUTF8StringEncoding]));
+	return rb_funcall(klass, id_sc_read, 1, rb_str_new2([path cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
 void init_sc_cocoa_additions() {

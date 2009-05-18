@@ -23,8 +23,6 @@
 #import "SC_CocosNode.h"
 #import "SC_Layer.h"
 
-static ID id_menu_item_action;
-
 #pragma mark MenuItem
 
 // proxy for the MenuItem, it will hold the reference to a ruby object that will
@@ -57,8 +55,8 @@ static ID id_menu_item_action;
 }
 
 - (void)proxyRuby:(id)sender {
-	if (rb_respond_to(rbObject, id_menu_item_action)) {
-		rb_funcall(rbObject, id_menu_item_action, 0, 0);
+	if (rb_respond_to(rbObject, id_sc_item_action)) {
+		rb_funcall(rbObject, id_sc_item_action, 0, 0);
 	}
 }
 @end
@@ -76,13 +74,13 @@ VALUE rb_cMenuItemImage;
 VALUE rb_cMenuItemImage_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	// check options
-	VALUE normal_image = rb_hash_aref(opts, ID2SYM(rb_intern("normal")));
+	VALUE normal_image = rb_hash_aref(opts, ID2SYM(id_sc_normal));
 	if (normal_image == Qnil)
 		rb_raise(rb_eArgError, "normal image required");
-	VALUE selected_image = rb_hash_aref(opts, ID2SYM(rb_intern("selected")));
+	VALUE selected_image = rb_hash_aref(opts, ID2SYM(id_sc_selected));
 	if (selected_image == Qnil)
 		rb_raise(rb_eArgError, "selected image required");
-	VALUE disabled_image = rb_hash_aref(opts, ID2SYM(rb_intern("disabled")));
+	VALUE disabled_image = rb_hash_aref(opts, ID2SYM(id_sc_disabled));
 	NSString *normalImage = [NSString stringWithCString:StringValueCStr(normal_image) encoding:NSUTF8StringEncoding];
 	NSString *selectedImage = [NSString stringWithCString:StringValueCStr(selected_image) encoding:NSUTF8StringEncoding];
 	NSString *disabledImage = (disabled_image != Qnil) ? [NSString stringWithCString:StringValueCStr(disabled_image) encoding:NSUTF8StringEncoding] : nil;
@@ -95,7 +93,6 @@ VALUE rb_cMenuItemImage_s_new(VALUE klass, VALUE opts) {
 														  selector:@selector(proxyRuby:)];
 	VALUE ret = sc_init(klass, nil, mi, 0, 0, YES);
 	mp.rbObject = ret;
-	id_menu_item_action = rb_intern("item_action");
 	
 	return ret;
 }
@@ -178,14 +175,14 @@ VALUE rb_cMenu_align(int argc, VALUE *argv, VALUE obj) {
 	Check_Type(argv[0], T_SYMBOL);
 	cocos_holder *ptr;
 	Data_Get_Struct(obj, cocos_holder, ptr);
-	if (argv[0] == ID2SYM(rb_intern("horizontally"))) {
+	if (argv[0] == ID2SYM(id_sc_horizontally)) {
 		if (argc == 2) {
 			Check_Type(argv[1], T_FLOAT);
 			[CC_MENU(ptr) alignItemsHorizontallyWithPadding:NUM2DBL(argv[1])];
 		} else {
 			[CC_MENU(ptr) alignItemsHorizontally];
 		}
-	} else if (argv[0] == ID2SYM(rb_intern("vertically"))) {
+	} else if (argv[0] == ID2SYM(id_sc_vertically)) {
 		if (argc == 2) {
 			[CC_MENU(ptr) alignItemsVerticallyWithPadding:NUM2DBL(argv[1])];
 		} else {

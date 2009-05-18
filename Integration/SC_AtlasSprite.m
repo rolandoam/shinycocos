@@ -29,8 +29,8 @@ VALUE rb_cAtlasAnimation;
  */
 VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
-	VALUE rb_manager = rb_hash_aref(opts, ID2SYM(rb_intern("manager")));
-	VALUE rb_rect = rb_hash_aref(opts, ID2SYM(rb_intern("rect")));
+	VALUE rb_manager = rb_hash_aref(opts, ID2SYM(id_sc_manager));
+	VALUE rb_rect = rb_hash_aref(opts, ID2SYM(id_sc_rect));
 	CGRect rect = sc_make_rect(rb_rect);
 	
 	cocos_holder *ptr;
@@ -55,9 +55,9 @@ void init_rb_cAtlasSprite() {
  */
 VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
-	VALUE rb_name   = rb_hash_aref(opts, ID2SYM(rb_intern("name")));
-	VALUE rb_delay  = rb_hash_aref(opts, ID2SYM(rb_intern("delay")));
-	VALUE rb_frames = rb_hash_aref(opts, ID2SYM(rb_intern("frames")));
+	VALUE rb_name   = rb_hash_aref(opts, ID2SYM(id_sc_name));
+	VALUE rb_delay  = rb_hash_aref(opts, ID2SYM(id_sc_delay));
+	VALUE rb_frames = rb_hash_aref(opts, ID2SYM(id_sc_frames));
 	AtlasAnimation *anim;
 	if (rb_frames == Qnil) {
 		anim = [[AtlasAnimation alloc] initWithName:[NSString stringWithCString:StringValueCStr(rb_name) encoding:NSUTF8StringEncoding] delay:NUM2DBL(rb_delay)];

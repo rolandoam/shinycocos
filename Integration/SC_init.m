@@ -54,11 +54,11 @@ VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 	int i;
 	for (i=0; i < argc; i++) {
 		if (TYPE(argv[i]) == T_STRING)
-			rb_funcall(template_ary, rb_intern("push"), 1, argv[i]);
+			rb_funcall(template_ary, id_sc_push, 1, argv[i]);
 		else
-			rb_funcall(template_ary, rb_intern("push"), 1, INSPECT(argv[i]));
+			rb_funcall(template_ary, id_sc_push, 1, INSPECT(argv[i]));
 	}
-	VALUE template_final = rb_funcall(template_ary, rb_intern("join"), 1, rb_str_new2(" "));	
+	VALUE template_final = rb_funcall(template_ary, id_sc_join, 1, rb_str_new2(" "));	
 	
 	NSLog([NSString stringWithCString:StringValueCStr(template_final) encoding:NSUTF8StringEncoding]);
 	return Qnil;
@@ -83,6 +83,7 @@ void Init_ShinyCocos() {
 	sc_schedule_methods = [[NSMutableDictionary alloc] init];
 	
 	/* init the integration classes */
+	init_sc_ids();
 	init_rb_cTexture2D();
 	init_rb_cDirector();
 	init_rb_cCocosNode();

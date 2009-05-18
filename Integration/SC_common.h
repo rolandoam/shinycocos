@@ -21,6 +21,7 @@
 #import "ruby.h"
 #import "cocos2d.h"
 #import "chipmunk.h"
+#import "SC_ids.h"
 
 typedef struct {
 	id _obj;
@@ -30,7 +31,7 @@ typedef struct {
 #define CC_LAYER(ptr) ((Layer *)ptr->_obj)
 #define CC_MENU(ptr) ((Menu *)ptr->_obj)
 
-#define INSPECT(obj) rb_funcall(obj, rb_intern("inspect"), 0, 0)
+#define INSPECT(obj) rb_funcall(obj, id_sc_inspect, 0, 0)
 #define RBCALL(obj, func) rb_funcall(obj, rb_intern(func), 0, 0)
 
 extern VALUE rb_mCocos2D;

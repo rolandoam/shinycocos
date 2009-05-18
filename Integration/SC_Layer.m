@@ -24,14 +24,6 @@
 #import "SC_CocosNode.h"
 
 VALUE rb_cLayer;
-static ID id_touches_began;
-static ID id_touches_moved;
-static ID id_touches_ended;
-static ID id_touches_cancelled;
-static ID id_did_accelerate;
-static ID id_location;
-static ID id_tap_count;
-static ID id_timestamp;
 
 @interface RBLayer : Layer
 - (BOOL)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
@@ -52,8 +44,8 @@ static ID id_timestamp;
 		CGPoint loc = [touch locationInView:[touch view]];
 		NSUInteger taps = [touch tapCount];
 		VALUE h = rb_hash_new();
-		rb_hash_aset(h, ID2SYM(id_location), rb_ary_new3(2, rb_float_new(loc.x), rb_float_new(loc.y)));
-		rb_hash_aset(h, ID2SYM(id_tap_count), INT2FIX(taps));
+		rb_hash_aset(h, ID2SYM(id_sc_location), rb_ary_new3(2, rb_float_new(loc.x), rb_float_new(loc.y)));
+		rb_hash_aset(h, ID2SYM(id_sc_tap_count), INT2FIX(taps));
 		rb_ary_push(rb_arr, h);
 	}
 	return rb_arr;
@@ -62,8 +54,8 @@ static ID id_timestamp;
 - (BOOL)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_touches_began)) {
-			rb_funcall(obj, id_touches_began, 1, [self rbArrayWithSet:touches]);
+		if (rb_respond_to(obj, id_sc_touches_began)) {
+			rb_funcall(obj, id_sc_touches_began, 1, [self rbArrayWithSet:touches]);
 			return YES;
 		}
 	}
@@ -73,8 +65,8 @@ static ID id_timestamp;
 - (BOOL)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_touches_moved)) {
-			rb_funcall(obj, id_touches_moved, 1, [self rbArrayWithSet:touches]);
+		if (rb_respond_to(obj, id_sc_touches_moved)) {
+			rb_funcall(obj, id_sc_touches_moved, 1, [self rbArrayWithSet:touches]);
 			return YES;
 		}
 	}
@@ -84,8 +76,8 @@ static ID id_timestamp;
 - (BOOL)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_touches_ended)) {
-			rb_funcall(obj, id_touches_ended, 1, [self rbArrayWithSet:touches]);
+		if (rb_respond_to(obj, id_sc_touches_ended)) {
+			rb_funcall(obj, id_sc_touches_ended, 1, [self rbArrayWithSet:touches]);
 			return YES;
 		}
 	}
@@ -95,8 +87,8 @@ static ID id_timestamp;
 - (BOOL)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_touches_cancelled)) {
-			rb_funcall(obj, id_touches_cancelled, 1, [self rbArrayWithSet:touches]);
+		if (rb_respond_to(obj, id_sc_touches_cancelled)) {
+			rb_funcall(obj, id_sc_touches_cancelled, 1, [self rbArrayWithSet:touches]);
 			return YES;
 		}
 	}
@@ -106,12 +98,12 @@ static ID id_timestamp;
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_did_accelerate)) {
+		if (rb_respond_to(obj, id_sc_did_accelerate)) {
 			VALUE rb_arr = rb_ary_new3(3,
 				rb_float_new(acceleration.x),
 				rb_float_new(acceleration.y),
 				rb_float_new(acceleration.z));
-			rb_funcall(obj, id_did_accelerate, 1, rb_arr);
+			rb_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
 		}
 	}
 }
@@ -170,13 +162,4 @@ void init_rb_cLayer() {
 	
 	rb_define_method(rb_cLayer, "enable_touch", rb_cLayer_enable_touch, 1);
 	rb_define_method(rb_cLayer, "enable_accelerometer", rb_cLayer_enable_accelerometer, 1);
-	
-	id_touches_began = rb_intern("touches_began");
-	id_touches_ended = rb_intern("touches_ended");
-	id_touches_moved = rb_intern("touches_moved");
-	id_touches_cancelled = rb_intern("touches_cancelled");
-	id_did_accelerate = rb_intern("did_accelerate");
-	id_location = rb_intern("location");
-	id_tap_count = rb_intern("tap_count");
-	id_timestamp = rb_intern("timestamp");
 }

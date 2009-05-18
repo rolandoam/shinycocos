@@ -128,6 +128,8 @@
 		A9AC08890F93856600398C9B /* SC_Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC08870F93856600398C9B /* SC_Sprite.m */; };
 		A9AC08A00F93860400398C9B /* SC_TextureNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A9AC089E0F93860400398C9B /* SC_TextureNode.h */; };
 		A9AC08A10F93860400398C9B /* SC_TextureNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AC089F0F93860400398C9B /* SC_TextureNode.m */; };
+		A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */; };
+		A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */; };
 		A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */; };
 		A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */; };
 		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
@@ -255,6 +257,8 @@
 		A9AC08870F93856600398C9B /* SC_Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Sprite.m; path = Integration/SC_Sprite.m; sourceTree = "<group>"; };
 		A9AC089E0F93860400398C9B /* SC_TextureNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TextureNode.h; path = Integration/SC_TextureNode.h; sourceTree = "<group>"; };
 		A9AC089F0F93860400398C9B /* SC_TextureNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TextureNode.m; path = Integration/SC_TextureNode.m; sourceTree = "<group>"; };
+		A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_ids.m; path = Integration/SC_ids.m; sourceTree = "<group>"; };
+		A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_ids.h; path = Integration/SC_ids.h; sourceTree = "<group>"; };
 		A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TiledMap.h; path = Integration/SC_TiledMap.h; sourceTree = "<group>"; };
 		A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TiledMap.m; path = Integration/SC_TiledMap.m; sourceTree = "<group>"; };
 		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
@@ -401,6 +405,8 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */,
+				A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */,
 				A93D7EE30FBE49EB00731024 /* SC_Menu.h */,
 				A93D7EBF0FBE49BA00731024 /* SC_Layer.h */,
 				A93D7EB40FBE0D9300731024 /* SC_Menu.m */,
@@ -502,6 +508,7 @@
 				A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */,
 				A93D7EC00FBE49BA00731024 /* SC_Layer.h in Headers */,
 				A93D7EE40FBE49EB00731024 /* SC_Menu.h in Headers */,
+				A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +660,7 @@
 				A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */,
 				A93D7DC40FBDE4E100731024 /* SC_Layer.m in Sources */,
 				A93D7EB50FBE0D9300731024 /* SC_Menu.m in Sources */,
+				A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

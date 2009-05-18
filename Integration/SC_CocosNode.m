@@ -22,13 +22,6 @@
 #import "SC_CocosNode.h"
 #import "rb_chipmunk.h"
 
-static ID id_action_animate;
-static ID id_action_repeat_forever;
-static ID id_action_move_to;
-static ID id_action_move_by;
-static ID id_cb_on_enter;
-static ID id_cb_on_exit;
-
 VALUE rb_cCocosNode;
 
 #pragma mark CocosNode extension
@@ -68,7 +61,7 @@ static void eachShape(void *ptr, void* unused)
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbObject != Qnil) {
-		rb_funcall(rbObject, id_cb_on_enter, 0, 0);
+		rb_funcall(rbObject, id_sc_on_enter, 0, 0);
 	}
 }
 
@@ -77,7 +70,7 @@ static void eachShape(void *ptr, void* unused)
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbObject != Qnil) {
-		rb_funcall(rbObject, id_cb_on_exit, 0, 0);
+		rb_funcall(rbObject, id_sc_on_exit, 0, 0);
 	}
 }
 
@@ -360,11 +353,11 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	if (argc == 2) {
 		Check_Type(args[1], T_HASH);
 		VALUE _tmp = Qnil;
-		if ((_tmp = rb_hash_aref(args[1], ID2SYM(rb_intern("z")))) != Qnil)
+		if ((_tmp = rb_hash_aref(args[1], ID2SYM(id_sc_z))) != Qnil)
 			z_order = FIX2INT(_tmp);
-		if ((_tmp = rb_hash_aref(args[1], ID2SYM(rb_intern("tag")))) != Qnil)
+		if ((_tmp = rb_hash_aref(args[1], ID2SYM(id_sc_tag))) != Qnil)
 			tag = FIX2INT(_tmp);
-		if ((_tmp = rb_hash_aref(args[1], ID2SYM(rb_intern("parallax_ratio")))) != Qnil) {
+		if ((_tmp = rb_hash_aref(args[1], ID2SYM(id_sc_parallax_ratio))) != Qnil) {
 			parallaxRatio = _tmp;
 		}
 	}
@@ -384,10 +377,10 @@ id create_action(ID name, int argc, VALUE *argv) {
 	cocos_holder *ptr;
 	id action = nil;
 	
-	if (name == id_action_repeat_forever) {
+	if (name == id_sc_repeat_forever) {
 		// argv[0] should be an action name, different from repeat_forever
 		id nested_action = nil;
-		if (argc > 0 && argv[0] != id_action_repeat_forever && TYPE(argv[0]) == T_SYMBOL) {
+		if (argc > 0 && argv[0] != id_sc_repeat_forever && TYPE(argv[0]) == T_SYMBOL) {
 			nested_action = create_action(SYM2ID(argv[0]), argc-1, argv+1);
 		}
 		if (nested_action == nil) {
@@ -395,14 +388,14 @@ id create_action(ID name, int argc, VALUE *argv) {
 			return nil;
 		}
 		action = [RepeatForever actionWithAction:nested_action];
-	} else if (name == 	id_action_animate && argc == 1) {
+	} else if (name == 	id_sc_animate && argc == 1) {
 		Data_Get_Struct(argv[0], cocos_holder, ptr);
 		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
-	} else if ((name == id_action_move_to || name == id_action_move_by) && argc == 2) {
+	} else if ((name == id_sc_move_to || name == id_sc_move_by) && argc == 2) {
 		Check_Type(argv[0], T_FLOAT);
 		Check_Type(argv[1], T_ARRAY);
 		cpVect pos = cpv(NUM2DBL(RARRAY_PTR(argv[0])[0]), NUM2DBL(RARRAY_PTR(argv[0])[1]));
-		if (name == id_action_move_to)
+		if (name == id_sc_move_to)
 			action = [MoveTo actionWithDuration:NUM2DBL(argv[1]) position:pos];
 		else
 			action = [MoveBy actionWithDuration:NUM2DBL(argv[1]) position:pos];
@@ -469,7 +462,7 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *argv, VALUE object) {
 		rb_yield(action_struct);
 	}
 	// add an on_stop handler if needed
-	VALUE on_stop_handler = rb_hash_aref(argv[1], ID2SYM(rb_intern("on_stop")));
+	VALUE on_stop_handler = rb_hash_aref(argv[1], ID2SYM(id_sc_on_stop));
 	if (on_stop_handler && TYPE(on_stop_handler) == T_SYMBOL) {
 		VALUE handler_ary = rb_ary_new3(2, object, on_stop_handler);
 		// protect variable, we should remove it later
@@ -541,7 +534,7 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	Data_Get_Struct(object, cocos_holder, ptr);
 	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(ptr));
 	if (methods != Qnil) {
-		rb_funcall(methods, rb_intern("delete"), 1, method);
+		rb_funcall(methods, id_sc_delete, 1, method);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[CC_NODE(ptr) unschedule:@selector(rbScheduler)];
@@ -699,12 +692,4 @@ void init_rb_cCocosNode() {
 	sc_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
 	// replace the stop method on Action (to be able to call the stop handler in ruby)
 	sc_method_swap([Action class], @selector(stop), @selector(rb_stop));
-		
-	// setup the valid_actions array
-	id_action_animate = rb_intern("animate");
-	id_action_repeat_forever = rb_intern("repeat_forever");
-	id_action_move_to = rb_intern("move_to");
-	id_action_move_by = rb_intern("move_by");
-	id_cb_on_enter = rb_intern("on_enter");
-	id_cb_on_exit = rb_intern("on_exit");
 }
