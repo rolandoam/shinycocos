@@ -21,24 +21,6 @@
 #import "ShinyCocos.h"
 #import "SC_common.h"
 
-#pragma mark AccDelegate
-
-@interface AccDelegate : NSObject
-{
-}
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
-@end
-
-@implementation AccDelegate
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-	if (sc_acc_delegate != Qnil) {
-		float acc_abs = sqrt(acceleration.x * acceleration.x + acceleration.y * acceleration.y + acceleration.z * acceleration.z);
-		VALUE acc_ary = rb_ary_new3(4, rb_float_new(acceleration.x), rb_float_new(acceleration.y), rb_float_new(acceleration.z), rb_float_new(acc_abs));
-		rb_funcall(sc_acc_delegate, rb_intern("got_acceleration"), 1, acc_ary);
-	}
-}
-@end
-
 void sc_method_swap(Class cls, SEL orig, SEL repl) {
 //	NSLog(@"replacing %@ with %@ in %@", NSStringFromSelector(orig), NSStringFromSelector(repl), cls);
 	Method m1 = class_getInstanceMethod(cls, orig);
@@ -92,9 +74,7 @@ void ShinyCocosSetup(UIWindow *window) {
 }
 
 void ShinyCocosStart() {
-	int state;
-	accDelegate = [[AccDelegate alloc] init];
-	
+	int state;	
 	//ruby_run_node(ruby_options(sc_argc, sc_argv));
 	ruby_script("ShinyCocos");
 	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
@@ -113,7 +93,6 @@ void ShinyCocosInitChipmunk() {
 }
 
 void ShinyCocosStop() {
-	[accDelegate release];
 	// release handlers
 	[sc_object_hash release];
 	[sc_handler_hash release];

@@ -35,6 +35,7 @@ Integration/SC_Scene.m
 Integration/SC_Sprite.m
 Integration/SC_Texture2D.m
 Integration/SC_TextureNode.m
+Integration/SC_Layer.m
 Integration/ShinyCocos.m
 README.rdoc
   )

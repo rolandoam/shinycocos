@@ -20,11 +20,9 @@
 #import "SC_common.h"
 
 VALUE rb_mCocos2D;
-VALUE sc_acc_delegate;
 NSMutableDictionary *sc_object_hash;
 NSMutableDictionary *sc_schedule_methods;
 NSMutableDictionary *sc_handler_hash;
-id accDelegate;
 
 #pragma mark Common
 
@@ -67,20 +65,6 @@ VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 }
 
 /*
- * set the acceleration delegate. It will receive an array with 4
- * floats: acceleration on axis x, y, z and the absolute acceleration.
- * 
- * The object must respond to <tt>got_acceleration(accel)</tt>.
- */
-VALUE sc_set_acceleration_delegate(VALUE module, VALUE obj) {
-	sc_acc_delegate = obj;
-	// let know the GC that we're using it
-	rb_global_variable(&sc_acc_delegate);
-	[UIAccelerometer sharedAccelerometer].delegate = accDelegate;
-	return obj;
-}
-
-/*
  * ShinyCocos
  * 
  * ## Notes
@@ -97,7 +81,6 @@ void Init_ShinyCocos() {
 	sc_object_hash = [[NSMutableDictionary alloc] init];
 	sc_handler_hash = [[NSMutableDictionary alloc] init];
 	sc_schedule_methods = [[NSMutableDictionary alloc] init];
-	sc_acc_delegate = Qnil;
 	
 	/* init the integration classes */
 	init_rb_cTexture2D();
@@ -110,11 +93,13 @@ void Init_ShinyCocos() {
 	init_rb_cAtlasSprite();
 	init_rb_cAtlasAnimation();
 	init_rb_cTiledMap();
+	init_rb_cLayer();
+	init_rb_cMenu();
+	init_rb_cMenuItemImage();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
 	rb_define_method(rb_mCocos2D, "ns_log", sc_ns_log, -1);
-	rb_define_method(rb_mCocos2D, "set_acceleration_delegate", sc_set_acceleration_delegate, 1);
 }
 
 void Init_SC_Ruby_Extensions() {

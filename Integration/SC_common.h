@@ -27,6 +27,8 @@ typedef struct {
 } cocos_holder;
 #define GET_OBJC(ptr) ((cocos_holder *)ptr)->_obj
 #define CC_NODE(ptr) ((CocosNode *)ptr->_obj)
+#define CC_LAYER(ptr) ((Layer *)ptr->_obj)
+#define CC_MENU(ptr) ((Menu *)ptr->_obj)
 
 #define INSPECT(obj) rb_funcall(obj, rb_intern("inspect"), 0, 0)
 #define RBCALL(obj, func) rb_funcall(obj, rb_intern(func), 0, 0)

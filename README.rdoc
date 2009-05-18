@@ -33,6 +33,9 @@ class, right now, the following classes are implemented:
 * Director
 * CocosNode
 * Scene
+* Layer
+* Menu
+* MenuItemImage
 * TextureNode
 * Sprite
 * AtlasSprite
