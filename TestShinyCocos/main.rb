@@ -18,4 +18,5 @@ $scenes = [
   TestLayer
 ]
 $curr_scene = 0
-Cocos2D::Director.run_scene $scenes[$curr_scene].new
+$running = $scenes[$curr_scene].new
+Cocos2D::Director.run_scene $running
