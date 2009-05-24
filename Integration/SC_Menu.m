@@ -151,7 +151,6 @@ VALUE rb_cMenu_s_new(VALUE klass, VALUE args) {
 	Menu *menu = [[Menu alloc] initWithItems:first vaList:fa.varargs];
 	VALUE ret = sc_init(klass, nil, menu, 0, 0, YES);
 	sc_add_tracking(sc_object_hash, menu, ret);
-	free(p);
 	
 	return ret;
 }
