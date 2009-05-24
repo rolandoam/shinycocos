@@ -1,5 +1,9 @@
 require 'base64'
 require 'rexml/document'
+if ENV['NONDEVICE']
+  require 'zlib'
+  require 'stringio'
+end
 
 class TiledMapReader
   class InvalidMap < StandardError; end
@@ -9,7 +13,11 @@ class TiledMapReader
   attr_reader :properties
 
   def initialize(map)
-    @doc = REXML::Document.new(File.read_from_resources(map))
+    if ENV['NONDEVICE']
+      @doc = REXML::Document.new(File.read(map))
+    else
+      @doc = REXML::Document.new(File.read_from_resources(map))
+    end
     root = @doc.root
     if root.name != "map"
       raise InvalidMap.new
@@ -27,7 +35,14 @@ class TiledMapReader
       l[:width] = layer.attributes['width'].to_i
       l[:height] = layer.attributes['height'].to_i
       data = REXML::XPath.first(layer, "data")
-      l[:data] = Base64.decode64(data.text.strip)
+      if data.attributes['compression'] == "gzip"
+        str = StringIO.new(Base64.decode64(data.text.strip))
+        reader = Zlib::GzipReader.new(str)
+        l[:data] = reader.read
+        reader.close
+      else
+        l[:data] = Base64.decode64(data.text.strip)
+      end
       @layers << l
     }
   end
@@ -50,4 +65,9 @@ class TiledMapReader
     st = y*4*@properties[:width] + x*4
     data[st] | data[st + 1] << 8 | data[st + 2] << 16 | data[st + 3] << 24
   end
+end
+
+if __FILE__ == $0
+  tm = TiledMapReader.new(ARGV[0])
+  tm.show_map
 end
