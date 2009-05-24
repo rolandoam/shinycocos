@@ -107,5 +107,6 @@ void Init_SC_Ruby_Extensions() {
 	Init_encdb();
 	Init_stringio();
 	Init_syck();
+	Init_zlib();
 	// add your extensions init here!
 }

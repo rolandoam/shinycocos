@@ -71,6 +71,7 @@
 		A9515E240F9D19E200B2B839 /* SC_Director.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E1E0F9D19E200B2B839 /* SC_Director.m */; };
 		A9515E250F9D19E200B2B839 /* SC_Scene.h in Headers */ = {isa = PBXBuildFile; fileRef = A9515E1F0F9D19E200B2B839 /* SC_Scene.h */; };
 		A9515E260F9D19E200B2B839 /* SC_Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E200F9D19E200B2B839 /* SC_Scene.m */; };
+		A97005B40FCA051F00E1BE12 /* zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A97005B30FCA051F00E1BE12 /* zlib.c */; };
 		A996A3BA0FB1C7F70040FDF4 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B50FB1C7F70040FDF4 /* big5.c */; };
 		A996A3BB0FB1C7F70040FDF4 /* cp949.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B60FB1C7F70040FDF4 /* cp949.c */; };
 		A996A3BC0FB1C7F70040FDF4 /* euc_jp.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B70FB1C7F70040FDF4 /* euc_jp.c */; };
@@ -200,6 +201,7 @@
 		A9515E1E0F9D19E200B2B839 /* SC_Director.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Director.m; path = Integration/SC_Director.m; sourceTree = "<group>"; };
 		A9515E1F0F9D19E200B2B839 /* SC_Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Scene.h; path = Integration/SC_Scene.h; sourceTree = "<group>"; };
 		A9515E200F9D19E200B2B839 /* SC_Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Scene.m; path = Integration/SC_Scene.m; sourceTree = "<group>"; };
+		A97005B30FCA051F00E1BE12 /* zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zlib.c; path = ruby/ext/zlib/zlib.c; sourceTree = "<group>"; };
 		A996A3B50FB1C7F70040FDF4 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = big5.c; path = ruby/enc/big5.c; sourceTree = "<group>"; };
 		A996A3B60FB1C7F70040FDF4 /* cp949.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cp949.c; path = ruby/enc/cp949.c; sourceTree = "<group>"; };
 		A996A3B70FB1C7F70040FDF4 /* euc_jp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = euc_jp.c; path = ruby/enc/euc_jp.c; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				A996A6810FB1D23B0040FDF4 /* syck */,
 				A938D75B0FB11B8600F46FEA /* stringio.c */,
 				A9A054F80F9E8D5300C85842 /* strscan.c */,
+				A97005B30FCA051F00E1BE12 /* zlib.c */,
 			);
 			name = ext;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				A93D7DC40FBDE4E100731024 /* SC_Layer.m in Sources */,
 				A93D7EB50FBE0D9300731024 /* SC_Menu.m in Sources */,
 				A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */,
+				A97005B40FCA051F00E1BE12 /* zlib.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

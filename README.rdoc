@@ -127,6 +127,7 @@ initialized in the included interpreter.
 * stringio
 * syck
 * nkf
+* zlib
 
 These are pure-ruby libs (found in the <tt>lib</tt> directory):
 
