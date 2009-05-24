@@ -16,6 +16,10 @@
 		A9066C970FBB18830020ABC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9066C920FBB18830020ABC5 /* UIKit.framework */; };
 		A9066D000FBB19F80020ABC5 /* libChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056CE0F9E9AB600C85842 /* libChipmunk.a */; };
 		A9066D910FBB55610020ABC5 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = A9066D210FBB55610020ABC5 /* lib */; };
+		A93327D00FC1DD3900843F58 /* f1.png in Resources */ = {isa = PBXBuildFile; fileRef = A93327CC0FC1DD3900843F58 /* f1.png */; };
+		A93327D10FC1DD3900843F58 /* f2.png in Resources */ = {isa = PBXBuildFile; fileRef = A93327CD0FC1DD3900843F58 /* f2.png */; };
+		A93327D20FC1DD3900843F58 /* r1.png in Resources */ = {isa = PBXBuildFile; fileRef = A93327CE0FC1DD3900843F58 /* r1.png */; };
+		A93327D30FC1DD3900843F58 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = A93327CF0FC1DD3900843F58 /* r2.png */; };
 		A93D7EA10FBE0BF300731024 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A93D7E9B0FBE0BF300731024 /* vendor */; };
 		A98CD4320FB4B2750017E521 /* grossini_dance_atlas.pvr in Resources */ = {isa = PBXBuildFile; fileRef = A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */; };
 		A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */; };
@@ -291,6 +295,10 @@
 		A9066C910FBB18830020ABC5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A9066C920FBB18830020ABC5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9066D210FBB55610020ABC5 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		A93327CC0FC1DD3900843F58 /* f1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f1.png; sourceTree = "<group>"; };
+		A93327CD0FC1DD3900843F58 /* f2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f2.png; sourceTree = "<group>"; };
+		A93327CE0FC1DD3900843F58 /* r1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r1.png; sourceTree = "<group>"; };
+		A93327CF0FC1DD3900843F58 /* r2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r2.png; sourceTree = "<group>"; };
 		A93D7E9B0FBE0BF300731024 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
 		A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = grossini_dance_atlas.pvr; sourceTree = "<group>"; };
 		A98CD4A50FB4BBA90017E521 /* AccelerometerSimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSimulation.h; sourceTree = "<group>"; };
@@ -370,14 +378,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A9C20BEC0FC11FDC00D3D8F8 /* b2.png */,
-				A9C20B740FC115B500D3D8F8 /* b1.png */,
+				A93328070FC1DFCC00843F58 /* Images */,
 				A9066D210FBB55610020ABC5 /* lib */,
 				A93D7E9B0FBE0BF300731024 /* vendor */,
 				A9E291CA0FBA3A4300DA3C1E /* TestTiled.tmx */,
-				A9E291C80FBA38BB00DA3C1E /* tiles.png */,
-				A9A057060F9E9B1600C85842 /* fps_images.png */,
-				A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				A9E53E950F9F6BB9001DC55F /* Entitlements.plist */,
 			);
@@ -394,6 +398,22 @@
 				A9066C920FBB18830020ABC5 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A93328070FC1DFCC00843F58 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */,
+				A9E291C80FBA38BB00DA3C1E /* tiles.png */,
+				A9A057060F9E9B1600C85842 /* fps_images.png */,
+				A93327CC0FC1DD3900843F58 /* f1.png */,
+				A93327CD0FC1DD3900843F58 /* f2.png */,
+				A93327CE0FC1DD3900843F58 /* r1.png */,
+				A93327CF0FC1DD3900843F58 /* r2.png */,
+				A9C20BEC0FC11FDC00D3D8F8 /* b2.png */,
+				A9C20B740FC115B500D3D8F8 /* b1.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		A98CD4A80FB4BBAE0017E521 /* AccSim */ = {
@@ -458,6 +478,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TestShinyCocos" */;
 			buildPhases = (
+				A93327F70FC1DF7100843F58 /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -743,10 +764,30 @@
 				A93D7EA10FBE0BF300731024 /* vendor in Resources */,
 				A9C20B750FC115B500D3D8F8 /* b1.png in Resources */,
 				A9C20BED0FC11FDC00D3D8F8 /* b2.png in Resources */,
+				A93327D00FC1DD3900843F58 /* f1.png in Resources */,
+				A93327D10FC1DD3900843F58 /* f2.png in Resources */,
+				A93327D20FC1DD3900843F58 /* r1.png in Resources */,
+				A93327D30FC1DD3900843F58 /* r2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A93327F70FC1DF7100843F58 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "touch -cm ${SRCROOT}/vendor\ntouch -cm ${SRCROOT}/lib";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {

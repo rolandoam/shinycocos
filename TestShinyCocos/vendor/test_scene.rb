@@ -1,4 +1,6 @@
-class TestScene < Cocos2D::Scene
+require 'menu_scene'
+
+class TestScene < MenuScene
   include Cocos2D
   
   def initialize
@@ -19,12 +21,14 @@ class TestScene < Cocos2D::Scene
     @sprite.position = [240, 160]
     @sprite.run_action(:repeat_forever, {}, :animate, @animations[:walk])
     @manager.add_child @sprite, :z => 0
+	enable_accelerometer(true)
+    super
   end
   
   # acceleration is an array of floats
   # acceleration[0..2] = x,y,z
   # acceleration[3] = absolute acceleration
-  def got_acceleration(acceleration)
+  def did_accelerate(acceleration)
     # ns_log("acceleration abs:%0.2f" % acceleration[3])
     # now move the sprite
     old_pos = @sprite.position
