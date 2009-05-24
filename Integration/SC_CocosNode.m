@@ -299,24 +299,6 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 
 /* 
  * call-seq:
- *     node = CocosNode.node   #=> CocosNode
- * 
- * Creates a new node. Use the other version when subclassing
- * CocosNode.
- * 
- * This one creates an autoreleaseable version (although this doesn't
- * matter on the ruby side).
- */
-VALUE rb_cCocosNode_s_node(VALUE klass) {
-	CocosNode *node = [CocosNode node];
-	VALUE obj = sc_init(klass, nil, node, 0, 0, NO);
-	// add the pointer to the object hash
-	sc_add_tracking(sc_object_hash, node, obj);
-	return obj;
-}
-
-/* 
- * call-seq:
  *     node = CocosNode.new    #=> CocosNode
  *     node = CocosNodeSubclass.new(a,b)   #=> CocosNode
  * 
@@ -646,7 +628,6 @@ VALUE rb_cCocosNode_draw(VALUE object) {
  */
 void init_rb_cCocosNode() {
 	rb_cCocosNode = rb_define_class_under(rb_mCocos2D, "CocosNode", rb_cObject);
-	rb_define_singleton_method(rb_cCocosNode, "node", rb_cCocosNode_s_node, 0);
 	rb_define_singleton_method(rb_cCocosNode, "new", rb_cCocosNode_s_new, -1);
 	
 	// getters
