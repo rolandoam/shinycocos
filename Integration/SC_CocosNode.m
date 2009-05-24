@@ -60,7 +60,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_enter];
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil) {
+	if (rbObject != Qnil && rb_respond_to(rbObject, id_sc_on_enter)) {
 		rb_funcall(rbObject, id_sc_on_enter, 0, 0);
 	}
 }
@@ -69,7 +69,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_exit];
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil) {
+	if (rbObject != Qnil && rb_respond_to(rbObject, id_sc_on_exit)) {
 		rb_funcall(rbObject, id_sc_on_exit, 0, 0);
 	}
 }

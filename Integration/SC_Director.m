@@ -21,6 +21,7 @@
 #import "cocos2d.h"
 #import "SC_common.h"
 #import "SC_Director.h"
+#import "SC_Scene.h"
 
 VALUE rb_cDirector;
 
@@ -45,10 +46,22 @@ VALUE rb_cDirector_animation_interval(VALUE klass, VALUE interval) {
  * Will run a scene
  */
 VALUE rb_cDirector_run_scene(VALUE klass, VALUE scene) {
-	Check_Type(scene, T_DATA);
 	cocos_holder *ptr;
 	Data_Get_Struct(scene, cocos_holder, ptr);
 	[[Director sharedDirector] runWithScene:GET_OBJC(ptr)];
+	return scene;
+}
+
+/*
+ * call-seq:
+ *   Director.replace_scene some_scene   #=> some_scene
+ *
+ * Replaces the current scene with a new one
+ */
+VALUE rb_cDirector_replace_scene(VALUE klass, VALUE scene) {
+	cocos_holder *ptr;
+	Data_Get_Struct(scene, cocos_holder, ptr);
+	[[Director sharedDirector] replaceScene:GET_OBJC(ptr)];
 	return scene;
 }
 
@@ -68,6 +81,7 @@ void init_rb_cDirector() {
 	rb_cDirector = rb_define_class_under(rb_mCocos2D, "Director", rb_cObject);
 	rb_define_singleton_method(rb_cDirector, "landscape", rb_cDirector_landscape, 1);
 	rb_define_singleton_method(rb_cDirector, "animation_interval=", rb_cDirector_animation_interval, 1);
-	rb_define_singleton_method(rb_cDirector, "run_scene", rb_cDirector_run_scene, 1);
 	rb_define_singleton_method(rb_cDirector, "display_fps", rb_cDirector_display_fps, 1);
+	rb_define_singleton_method(rb_cDirector, "run_scene", rb_cDirector_run_scene, 1);
+	rb_define_singleton_method(rb_cDirector, "replace_scene", rb_cDirector_replace_scene, 1);
 }
