@@ -12,7 +12,7 @@ class TestItem < Cocos2D::MenuItemImage
 	  $curr_scene = ($curr_scene - 1) % $scenes.size
 	end
 	# we keep a global reference of the current running scene so it won't
-	# be garbage collected and mess things up. See #issue3 on the issue tracker.
+	# get garbage collected and mess things up. See #issue3 on the issue tracker.
 	$running = $scenes[$curr_scene].new
 	Director.replace_scene $running
   end

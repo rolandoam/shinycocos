@@ -21,6 +21,7 @@
 		A93327D20FC1DD3900843F58 /* r1.png in Resources */ = {isa = PBXBuildFile; fileRef = A93327CE0FC1DD3900843F58 /* r1.png */; };
 		A93327D30FC1DD3900843F58 /* r2.png in Resources */ = {isa = PBXBuildFile; fileRef = A93327CF0FC1DD3900843F58 /* r2.png */; };
 		A93D7EA10FBE0BF300731024 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A93D7E9B0FBE0BF300731024 /* vendor */; };
+		A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */; };
 		A98CD4320FB4B2750017E521 /* grossini_dance_atlas.pvr in Resources */ = {isa = PBXBuildFile; fileRef = A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */; };
 		A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */; };
 		A9A057090F9E9B1600C85842 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A057060F9E9B1600C85842 /* fps_images.png */; };
@@ -300,6 +301,7 @@
 		A93327CE0FC1DD3900843F58 /* r1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r1.png; sourceTree = "<group>"; };
 		A93327CF0FC1DD3900843F58 /* r2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r2.png; sourceTree = "<group>"; };
 		A93D7E9B0FBE0BF300731024 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
+		A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		A98CD4310FB4B2750017E521 /* grossini_dance_atlas.pvr */ = {isa = PBXFileReference; lastKnownFileType = file; path = grossini_dance_atlas.pvr; sourceTree = "<group>"; };
 		A98CD4A50FB4BBA90017E521 /* AccelerometerSimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSimulation.h; sourceTree = "<group>"; };
 		A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerSimulation.m; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				A9066C950FBB18830020ABC5 /* OpenGLES.framework in Frameworks */,
 				A9066C960FBB18830020ABC5 /* QuartzCore.framework in Frameworks */,
 				A9066C970FBB18830020ABC5 /* UIKit.framework in Frameworks */,
+				A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +394,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */,
 				A9066C8F0FBB18830020ABC5 /* Foundation.framework */,
 				A9066C8E0FBB18830020ABC5 /* CoreGraphics.framework */,
 				A9066C900FBB18830020ABC5 /* OpenGLES.framework */,
