@@ -52,9 +52,10 @@
 	int i;
 	itemsToRender = 0;
 	for (i=0; i < total; i += 4) {
-		NSUInteger value = ptr[i] | ptr[i+1] << 8 | ptr[i+2] << 16 | ptr[i+3] << 24;
-		if (value)
+		int value = ptr[i] | ptr[i+1] << 8 | ptr[i+2] << 16 | ptr[i+3] << 24;
+		if (value) {
 			itemsToRender++;
+		}
 	}
 }
 
@@ -102,8 +103,8 @@
 		for(x = 0; x < width_; x++ ) {
 			if (total < itemsToRender) {
 				NSUInteger st = y*4*width_ + x*4;
-				NSUInteger value = ptr[st] | ptr[st+1] << 8 | ptr[st+2] << 16 | ptr[st+3] << 24;
-				if(value != 0) {
+				int value = ptr[st] | ptr[st+1] << 8 | ptr[st+2] << 16 | ptr[st+3] << 24;
+				if(value > 0) {
 					[self updateAtlasValueAt:ccg(x, (height_ - 1) - y) withValue:value-1 withIndex:total];
 					total++;
 				}
