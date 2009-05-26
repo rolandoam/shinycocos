@@ -17,5 +17,5 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-extern VALUE rb_cTiledMap;
-void init_rb_cTiledMap();
+extern VALUE rb_cSolidShapeMap;
+void init_rb_cSolidShapeMap();

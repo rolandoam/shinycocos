@@ -129,12 +129,12 @@ VALUE rb_cTiledMap;
  *
  * Required options:
  *
- * * <tt>:tiles</tt> String, tiles file (png or pvr)
- * * <tt>:tile_width</tt> Integer, the given tile width
- * * <tt>:tile_height</tt> Integer, the given tile height
- * * <tt>:map_width</tt> Integer, the map width
- * * <tt>:map_height</tt> Integer, the map height
- * * <tt>:data</tt> String, the decoded data (not the Base64 string)
+ * <tt>:tiles</tt>:: String, tiles file (png or pvr)
+ * <tt>:tile_width</tt>:: Integer, the given tile width
+ * <tt>:tile_height</tt>:: Integer, the given tile height
+ * <tt>:map_width</tt>:: Integer, the map width
+ * <tt>:map_height</tt>:: Integer, the map height
+ * <tt>:data</tt>:: String, the decoded data (not the Base64 string)
  */ 
 VALUE rb_cTiledMap_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);

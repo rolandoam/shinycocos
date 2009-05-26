@@ -46,8 +46,6 @@ static void eachShape(void *ptr, void* unused)
 - (void)rb_on_enter;
 - (void)rb_on_exit;
 - (void)rb_draw;
-// TODO
-// add ccTouches*
 
 // chipmunk support
 - (void)chipmunk_step:(ccTime)delta;
@@ -473,7 +471,8 @@ VALUE rb_cCocosNode_become_chipmunk_stepper(VALUE object) {
 }
 
 /*
- * Will bind a Chipmunk Shape to a CocosNode.
+ * Will bind a Chipmunk Shape to a CocosNode (will set the data attribute of the
+ * cpShape to the CocosNode instance behind the ruby object)
  */
 VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
 	cocos_holder *ptr;

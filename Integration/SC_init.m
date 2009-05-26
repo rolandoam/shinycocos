@@ -97,6 +97,7 @@ void Init_ShinyCocos() {
 	init_rb_cLayer();
 	init_rb_cMenu();
 	init_rb_cMenuItemImage();
+	init_rb_cSolidShapeMap();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
