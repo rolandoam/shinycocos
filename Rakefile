@@ -36,6 +36,8 @@ Integration/SC_Sprite.m
 Integration/SC_Texture2D.m
 Integration/SC_TextureNode.m
 Integration/SC_Layer.m
+Integration/SC_TiledMap.m
+Integration/SC_SolidShapeMap.m
 Integration/ShinyCocos.m
 README.rdoc
   )

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="32" height="16" tilewidth="16" tileheight="16">
+ <tileset name="tiles" firstgid="1" tilewidth="16" tileheight="16">
+  <image source="Images/tiles.png"/>
+ </tileset>
+ <tileset name="physics" firstgid="257" tilewidth="16" tileheight="16">
+  <image source="Images/Physics_Layer_16x16.png"/>
+ </tileset>
+ <layer name="bg" width="32" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAEtgYGBIGMWjeBSP4lE8ikfxiMIA+mivEAAIAAA=
+  </data>
+ </layer>
+ <layer name="floor" width="32" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNgGAWjYBSMglEwCugPHIHYCQk7Y2Gji+ESx2UOLvNcgDgQiIOBOBlKE4uJUQ9Tk4QmDuOHINmPz+wkHOYQcg8+9TD7Ac5GUrMACAAA
+  </data>
+ </layer>
+ <layer name="sprites" width="32" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNgGAWjYBSMglFADGAaYLsHyn4mhoG1fxTQBgAA689e1gAIAAA=
+  </data>
+ </layer>
+ <layer name="physics" width="32" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNjZGBgHiDMCsRsQDxQYNT+UftH7R+1nxTATUX3kmo/J5XDixT7OaHqaGH/aP0zcPYDAEHYok4ACAAA
+  </data>
+ </layer>
+</map>
