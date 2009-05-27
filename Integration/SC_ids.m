@@ -70,7 +70,7 @@ void init_sc_ids() {
 	id_sc_data = rb_intern("data");
 	id_sc_delay = rb_intern("delay");
 	id_sc_delete = rb_intern("delete");
-	id_sc_did_accelerate = rb_intern("did_sc_accelerate");
+	id_sc_did_accelerate = rb_intern("did_accelerate");
 	id_sc_disabled = rb_intern("disabled");
 	id_sc_frames = rb_intern("frames");
 	id_sc_horizontally = rb_intern("horizontally");

@@ -26,6 +26,15 @@
 #import "chipmunk.h"
 #import "rb_chipmunk.h"
 
+VALUE rb_cSolidShapeMap;
+
+#define NEW_FLOOR_DBG(body, seg, st, ed, rad) do { \
+NSLog(@"adding floor (%d) from (%f,%f) to (%f,%f)", gid, st.x, st.y, ed.x, ed.y); \
+seg = cpSegmentShapeNew(body, st, ed, rad); \
+} while(0)
+
+#define NEW_FLOOR(body, seg, st, ed, rad) (seg = cpSegmentShapeNew(body, st, ed, rad))
+
 /*
  * for now just assume a 32px tile
  *
@@ -42,63 +51,75 @@
  * 11: top box (open on the bottom)
  */
 void add_floor_to_space(cpSpace *space, int width, int height, int tw, int th, int off, const unsigned char* ptr, int len) {
-	int x, y;
+	int x, y, last_gid;
 	cpBody *floorBody = cpBodyNew(INFINITY, INFINITY);
 	cpShape *segment;
+	CGPoint stp = cpvzero, edp = cpvzero;
 	for (y=0; y < height; y++) {
 		for (x=0; x < width; x++) {
 			NSUInteger st = y*4*width + x*4;
-			int gid = off - (ptr[st] | ptr[st+1] << 8 | ptr[st+2] << 16 | ptr[st+3] << 24);
+			int value = (ptr[st] | ptr[st+1] << 8 | ptr[st+2] << 16 | ptr[st+3] << 24);
+			int gid = value - off + 1;
+			int y_ = height - y - 1;
+			if (last_gid == 3 && last_gid != gid) {
+				NEW_FLOOR(floorBody, segment, stp, edp, 0.0f);
+				cpSpaceAddStaticShape(space, segment);
+			}
 			switch (gid) {
 				case 1: // horizontal floor, centered
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th+th/2), cpv((x+1)*tw, y*th+th/2), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th+th/2), cpv((x+1)*tw, y_*th+th/2), 0.0f);
 					break;
 				case 2: // vertical floor, centered
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw+tw/2, y*th), cpv(x*tw+tw/2, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw+tw/2, y_*th), cpv(x*tw+tw/2, (y_+1)*th), 0.0f);
 					break;
 				case 3: // horizontal floor, top
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, (y+1)*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					if (last_gid != 3)
+						stp.x = x*tw; stp.y = (y_+1)*th;
+					edp.x = (x+1)*tw; edp.y = (y_+1)*th;
+					segment = nil;
+					//NEW_FLOOR(floorBody, segment, cpv(x*tw, (y_+1)*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					break;
 				case 4: // horizontal floor, bottom
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv((x+1)*tw, y*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv((x+1)*tw, y_*th), 0.0f);
 					break;
 				case 5: // vertical floor, left
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv(x*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv(x*tw, (y_+1)*th), 0.0f);
 					break;
 				case 6: // vertical floor, right
-					segment = cpSegmentShapeNew(floorBody, cpv((x+1)*tw, y*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv((x+1)*tw, y_*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					break;
 				case 7: // corner, bottom right
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv((x+1)*tw, y*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv((x+1)*tw, y_*th), 0.0f);
 					cpSpaceAddStaticShape(space, segment);
-					segment = cpSegmentShapeNew(floorBody, cpv((x+1)*tw, y*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv((x+1)*tw, y_*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					break;
 				case 8: // corner, bottom left
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv((x+1)*tw, y*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv((x+1)*tw, y_*th), 0.0f);
 					cpSpaceAddStaticShape(space, segment);
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv(x*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv(x*tw, (y_+1)*th), 0.0f);
 					break;
 				case 9: // corner, top right
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv(x*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv(x*tw, (y_+1)*th), 0.0f);
 					cpSpaceAddStaticShape(space, segment);
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, (y+1)*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, (y_+1)*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					break;
 				case 10: // corner, top left
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv(x*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv(x*tw, (y_+1)*th), 0.0f);
 					cpSpaceAddStaticShape(space, segment);
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, (y+1)*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, (y_+1)*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					break;
 				case 11: // top box (open on the bottom)
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, y*th), cpv(x*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, y_*th), cpv(x*tw, (y_+1)*th), 0.0f);
 					cpSpaceAddStaticShape(space, segment);
-					segment = cpSegmentShapeNew(floorBody, cpv(x*tw, (y+1)*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv(x*tw, (y_+1)*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					cpSpaceAddStaticShape(space, segment);
-					segment = cpSegmentShapeNew(floorBody, cpv((x+1)*tw, y*th), cpv((x+1)*tw, (y+1)*th), 0.0f);
+					NEW_FLOOR(floorBody, segment, cpv((x+1)*tw, y_*th), cpv((x+1)*tw, (y_+1)*th), 0.0f);
 					break;
 				default:
 					segment = nil;
 					break;
 			}
+			last_gid = gid;
 			if (segment != nil)
 				cpSpaceAddStaticShape(space, segment);
 		} // x
@@ -131,22 +152,22 @@ VALUE rb_cSolidShapeMap_s_create(VALUE klass, VALUE rb_space, VALUE options) {
 	int map_width, map_height, tile_width, tile_height, starting_gid;
 
 	VALUE tmp;
-	if ((tmp = rb_hash_aref(options, id_sc_map_width)) != Qnil) {
+	if ((tmp = rb_hash_aref(options, ID2SYM(id_sc_map_width))) != Qnil) {
 		map_width = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, id_sc_map_height)) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_map_height))) != Qnil) {
 		map_height = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, id_sc_tile_width)) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_tile_width))) != Qnil) {
 		tile_width = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, id_sc_tile_height)) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_tile_height))) != Qnil) {
 		tile_height = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, id_sc_starting_gid)) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_starting_gid))) != Qnil) {
 		starting_gid = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, id_sc_data)) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_data))) != Qnil) {
 		Check_Type(tmp, T_STRING);
 		unsigned char *data = (unsigned char *)RSTRING_PTR(tmp);
 		add_floor_to_space(space, map_width, map_height, tile_width, tile_height, starting_gid, data, RSTRING_LEN(tmp));
