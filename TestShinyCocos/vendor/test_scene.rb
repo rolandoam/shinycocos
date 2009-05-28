@@ -6,7 +6,7 @@ class TestScene < MenuScene
   def initialize
     # create animations
     @animations = {}
-    @animations[:walk] = AtlasAnimation.animation(:name => "walk", :delay => 0.5) { |anim|
+    @animations[:walk] = AtlasAnimation.new(:name => "walk", :delay => 0.5) { |anim|
       0.upto(14) do |i|
         x = i % 5
         y = i / 5
@@ -14,10 +14,10 @@ class TestScene < MenuScene
       end
     }
     Texture2D.aliased do
-      @manager = AtlasSpriteManager.manager_with_file "grossini_dance_atlas.pvr", :capacity => 50
+      @manager = AtlasSpriteManager.new "grossini_dance_atlas.pvr", :capacity => 50
       add_child @manager, :z => 0
     end
-    @sprite = AtlasSprite.sprite(:rect => [0, 0, 85, 121], :manager => @manager)
+    @sprite = AtlasSprite.new(:rect => [0, 0, 85, 121], :manager => @manager)
     @sprite.position = [240, 160]
     @sprite.run_action(:repeat_forever, {}, :animate, @animations[:walk])
     @manager.add_child @sprite, :z => 0

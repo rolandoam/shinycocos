@@ -27,7 +27,7 @@ VALUE rb_cAtlasSpriteManager;
 /* 
  * Must complete doc
  */
-VALUE rb_cAtlasSpriteManager_s_sprite_manager_with_file(int argc, VALUE *argv, VALUE klass) {
+VALUE rb_cAtlasSpriteManager_s_new(int argc, VALUE *argv, VALUE klass) {
 	AtlasSpriteManager *manager;
 	if (argc < 1 || argc > 2)
 		rb_raise(rb_eArgError, "invalid number of arguments");
@@ -65,6 +65,6 @@ VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 
 void init_rb_cAtlasSpriteManager() {
 	rb_cAtlasSpriteManager = rb_define_class_under(rb_mCocos2D, "AtlasSpriteManager", rb_cCocosNode);
-	rb_define_singleton_method(rb_cAtlasSpriteManager, "manager_with_file", rb_cAtlasSpriteManager_s_sprite_manager_with_file, -1);
+	rb_define_singleton_method(rb_cAtlasSpriteManager, "new", rb_cAtlasSpriteManager_s_new, -1);
 	rb_define_method(rb_cAtlasSpriteManager, "create_sprite", rb_cAtlasSpriteManager_create_sprite, 1);
 }

@@ -25,9 +25,12 @@ VALUE rb_cAtlasSprite;
 VALUE rb_cAtlasAnimation;
 
 /*
- *   sprite = AtlasSprite.sprite_with_options(:rect => [top, left, width, height], :manager => manager)
+ * call-seq:
+ *   sprite = AtlasSprite.new(:rect => [top, left, width, height], :manager => manager) #=>   AtlasSprite
+ *
+ * creates a new AtlasSprite
  */
-VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts) {
+VALUE rb_cAtlasSprite_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	VALUE rb_manager = rb_hash_aref(opts, ID2SYM(id_sc_manager));
 	VALUE rb_rect = rb_hash_aref(opts, ID2SYM(id_sc_rect));
@@ -43,17 +46,18 @@ VALUE rb_cAtlasSprite_s_sprite(VALUE klass, VALUE opts) {
 
 void init_rb_cAtlasSprite() {
 	rb_cAtlasSprite = rb_define_class_under(rb_mCocos2D, "AtlasSprite", rb_cCocosNode);
-	rb_define_singleton_method(rb_cAtlasSprite, "sprite", rb_cAtlasSprite_s_sprite, 1);
+	rb_define_singleton_method(rb_cAtlasSprite, "new", rb_cAtlasSprite_s_new, 1);
 }
 
 #pragma mark AtlasAnimation
 
 /*
- * frames is optional
- * 
- *   animation = AltasAnimation.animation(:name => "name", :delay => 1/60.0, :frames => [frame1, frame2])
+ * call-seq:
+ *   animation = AltasAnimation.new(:name => "name", :delay => 1/60.0, :frames => [frame1, frame2])
+ *
+ * Frames is optional
  */
-VALUE rb_cAtlasAnimation_s_animation(VALUE klass, VALUE opts) {
+VALUE rb_cAtlasAnimation_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	VALUE rb_name   = rb_hash_aref(opts, ID2SYM(id_sc_name));
 	VALUE rb_delay  = rb_hash_aref(opts, ID2SYM(id_sc_delay));
@@ -85,6 +89,6 @@ VALUE rb_cAtlasAnimation_add_frame(VALUE obj, VALUE rect) {
 
 void init_rb_cAtlasAnimation() {
 	rb_cAtlasAnimation = rb_define_class_under(rb_mCocos2D, "AtlasAnimation", rb_cObject);
-	rb_define_singleton_method(rb_cAtlasAnimation, "animation", rb_cAtlasAnimation_s_animation, 1);
+	rb_define_singleton_method(rb_cAtlasAnimation, "new", rb_cAtlasAnimation_s_new, 1);
 	rb_define_method(rb_cAtlasAnimation, "add_frame", rb_cAtlasAnimation_add_frame, 1);
 }

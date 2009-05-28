@@ -36,8 +36,6 @@ seg = cpSegmentShapeNew(body, st, ed, rad); \
 #define NEW_FLOOR(body, seg, st, ed, rad) (seg = cpSegmentShapeNew(body, st, ed, rad))
 
 /*
- * for now just assume a 32px tile
- *
  *  1: horizontal floor, centered [ - ]
  *  2: vertical floor, centered   [ | ]
  *  3: horizontal floor, top

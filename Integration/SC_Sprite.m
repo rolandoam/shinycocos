@@ -27,9 +27,12 @@
 VALUE rb_cSprite;
 
 /* 
- * Must complete doc
+ * call-seq:
+ *   sprite = Sprite.new("sprite.png")   #=> Sprite
+ *
+ * Creates a new sprite using the given file
  */
-VALUE rb_cSprite_s_sprite_with_file(VALUE klass, VALUE filepath) {
+VALUE rb_cSprite_s_new(VALUE klass, VALUE filepath) {
 	Check_Type(filepath, T_STRING);
 	Sprite *obj = [[Sprite alloc] initWithFile:[NSString stringWithCString:StringValueCStr(filepath) encoding:NSUTF8StringEncoding]];
 	VALUE rb_obj = sc_init(klass, nil, obj, 0, 0, YES);
@@ -40,5 +43,5 @@ VALUE rb_cSprite_s_sprite_with_file(VALUE klass, VALUE filepath) {
 
 void init_rb_cSprite() {
 	rb_cSprite = rb_define_class_under(rb_mCocos2D, "Sprite", rb_cTextureNode);
-	rb_define_singleton_method(rb_cSprite, "sprite_with_file", rb_cSprite_s_sprite_with_file, 1);
+	rb_define_singleton_method(rb_cSprite, "new", rb_cSprite_s_new, 1);
 }

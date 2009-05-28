@@ -2,7 +2,7 @@ require 'map_reader'
 
 class Player < Cocos2D::CocosNode
   def initialize
-    @sp = Cocos2D::Sprite.sprite_with_file("ball.png") # 32x32
+    @sp = Cocos2D::Sprite.new("ball.png") # 32x32
     body = CP::Body.new(10, CP.moment_for_circle(10, 0, 16, CP::Vec2.new(0,0)));
     body.p = CP::Vec2.new(100,200)
     @shape = CP::Shape::Circle.new(body, 16.0, CP::Vec2.new(0,0))
