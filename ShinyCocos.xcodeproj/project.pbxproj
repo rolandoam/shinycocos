@@ -133,6 +133,10 @@
 		A9C035610FCC5CB300D447B4 /* SC_SolidShapeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */; };
 		A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */; };
 		A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */; };
+		A9C3F5FB0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C3F5F90FCF0F1E0079CFC7 /* MenuItemAtlasSprite.h */; };
+		A9C3F5FC0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C3F5FA0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.m */; };
+		A9C3F60A0FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C3F6080FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.h */; };
+		A9C3F60B0FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C3F6090FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.m */; };
 		A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */; };
 		A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */; };
 		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
@@ -265,6 +269,10 @@
 		A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_SolidShapeMap.m; path = Integration/SC_SolidShapeMap.m; sourceTree = "<group>"; };
 		A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_ids.m; path = Integration/SC_ids.m; sourceTree = "<group>"; };
 		A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_ids.h; path = Integration/SC_ids.h; sourceTree = "<group>"; };
+		A9C3F5F90FCF0F1E0079CFC7 /* MenuItemAtlasSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItemAtlasSprite.h; path = External/MenuItemAtlasSprite.h; sourceTree = "<group>"; };
+		A9C3F5FA0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItemAtlasSprite.m; path = External/MenuItemAtlasSprite.m; sourceTree = "<group>"; };
+		A9C3F6080FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_MenuItemAtlasSprite.h; path = Integration/SC_MenuItemAtlasSprite.h; sourceTree = "<group>"; };
+		A9C3F6090FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_MenuItemAtlasSprite.m; path = Integration/SC_MenuItemAtlasSprite.m; sourceTree = "<group>"; };
 		A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TiledMap.h; path = Integration/SC_TiledMap.h; sourceTree = "<group>"; };
 		A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TiledMap.m; path = Integration/SC_TiledMap.m; sourceTree = "<group>"; };
 		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
@@ -287,9 +295,11 @@
 			children = (
 				A94FC0BA0FA0D05C0073C00F /* Chipmunk */,
 				A9990E8D0F8BAA7F0026A8BF /* Integration */,
+				A9C3F5F80FCF0EF10079CFC7 /* External */,
 				A9515C230F9D0C2D00B2B839 /* ruby */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
+				A996615C0FCF5C7000CAA4DF /* Frameworks */,
 			);
 			name = ShinyCocos;
 			sourceTree = "<group>";
@@ -387,6 +397,13 @@
 			name = ruby;
 			sourceTree = "<group>";
 		};
+		A996615C0FCF5C7000CAA4DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A996A6810FB1D23B0040FDF4 /* syck */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,14 +428,14 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				A9C0355E0FCC5CB300D447B4 /* SC_SolidShapeMap.h */,
-				A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */,
 				A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */,
 				A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */,
-				A93D7EE30FBE49EB00731024 /* SC_Menu.h */,
 				A93D7EBF0FBE49BA00731024 /* SC_Layer.h */,
-				A93D7EB40FBE0D9300731024 /* SC_Menu.m */,
 				A93D7DC30FBDE4E100731024 /* SC_Layer.m */,
+				A93D7EE30FBE49EB00731024 /* SC_Menu.h */,
+				A93D7EB40FBE0D9300731024 /* SC_Menu.m */,
+				A9C3F6080FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.h */,
+				A9C3F6090FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.m */,
 				A94A1D420FB0E5230099E6BE /* SC_CocoaAdditions.h */,
 				A94A1D3B0FB0E4630099E6BE /* SC_CocoaAdditions.m */,
 				A94FC0210FA0B5710073C00F /* SC_Texture2D.h */,
@@ -439,6 +456,8 @@
 				A94FBF540FA096910073C00F /* SC_AtlasSpriteManager.h */,
 				A94FBF550FA096910073C00F /* SC_AtlasSpriteManager.m */,
 				A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */,
+				A9C0355E0FCC5CB300D447B4 /* SC_SolidShapeMap.h */,
+				A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */,
 				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
 				A9E436C70FA609A300D00AC1 /* SC_init.m */,
 				A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */,
@@ -485,6 +504,15 @@
 			name = enc;
 			sourceTree = "<group>";
 		};
+		A9C3F5F80FCF0EF10079CFC7 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				A9C3F5F90FCF0F1E0079CFC7 /* MenuItemAtlasSprite.h */,
+				A9C3F5FA0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.m */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +547,8 @@
 				A93D7EE40FBE49EB00731024 /* SC_Menu.h in Headers */,
 				A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */,
 				A9C035600FCC5CB300D447B4 /* SC_SolidShapeMap.h in Headers */,
+				A9C3F5FB0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.h in Headers */,
+				A9C3F60A0FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +703,8 @@
 				A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */,
 				A97005B40FCA051F00E1BE12 /* zlib.c in Sources */,
 				A9C035610FCC5CB300D447B4 /* SC_SolidShapeMap.m in Sources */,
+				A9C3F5FC0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.m in Sources */,
+				A9C3F60B0FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

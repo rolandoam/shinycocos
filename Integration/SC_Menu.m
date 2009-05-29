@@ -21,24 +21,10 @@
 #import <UIKit/UIKit.h>
 #import "SC_common.h"
 #import "SC_CocosNode.h"
+#import "SC_Menu.h"
 #import "SC_Layer.h"
 
 #pragma mark MenuItem
-
-// proxy for the MenuItem, it will hold the reference to a ruby object that will
-// be called when this object is called by the menu item
-@interface MenuItemProxy : NSObject
-{
-	VALUE rbObject;
-	id    menuItem;
-}
-
-@property (readwrite, assign) VALUE rbObject;
-
-+ (id)proxy;
-- (id)initWithRubyObject:(VALUE)object;
-- (void)proxyRuby:(id)sender;
-@end
 
 @implementation MenuItemProxy
 @synthesize rbObject;

@@ -30,6 +30,11 @@ typedef struct {
 #define CC_NODE(ptr) ((CocosNode *)ptr->_obj)
 #define CC_LAYER(ptr) ((Layer *)ptr->_obj)
 #define CC_MENU(ptr) ((Menu *)ptr->_obj)
+#define SC_DATA(obj, value) do { \
+cocos_holder *ptr; \
+Data_Get_Struct(value, cocos_holder, ptr); \
+obj = ptr->_obj; \
+} while(0)
 
 #define INSPECT(obj) rb_funcall(obj, id_sc_inspect, 0, 0)
 #define RBCALL(obj, func) rb_funcall(obj, rb_intern(func), 0, 0)

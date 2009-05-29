@@ -54,6 +54,14 @@ class TiledMapReader
       else
         l[:data] = Base64.decode64(data.text.strip)
       end
+      # add properties
+      layer.each_element("properties/property") { |prop|
+        puts "layer #{l[:name]}: #{prop.inspect}"
+        value = prop.attributes['name'] == 'parallax_ratio' ?
+          prop.attributes['value'].split(';').map { |i| i.to_f } :
+          prop.attributes['value']
+        l[prop.attributes['name'].to_sym] = value
+      }
       @layers << l
     }
   end

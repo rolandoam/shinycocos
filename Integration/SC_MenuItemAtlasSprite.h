@@ -17,23 +17,5 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-// proxy for the MenuItem, it will hold the reference to a ruby object that will
-// be called when this object is called by the menu item
-@interface MenuItemProxy : NSObject
-{
-	VALUE rbObject;
-	id    menuItem;
-}
-
-@property (readwrite, assign) VALUE rbObject;
-
-+ (id)proxy;
-- (id)initWithRubyObject:(VALUE)object;
-- (void)proxyRuby:(id)sender;
-@end
-
-extern VALUE rb_cMenu;
-extern VALUE rb_cMenuItemImage;
-
-void init_rb_cMenu();
-void init_rb_cMenuItem();
+extern VALUE rb_cMenuItemAtlasSprite;
+void init_rb_cMenuItemAtlasSprite();

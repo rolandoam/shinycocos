@@ -4,7 +4,7 @@
 #  Created by Rolando Abarca on 4/7/09.
 #  Copyright (c) 2009 Games For Food SpA. All rights reserved.
 
-%w(test_scene tiled_test_scene test_layer test_physics_layer).each { |f|
+%w(test_scene tiled_test_scene test_layer test_physics_layer test_twitter).each { |f|
   require f
 }
 
@@ -16,7 +16,8 @@ $scenes = [
   TestScene,
   TiledTest,
   TestLayer,
-  TestPhysicsLayer
+  TestPhysicsLayer,
+  TestTwitter
 ]
 $curr_scene = 0
 $running = $scenes[$curr_scene].new
