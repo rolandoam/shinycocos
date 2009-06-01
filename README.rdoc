@@ -72,13 +72,10 @@ as <tt>.c</tt>)
 
 == Installation/Building
 
-First, run the script that will fetch ruby and cocos2d-iphone:
+First, you need to get the latest release of the 0.7 branch of cocos2d.
+You can either fetch it from the project page or using subversion:
 
-  ./get_dependencies.rb
-
-or:
-
-  ruby get_dependencies.rb
+  svn co http://cocos2d-iphone.googlecode.com/svn/branches/branch_0_7 cocos2d-iphone
 
 Open the cocos2d-iphone project and set the output directory for the
 cocos2d-iphone and chipmunk to "../build" instead of "build".
@@ -91,12 +88,12 @@ Now you're ready to rock :-)
 
 Use the rakefile:
 
-    rake rdoc
-    open html/index.html
+  rake rdoc
+  open html/index.html
 
 You might need a newer version of rdoc:
 
-    sudo gem install rdoc
+  sudo gem install rdoc
 
 The one that comes with Leopard is too old and complains about the
 enclosing module not being found.
