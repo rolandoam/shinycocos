@@ -1,7 +1,7 @@
 *.tmproj
 *.tar.gz
 _DC/
-ruby/
+ruby_svn/
 cocos2d-iphone/
 build/
 Integration/doc/

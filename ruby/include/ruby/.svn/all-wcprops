@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/ruby/!svn/ver/23329/branches/ruby_1_9_1/include/ruby
+END
+missing.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repos/ruby/!svn/ver/21306/branches/ruby_1_9_1/include/ruby/missing.h
+END
+regex.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/include/ruby/regex.h
+END
+defines.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/include/ruby/defines.h
+END
+util.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/include/ruby/util.h
+END
+intern.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repos/ruby/!svn/ver/23329/branches/ruby_1_9_1/include/ruby/intern.h
+END
+ruby.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/ruby/!svn/ver/20193/branches/ruby_1_9_1/include/ruby/ruby.h
+END
+vm.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/include/ruby/vm.h
+END
+win32.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/ruby/!svn/ver/21540/branches/ruby_1_9_1/include/ruby/win32.h
+END
+encoding.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repos/ruby/!svn/ver/21069/branches/ruby_1_9_1/include/ruby/encoding.h
+END
+oniguruma.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/include/ruby/oniguruma.h
+END
+re.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/19969/branches/ruby_1_9_1/include/ruby/re.h
+END
+st.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/22522/branches/ruby_1_9_1/include/ruby/st.h
+END
+io.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/ruby/!svn/ver/21816/branches/ruby_1_9_1/include/ruby/io.h
+END
