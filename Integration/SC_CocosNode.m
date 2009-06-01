@@ -51,6 +51,8 @@ static void eachShape(void *ptr, void* unused)
 - (void)chipmunk_step:(ccTime)delta;
 // ruby schedule support
 - (void)rbScheduler;
+// text field delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 @end
 
 @implementation CocosNode (SC_Extension)
@@ -97,6 +99,18 @@ static void eachShape(void *ptr, void* unused)
 			rb_funcall(target, m, 0, 0);
 		}
 	}
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_text_field_action)) {
+		NSString *text = textField.text;
+		if (rb_funcall(rbDelegate, id_sc_text_field_action, 1, rb_str_new2([text cStringUsingEncoding:NSUTF8StringEncoding])) != Qnil) {
+			[textField resignFirstResponder];
+			return YES;
+		}
+	}
+	return NO;
 }
 @end
 

@@ -60,3 +60,4 @@ extern ID id_sc_touches_moved;
 extern ID id_sc_vertically;
 extern ID id_sc_z;
 extern ID id_sc_starting_gid;
+extern ID id_sc_text_field_action;

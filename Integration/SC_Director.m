@@ -76,6 +76,32 @@ VALUE rb_cDirector_display_fps(VALUE klass, VALUE display) {
 	return display;
 }
 
+/*
+ * call-seq:
+ *   Director.add_text_field([top, left, width, height], landscape_mode, delegate)   #=> nil
+ *
+ * Set <tt>landscape_mode</tt> to true if your current orientation is landscape.
+ *
+ * <tt>delegate</tt> *must* be a CocosNode subclass. Setting a delegate means you have to implement
+ * a method <tt>text_field_action</tt> in your class. This method will be called after receiving
+ * the <tt>textFieldShouldReturn:</tt> selector in the Obj-C world. It must return true if the
+ * text field should resign its first reponder status.
+ */
+VALUE rb_cDirector_add_text_field(VALUE klass, VALUE size, VALUE landscape, VALUE delegate) {
+	Check_Type(size, T_ARRAY);
+	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(FIX2INT(RARRAY_PTR(size)[0]), FIX2INT(RARRAY_PTR(size)[1]), FIX2INT(RARRAY_PTR(size)[2]), FIX2INT(RARRAY_PTR(size)[3]))];
+	// rotate to portrait
+	if (landscape != Qfalse)
+		[textField setTransform:CGAffineTransformMakeRotation(3.14/2)];
+	textField.borderStyle = UITextBorderStyleRoundedRect;
+	textField.returnKeyType = UIReturnKeyDone;
+	if (delegate != Qnil)
+		SC_DATA(textField.delegate, delegate);
+	[[Director sharedDirector].openGLView addSubview:textField];
+	
+	return Qnil;
+}
+
 /* create the Director class, set the methods */
 void init_rb_cDirector() {
 	rb_cDirector = rb_define_class_under(rb_mCocos2D, "Director", rb_cObject);
@@ -84,4 +110,5 @@ void init_rb_cDirector() {
 	rb_define_singleton_method(rb_cDirector, "display_fps", rb_cDirector_display_fps, 1);
 	rb_define_singleton_method(rb_cDirector, "run_scene", rb_cDirector_run_scene, 1);
 	rb_define_singleton_method(rb_cDirector, "replace_scene", rb_cDirector_replace_scene, 1);
+	rb_define_singleton_method(rb_cDirector, "add_text_field", rb_cDirector_add_text_field, 3);
 }

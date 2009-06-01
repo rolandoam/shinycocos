@@ -63,6 +63,7 @@ ID id_sc_touches_moved;
 ID id_sc_vertically;
 ID id_sc_z;
 ID id_sc_starting_gid;
+ID id_sc_text_field_action;
 
 void init_sc_ids() {
 	id_sc_animate = rb_intern("animate");
@@ -108,4 +109,5 @@ void init_sc_ids() {
 	id_sc_vertically = rb_intern("vertically");
 	id_sc_z = rb_intern("z");
 	id_sc_starting_gid = rb_intern("starting_gid");
+	id_sc_text_field_action = rb_intern("text_field_action");
 }
