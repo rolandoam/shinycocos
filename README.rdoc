@@ -77,6 +77,12 @@ You can either fetch it from the project page or using subversion:
 
   svn co http://cocos2d-iphone.googlecode.com/svn/branches/branch_0_7 cocos2d-iphone
 
+If you already have a copy of Cocos2D-iphone lying around, you can
+safely create a symbolic link with the name of "cocos2d-iphone":
+
+  cd shinycocos
+  ln -s /path/to/cocos2d-iphone cocos2d-iphone
+
 Open the cocos2d-iphone project and set the output directory for the
 cocos2d-iphone and chipmunk to "../build" instead of "build".
 
