@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A902C4FD0FD5E68900309EC4 /* SC_UserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */; };
+		A902C4FE0FD5E68900309EC4 /* SC_UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */; };
 		A938D75C0FB11B8600F46FEA /* stringio.c in Sources */ = {isa = PBXBuildFile; fileRef = A938D75B0FB11B8600F46FEA /* stringio.c */; };
 		A93D7DC40FBDE4E100731024 /* SC_Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D7DC30FBDE4E100731024 /* SC_Layer.m */; };
 		A93D7EB50FBE0D9300731024 /* SC_Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D7EB40FBE0D9300731024 /* SC_Menu.m */; };
@@ -72,6 +74,8 @@
 		A9515E250F9D19E200B2B839 /* SC_Scene.h in Headers */ = {isa = PBXBuildFile; fileRef = A9515E1F0F9D19E200B2B839 /* SC_Scene.h */; };
 		A9515E260F9D19E200B2B839 /* SC_Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E200F9D19E200B2B839 /* SC_Scene.m */; };
 		A97005B40FCA051F00E1BE12 /* zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A97005B30FCA051F00E1BE12 /* zlib.c */; };
+		A98E8F810FD1866B007281B9 /* SC_Twitter.h in Headers */ = {isa = PBXBuildFile; fileRef = A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */; };
+		A98E8F820FD1866B007281B9 /* SC_Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A98E8F800FD1866B007281B9 /* SC_Twitter.m */; };
 		A996A3BA0FB1C7F70040FDF4 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B50FB1C7F70040FDF4 /* big5.c */; };
 		A996A3BB0FB1C7F70040FDF4 /* cp949.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B60FB1C7F70040FDF4 /* cp949.c */; };
 		A996A3BC0FB1C7F70040FDF4 /* euc_jp.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B70FB1C7F70040FDF4 /* euc_jp.c */; };
@@ -143,6 +147,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_UserDefaults.h; path = Integration/SC_UserDefaults.h; sourceTree = "<group>"; };
+		A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_UserDefaults.m; path = Integration/SC_UserDefaults.m; sourceTree = "<group>"; };
 		A938D75B0FB11B8600F46FEA /* stringio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stringio.c; path = ruby/ext/stringio/stringio.c; sourceTree = "<group>"; };
 		A93D7DC30FBDE4E100731024 /* SC_Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Layer.m; path = Integration/SC_Layer.m; sourceTree = "<group>"; };
 		A93D7EB40FBE0D9300731024 /* SC_Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Menu.m; path = Integration/SC_Menu.m; sourceTree = "<group>"; };
@@ -208,6 +214,8 @@
 		A9515E1F0F9D19E200B2B839 /* SC_Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Scene.h; path = Integration/SC_Scene.h; sourceTree = "<group>"; };
 		A9515E200F9D19E200B2B839 /* SC_Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Scene.m; path = Integration/SC_Scene.m; sourceTree = "<group>"; };
 		A97005B30FCA051F00E1BE12 /* zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zlib.c; path = ruby/ext/zlib/zlib.c; sourceTree = "<group>"; };
+		A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Twitter.h; path = Integration/SC_Twitter.h; sourceTree = "<group>"; };
+		A98E8F800FD1866B007281B9 /* SC_Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Twitter.m; path = Integration/SC_Twitter.m; sourceTree = "<group>"; };
 		A996A3B50FB1C7F70040FDF4 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = big5.c; path = ruby/enc/big5.c; sourceTree = "<group>"; };
 		A996A3B60FB1C7F70040FDF4 /* cp949.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cp949.c; path = ruby/enc/cp949.c; sourceTree = "<group>"; };
 		A996A3B70FB1C7F70040FDF4 /* euc_jp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = euc_jp.c; path = ruby/enc/euc_jp.c; sourceTree = "<group>"; };
@@ -428,6 +436,10 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */,
+				A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */,
+				A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */,
+				A98E8F800FD1866B007281B9 /* SC_Twitter.m */,
 				A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */,
 				A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */,
 				A93D7EBF0FBE49BA00731024 /* SC_Layer.h */,
@@ -549,6 +561,8 @@
 				A9C035600FCC5CB300D447B4 /* SC_SolidShapeMap.h in Headers */,
 				A9C3F5FB0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.h in Headers */,
 				A9C3F60A0FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.h in Headers */,
+				A98E8F810FD1866B007281B9 /* SC_Twitter.h in Headers */,
+				A902C4FD0FD5E68900309EC4 /* SC_UserDefaults.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +719,8 @@
 				A9C035610FCC5CB300D447B4 /* SC_SolidShapeMap.m in Sources */,
 				A9C3F5FC0FCF0F1E0079CFC7 /* MenuItemAtlasSprite.m in Sources */,
 				A9C3F60B0FCF11F50079CFC7 /* SC_MenuItemAtlasSprite.m in Sources */,
+				A98E8F820FD1866B007281B9 /* SC_Twitter.m in Sources */,
+				A902C4FE0FD5E68900309EC4 /* SC_UserDefaults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

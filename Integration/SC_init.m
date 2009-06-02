@@ -101,6 +101,7 @@ void Init_ShinyCocos() {
 	init_rb_cSolidShapeMap();
 	init_rb_cMenuItemAtlasSprite();
 	init_rb_mTwitter();
+	init_rb_mUserDefaults();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
