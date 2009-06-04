@@ -39,6 +39,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A902C6110FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 504225700FC0B39C00B992F7 /* libbox2d.a */;
+			remoteInfo = box2d;
+		};
+		A902C6130FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5042262E0FC0B5D500B992F7 /* Box2dTest.app */;
+			remoteInfo = "Box2dTest (experimental)";
+		};
+		A902C6150FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 50F992C40F9F188700767ABC /* PerformanceParticleTest.app */;
+			remoteInfo = PerformanceParticleTest;
+		};
+		A902C6170FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 503F25EB0FD3CA2A009BAFB6 /* CocosDenshionTest.app */;
+			remoteInfo = "SoundEngine CocosDenshionTest (experimental)";
+		};
 		A95E97770FB45F32001A6523 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
@@ -449,16 +477,18 @@
 		A9A056A30F9E9AB600C85842 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A9A056C80F9E9AB600C85842 /* libvorbis.a */,
-				A9A056CA0F9E9AB600C85842 /* libcocos Live.a */,
-				A9A056CC0F9E9AB600C85842 /* libTouchJSON.a */,
+				A902C6120FD6D97C00309EC4 /* libbox2d.a */,
 				A9A056CE0F9E9AB600C85842 /* libChipmunk.a */,
 				A9A056D00F9E9AB600C85842 /* libcocos2d.a */,
 				A9A056D20F9E9AB600C85842 /* libcocos2d-documentation.a */,
+				A9A056CA0F9E9AB600C85842 /* libcocos Live.a */,
+				A9A056CC0F9E9AB600C85842 /* libTouchJSON.a */,
+				A9A056C80F9E9AB600C85842 /* libvorbis.a */,
 				A9A056D40F9E9AB600C85842 /* AccelViewportTest.app */,
 				A9A056D60F9E9AB600C85842 /* AtlasTest.app */,
 				A9A056D80F9E9AB600C85842 /* AtlasSpriteTest.app */,
 				A9A056DA0F9E9AB600C85842 /* AttachTest.app */,
+				A902C6140FD6D97C00309EC4 /* Box2dTest.app */,
 				A9A056DC0F9E9AB600C85842 /* ChipmunkAccelTouchTest.app */,
 				A9A056DE0F9E9AB600C85842 /* ChipmunkTest.app */,
 				A9A056E00F9E9AB600C85842 /* ClickAndMoveTest.app */,
@@ -472,10 +502,12 @@
 				A9A056F00F9E9AB600C85842 /* MenuTest.app */,
 				A9A056F20F9E9AB600C85842 /* ParallaxTest.app */,
 				A9A056F40F9E9AB600C85842 /* ParticleTest.app */,
+				A902C6160FD6D97C00309EC4 /* PerformanceParticleTest.app */,
 				A9A056F60F9E9AB600C85842 /* PerformanceSpriteTest.app */,
 				A9A056F80F9E9AB600C85842 /* RotateWorldTest.app */,
 				A9A056FA0F9E9AB600C85842 /* SceneTest.app */,
 				A9A056FC0F9E9AB600C85842 /* SoundEngineTest.app */,
+				A902C6180FD6D97C00309EC4 /* CocosDenshionTest.app */,
 				A9A056FE0F9E9AB600C85842 /* SpritesTest.app */,
 				A9A057000F9E9AB600C85842 /* StreakTest.app */,
 				A9A057020F9E9AB600C85842 /* Texture2dTest.app */,
@@ -536,6 +568,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		A902C6120FD6D97C00309EC4 /* libbox2d.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libbox2d.a;
+			remoteRef = A902C6110FD6D97C00309EC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A902C6140FD6D97C00309EC4 /* Box2dTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Box2dTest.app;
+			remoteRef = A902C6130FD6D97C00309EC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A902C6160FD6D97C00309EC4 /* PerformanceParticleTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = PerformanceParticleTest.app;
+			remoteRef = A902C6150FD6D97C00309EC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A902C6180FD6D97C00309EC4 /* CocosDenshionTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CocosDenshionTest.app;
+			remoteRef = A902C6170FD6D97C00309EC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A9A056A10F9E9AAD00C85842 /* libShinyCocos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

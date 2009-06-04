@@ -8,8 +8,8 @@
   require f
 }
 
-Cocos2D::Director.landscape true
-Cocos2D::Director.animation_interval = 1/320.0
+Cocos2D::Director.set_orientation Cocos2D::Director::ORIENTATION_LANDSCAPE_LEFT
+Cocos2D::Director.set_animation_interval 1/240.0
 Cocos2D::Director.display_fps true
 
 $scenes = [
