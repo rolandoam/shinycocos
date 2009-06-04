@@ -30,23 +30,23 @@ VALUE rb_cAtlasAnimation;
  *
  * creates a new AtlasSprite
  */
-VALUE rb_cAtlasSprite_s_new(VALUE klass, VALUE opts) {
-	Check_Type(opts, T_HASH);
-	VALUE rb_manager = rb_hash_aref(opts, ID2SYM(id_sc_manager));
-	VALUE rb_rect = rb_hash_aref(opts, ID2SYM(id_sc_rect));
+VALUE rb_cAtlasSprite_s_new(int argc, VALUE *argv, VALUE klass) {
+	Check_Type(argv[0], T_HASH);
+	VALUE rb_manager = rb_hash_aref(argv[0], ID2SYM(id_sc_manager));
+	VALUE rb_rect = rb_hash_aref(argv[0], ID2SYM(id_sc_rect));
 	CGRect rect = sc_make_rect(rb_rect);
 	
 	cocos_holder *ptr;
 	Data_Get_Struct(rb_manager, cocos_holder, ptr);
 	AtlasSprite *sprite = [[AtlasSprite alloc] initWithRect:rect spriteManager:ptr->_obj];
-	VALUE ret = sc_init(klass, nil, sprite, 0, 0, YES);
+	VALUE ret = sc_init(klass, nil, sprite, argc, argv, YES);
 	sc_add_tracking(sc_object_hash, sprite, ret);
 	return ret;
 }
 
 void init_rb_cAtlasSprite() {
 	rb_cAtlasSprite = rb_define_class_under(rb_mCocos2D, "AtlasSprite", rb_cCocosNode);
-	rb_define_singleton_method(rb_cAtlasSprite, "new", rb_cAtlasSprite_s_new, 1);
+	rb_define_singleton_method(rb_cAtlasSprite, "new", rb_cAtlasSprite_s_new, -1);
 }
 
 #pragma mark AtlasAnimation

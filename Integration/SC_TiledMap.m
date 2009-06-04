@@ -63,36 +63,35 @@
  * just like the method with the same signature on TileMapAtlas.m, but works with data
  */
 - (void)updateAtlasValueAt:(ccGridSize)pos withValue:(NSUInteger)value withIndex:(int)idx {
-	ccQuad2 texCoord;
-	ccQuad3 vertex;
+	ccV3F_C4B_T2F_Quad quad;
 	int x = pos.x;
 	int y = pos.y;
 	float row = (value % itemsPerRow) * texStepX;
 	float col = (value / itemsPerRow) * texStepY;
 	
-	texCoord.bl_x = row;							// A - x
-	texCoord.bl_y = col;							// A - y
-	texCoord.br_x = row + texStepX;					// B - x
-	texCoord.br_y = col;							// B - y
-	texCoord.tl_x = row;							// C - x
-	texCoord.tl_y = col + texStepY;					// C - y
-	texCoord.tr_x = row + texStepX;					// D - x
-	texCoord.tr_y = col + texStepY;					// D - y
+	quad.tl.texCoords.u = row;
+	quad.tl.texCoords.v = col;
+	quad.tr.texCoords.u = row + texStepX;
+	quad.tr.texCoords.v = col;
+	quad.bl.texCoords.u = row;
+	quad.bl.texCoords.v = col + texStepY;
+	quad.br.texCoords.u = row + texStepX;
+	quad.br.texCoords.v = col + texStepY;
 	
-	vertex.bl_x = (int) (x * itemWidth);				// A - x
-	vertex.bl_y = (int) (y * itemHeight);				// A - y
-	vertex.bl_z = 0.0f;									// A - z
-	vertex.br_x = (int)(x * itemWidth + itemWidth);		// B - x
-	vertex.br_y = (int)(y * itemHeight);				// B - y
-	vertex.br_z = 0.0f;									// B - z
-	vertex.tl_x = (int)(x * itemWidth);					// C - x
-	vertex.tl_y = (int)(y * itemHeight + itemHeight);	// C - y
-	vertex.tl_z = 0.0f;									// C - z
-	vertex.tr_x = (int)(x * itemWidth + itemWidth);		// D - x
-	vertex.tr_y = (int)(y * itemHeight + itemHeight);	// D - y
-	vertex.tr_z = 0.0f;									// D - z
+	quad.bl.vertices.x = (int) (x * itemWidth);
+	quad.bl.vertices.y = (int) (y * itemHeight);
+	quad.bl.vertices.z = 0.0f;
+	quad.br.vertices.x = (int)(x * itemWidth + itemWidth);
+	quad.br.vertices.y = (int)(y * itemHeight);
+	quad.br.vertices.z = 0.0f;
+	quad.tl.vertices.x = (int)(x * itemWidth);
+	quad.tl.vertices.y = (int)(y * itemHeight + itemHeight);
+	quad.tl.vertices.z = 0.0f;
+	quad.tr.vertices.x = (int)(x * itemWidth + itemWidth);
+	quad.tr.vertices.y = (int)(y * itemHeight + itemHeight);
+	quad.tr.vertices.z = 0.0f;
 	
-	[textureAtlas updateQuadWithTexture:&texCoord vertexQuad:&vertex atIndex:idx];
+	[textureAtlas_ updateQuad:&quad atIndex:idx];
 }
 
 - (void)updateAtlasValues {

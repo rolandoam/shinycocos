@@ -53,6 +53,11 @@ void add_floor_to_space(cpSpace *space, int width, int height, int tw, int th, i
 	cpBody *floorBody = cpBodyNew(INFINITY, INFINITY);
 	cpShape *segment;
 	CGPoint stp = cpvzero, edp = cpvzero;
+	
+	// add floorBody as a global variable
+	VALUE rb_floorBody = Data_Wrap_Struct(c_cpBody, NULL, cpBodyFree, floorBody);
+	rb_gv_set("floor_body", rb_floorBody);
+	
 	for (y=0; y < height; y++) {
 		for (x=0; x < width; x++) {
 			NSUInteger st = y*4*width + x*4;
@@ -171,6 +176,7 @@ VALUE rb_cSolidShapeMap_s_create(VALUE klass, VALUE rb_space, VALUE options) {
 		add_floor_to_space(space, map_width, map_height, tile_width, tile_height, starting_gid, data, RSTRING_LEN(tmp));
 	}
 	if (tmp == Qnil) {
+		NSLog(@"will raise");
 		rb_raise(rb_eArgError, "Missing required key in options");
 	}
 	return rb_space;

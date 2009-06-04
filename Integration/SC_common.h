@@ -28,6 +28,7 @@ typedef struct {
 } cocos_holder;
 #define GET_OBJC(ptr) ((cocos_holder *)ptr)->_obj
 #define CC_NODE(ptr) ((CocosNode *)ptr->_obj)
+#define CC_PXNODE(ptr) ((ParallaxNode *)ptr->_obj)
 #define CC_LAYER(ptr) ((Layer *)ptr->_obj)
 #define CC_MENU(ptr) ((Menu *)ptr->_obj)
 #define SC_DATA(obj, value) do { \
@@ -36,8 +37,8 @@ Data_Get_Struct(value, cocos_holder, ptr); \
 obj = ptr->_obj; \
 } while(0)
 
-#define INSPECT(obj) rb_funcall(obj, id_sc_inspect, 0, 0)
-#define RBCALL(obj, func) rb_funcall(obj, rb_intern(func), 0, 0)
+#define INSPECT(obj) sc_protect_funcall(obj, id_sc_inspect, 0, 0)
+#define RBCALL(obj, func) sc_protect_funcall(obj, rb_intern(func), 0, 0)
 
 extern VALUE rb_mCocos2D;
 extern VALUE sc_acc_delegate;
@@ -47,6 +48,10 @@ extern NSMutableDictionary *sc_handler_hash;
 extern id accDelegate;
 
 VALUE sc_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *argv, BOOL release_on_free);
+VALUE rb_hash_with_touch(UITouch *touch);
+VALUE rb_ary_with_set(NSSet *touches);
+VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...);
+void  sc_error(int state);
 void  sc_method_swap(Class cls, SEL orig, SEL repl);
 
 static inline CGRect sc_make_rect(VALUE rb_rect) {

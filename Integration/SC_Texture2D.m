@@ -49,12 +49,11 @@ VALUE rb_cTexture2D_s_restore_tex_parameters(VALUE klass) {
 /* 
  * Must complete doc
  */
-VALUE rb_cTexture2D_s_aliased(VALUE klass) {
+VALUE rb_cTexture2D_s_anti_aliased(VALUE klass) {
 	if (rb_block_given_p()) {
-		[Texture2D saveTexParameters];
-		[Texture2D setAliasTexParameters];
+		[Texture2D setAntiAliasTexParam];
 		rb_yield(Qnil);
-		[Texture2D restoreTexParameters];
+		[Texture2D setAliasTextParam];
 	}
 	return Qnil;
 }
@@ -64,5 +63,5 @@ void init_rb_cTexture2D() {
 	rb_define_singleton_method(rb_cTexture2D, "save_tex_parameters", rb_cTexture2D_s_save_tex_parameters, 0);
 	rb_define_singleton_method(rb_cTexture2D, "set_alias_tex_parameters", rb_cTexture2D_s_set_alias_tex_parameters, 0);
 	rb_define_singleton_method(rb_cTexture2D, "restore_tex_parameters", rb_cTexture2D_s_restore_tex_parameters, 0);
-	rb_define_singleton_method(rb_cTexture2D, "aliased", rb_cTexture2D_s_aliased, 0);
+	rb_define_singleton_method(rb_cTexture2D, "anti_aliased", rb_cTexture2D_s_anti_aliased, 0);
 }

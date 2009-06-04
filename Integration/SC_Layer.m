@@ -26,75 +26,10 @@
 VALUE rb_cLayer;
 
 @interface RBLayer : Layer
-- (BOOL)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
-- (BOOL)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
-- (BOOL)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
-- (BOOL)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
-- (VALUE)rbArrayWithSet:(NSSet *)touches;
 @end
 
 @implementation RBLayer
-- (VALUE)rbArrayWithSet:(NSSet *)touches {
-	NSArray *arr = [touches allObjects];
-	VALUE rb_arr = rb_ary_new2([arr count]);
-	for (UITouch *touch in arr) {
-		// touch should be a hash in the ruby world
-		// with keys like :location, :tap_count, :timestamp
-		CGPoint loc = [touch locationInView:[touch view]];
-		NSUInteger taps = [touch tapCount];
-		VALUE h = rb_hash_new();
-		rb_hash_aset(h, ID2SYM(id_sc_location), rb_ary_new3(2, rb_float_new(loc.x), rb_float_new(loc.y)));
-		rb_hash_aset(h, ID2SYM(id_sc_tap_count), INT2FIX(taps));
-		rb_ary_push(rb_arr, h);
-	}
-	return rb_arr;
-}
-
-- (BOOL)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
-	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_sc_touches_began)) {
-			rb_funcall(obj, id_sc_touches_began, 1, [self rbArrayWithSet:touches]);
-			return YES;
-		}
-	}
-	return NO;
-}
-
-- (BOOL)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
-	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_sc_touches_moved)) {
-			rb_funcall(obj, id_sc_touches_moved, 1, [self rbArrayWithSet:touches]);
-			return YES;
-		}
-	}
-	return NO;
-}
-
-- (BOOL)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
-	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_sc_touches_ended)) {
-			rb_funcall(obj, id_sc_touches_ended, 1, [self rbArrayWithSet:touches]);
-			return YES;
-		}
-	}
-	return NO;
-}
-
-- (BOOL)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
-	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_sc_touches_cancelled)) {
-			rb_funcall(obj, id_sc_touches_cancelled, 1, [self rbArrayWithSet:touches]);
-			return YES;
-		}
-	}
-	return NO;
-}
-
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
@@ -103,7 +38,7 @@ VALUE rb_cLayer;
 				rb_float_new(acceleration.x),
 				rb_float_new(acceleration.y),
 				rb_float_new(acceleration.z));
-			rb_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
+			sc_protect_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
 		}
 	}
 }

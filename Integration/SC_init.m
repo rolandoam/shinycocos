@@ -46,6 +46,73 @@ VALUE sc_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *a
 	return obj;
 }
 
+VALUE rb_hash_with_touch(UITouch *touch) {
+	// touch should be a hash in the ruby world
+	// with keys like :location, :tap_count, :timestamp
+	CGPoint loc = [touch locationInView:[touch view]];
+	NSUInteger taps = [touch tapCount];
+	VALUE h = rb_hash_new();
+	rb_hash_aset(h, ID2SYM(id_sc_location), rb_ary_new3(2, rb_float_new(loc.x), rb_float_new(loc.y)));
+	rb_hash_aset(h, ID2SYM(id_sc_tap_count), INT2FIX(taps));
+	return h;
+}
+
+VALUE rb_ary_with_set(NSSet *touches) {
+	NSArray *arr = [touches allObjects];
+	VALUE rb_arr = rb_ary_new2([arr count]);
+	for (UITouch *touch in arr) {
+		rb_ary_push(rb_arr, rb_hash_with_touch(touch));
+	}
+	return rb_arr;
+}
+
+VALUE sc_funcall(VALUE *args) {
+	return rb_funcall2(args[0], (ID)args[1], (long)args[2], (args+3));
+}
+
+#define va_init_list(a,b) va_start(a,b)
+VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
+    VALUE *argv;
+    va_list ar;
+    va_init_list(ar, n);
+	
+    if (n > 0) {
+		long i;
+		argv = ALLOCA_N(VALUE, n+3);
+		argv[0] = recv;
+		argv[1] = (VALUE)mid;
+		argv[2] = (VALUE)n;
+		for (i = 0; i < n; i++) {
+			argv[i+3] = va_arg(ar, VALUE);
+		}
+		va_end(ar);
+    }
+    else {
+		argv = ALLOCA_N(VALUE, 4);
+		argv[0] = recv;
+		argv[1] = (VALUE)mid;
+		argv[2] = (VALUE)n;
+		argv[3] = 0;
+    }
+	int state;
+	VALUE result = rb_protect(RUBY_METHOD_FUNC(sc_funcall), (VALUE)argv, &state);
+	if (state != 0) {
+		sc_error(state);
+		return Qnil;
+	}
+	return result;
+}
+
+void sc_error(int state) {
+	VALUE err    = rb_funcall(rb_gv_get("$!"), id_sc_message, 0, 0);
+	VALUE err_bt = rb_gv_get("$@");
+	VALUE err_bt_str = rb_funcall(err_bt, id_sc_join, 1, rb_str_new2("\n"));
+	NSLog(@"RubyError: %s\n%s",
+		  StringValueCStr(err),
+		  StringValueCStr(err_bt_str));
+}
+
+
 /*
  * use this with caution, this is really slow!
  */
@@ -55,11 +122,11 @@ VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 	int i;
 	for (i=0; i < argc; i++) {
 		if (TYPE(argv[i]) == T_STRING)
-			rb_funcall(template_ary, id_sc_push, 1, argv[i]);
+			sc_protect_funcall(template_ary, id_sc_push, 1, argv[i]);
 		else
-			rb_funcall(template_ary, id_sc_push, 1, INSPECT(argv[i]));
+			sc_protect_funcall(template_ary, id_sc_push, 1, INSPECT(argv[i]));
 	}
-	VALUE template_final = rb_funcall(template_ary, id_sc_join, 1, rb_str_new2(" "));	
+	VALUE template_final = sc_protect_funcall(template_ary, id_sc_join, 1, rb_str_new2(" "));	
 	
 	NSLog([NSString stringWithCString:StringValueCStr(template_final) encoding:NSUTF8StringEncoding]);
 	return Qnil;
@@ -86,7 +153,7 @@ void Init_ShinyCocos() {
 	/* init the integration classes */
 	init_sc_ids();
 	init_rb_cTexture2D();
-	init_rb_cDirector();
+	init_rb_mDirector();
 	init_rb_cCocosNode();
 	init_rb_cScene();
 	init_rb_cTextureNode();
@@ -99,7 +166,7 @@ void Init_ShinyCocos() {
 	init_rb_cMenu();
 	init_rb_cMenuItemImage();
 	init_rb_cSolidShapeMap();
-	init_rb_cMenuItemAtlasSprite();
+	//init_rb_cMenuItemAtlasSprite();
 	init_rb_mTwitter();
 	init_rb_mUserDefaults();
 	init_sc_cocoa_additions();

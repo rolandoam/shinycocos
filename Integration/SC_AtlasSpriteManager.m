@@ -29,13 +29,13 @@ VALUE rb_cAtlasSpriteManager;
  */
 VALUE rb_cAtlasSpriteManager_s_new(int argc, VALUE *argv, VALUE klass) {
 	AtlasSpriteManager *manager;
-	if (argc < 1 || argc > 2)
+	if (argc < 1)
 		rb_raise(rb_eArgError, "invalid number of arguments");
 	
 	Check_Type(argv[0], T_STRING);
 	NSString *file = [NSString stringWithCString:StringValueCStr(argv[0]) encoding:NSUTF8StringEncoding];
 	if (argc == 1) {
-		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:29]; // default capacity
+		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:29];
 	} else {
 		Check_Type(argv[1], T_HASH);
 		VALUE cap = rb_hash_aref(argv[1], ID2SYM(id_sc_capacity));

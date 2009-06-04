@@ -51,6 +51,11 @@ static void eachShape(void *ptr, void* unused)
 - (void)chipmunk_step:(ccTime)delta;
 // ruby schedule support
 - (void)rbScheduler;
+// event handler
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event;
+- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event;
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event;
+- (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event;
 // text field delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 @end
@@ -61,7 +66,7 @@ static void eachShape(void *ptr, void* unused)
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbObject != Qnil && rb_respond_to(rbObject, id_sc_on_enter)) {
-		rb_funcall(rbObject, id_sc_on_enter, 0, 0);
+		sc_protect_funcall(rbObject, id_sc_on_enter, 0, 0);
 	}
 }
 
@@ -70,7 +75,7 @@ static void eachShape(void *ptr, void* unused)
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbObject != Qnil && rb_respond_to(rbObject, id_sc_on_exit)) {
-		rb_funcall(rbObject, id_sc_on_exit, 0, 0);
+		sc_protect_funcall(rbObject, id_sc_on_exit, 0, 0);
 	}
 }
 
@@ -96,7 +101,7 @@ static void eachShape(void *ptr, void* unused)
 		for (i=1; target != Qnil && i < RARRAY_LEN(methods); i++) {
 			// check that the target responds to the action
 			ID m = rb_to_id(RARRAY_PTR(methods)[i]);
-			rb_funcall(target, m, 0, 0);
+			sc_protect_funcall(target, m, 0, 0);
 		}
 	}
 }
@@ -105,12 +110,43 @@ static void eachShape(void *ptr, void* unused)
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_text_field_action)) {
 		NSString *text = textField.text;
-		if (rb_funcall(rbDelegate, id_sc_text_field_action, 1, rb_str_new2([text cStringUsingEncoding:NSUTF8StringEncoding])) != Qnil) {
+		if (sc_protect_funcall(rbDelegate, id_sc_text_field_action, 1, rb_str_new2([text cStringUsingEncoding:NSUTF8StringEncoding])) != Qnil) {
 			[textField resignFirstResponder];
 			return YES;
 		}
 	}
 	return NO;
+}
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_began)) {
+		if (sc_protect_funcall(rbDelegate, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
+			return YES;
+		}
+	}
+	return NO;
+}
+
+- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_moved)) {
+		sc_protect_funcall(rbDelegate, id_sc_touch_moved, 1, rb_hash_with_touch(touch));
+	}
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_ended)) {
+		sc_protect_funcall(rbDelegate, id_sc_touch_ended, 1, rb_hash_with_touch(touch));
+	}
+}
+
+- (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_cancelled)) {
+		sc_protect_funcall(rbDelegate, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
+	}
 }
 @end
 
@@ -129,7 +165,7 @@ static void eachShape(void *ptr, void* unused)
 	// be a block/proc. It shouldn't be hard to implement, just check
 	// the type
 	if (handler && TYPE(handler) == T_ARRAY && RARRAY_LEN(handler) == 2) {
-		rb_funcall(RARRAY_PTR(handler)[0], rb_to_id(RARRAY_PTR(handler)[1]), 0, 0);
+		sc_protect_funcall(RARRAY_PTR(handler)[0], rb_to_id(RARRAY_PTR(handler)[1]), 0, 0);
 	}
 	// unregister the handler
 	// NOTE
@@ -321,7 +357,14 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
  * arguments.
  */
 VALUE rb_cCocosNode_s_new(int argc, VALUE *argv, VALUE klass) {
-	CocosNode *node = [[CocosNode alloc] init];
+	id node;
+	if (argc > 0 && argv[0] == ID2SYM(rb_intern("parallax"))) {
+		node = [[ParallaxNode alloc] init];
+		argc -= 1;
+		argv += 1;
+	} else {
+		node = [[CocosNode alloc] init];
+	}
 	VALUE obj = sc_init(klass, nil, node, argc, argv, YES);
 	// add the pointer to the object hash
 	sc_add_tracking(sc_object_hash, node, obj);
@@ -360,7 +403,7 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	if (parallaxRatio != Qnil) {
 		Check_Type(parallaxRatio, T_ARRAY);
 		cpVect v = cpv(NUM2DBL(RARRAY_PTR(parallaxRatio)[0]), NUM2DBL(RARRAY_PTR(parallaxRatio)[1]));
-		[CC_NODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order parallaxRatio:v];
+		[CC_PXNODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order parallaxRatio:v positionOffset:cpvzero];
 	} else {
 		[CC_NODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order tag:tag];
 	}
@@ -493,8 +536,9 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
 	Data_Get_Struct(object, cocos_holder, ptr);
 	cpShape *shape = SHAPE(rb_shape);
 	shape->data = ptr->_obj;
+	rb_ivar_set(object, rb_intern("@shape"), rb_shape);
 	
-	return object;
+	return rb_shape;
 }
 
 /*
@@ -529,7 +573,7 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	Data_Get_Struct(object, cocos_holder, ptr);
 	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(ptr));
 	if (methods != Qnil) {
-		rb_funcall(methods, id_sc_delete, 1, method);
+		sc_protect_funcall(methods, id_sc_delete, 1, method);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[CC_NODE(ptr) unschedule:@selector(rbScheduler)];
@@ -637,6 +681,16 @@ VALUE rb_cCocosNode_draw(VALUE object) {
 }
 
 /*
+ * returns info about the object
+ */
+VALUE rb_cCocosNode_inspect(VALUE object) {
+	CocosNode *tmp; SC_DATA(tmp, object);
+	NSString *str = [NSString stringWithFormat:@"<#%s position:%f,%f (desc: %@)>",
+					 rb_obj_classname(object), tmp.position.x, tmp.position.y, [tmp description]];
+	return rb_str_new2([str cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+/*
  * The ruby equivalent of the CocosNode class - not yet complete
  */
 void init_rb_cCocosNode() {
@@ -680,6 +734,9 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "on_enter", rb_cCocosNode_on_enter, 0);
 	rb_define_method(rb_cCocosNode, "on_exit", rb_cCocosNode_on_exit, 0);
 	rb_define_method(rb_cCocosNode, "draw", rb_cCocosNode_on_exit, 0);
+	
+	// inspect
+	rb_define_method(rb_cCocosNode, "inspect", rb_cCocosNode_inspect, 0);
 	
 	// replace the common actions on the CocosNode class
 	sc_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));

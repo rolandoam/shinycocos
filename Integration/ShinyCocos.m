@@ -53,7 +53,6 @@ void ShinyCocosSetup(UIWindow *window) {
 	RUBY_INIT_STACK;
 	ruby_init();
 	}
-	ruby_script("ShinyCocos");
 	
 	/* add the bundle resource path to the search path */
 	VALUE load_path = rb_gv_get(":");
@@ -75,17 +74,11 @@ void ShinyCocosSetup(UIWindow *window) {
 }
 
 void ShinyCocosStart() {
-	int state;	
-	//ruby_run_node(ruby_options(sc_argc, sc_argv));
+	int state;
+	ruby_script("main.rb");
 	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
-	if (state != 0) {
-		VALUE err    = rb_funcall(rb_gv_get("$!"), id_sc_message, 0, 0);
-		VALUE err_bt = rb_gv_get("$@");
-		VALUE err_bt_str = rb_funcall(err_bt, id_sc_join, 1, rb_str_new2("\n"));
-		NSLog(@"RubyError: %s\n%s",
-			StringValueCStr(err),
-			StringValueCStr(err_bt_str));
-	}
+	if (state != 0)
+		sc_error(state);
 }
 
 void ShinyCocosInitChipmunk() {

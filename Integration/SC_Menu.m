@@ -42,7 +42,7 @@
 
 - (void)proxyRuby:(id)sender {
 	if (rb_respond_to(rbObject, id_sc_item_action)) {
-		rb_funcall(rbObject, id_sc_item_action, 0, 0);
+		sc_protect_funcall(rbObject, id_sc_item_action, 0, 0);
 	}
 }
 @end
