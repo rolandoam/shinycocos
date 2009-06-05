@@ -13,15 +13,14 @@ class TestScene < MenuScene
         anim.add_frame [x*85, y*121, 85, 121]
       end
     }
-    #Texture2D.aliased do
-      @manager = AtlasSpriteManager.new "grossini_dance_atlas.pvr", :capacity => 50
-      add_child @manager, :z => 0
-    #end
+    @manager = AtlasSpriteManager.new "grossini_dance_atlas.pvr", :capacity => 50
+    add_child @manager, :z => 0
     @sprite = AtlasSprite.new(:rect => [0, 0, 85, 121], :manager => @manager)
     @sprite.position = [240, 160]
     @sprite.run_action(:repeat_forever, {}, :animate, @animations[:walk])
     @manager.add_child @sprite, :z => 0
-	enable_accelerometer(true)
+
+    enable_accelerometer(true)
     super
   end
   

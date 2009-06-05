@@ -54,9 +54,7 @@ VALUE rb_mDirector_set_animation_interval(VALUE module, VALUE interval) {
  * Will run a scene
  */
 VALUE rb_mDirector_run_scene(VALUE module, VALUE scene) {
-	cocos_holder *ptr;
-	Data_Get_Struct(scene, cocos_holder, ptr);
-	[[Director sharedDirector] runWithScene:GET_OBJC(ptr)];
+	[[Director sharedDirector] runWithScene:CC_SCENE(scene)];
 	return scene;
 }
 
@@ -67,9 +65,7 @@ VALUE rb_mDirector_run_scene(VALUE module, VALUE scene) {
  * Replaces the current scene with a new one
  */
 VALUE rb_mDirector_replace_scene(VALUE module, VALUE scene) {
-	cocos_holder *ptr;
-	Data_Get_Struct(scene, cocos_holder, ptr);
-	[[Director sharedDirector] replaceScene:GET_OBJC(ptr)];
+	[[Director sharedDirector] replaceScene:CC_SCENE(scene)];
 	return scene;
 }
 
@@ -89,10 +85,7 @@ VALUE rb_mDirector_display_fps(VALUE module, VALUE display) {
  *   Director.add_event_handler(some_node)   #=> some_node
  */
 VALUE rb_mDirector_add_event_handler(VALUE module, VALUE node) {
-	cocos_holder *ptr;
-	Data_Get_Struct(node, cocos_holder, ptr);
-	NSLog(@"here 1");
-	[[Director sharedDirector] addEventHandler:(CocosNode *)(ptr->_obj)];
+	[[Director sharedDirector] addEventHandler:CC_NODE(node)];
 	return node;
 }
 
@@ -116,7 +109,7 @@ VALUE rb_mDirector_add_text_field(VALUE module, VALUE size, VALUE landscape, VAL
 	textField.borderStyle = UITextBorderStyleRoundedRect;
 	textField.returnKeyType = UIReturnKeyDone;
 	if (delegate != Qnil)
-		SC_DATA(textField.delegate, delegate);
+		textField.delegate = CC_NODE(delegate);
 	[[Director sharedDirector].openGLView addSubview:textField];
 	
 	return Qnil;

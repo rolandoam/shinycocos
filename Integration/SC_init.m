@@ -28,7 +28,7 @@ NSMutableDictionary *sc_handler_hash;
 #pragma mark Common
 
 void sc_free(void *ptr) {
-	[GET_OBJC(ptr) release];
+	[(((cocos_holder *)(ptr))->_obj) release];
 	free(ptr);
 }
 
@@ -152,7 +152,6 @@ void Init_ShinyCocos() {
 	
 	/* init the integration classes */
 	init_sc_ids();
-	init_rb_cTexture2D();
 	init_rb_mDirector();
 	init_rb_cCocosNode();
 	init_rb_cScene();

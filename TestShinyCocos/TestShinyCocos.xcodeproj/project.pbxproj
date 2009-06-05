@@ -43,28 +43,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 504225700FC0B39C00B992F7 /* libbox2d.a */;
+			remoteGlobalIDString = 504225700FC0B39C00B992F7;
 			remoteInfo = box2d;
 		};
 		A902C6130FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5042262E0FC0B5D500B992F7 /* Box2dTest.app */;
+			remoteGlobalIDString = 5042262E0FC0B5D500B992F7;
 			remoteInfo = "Box2dTest (experimental)";
 		};
 		A902C6150FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50F992C40F9F188700767ABC /* PerformanceParticleTest.app */;
+			remoteGlobalIDString = 50F992C40F9F188700767ABC;
 			remoteInfo = PerformanceParticleTest;
 		};
 		A902C6170FD6D97C00309EC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 503F25EB0FD3CA2A009BAFB6 /* CocosDenshionTest.app */;
+			remoteGlobalIDString = 503F25EB0FD3CA2A009BAFB6;
 			remoteInfo = "SoundEngine CocosDenshionTest (experimental)";
 		};
 		A95E97770FB45F32001A6523 /* PBXContainerItemProxy */ = {

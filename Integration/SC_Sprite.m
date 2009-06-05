@@ -41,7 +41,17 @@ VALUE rb_cSprite_s_new(VALUE klass, VALUE filepath) {
 	return rb_obj;
 }
 
+VALUE rb_cSprite_antialias(VALUE obj, VALUE antialias) {
+	if (antialias != Qfalse) {
+		[CC_SPRITE(obj).texture setAntiAliasTexParameters];
+	} else {
+		[CC_SPRITE(obj).texture setAliasTexParameters];
+	}
+	return antialias;
+}
+
 void init_rb_cSprite() {
 	rb_cSprite = rb_define_class_under(rb_mCocos2D, "Sprite", rb_cTextureNode);
 	rb_define_singleton_method(rb_cSprite, "new", rb_cSprite_s_new, 1);
+	rb_define_method(rb_cSprite, "antialias", rb_cSprite_antialias, 1);
 }

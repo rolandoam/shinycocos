@@ -184,9 +184,7 @@ static void eachShape(void *ptr, void* unused)
  * Returns the z_order of the node
  */
 VALUE rb_cCocosNode_z_order(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return INT2FIX(CC_NODE(ptr).zOrder);
+	return INT2FIX(CC_NODE(object).zOrder);
 }
 
 /* 
@@ -196,9 +194,7 @@ VALUE rb_cCocosNode_z_order(VALUE object) {
  * Returns the rotation of the sprite
  */
 VALUE rb_cCocosNode_rotation(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return rb_float_new(CC_NODE(ptr).rotation);
+	return rb_float_new(CC_NODE(object).rotation);
 }
 
 /* 
@@ -208,10 +204,8 @@ VALUE rb_cCocosNode_rotation(VALUE object) {
  * Sets the rotation of the sprite
  */
 VALUE rb_cCocosNode_set_rotation(VALUE object, VALUE rotation) {
-	cocos_holder *ptr;
 	Check_Type(rotation, T_FLOAT);
-	Data_Get_Struct(object, cocos_holder, ptr);
-	CC_NODE(ptr).rotation = NUM2DBL(rotation);
+	CC_NODE(object).rotation = NUM2DBL(rotation);
 	return rotation;
 }
 
@@ -219,19 +213,15 @@ VALUE rb_cCocosNode_set_rotation(VALUE object, VALUE rotation) {
  *   node.scale #=> float
  */
 VALUE rb_cCocosNode_scale(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return rb_float_new(CC_NODE(ptr).scale);
+	return rb_float_new(CC_NODE(object).scale);
 }
 
 /* 
  *   node.scale = 0.5
  */
 VALUE rb_cCocosNode_set_scale(VALUE object, VALUE scale) {
-	cocos_holder *ptr;
 	Check_Type(scale, T_FLOAT);
-	Data_Get_Struct(object, cocos_holder, ptr);
-	CC_NODE(ptr).scale = NUM2DBL(scale);
+	CC_NODE(object).scale = NUM2DBL(scale);
 	return scale;
 }
 
@@ -239,19 +229,15 @@ VALUE rb_cCocosNode_set_scale(VALUE object, VALUE scale) {
  *   node.scale_x #=> float
  */
 VALUE rb_cCocosNode_scale_x(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return rb_float_new(CC_NODE(ptr).scaleX);
+	return rb_float_new(CC_NODE(object).scaleX);
 }
 
 /* 
  *   node.scale_x = 1.1
  */
 VALUE rb_cCocosNode_set_scale_x(VALUE object, VALUE scale_x) {
-	cocos_holder *ptr;
 	Check_Type(scale_x, T_FLOAT);
-	Data_Get_Struct(object, cocos_holder, ptr);
-	CC_NODE(ptr).scaleY = NUM2DBL(scale_x);
+	CC_NODE(object).scaleY = NUM2DBL(scale_x);
 	return scale_x;
 }
 
@@ -259,19 +245,15 @@ VALUE rb_cCocosNode_set_scale_x(VALUE object, VALUE scale_x) {
  *   node.scale_y #=> float
  */
 VALUE rb_cCocosNode_scale_y(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return rb_float_new(CC_NODE(ptr).scaleY);
+	return rb_float_new(CC_NODE(object).scaleY);
 }
 
 /* 
  *   node.scale_y = 0.3
  */
 VALUE rb_cCocosNode_set_scale_y(VALUE object, VALUE scale_y) {
-	cocos_holder *ptr;
 	Check_Type(scale_y, T_FLOAT);
-	Data_Get_Struct(object, cocos_holder, ptr);
-	CC_NODE(ptr).scaleY = NUM2DBL(scale_y);
+	CC_NODE(object).scaleY = NUM2DBL(scale_y);
 	return scale_y;
 }
 
@@ -279,9 +261,7 @@ VALUE rb_cCocosNode_set_scale_y(VALUE object, VALUE scale_y) {
  *   node.position #=> [x,y]
  */
 VALUE rb_cCocosNode_position(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	cpVect v = CC_NODE(ptr).position;
+	cpVect v = CC_NODE(object).position;
 	return rb_ary_new3(2, rb_float_new(v.x), rb_float_new(v.y));
 }
 
@@ -289,11 +269,9 @@ VALUE rb_cCocosNode_position(VALUE object) {
  *   node.position = [x,y] #=> [x,y]
  */
 VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) {
-	cocos_holder *ptr;
 	Check_Type(position, T_ARRAY);
 	if (RARRAY_LEN(position) == 2) {
-		Data_Get_Struct(object, cocos_holder, ptr);
-		CC_NODE(ptr).position = cpv(NUM2DBL(RARRAY_PTR(position)[0]), NUM2DBL(RARRAY_PTR(position)[1]));
+		CC_NODE(object).position = cpv(NUM2DBL(RARRAY_PTR(position)[0]), NUM2DBL(RARRAY_PTR(position)[1]));
 		return position;
 	} else {
 		NSLog(@"Invalid array size for position");
@@ -305,9 +283,7 @@ VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) {
  *   node.visible? #=> true or false
  */
 VALUE rb_cCocosNode_visible(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return CC_NODE(ptr).visible ? Qtrue : Qfalse;
+	return CC_NODE(object).visible ? Qtrue : Qfalse;
 }
 
 /* 
@@ -316,9 +292,7 @@ VALUE rb_cCocosNode_visible(VALUE object) {
  *   node.visible = true
  */
 VALUE rb_cCocosNode_set_visible(VALUE object, VALUE visible) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	CC_NODE(ptr).visible = (visible == Qfalse) ? NO : YES;
+	CC_NODE(object).visible = (visible == Qfalse) ? NO : YES;
 	return (visible == Qfalse) ? Qfalse : Qtrue;
 }
 
@@ -326,9 +300,7 @@ VALUE rb_cCocosNode_set_visible(VALUE object, VALUE visible) {
  *   node.tag #=> Integer
  */
 VALUE rb_cCocosNode_tag(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	return INT2FIX(CC_NODE(ptr).tag);
+	return INT2FIX(CC_NODE(object).tag);
 }
 
 /* 
@@ -337,9 +309,7 @@ VALUE rb_cCocosNode_tag(VALUE object) {
  *   node.tag = MY_TAG
  */
 VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	CC_NODE(ptr).tag = FIX2INT(tag);
+	CC_NODE(object).tag = FIX2INT(tag);
 	return tag;
 }
 
@@ -382,10 +352,8 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 		rb_raise(rb_eArgError, "invalid number of arguments");
 	}
 	// set default values
-	cocos_holder *ptr_child;
-	Data_Get_Struct(args[0], cocos_holder, ptr_child);
-	int z_order = CC_NODE(ptr_child).zOrder;
-	int tag     = CC_NODE(ptr_child).tag;
+	int z_order = CC_NODE(args[0]).zOrder;
+	int tag     = CC_NODE(args[0]).tag;
 	VALUE parallaxRatio = Qnil;
 	if (argc == 2) {
 		Check_Type(args[1], T_HASH);
@@ -398,20 +366,17 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 			parallaxRatio = _tmp;
 		}
 	}
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
 	if (parallaxRatio != Qnil) {
 		Check_Type(parallaxRatio, T_ARRAY);
 		cpVect v = cpv(NUM2DBL(RARRAY_PTR(parallaxRatio)[0]), NUM2DBL(RARRAY_PTR(parallaxRatio)[1]));
-		[CC_PXNODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order parallaxRatio:v positionOffset:cpvzero];
+		[CC_PXNODE(object) addChild:CC_NODE(args[0]) z:z_order parallaxRatio:v positionOffset:cpvzero];
 	} else {
-		[CC_NODE(ptr) addChild:GET_OBJC(ptr_child) z:z_order tag:tag];
+		[CC_NODE(object) addChild:CC_NODE(args[0]) z:z_order tag:tag];
 	}
 	return args[0];
 }
 
 id create_action(ID name, int argc, VALUE *argv) {
-	cocos_holder *ptr;
 	id action = nil;
 	
 	if (name == id_sc_repeat_forever) {
@@ -426,8 +391,7 @@ id create_action(ID name, int argc, VALUE *argv) {
 		}
 		action = [RepeatForever actionWithAction:nested_action];
 	} else if (name == 	id_sc_animate && argc == 1) {
-		Data_Get_Struct(argv[0], cocos_holder, ptr);
-		action = [Animate actionWithAnimation:GET_OBJC(ptr)];
+		action = [Animate actionWithAnimation:CC_ATLAS_ANIMATION(argv[0])];
 	} else if ((name == id_sc_move_to || name == id_sc_move_by) && argc == 2) {
 		Check_Type(argv[0], T_FLOAT);
 		Check_Type(argv[1], T_ARRAY);
@@ -508,9 +472,7 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *argv, VALUE object) {
 	}
 	
 	// here we should do something with the modified struct (when the yield works)
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	[CC_NODE(ptr) runAction:action];
+	[CC_NODE(object) runAction:action];
 	
 	return object;
 }
@@ -520,9 +482,7 @@ VALUE rb_cCocosNode_run_action(int argc, VALUE *argv, VALUE object) {
  * <tt>step:</tt> selector).
  */
 VALUE rb_cCocosNode_become_chipmunk_stepper(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	[CC_NODE(ptr) schedule:@selector(chipmunk_step:)];
+	[CC_NODE(object) schedule:@selector(chipmunk_step:)];
 	
 	return object;
 }
@@ -550,13 +510,11 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
  */
 VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {	
 	Check_Type(method, T_SYMBOL);
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(ptr));
+	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
 	if (methods == Qnil) {
 		methods = rb_ary_new3(2, object, method);
-		sc_add_tracking(sc_schedule_methods, CC_NODE(ptr), methods);
-		[CC_NODE(ptr) schedule:@selector(rbScheduler)];
+		sc_add_tracking(sc_schedule_methods, CC_NODE(object), methods);
+		[CC_NODE(object) schedule:@selector(rbScheduler)];
 	} else {
 		rb_ary_push(methods, method);
 	}
@@ -569,16 +527,14 @@ VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {
  */
 VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	Check_Type(method, T_SYMBOL);
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(ptr));
+	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
 	if (methods != Qnil) {
 		sc_protect_funcall(methods, id_sc_delete, 1, method);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
-			[CC_NODE(ptr) unschedule:@selector(rbScheduler)];
+			[CC_NODE(object) unschedule:@selector(rbScheduler)];
 			// remove the array from the hash
-			sc_remove_tracking_for(sc_schedule_methods, CC_NODE(ptr));
+			sc_remove_tracking_for(sc_schedule_methods, CC_NODE(object));
 		}
 	}
 	return methods;
@@ -591,10 +547,8 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
  * returns the camera eye as an array of 3 floats
  */
 VALUE rb_cCocosNode_camera_eye(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
 	float x, y, z;
-	[CC_NODE(ptr).camera eyeX:&x eyeY:&y eyeZ:&z];
+	[CC_NODE(object).camera eyeX:&x eyeY:&y eyeZ:&z];
 	
 	return rb_ary_new3(3, rb_float_new(x), rb_float_new(y), rb_float_new(z));
 }
@@ -610,12 +564,10 @@ VALUE rb_cCocosNode_set_camera_eye(VALUE object, VALUE position) {
 	if (RARRAY_LEN(position) < 3) {
 		rb_raise(rb_eArgError, "Invalid position array");
 	}
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
 	VALUE x = RARRAY_PTR(position)[0];
 	VALUE y = RARRAY_PTR(position)[1];
 	VALUE z = RARRAY_PTR(position)[2];
-	[CC_NODE(ptr).camera setEyeX:NUM2DBL(x) eyeY:NUM2DBL(y) eyeZ:NUM2DBL(z)];
+	[CC_NODE(object).camera setEyeX:NUM2DBL(x) eyeY:NUM2DBL(y) eyeZ:NUM2DBL(z)];
 	
 	return position;
 }
@@ -627,10 +579,8 @@ VALUE rb_cCocosNode_set_camera_eye(VALUE object, VALUE position) {
  * returns the camera center as an array of 3 floats
  */
 VALUE rb_cCocosNode_camera_center(VALUE object) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
 	float x, y, z;
-	[CC_NODE(ptr).camera centerX:&x centerY:&y centerZ:&z];
+	[CC_NODE(object).camera centerX:&x centerY:&y centerZ:&z];
 	
 	return rb_ary_new3(3, rb_float_new(x), rb_float_new(y), rb_float_new(z));
 }
@@ -646,12 +596,10 @@ VALUE rb_cCocosNode_set_camera_center(VALUE object, VALUE position) {
 	if (RARRAY_LEN(position) < 3) {
 		rb_raise(rb_eArgError, "Invalid position array");
 	}
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
 	VALUE x = RARRAY_PTR(position)[0];
 	VALUE y = RARRAY_PTR(position)[1];
 	VALUE z = RARRAY_PTR(position)[2];
-	[CC_NODE(ptr).camera setCenterX:NUM2DBL(x) centerY:NUM2DBL(y) centerZ:NUM2DBL(z)];
+	[CC_NODE(object).camera setCenterX:NUM2DBL(x) centerY:NUM2DBL(y) centerZ:NUM2DBL(z)];
 	
 	return position;
 }
@@ -684,7 +632,7 @@ VALUE rb_cCocosNode_draw(VALUE object) {
  * returns info about the object
  */
 VALUE rb_cCocosNode_inspect(VALUE object) {
-	CocosNode *tmp; SC_DATA(tmp, object);
+	CocosNode *tmp = CC_NODE(object);
 	NSString *str = [NSString stringWithFormat:@"<#%s position:%f,%f (desc: %@)>",
 					 rb_obj_classname(object), tmp.position.x, tmp.position.y, [tmp description]];
 	return rb_str_new2([str cStringUsingEncoding:NSUTF8StringEncoding]);

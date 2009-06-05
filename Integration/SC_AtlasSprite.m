@@ -31,6 +31,9 @@ VALUE rb_cAtlasAnimation;
  * creates a new AtlasSprite
  */
 VALUE rb_cAtlasSprite_s_new(int argc, VALUE *argv, VALUE klass) {
+	if (argc < 1) {
+		rb_raise(rb_eArgError, "Invalid number of arguments");
+	}
 	Check_Type(argv[0], T_HASH);
 	VALUE rb_manager = rb_hash_aref(argv[0], ID2SYM(id_sc_manager));
 	VALUE rb_rect = rb_hash_aref(argv[0], ID2SYM(id_sc_rect));
@@ -39,7 +42,7 @@ VALUE rb_cAtlasSprite_s_new(int argc, VALUE *argv, VALUE klass) {
 	cocos_holder *ptr;
 	Data_Get_Struct(rb_manager, cocos_holder, ptr);
 	AtlasSprite *sprite = [[AtlasSprite alloc] initWithRect:rect spriteManager:ptr->_obj];
-	VALUE ret = sc_init(klass, nil, sprite, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, sprite, argc-1, argv+1, YES);
 	sc_add_tracking(sc_object_hash, sprite, ret);
 	return ret;
 }
@@ -80,10 +83,7 @@ VALUE rb_cAtlasAnimation_s_new(VALUE klass, VALUE opts) {
  * rect is an array that will be converted to a CGRect
  */
 VALUE rb_cAtlasAnimation_add_frame(VALUE obj, VALUE rect) {
-	cocos_holder *ptr;
-	Data_Get_Struct(obj, cocos_holder, ptr);
-	[GET_OBJC(ptr) addFrameWithRect:sc_make_rect(rect)];
-
+	[CC_ATLAS_ANIMATION(obj) addFrameWithRect:sc_make_rect(rect)];
 	return rect;
 }
 

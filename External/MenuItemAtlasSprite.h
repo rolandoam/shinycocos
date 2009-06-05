@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface MenuItemAtlasSprite : MenuItem
+@interface MenuItemAtlasSprite : MenuItem <CocosNodeRGBA>
 {
 	BOOL selected;
 	AtlasSprite *normalImage, *selectedImage, *disabledImage;

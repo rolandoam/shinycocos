@@ -26,16 +26,27 @@
 typedef struct {
 	id _obj;
 } cocos_holder;
-#define GET_OBJC(ptr) ((cocos_holder *)ptr)->_obj
-#define CC_NODE(ptr) ((CocosNode *)ptr->_obj)
-#define CC_PXNODE(ptr) ((ParallaxNode *)ptr->_obj)
-#define CC_LAYER(ptr) ((Layer *)ptr->_obj)
-#define CC_MENU(ptr) ((Menu *)ptr->_obj)
-#define SC_DATA(obj, value) do { \
-cocos_holder *ptr; \
-Data_Get_Struct(value, cocos_holder, ptr); \
-obj = ptr->_obj; \
-} while(0)
+
+#define SC_GETTER_TEMPLATE(funcname, type) \
+static inline type *funcname(VALUE obj) { \
+	cocos_holder *ptr; \
+	Data_Get_Struct(obj, cocos_holder, ptr);\
+	return (type *)(ptr->_obj);\
+}
+static inline id sc_get_objc(VALUE obj) {
+	cocos_holder *ptr; \
+	Data_Get_Struct(obj, cocos_holder, ptr);\
+	return (ptr->_obj);\
+}
+SC_GETTER_TEMPLATE(CC_NODE, CocosNode)
+SC_GETTER_TEMPLATE(CC_PXNODE, ParallaxNode)
+SC_GETTER_TEMPLATE(CC_LAYER, Layer)
+SC_GETTER_TEMPLATE(CC_MENU, Menu)
+SC_GETTER_TEMPLATE(CC_SPRITE, Sprite)
+SC_GETTER_TEMPLATE(CC_SCENE, Scene)
+SC_GETTER_TEMPLATE(CC_ATLAS_ANIMATION, AtlasAnimation)
+SC_GETTER_TEMPLATE(CC_ATLAS_SPRITE, AtlasSprite)
+SC_GETTER_TEMPLATE(CC_ATLAS_SPRITE_MNG, AtlasSpriteManager)
 
 #define INSPECT(obj) sc_protect_funcall(obj, id_sc_inspect, 0, 0)
 #define RBCALL(obj, func) sc_protect_funcall(obj, rb_intern(func), 0, 0)

@@ -117,18 +117,15 @@ VALUE rb_cMenu_s_new(VALUE klass, VALUE args) {
 	} else if (RARRAY_LEN(args) < 1) {
 		rb_raise(rb_eArgError, "Invalid number of items or no block given");
 	}
-	cocos_holder *ptr;
 	int i;
 	// get first element
-	Data_Get_Struct(RARRAY_PTR(args)[0], cocos_holder, ptr);
-	id first = CC_NODE(ptr);
+	id first = CC_NODE(RARRAY_PTR(args)[0]);
 	// create a va_list for the rest of the elements
 	fakeArray fa;
 	fa.packedArray = alloca(sizeof(id) * RARRAY_LEN(args));
 	void *p = fa.packedArray;
 	for (i=1; i < RARRAY_LEN(args); i++) {
-		Data_Get_Struct(RARRAY_PTR(args)[i], cocos_holder, ptr);
-		*(id *)p = CC_NODE(ptr);
+		*(id *)p = CC_NODE(RARRAY_PTR(args)[i]);
 		p += sizeof(id);
 	}
 	// terminator of the va_list
@@ -158,20 +155,18 @@ VALUE rb_cMenu_align(int argc, VALUE *argv, VALUE obj) {
 		rb_raise(rb_eArgError, "Invalid arguments");
 	}
 	Check_Type(argv[0], T_SYMBOL);
-	cocos_holder *ptr;
-	Data_Get_Struct(obj, cocos_holder, ptr);
 	if (argv[0] == ID2SYM(id_sc_horizontally)) {
 		if (argc == 2) {
 			Check_Type(argv[1], T_FLOAT);
-			[CC_MENU(ptr) alignItemsHorizontallyWithPadding:NUM2DBL(argv[1])];
+			[CC_MENU(obj) alignItemsHorizontallyWithPadding:NUM2DBL(argv[1])];
 		} else {
-			[CC_MENU(ptr) alignItemsHorizontally];
+			[CC_MENU(obj) alignItemsHorizontally];
 		}
 	} else if (argv[0] == ID2SYM(id_sc_vertically)) {
 		if (argc == 2) {
-			[CC_MENU(ptr) alignItemsVerticallyWithPadding:NUM2DBL(argv[1])];
+			[CC_MENU(obj) alignItemsVerticallyWithPadding:NUM2DBL(argv[1])];
 		} else {
-			[CC_MENU(ptr) alignItemsVertically];
+			[CC_MENU(obj) alignItemsVertically];
 		}
 	}
 	return obj;

@@ -76,9 +76,7 @@ VALUE rb_cLayer_s_new(int argc, VALUE *argv, VALUE klass) {
  * element is an integer.
  */
 VALUE rb_cLayer_enable_touch(VALUE obj, VALUE enable) {
-	cocos_holder *ptr;
-	Data_Get_Struct(obj, cocos_holder, ptr);
-	CC_LAYER(ptr).isTouchEnabled = !(enable == Qfalse);
+	CC_LAYER(obj).isTouchEnabled = !(enable == Qfalse);
 	return !(enable == Qfalse);
 }
 
@@ -92,9 +90,7 @@ VALUE rb_cLayer_enable_touch(VALUE obj, VALUE enable) {
  * the acceleration in the 3 axes.
  */
 VALUE rb_cLayer_enable_accelerometer(VALUE obj, VALUE enable) {
-	cocos_holder *ptr;
-	Data_Get_Struct(obj, cocos_holder, ptr);
-	CC_LAYER(ptr).isAccelerometerEnabled = !(enable == Qfalse);
+	CC_LAYER(obj).isAccelerometerEnabled = !(enable == Qfalse);
 	return !(enable == Qfalse);
 }
 
