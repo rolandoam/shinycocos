@@ -66,8 +66,13 @@ VALUE rb_ary_with_set(NSSet *touches) {
 	return rb_arr;
 }
 
+/*
+ * like rb_funcall, but check if the receiver responds to the method
+ */
 VALUE sc_funcall(VALUE *args) {
-	return rb_funcall2(args[0], (ID)args[1], (long)args[2], (args+3));
+	if (rb_respond_to(args[0], (ID)args[1]))
+		return rb_funcall2(args[0], (ID)args[1], (long)args[2], (args+3));
+	return Qnil;
 }
 
 #define va_init_list(a,b) va_start(a,b)

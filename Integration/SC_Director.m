@@ -84,8 +84,8 @@ VALUE rb_mDirector_display_fps(VALUE module, VALUE display) {
  * call-seq:
  *   Director.add_event_handler(some_node)   #=> some_node
  */
-VALUE rb_mDirector_add_event_handler(VALUE module, VALUE node) {
-	[[Director sharedDirector] addEventHandler:CC_NODE(node)];
+VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) {
+	[[TouchDispatcher sharedDispatcher] addEventHandler:CC_NODE(node)];
 	return node;
 }
 
@@ -123,7 +123,7 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "display_fps", rb_mDirector_display_fps, 1);
 	rb_define_module_function(rb_mDirector, "run_scene", rb_mDirector_run_scene, 1);
 	rb_define_module_function(rb_mDirector, "replace_scene", rb_mDirector_replace_scene, 1);
-	rb_define_module_function(rb_mDirector, "add_event_handler", rb_mDirector_add_event_handler, 1);
+	rb_define_module_function(rb_mDirector, "add_touch_handler", rb_mDirector_add_touch_handler, 1);
 	rb_define_module_function(rb_mDirector, "add_text_field", rb_mDirector_add_text_field, 3);
 	// orientation constants
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_LEFT", INT2FIX(CCDeviceOrientationLandscapeLeft));

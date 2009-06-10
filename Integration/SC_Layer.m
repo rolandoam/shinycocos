@@ -33,13 +33,11 @@ VALUE rb_cLayer;
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
 	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
 	if (obj != Qnil) {
-		if (rb_respond_to(obj, id_sc_did_accelerate)) {
-			VALUE rb_arr = rb_ary_new3(3,
-				rb_float_new(acceleration.x),
-				rb_float_new(acceleration.y),
-				rb_float_new(acceleration.z));
-			sc_protect_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
-		}
+		VALUE rb_arr = rb_ary_new3(3,
+			rb_float_new(acceleration.x),
+			rb_float_new(acceleration.y),
+			rb_float_new(acceleration.z));
+		sc_protect_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
 	}
 }
 @end

@@ -41,9 +41,7 @@
 }
 
 - (void)proxyRuby:(id)sender {
-	if (rb_respond_to(rbObject, id_sc_item_action)) {
-		sc_protect_funcall(rbObject, id_sc_item_action, 0, 0);
-	}
+	sc_protect_funcall(rbObject, id_sc_item_action, 0, 0);
 }
 @end
 
@@ -133,6 +131,8 @@ VALUE rb_cMenu_s_new(VALUE klass, VALUE args) {
 	
 	Menu *menu = [[Menu alloc] initWithItems:first vaList:fa.varargs];
 	VALUE ret = sc_init(klass, nil, menu, 0, 0, YES);
+	// keep track of the items in the ruby world
+	rb_iv_set(ret, "@items", args);
 	sc_add_tracking(sc_object_hash, menu, ret);
 	
 	return ret;

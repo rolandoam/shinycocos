@@ -65,7 +65,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_enter];
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil && rb_respond_to(rbObject, id_sc_on_enter)) {
+	if (rbObject != Qnil) { // && rb_respond_to(rbObject, id_sc_on_enter)) {
 		sc_protect_funcall(rbObject, id_sc_on_enter, 0, 0);
 	}
 }
@@ -74,7 +74,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_exit];
 	// call the ruby version
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil && rb_respond_to(rbObject, id_sc_on_exit)) {
+	if (rbObject != Qnil) { // && rb_respond_to(rbObject, id_sc_on_exit)) {
 		sc_protect_funcall(rbObject, id_sc_on_exit, 0, 0);
 	}
 }
@@ -108,7 +108,7 @@ static void eachShape(void *ptr, void* unused)
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_text_field_action)) {
+	if (rbDelegate != Qnil) { // && rb_respond_to(rbDelegate, id_sc_text_field_action)) {
 		NSString *text = textField.text;
 		if (sc_protect_funcall(rbDelegate, id_sc_text_field_action, 1, rb_str_new2([text cStringUsingEncoding:NSUTF8StringEncoding])) != Qnil) {
 			[textField resignFirstResponder];
@@ -120,7 +120,7 @@ static void eachShape(void *ptr, void* unused)
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_began)) {
+	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_began)) {
 		if (sc_protect_funcall(rbDelegate, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
 			return YES;
 		}
@@ -130,21 +130,21 @@ static void eachShape(void *ptr, void* unused)
 
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_moved)) {
+	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_moved)) {
 		sc_protect_funcall(rbDelegate, id_sc_touch_moved, 1, rb_hash_with_touch(touch));
 	}
 }
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_ended)) {
+	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_ended)) {
 		sc_protect_funcall(rbDelegate, id_sc_touch_ended, 1, rb_hash_with_touch(touch));
 	}
 }
 
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil && rb_respond_to(rbDelegate, id_sc_touch_cancelled)) {
+	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_cancelled)) {
 		sc_protect_funcall(rbDelegate, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
 	}
 }
