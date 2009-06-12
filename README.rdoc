@@ -72,10 +72,10 @@ as <tt>.c</tt>)
 
 == Installation/Building
 
-First, you need to get the latest release of the 0.7 branch of cocos2d.
+First, you need to get the latest release of cocos2d (currently, working with v0.8 from trunk)
 You can either fetch it from the project page or using subversion:
 
-  svn co http://cocos2d-iphone.googlecode.com/svn/branches/branch_0_7 cocos2d-iphone
+  svn co http://cocos2d-iphone.googlecode.com/svn/trunk cocos2d-iphone
 
 If you already have a copy of Cocos2D-iphone lying around, you can
 safely create a symbolic link with the name of "cocos2d-iphone":
