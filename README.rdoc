@@ -72,6 +72,10 @@ as <tt>.c</tt>)
 
 == Installation/Building
 
+**NOTE** if you have a previous version of ShinyCocos and have a "ruby"
+directory, remove that directory and pull the latest version from the
+repository (or completly remove ShinyCocos and pull the latest version).
+
 First, you need to get the latest release of cocos2d (currently, working with v0.8 from trunk)
 You can either fetch it from the project page or using subversion:
 
