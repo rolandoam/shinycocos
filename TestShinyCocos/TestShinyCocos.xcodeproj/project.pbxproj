@@ -16,6 +16,11 @@
 		A9066C970FBB18830020ABC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9066C920FBB18830020ABC5 /* UIKit.framework */; };
 		A9066D000FBB19F80020ABC5 /* libChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056CE0F9E9AB600C85842 /* libChipmunk.a */; };
 		A9066D910FBB55610020ABC5 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = A9066D210FBB55610020ABC5 /* lib */; };
+		A93610460FE8022500BD9029 /* black_box.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610430FE8022500BD9029 /* black_box.png */; };
+		A93610470FE8022500BD9029 /* brown_box.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610440FE8022500BD9029 /* brown_box.png */; };
+		A93610480FE8022500BD9029 /* wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610450FE8022500BD9029 /* wheel.png */; };
+		A93610780FE803EC00BD9029 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610770FE803EC00BD9029 /* white.png */; };
+		A93611B20FE96A5B00BD9029 /* tube.png in Resources */ = {isa = PBXBuildFile; fileRef = A93611B10FE96A5B00BD9029 /* tube.png */; };
 		A93D7EA10FBE0BF300731024 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A93D7E9B0FBE0BF300731024 /* vendor */; };
 		A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */; };
 		A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */; };
@@ -66,6 +71,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 503F25EB0FD3CA2A009BAFB6;
 			remoteInfo = "SoundEngine CocosDenshionTest (experimental)";
+		};
+		A93610400FE801E300BD9029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5012DD3B0FE2994300D6DDD1;
+			remoteInfo = TouchesTest;
 		};
 		A95E97770FB45F32001A6523 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -327,6 +339,11 @@
 		A9066C910FBB18830020ABC5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A9066C920FBB18830020ABC5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9066D210FBB55610020ABC5 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		A93610430FE8022500BD9029 /* black_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = black_box.png; path = Resources/Images/black_box.png; sourceTree = "<group>"; };
+		A93610440FE8022500BD9029 /* brown_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brown_box.png; path = Resources/Images/brown_box.png; sourceTree = "<group>"; };
+		A93610450FE8022500BD9029 /* wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel.png; path = Resources/Images/wheel.png; sourceTree = "<group>"; };
+		A93610770FE803EC00BD9029 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white.png; path = Resources/Images/white.png; sourceTree = "<group>"; };
+		A93611B10FE96A5B00BD9029 /* tube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tube.png; path = Resources/Images/tube.png; sourceTree = "<group>"; };
 		A93D7E9B0FBE0BF300731024 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
 		A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		A98CD4A50FB4BBA90017E521 /* AccelerometerSimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSimulation.h; sourceTree = "<group>"; };
@@ -442,6 +459,11 @@
 		A93328070FC1DFCC00843F58 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A93611B10FE96A5B00BD9029 /* tube.png */,
+				A93610770FE803EC00BD9029 /* white.png */,
+				A93610430FE8022500BD9029 /* black_box.png */,
+				A93610440FE8022500BD9029 /* brown_box.png */,
+				A93610450FE8022500BD9029 /* wheel.png */,
 				A9C037260FCCBBDA00D447B4 /* ball.png */,
 				A9C036400FCCAC6C00D447B4 /* b1.png */,
 				A9C036410FCCAC6C00D447B4 /* b2.png */,
@@ -511,6 +533,7 @@
 				A9A056FE0F9E9AB600C85842 /* SpritesTest.app */,
 				A9A057000F9E9AB600C85842 /* StreakTest.app */,
 				A9A057020F9E9AB600C85842 /* Texture2dTest.app */,
+				A93610410FE801E300BD9029 /* TouchesTest.app */,
 				A9A057040F9E9AB600C85842 /* TransitionsTest.app */,
 			);
 			name = Products;
@@ -594,6 +617,13 @@
 			fileType = wrapper.application;
 			path = CocosDenshionTest.app;
 			remoteRef = A902C6170FD6D97C00309EC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A93610410FE801E300BD9029 /* TouchesTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TouchesTest.app;
+			remoteRef = A93610400FE801E300BD9029 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A9A056A10F9E9AAD00C85842 /* libShinyCocos.a */ = {
@@ -844,6 +874,11 @@
 				A9C036530FCCAC6C00D447B4 /* r2.png in Resources */,
 				A9C036550FCCAC6C00D447B4 /* tiles.png in Resources */,
 				A9C037270FCCBBDA00D447B4 /* ball.png in Resources */,
+				A93610460FE8022500BD9029 /* black_box.png in Resources */,
+				A93610470FE8022500BD9029 /* brown_box.png in Resources */,
+				A93610480FE8022500BD9029 /* wheel.png in Resources */,
+				A93610780FE803EC00BD9029 /* white.png in Resources */,
+				A93611B20FE96A5B00BD9029 /* tube.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -861,7 +896,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "touch -cm ${SRCROOT}/vendor\ntouch -cm ${SRCROOT}/lib";
+			shellScript = "touch -cm ${SRCROOT}/vendor\ntouch -cm ${SRCROOT}/lib\n# syntax check\nfor i in ${SRCROOT}/vendor/*.rb; do\n  ruby -c $i\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -935,6 +970,41 @@
 			};
 			name = Release;
 		};
+		A936122A0FE9847000BD9029 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Scio Desarrollos Ltda.";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E12060C9-6C23-48ED-85A1-3F8D85CB0D36";
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = Distribution;
+		};
+		A936122B0FE9847000BD9029 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TestShinyCocos_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					../Integration,
+					"../cocos2d-iphone/cocos2d/**",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = TestShinyCocos;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = Distribution;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -974,6 +1044,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				A936122B0FE9847000BD9029 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -983,6 +1054,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				A936122A0FE9847000BD9029 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
