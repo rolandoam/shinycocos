@@ -34,9 +34,9 @@ static inline type *funcname(VALUE obj) { \
 	return (type *)(ptr->_obj);\
 }
 static inline id sc_get_objc(VALUE obj) {
-	cocos_holder *ptr; \
-	Data_Get_Struct(obj, cocos_holder, ptr);\
-	return (ptr->_obj);\
+	cocos_holder *ptr;
+	Data_Get_Struct(obj, cocos_holder, ptr);
+	return (ptr->_obj);
 }
 SC_GETTER_TEMPLATE(CC_NODE, CocosNode)
 SC_GETTER_TEMPLATE(CC_PXNODE, ParallaxNode)

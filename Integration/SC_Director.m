@@ -55,6 +55,8 @@ VALUE rb_mDirector_set_animation_interval(VALUE module, VALUE interval) {
  */
 VALUE rb_mDirector_run_scene(VALUE module, VALUE scene) {
 	[[Director sharedDirector] runWithScene:CC_SCENE(scene)];
+	// store the scene in an instance variable
+	rb_iv_set(module, "@running_scene", scene);
 	return scene;
 }
 
@@ -66,6 +68,8 @@ VALUE rb_mDirector_run_scene(VALUE module, VALUE scene) {
  */
 VALUE rb_mDirector_replace_scene(VALUE module, VALUE scene) {
 	[[Director sharedDirector] replaceScene:CC_SCENE(scene)];
+	// replace the running scene instance variable
+	rb_iv_set(module, "@running_scene", scene);
 	return scene;
 }
 
@@ -85,7 +89,7 @@ VALUE rb_mDirector_display_fps(VALUE module, VALUE display) {
  *   Director.add_event_handler(some_node)   #=> some_node
  */
 VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) {
-	[[TouchDispatcher sharedDispatcher] addEventHandler:CC_NODE(node)];
+	[[TouchDispatcher sharedDispatcher] addTargetedDelegate:CC_NODE(node) priority:0 swallowsTouches:YES];
 	return node;
 }
 

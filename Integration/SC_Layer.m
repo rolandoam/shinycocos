@@ -73,10 +73,10 @@ VALUE rb_cLayer_s_new(int argc, VALUE *argv, VALUE klass) {
  * of the touch (as an array of 2 floats), and the <tt>:tap_count</tt>
  * element is an integer.
  */
-VALUE rb_cLayer_enable_touch(VALUE obj, VALUE enable) {
-	CC_LAYER(obj).isTouchEnabled = !(enable == Qfalse);
-	return !(enable == Qfalse);
-}
+//VALUE rb_cLayer_enable_touch(VALUE obj, VALUE enable) {
+//	CC_LAYER(obj).isTouchEnabled = !(enable == Qfalse);
+//	return !(enable == Qfalse);
+//}
 
 /*
  * call-seq:
@@ -99,6 +99,6 @@ void init_rb_cLayer() {
 	rb_cLayer = rb_define_class_under(rb_mCocos2D, "Layer", rb_cCocosNode);
 	rb_define_singleton_method(rb_cLayer, "new", rb_cLayer_s_new, -1);
 	
-	rb_define_method(rb_cLayer, "enable_touch", rb_cLayer_enable_touch, 1);
+//	rb_define_method(rb_cLayer, "enable_touch", rb_cLayer_enable_touch, 1);
 	rb_define_method(rb_cLayer, "enable_accelerometer", rb_cLayer_enable_accelerometer, 1);
 }

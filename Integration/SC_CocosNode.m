@@ -29,16 +29,17 @@ VALUE rb_cCocosNode;
 static void eachShape(void *ptr, void* unused)
 {
 	cpShape *shape = (cpShape*) ptr;
-	CocosNode *sprite = shape->data;
-	if (sprite) {
-		cpBody *body = shape->body;
-		
-		sprite.position = body->p;
-		sprite.rotation = (float)CC_RADIANS_TO_DEGREES(-body->a);
-		// reset forces (we could add a check against a iv to see if we
-		// need to reset forces)
-		cpBodyResetForces(shape->body);
+	cpBody *body = shape->body;
+	VALUE rb_shape = (VALUE)shape->data;
+	if (rb_shape) {
+		// get node from shape (if any)
+		VALUE node = rb_ivar_get(rb_shape, rb_intern("@cc_node"));
+		if (node != Qnil) {
+			CC_NODE(node).position = body->p;
+			CC_NODE(node).rotation = (float)CC_RADIANS_TO_DEGREES(-body->a);
+		}
 	}
+	cpBodyResetForces(shape->body);
 }
 
 @interface CocosNode (SC_Extension)
@@ -50,7 +51,7 @@ static void eachShape(void *ptr, void* unused)
 // chipmunk support
 - (void)chipmunk_step:(ccTime)delta;
 // ruby schedule support
-- (void)rbScheduler;
+- (void)rbScheduler:(ccTime)delta;
 // event handler
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event;
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event;
@@ -89,11 +90,12 @@ static void eachShape(void *ptr, void* unused)
 	cpFloat dt = delta/(cpFloat)steps;
 	for (i=0; i < steps; i++)
 		cpSpaceStep(space, dt);
+	
 	cpSpaceHashEach(space->activeShapes, &eachShape, nil);
-	//cpSpaceHashEach(space->staticShapes, &eachShape, nil);
+	cpSpaceHashEach(space->staticShapes, &eachShape, nil);
 }
 
-- (void)rbScheduler {
+- (void)rbScheduler:(ccTime)delta {
 	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, self);
 	if (methods != Qnil && TYPE(methods) == T_ARRAY) {
 		int i;
@@ -101,7 +103,7 @@ static void eachShape(void *ptr, void* unused)
 		for (i=1; target != Qnil && i < RARRAY_LEN(methods); i++) {
 			// check that the target responds to the action
 			ID m = rb_to_id(RARRAY_PTR(methods)[i]);
-			sc_protect_funcall(target, m, 0, 0);
+			sc_protect_funcall(target, m, 1, rb_float_new(delta));
 		}
 	}
 }
@@ -313,6 +315,25 @@ VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) {
 	return tag;
 }
 
+/*
+ * Returns the node's anchor point as an array of floats
+ */
+VALUE rb_cCocosNode_anchor_point(VALUE object) {
+	cpVect anchor = CC_NODE(object).anchorPoint;
+	return rb_ary_new3(2, rb_float_new(anchor.x), rb_float_new(anchor.y));
+}
+
+VALUE rb_cCocosNode_set_anchor_point(VALUE object, VALUE rb_anchor) {
+	Check_Type(rb_anchor, T_ARRAY);
+	if (RARRAY_LEN(rb_anchor) < 2)
+		rb_raise(rb_eArgError, "Invalid array size");
+	cpVect anchor;
+	anchor.x = NUM2DBL(RARRAY_PTR(rb_anchor)[0]);
+	anchor.y = NUM2DBL(RARRAY_PTR(rb_anchor)[1]);
+	CC_NODE(object).anchorPoint = anchor;
+	return rb_anchor;
+}
+
 #pragma mark Methods
 
 /* 
@@ -351,6 +372,11 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	if (argc < 1 || argc > 2) {
 		rb_raise(rb_eArgError, "invalid number of arguments");
 	}
+	// get the children array
+	VALUE children_ary = rb_iv_get(object, "@children");
+	if (children_ary == Qnil) {
+		children_ary = rb_iv_set(object, "@children", rb_ary_new());
+	}
 	// set default values
 	int z_order = CC_NODE(args[0]).zOrder;
 	int tag     = CC_NODE(args[0]).tag;
@@ -373,7 +399,31 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	} else {
 		[CC_NODE(object) addChild:CC_NODE(args[0]) z:z_order tag:tag];
 	}
+	// now add the child to the children ary
+	rb_ary_push(children_ary, args[0]);
 	return args[0];
+}
+
+/*
+ * call-seq:
+ *   node.child_with_tag(tag)   #=> CocosNode
+ *
+ * returns the child with the specified tag. Nil if there's no child with that tag.
+ */
+VALUE rb_cCocosNode_child_with_tag(VALUE object, VALUE tag) {
+	id child = [CC_NODE(object) getChildByTag:FIX2INT(tag)];
+	if (child)
+		return sc_ruby_instance_for(sc_object_hash, child);
+	return Qnil;
+}
+
+
+/*
+ * call-seq:
+ *   node.children   #=> array of children (empty if no children has been added)
+ */
+VALUE rb_cCocosNode_children(VALUE object) {
+	return rb_iv_get(object, "@children");
 }
 
 id create_action(ID name, int argc, VALUE *argv) {
@@ -488,15 +538,16 @@ VALUE rb_cCocosNode_become_chipmunk_stepper(VALUE object) {
 }
 
 /*
- * Will bind a Chipmunk Shape to a CocosNode (will set the data attribute of the
- * cpShape to the CocosNode instance behind the ruby object)
+ * Will bind a Chipmunk Shape to a CocosNode (will create an ivar named
+ * cc_node in the shape and set it to the node)
  */
 VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
-	cocos_holder *ptr;
-	Data_Get_Struct(object, cocos_holder, ptr);
-	cpShape *shape = SHAPE(rb_shape);
-	shape->data = ptr->_obj;
-	rb_ivar_set(object, rb_intern("@shape"), rb_shape);
+	//cocos_holder *ptr;
+	//Data_Get_Struct(object, cocos_holder, ptr);
+	//cpShape *shape = SHAPE(rb_shape);
+	//shape->data = ptr->_obj;
+	rb_ivar_set(rb_shape, rb_intern("@cc_node"), object);
+	//rb_ivar_set(object, rb_intern("@shape"), rb_shape);
 	
 	return rb_shape;
 }
@@ -514,7 +565,7 @@ VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {
 	if (methods == Qnil) {
 		methods = rb_ary_new3(2, object, method);
 		sc_add_tracking(sc_schedule_methods, CC_NODE(object), methods);
-		[CC_NODE(object) schedule:@selector(rbScheduler)];
+		[CC_NODE(object) schedule:@selector(rbScheduler:)];
 	} else {
 		rb_ary_push(methods, method);
 	}
@@ -538,6 +589,20 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 		}
 	}
 	return methods;
+}
+
+/*
+ * call-seq:
+ *   node.world_to_node_space([a,b])   #=> new array in node space
+ */
+VALUE rb_cCocosNode_world_to_node_space(VALUE object, VALUE point) {
+	Check_Type(point, T_ARRAY);
+	if (RARRAY_LEN(point) < 2) {
+		rb_raise(rb_eArgError, "Invalid argument");
+	}
+	CGPoint wp = CGPointMake(NUM2DBL(RARRAY_PTR(point)[0]), NUM2DBL(RARRAY_PTR(point)[1]));
+	CGPoint np = [CC_NODE(object) convertToWorldSpace:wp];
+	return rb_ary_new3(2, rb_float_new(np.x), rb_float_new(np.y));
 }
 
 /*
@@ -663,14 +728,21 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "position=", rb_cCocosNode_set_position, 1);
 	rb_define_method(rb_cCocosNode, "visible=", rb_cCocosNode_set_visible, 1);
 	rb_define_method(rb_cCocosNode, "tag=", rb_cCocosNode_set_tag, 1);
+	rb_define_method(rb_cCocosNode, "anchor_point", rb_cCocosNode_anchor_point, 0);
+	rb_define_method(rb_cCocosNode, "anchor_point=", rb_cCocosNode_set_anchor_point, 1);
 	
 	// misc
 	rb_define_method(rb_cCocosNode, "add_child", rb_cCocosNode_add_child, -1);
+	rb_define_method(rb_cCocosNode, "child_with_tag", rb_cCocosNode_child_with_tag, 1);
+	rb_define_method(rb_cCocosNode, "children", rb_cCocosNode_children, 0);
 	rb_define_method(rb_cCocosNode, "run_action", rb_cCocosNode_run_action, -1);
 	rb_define_method(rb_cCocosNode, "become_chipmunk_stepper", rb_cCocosNode_become_chipmunk_stepper, 0);
 	rb_define_method(rb_cCocosNode, "attach_chipmunk_shape", rb_cCocosNode_attach_chipmunk_shape, 1);
 	rb_define_method(rb_cCocosNode, "schedule", rb_cCocosNode_schedule, 1);
 	rb_define_method(rb_cCocosNode, "unschedule", rb_cCocosNode_unschedule, 1);
+	
+	// point conversion
+	rb_define_method(rb_cCocosNode, "world_to_node_space", rb_cCocosNode_world_to_node_space, 1);
 	
 	// camera
 	rb_define_method(rb_cCocosNode, "camera_eye", rb_cCocosNode_camera_eye, 0);
