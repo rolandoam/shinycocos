@@ -22,6 +22,7 @@
 #import "SC_common.h"
 #import "SC_Director.h"
 #import "SC_Scene.h"
+#import <AVFoundation/AVAudioPlayer.h>
 
 VALUE rb_mDirector;
 

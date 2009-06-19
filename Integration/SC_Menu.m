@@ -41,7 +41,8 @@
 }
 
 - (void)proxyRuby:(id)sender {
-	sc_protect_funcall(rbObject, id_sc_item_action, 0, 0);
+	if (rbObject != Qnil)
+		sc_protect_funcall(rbObject, id_sc_item_action, 0, 0);
 }
 @end
 

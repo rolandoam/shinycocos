@@ -22,6 +22,8 @@
 #import "cocos2d.h"
 #import "chipmunk.h"
 #import "SC_ids.h"
+#import <AVFoundation/AVAudioPlayer.h>
+#import "SC_AVAudioPlayer.h"
 
 typedef struct {
 	id _obj;
@@ -49,6 +51,7 @@ SC_GETTER_TEMPLATE(CC_ATLAS_SPRITE, AtlasSprite)
 SC_GETTER_TEMPLATE(CC_ATLAS_SPRITE_MNG, AtlasSpriteManager)
 SC_GETTER_TEMPLATE(CC_LABEL, Label)
 SC_GETTER_TEMPLATE(UI_TFIELD, UITextField)
+SC_GETTER_TEMPLATE(AV_PLAYER, RBAudioPlayer)
 
 #define INSPECT(obj) sc_protect_funcall(obj, id_sc_inspect, 0, 0)
 #define RBCALL(obj, func) sc_protect_funcall(obj, rb_intern(func), 0, 0)

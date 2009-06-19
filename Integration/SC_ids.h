@@ -64,3 +64,4 @@ extern ID id_sc_text_field_action;
 extern ID id_sc_alert_view_clicked_button;
 extern ID id_sc_alert_view_cancel;
 extern ID id_sc_alert_view_did_dismiss;
+extern ID id_sc_av_player_did_finish_playing;

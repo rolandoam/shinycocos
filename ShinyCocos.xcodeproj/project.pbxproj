@@ -135,6 +135,8 @@
 		A9C035610FCC5CB300D447B4 /* SC_SolidShapeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */; };
 		A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */; };
 		A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */; };
+		A9DF7AAA0FEBF9C300D6E245 /* SC_AVAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */; };
+		A9DF7AAB0FEBF9C300D6E245 /* SC_AVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */; };
 		A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */; };
 		A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */; };
 		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
@@ -275,6 +277,8 @@
 		A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_SolidShapeMap.m; path = Integration/SC_SolidShapeMap.m; sourceTree = "<group>"; };
 		A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_ids.m; path = Integration/SC_ids.m; sourceTree = "<group>"; };
 		A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_ids.h; path = Integration/SC_ids.h; sourceTree = "<group>"; };
+		A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_AVAudioPlayer.h; path = Integration/SC_AVAudioPlayer.h; sourceTree = "<group>"; };
+		A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_AVAudioPlayer.m; path = Integration/SC_AVAudioPlayer.m; sourceTree = "<group>"; };
 		A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TiledMap.h; path = Integration/SC_TiledMap.h; sourceTree = "<group>"; };
 		A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TiledMap.m; path = Integration/SC_TiledMap.m; sourceTree = "<group>"; };
 		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
@@ -436,6 +440,8 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */,
+				A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */,
 				A9E9CA810FEADD9B00F45939 /* SC_TextField.h */,
 				A9E9CA820FEADD9B00F45939 /* SC_TextField.m */,
 				A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */,
@@ -563,6 +569,7 @@
 				A9E9C9630FEAB69900F45939 /* SC_Label.h in Headers */,
 				A9E9C99A0FEACAD300F45939 /* SC_LabelAtlas.h in Headers */,
 				A9E9CA830FEADD9B00F45939 /* SC_TextField.h in Headers */,
+				A9DF7AAA0FEBF9C300D6E245 /* SC_AVAudioPlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +728,7 @@
 				A9E9C9640FEAB69900F45939 /* SC_Label.m in Sources */,
 				A9E9C99B0FEACAD300F45939 /* SC_LabelAtlas.m in Sources */,
 				A9E9CA840FEADD9B00F45939 /* SC_TextField.m in Sources */,
+				A9DF7AAB0FEBF9C300D6E245 /* SC_AVAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -208,6 +208,7 @@ void Init_ShinyCocos() {
 	init_rb_mTwitter();
 	init_rb_mUserDefaults();
 	init_rb_cTextField();
+	init_rb_cAVAudioPlayer();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
