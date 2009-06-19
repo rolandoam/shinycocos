@@ -47,6 +47,8 @@ SC_GETTER_TEMPLATE(CC_SCENE, Scene)
 SC_GETTER_TEMPLATE(CC_ATLAS_ANIMATION, AtlasAnimation)
 SC_GETTER_TEMPLATE(CC_ATLAS_SPRITE, AtlasSprite)
 SC_GETTER_TEMPLATE(CC_ATLAS_SPRITE_MNG, AtlasSpriteManager)
+SC_GETTER_TEMPLATE(CC_LABEL, Label)
+SC_GETTER_TEMPLATE(UI_TFIELD, UITextField)
 
 #define INSPECT(obj) sc_protect_funcall(obj, id_sc_inspect, 0, 0)
 #define RBCALL(obj, func) sc_protect_funcall(obj, rb_intern(func), 0, 0)
@@ -81,7 +83,7 @@ static inline CGRect sc_make_rect(VALUE rb_rect) {
 /*
  * link an ruby object with an objective C one, throught a hash table
  */
-static inline void sc_add_tracking(NSMutableDictionary *hash, CocosNode *obj1, VALUE obj2) {
+static inline void sc_add_tracking(NSMutableDictionary *hash, id obj1, VALUE obj2) {
 	[hash setObject:[NSValue valueWithPointer:(void *)obj2] forKey:[NSValue valueWithPointer:obj1]];
 }
 
@@ -96,7 +98,7 @@ static inline void sc_remove_tracking_for(NSMutableDictionary *hash, CocosNode *
 /*
  * get a ruby object associated to the ObjC-Object
  */
-static inline VALUE sc_ruby_instance_for(NSMutableDictionary *hash, CocosNode *obj1) {
+static inline VALUE sc_ruby_instance_for(NSMutableDictionary *hash, id obj1) {
 	NSValue *v = [hash objectForKey:[NSValue valueWithPointer:obj1]];
 	if (v == nil) {
 		return Qnil;

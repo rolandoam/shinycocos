@@ -64,6 +64,9 @@ ID id_sc_vertically;
 ID id_sc_z;
 ID id_sc_starting_gid;
 ID id_sc_text_field_action;
+ID id_sc_alert_view_clicked_button;
+ID id_sc_alert_view_cancel;
+ID id_sc_alert_view_did_dismiss;
 
 void init_sc_ids() {
 	id_sc_animate = rb_intern("animate");
@@ -110,4 +113,7 @@ void init_sc_ids() {
 	id_sc_z = rb_intern("z");
 	id_sc_starting_gid = rb_intern("starting_gid");
 	id_sc_text_field_action = rb_intern("text_field_action");
+	id_sc_alert_view_clicked_button = rb_intern("alert_view_clicked_button");
+	id_sc_alert_view_cancel = rb_intern("alert_view_cancel");
+	id_sc_alert_view_did_dismiss = rb_intern("alert_view_did_dismiss");
 }

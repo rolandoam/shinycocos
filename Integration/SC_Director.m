@@ -95,6 +95,15 @@ VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) {
 
 /*
  * call-seq:
+ *   Director.remove_touch_handler(some_node)   #=> some_node
+ */
+VALUE rb_mDirector_remove_touch_handler(VALUE module, VALUE node) {
+	[[TouchDispatcher sharedDispatcher] removeDelegate:CC_NODE(node)];
+	return node;
+}
+
+/*
+ * call-seq:
  *   Director.add_text_field([top, left, width, height], landscape_mode, delegate)   #=> nil
  *
  * Set <tt>landscape_mode</tt> to true if your current orientation is landscape.
@@ -119,6 +128,29 @@ VALUE rb_mDirector_add_text_field(VALUE module, VALUE size, VALUE landscape, VAL
 	return Qnil;
 }
 
+/*
+ * call-seq:
+ *   Director.pause   #=> nil
+ *
+ * Pauses the game
+ */
+VALUE rb_mDirector_pause(VALUE module) {
+	[[Director sharedDirector] pause];
+	return Qnil;
+}
+
+/*
+ * call-seq:
+ *   Director.resume   #=> nil
+ *
+ * Resumes the game
+ */
+VALUE rb_mDirector_resume(VALUE module) {
+	[[Director sharedDirector] resume];
+	return Qnil;
+}
+
+
 /* create the Director class, set the methods */
 void init_rb_mDirector() {
 	rb_mDirector = rb_define_module_under(rb_mCocos2D, "Director");
@@ -128,7 +160,10 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "run_scene", rb_mDirector_run_scene, 1);
 	rb_define_module_function(rb_mDirector, "replace_scene", rb_mDirector_replace_scene, 1);
 	rb_define_module_function(rb_mDirector, "add_touch_handler", rb_mDirector_add_touch_handler, 1);
+	rb_define_module_function(rb_mDirector, "remove_touch_handler", rb_mDirector_remove_touch_handler, 1);
 	rb_define_module_function(rb_mDirector, "add_text_field", rb_mDirector_add_text_field, 3);
+	rb_define_module_function(rb_mDirector, "pause", rb_mDirector_pause, 0);
+	rb_define_module_function(rb_mDirector, "resume", rb_mDirector_resume, 0);
 	// orientation constants
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_LEFT", INT2FIX(CCDeviceOrientationLandscapeLeft));
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_RIGHT", INT2FIX(CCDeviceOrientationLandscapeRight));

@@ -138,6 +138,12 @@
 		A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */; };
 		A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */; };
 		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
+		A9E9C9630FEAB69900F45939 /* SC_Label.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E9C9610FEAB69900F45939 /* SC_Label.h */; };
+		A9E9C9640FEAB69900F45939 /* SC_Label.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E9C9620FEAB69900F45939 /* SC_Label.m */; };
+		A9E9C99A0FEACAD300F45939 /* SC_LabelAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */; };
+		A9E9C99B0FEACAD300F45939 /* SC_LabelAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E9C9990FEACAD300F45939 /* SC_LabelAtlas.m */; };
+		A9E9CA830FEADD9B00F45939 /* SC_TextField.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E9CA810FEADD9B00F45939 /* SC_TextField.h */; };
+		A9E9CA840FEADD9B00F45939 /* SC_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E9CA820FEADD9B00F45939 /* SC_TextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -272,6 +278,12 @@
 		A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TiledMap.h; path = Integration/SC_TiledMap.h; sourceTree = "<group>"; };
 		A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TiledMap.m; path = Integration/SC_TiledMap.m; sourceTree = "<group>"; };
 		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
+		A9E9C9610FEAB69900F45939 /* SC_Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Label.h; path = Integration/SC_Label.h; sourceTree = "<group>"; };
+		A9E9C9620FEAB69900F45939 /* SC_Label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Label.m; path = Integration/SC_Label.m; sourceTree = "<group>"; };
+		A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_LabelAtlas.h; path = Integration/SC_LabelAtlas.h; sourceTree = "<group>"; };
+		A9E9C9990FEACAD300F45939 /* SC_LabelAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_LabelAtlas.m; path = Integration/SC_LabelAtlas.m; sourceTree = "<group>"; };
+		A9E9CA810FEADD9B00F45939 /* SC_TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TextField.h; path = Integration/SC_TextField.h; sourceTree = "<group>"; };
+		A9E9CA820FEADD9B00F45939 /* SC_TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TextField.m; path = Integration/SC_TextField.m; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libShinyCocos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShinyCocos.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -424,6 +436,12 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A9E9CA810FEADD9B00F45939 /* SC_TextField.h */,
+				A9E9CA820FEADD9B00F45939 /* SC_TextField.m */,
+				A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */,
+				A9E9C9990FEACAD300F45939 /* SC_LabelAtlas.m */,
+				A9E9C9610FEAB69900F45939 /* SC_Label.h */,
+				A9E9C9620FEAB69900F45939 /* SC_Label.m */,
 				A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */,
 				A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */,
 				A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */,
@@ -542,6 +560,9 @@
 				A9C035600FCC5CB300D447B4 /* SC_SolidShapeMap.h in Headers */,
 				A98E8F810FD1866B007281B9 /* SC_Twitter.h in Headers */,
 				A902C4FD0FD5E68900309EC4 /* SC_UserDefaults.h in Headers */,
+				A9E9C9630FEAB69900F45939 /* SC_Label.h in Headers */,
+				A9E9C99A0FEACAD300F45939 /* SC_LabelAtlas.h in Headers */,
+				A9E9CA830FEADD9B00F45939 /* SC_TextField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,6 +718,9 @@
 				A9C035610FCC5CB300D447B4 /* SC_SolidShapeMap.m in Sources */,
 				A98E8F820FD1866B007281B9 /* SC_Twitter.m in Sources */,
 				A902C4FE0FD5E68900309EC4 /* SC_UserDefaults.m in Sources */,
+				A9E9C9640FEAB69900F45939 /* SC_Label.m in Sources */,
+				A9E9C99B0FEACAD300F45939 /* SC_LabelAtlas.m in Sources */,
+				A9E9CA840FEADD9B00F45939 /* SC_TextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

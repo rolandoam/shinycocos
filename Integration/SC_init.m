@@ -138,6 +138,38 @@ VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 }
 
 /*
+ * call-seq:
+ *   Cocos2D.display_alert(title, msg, delegate, cancel_title, *buttons_title)   #=> nil
+ *
+ * Delegate can be nil.
+ */
+VALUE sc_display_alert(int argc, VALUE *argv, VALUE module) {
+	if (argc < 4) {
+		rb_raise(rb_eArgError, "Invalid number of arguments");
+	}
+	Check_Type(argv[0], T_STRING);
+	Check_Type(argv[1], T_STRING);
+	// TODO
+	// Check that argv[2] is a CocosNode or nil
+	Check_Type(argv[3], T_STRING);
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithCString:StringValueCStr(argv[0]) encoding:NSUTF8StringEncoding]
+													message:[NSString stringWithCString:StringValueCStr(argv[1]) encoding:NSUTF8StringEncoding]
+												   delegate:((argv[2] == Qnil) ? nil : CC_NODE(argv[2]))
+										  cancelButtonTitle:[NSString stringWithCString:StringValueCStr(argv[3]) encoding:NSUTF8StringEncoding]
+										  otherButtonTitles:nil];
+	if (argc > 4) {
+		int i;
+		for (i=4; i < argc; i++) {
+			[alert addButtonWithTitle:[NSString stringWithCString:StringValueCStr(argv[i]) encoding:NSUTF8StringEncoding]];
+		}
+	}
+	[alert show];
+	[alert release];
+	return Qnil;
+}
+
+
+/*
  * ShinyCocos
  * 
  * ## Notes
@@ -167,16 +199,20 @@ void Init_ShinyCocos() {
 	init_rb_cAtlasAnimation();
 	init_rb_cTiledMap();
 	init_rb_cLayer();
+	init_rb_cLabel();
+	init_rb_cLabelAtlas();
 	init_rb_cMenu();
 	init_rb_cMenuItemImage();
 	init_rb_cSolidShapeMap();
 	//init_rb_cMenuItemAtlasSprite();
 	init_rb_mTwitter();
 	init_rb_mUserDefaults();
+	init_rb_cTextField();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
 	rb_define_module_function(rb_mCocos2D, "ns_log", sc_ns_log, -1);
+	rb_define_module_function(rb_mCocos2D, "display_alert", sc_display_alert, -1);
 }
 
 void Init_SC_Ruby_Extensions() {

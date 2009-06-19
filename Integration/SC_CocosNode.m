@@ -59,6 +59,10 @@ static void eachShape(void *ptr, void* unused)
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event;
 // text field delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
+// simplified alert view delegate protocol
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;
+- (void)alertViewCancel:(UIAlertView *)alertView;
 @end
 
 @implementation CocosNode (SC_Extension)
@@ -96,14 +100,14 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (void)rbScheduler:(ccTime)delta {
-	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, self);
-	if (methods != Qnil && TYPE(methods) == T_ARRAY) {
+	VALUE object = sc_ruby_instance_for(sc_object_hash, self);
+	VALUE methods = rb_ivar_get(object, rb_intern("@scheduled_methods"));//sc_ruby_instance_for(sc_schedule_methods, self);
+	if (methods != Qnil) {
 		int i;
-		VALUE target = RARRAY_PTR(methods)[0];
-		for (i=1; target != Qnil && i < RARRAY_LEN(methods); i++) {
+		for (i=0; i < RARRAY_LEN(methods); i++) {
 			// check that the target responds to the action
 			ID m = rb_to_id(RARRAY_PTR(methods)[i]);
-			sc_protect_funcall(target, m, 1, rb_float_new(delta));
+			sc_protect_funcall(object, m, 1, rb_float_new(delta));
 		}
 	}
 }
@@ -111,9 +115,8 @@ static void eachShape(void *ptr, void* unused)
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbDelegate != Qnil) { // && rb_respond_to(rbDelegate, id_sc_text_field_action)) {
-		NSString *text = textField.text;
-		if (sc_protect_funcall(rbDelegate, id_sc_text_field_action, 1, rb_str_new2([text cStringUsingEncoding:NSUTF8StringEncoding])) != Qnil) {
-			[textField resignFirstResponder];
+		VALUE rbTextField = sc_ruby_instance_for(sc_object_hash, textField);
+		if (sc_protect_funcall(rbDelegate, id_sc_text_field_action, 1, rbTextField) != Qnil) {
 			return YES;
 		}
 	}
@@ -148,6 +151,27 @@ static void eachShape(void *ptr, void* unused)
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_cancelled)) {
 		sc_protect_funcall(rbDelegate, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
+	}
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil) {
+		sc_protect_funcall(rbDelegate, id_sc_alert_view_clicked_button, 1, INT2FIX(buttonIndex));
+	}
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil) {
+		sc_protect_funcall(rbDelegate, id_sc_alert_view_did_dismiss, 1, INT2FIX(buttonIndex));
+	}
+}
+
+- (void)alertViewCancel:(UIAlertView *)alertView {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil) {
+		sc_protect_funcall(rbDelegate, id_sc_alert_view_cancel, 0, 0);
 	}
 }
 @end
@@ -547,7 +571,7 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
 	//cpShape *shape = SHAPE(rb_shape);
 	//shape->data = ptr->_obj;
 	rb_ivar_set(rb_shape, rb_intern("@cc_node"), object);
-	//rb_ivar_set(object, rb_intern("@shape"), rb_shape);
+	rb_ivar_set(object, rb_intern("@shape"), rb_shape);
 	
 	return rb_shape;
 }
@@ -561,10 +585,11 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
  */
 VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {	
 	Check_Type(method, T_SYMBOL);
-	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
+	VALUE methods = rb_ivar_get(object, rb_intern("@scheduled_methods")); //sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
 	if (methods == Qnil) {
-		methods = rb_ary_new3(2, object, method);
-		sc_add_tracking(sc_schedule_methods, CC_NODE(object), methods);
+		methods = rb_ary_new3(1, method);
+		//sc_add_tracking(sc_schedule_methods, CC_NODE(object), methods);
+		rb_ivar_set(object, rb_intern("@scheduled_methods"), methods);
 		[CC_NODE(object) schedule:@selector(rbScheduler:)];
 	} else {
 		rb_ary_push(methods, method);
@@ -578,14 +603,14 @@ VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {
  */
 VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	Check_Type(method, T_SYMBOL);
-	VALUE methods = sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
+	VALUE methods = rb_ivar_get(object, rb_intern("@scheduled_methods"));//sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
 	if (methods != Qnil) {
 		sc_protect_funcall(methods, id_sc_delete, 1, method);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[CC_NODE(object) unschedule:@selector(rbScheduler)];
 			// remove the array from the hash
-			sc_remove_tracking_for(sc_schedule_methods, CC_NODE(object));
+			//sc_remove_tracking_for(sc_schedule_methods, CC_NODE(object));
 		}
 	}
 	return methods;

@@ -61,3 +61,6 @@ extern ID id_sc_vertically;
 extern ID id_sc_z;
 extern ID id_sc_starting_gid;
 extern ID id_sc_text_field_action;
+extern ID id_sc_alert_view_clicked_button;
+extern ID id_sc_alert_view_cancel;
+extern ID id_sc_alert_view_did_dismiss;
