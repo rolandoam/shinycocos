@@ -90,7 +90,7 @@ VALUE rb_mDirector_display_fps(VALUE module, VALUE display) {
  *   Director.add_event_handler(some_node)   #=> some_node
  */
 VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) {
-	[[TouchDispatcher sharedDispatcher] addTargetedDelegate:CC_NODE(node) priority:0 swallowsTouches:YES];
+	[[TouchDispatcher sharedDispatcher] addTargetedDelegate:(id)CC_NODE(node) priority:0 swallowsTouches:YES];
 	return node;
 }
 
@@ -123,7 +123,7 @@ VALUE rb_mDirector_add_text_field(VALUE module, VALUE size, VALUE landscape, VAL
 	textField.borderStyle = UITextBorderStyleRoundedRect;
 	textField.returnKeyType = UIReturnKeyDone;
 	if (delegate != Qnil)
-		textField.delegate = CC_NODE(delegate);
+		textField.delegate = (id)CC_NODE(delegate);
 	[[Director sharedDirector].openGLView addSubview:textField];
 	
 	return Qnil;

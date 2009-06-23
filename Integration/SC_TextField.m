@@ -85,7 +85,7 @@ VALUE rb_cTextField_set_value(VALUE object, VALUE rb_str) {
  * the delegate must be a subclass of cocos_node
  */
 VALUE rb_cTextField_set_delegate(VALUE object, VALUE delegate) {
-	UI_TFIELD(object).delegate = CC_NODE(delegate);
+	UI_TFIELD(object).delegate = (id)CC_NODE(delegate);
 	return delegate;
 }
 
