@@ -69,6 +69,35 @@ ID id_sc_alert_view_cancel;
 ID id_sc_alert_view_did_dismiss;
 ID id_sc_av_player_did_finish_playing;
 
+// transitions
+ID sc_id_transition_scene;
+ID sc_id_oriented_transition_scene;
+ID sc_id_roto_zoom_transition;
+ID sc_id_jump_zoom_transition;
+ID sc_id_move_in_l_transition;
+ID sc_id_move_in_r_transition;
+ID sc_id_move_in_t_transition;
+ID sc_id_move_in_b_transition;
+ID sc_id_slide_in_l_transition;
+ID sc_id_slide_in_r_transition;
+ID sc_id_slide_in_b_transition;
+ID sc_id_slide_in_t_transition;
+ID sc_id_shrink_grow_transition;
+ID sc_id_flip_x_transition;
+ID sc_id_flip_y_transition;
+ID sc_id_flip_angular_transition;
+ID sc_id_zoom_flip_x_transition;
+ID sc_id_zoom_flip_y_transition;
+ID sc_id_zoom_flip_angular_transition;
+ID sc_id_fade_transition;
+ID sc_id_turn_off_tiles_transition;
+ID sc_id_split_cols_transition;
+ID sc_id_split_rows_transition;
+ID sc_id_fade_t_r_transition;
+ID sc_id_fade_b_l_transition;
+ID sc_id_fade_up_transition;
+ID sc_id_fade_down_transition;
+
 void init_sc_ids() {
 	id_sc_animate = rb_intern("animate");
 	id_sc_capacity = rb_intern("capacity");
@@ -118,4 +147,32 @@ void init_sc_ids() {
 	id_sc_alert_view_cancel = rb_intern("alert_view_cancel");
 	id_sc_alert_view_did_dismiss = rb_intern("alert_view_did_dismiss");
 	id_sc_av_player_did_finish_playing = rb_intern("player_did_finish_playing");
+	// transitions
+	sc_id_transition_scene = rb_intern("transition_scene");
+	sc_id_oriented_transition_scene = rb_intern("oriented_transition_scene");
+	sc_id_roto_zoom_transition = rb_intern("roto_zoom_transition");
+	sc_id_jump_zoom_transition = rb_intern("jump_zoom_transition");
+	sc_id_move_in_l_transition = rb_intern("move_in_l_transition");
+	sc_id_move_in_r_transition = rb_intern("move_in_r_transition");
+	sc_id_move_in_t_transition = rb_intern("move_in_t_transition");
+	sc_id_move_in_b_transition = rb_intern("move_in_b_transition");
+	sc_id_slide_in_l_transition = rb_intern("slide_in_l_transition");
+	sc_id_slide_in_r_transition = rb_intern("slide_in_r_transition");
+	sc_id_slide_in_b_transition = rb_intern("slide_in_b_transition");
+	sc_id_slide_in_t_transition = rb_intern("slide_in_t_transition");
+	sc_id_shrink_grow_transition = rb_intern("shrink_grow_transition");
+	sc_id_flip_x_transition = rb_intern("flip_x_transition");
+	sc_id_flip_y_transition = rb_intern("flip_y_transition");
+	sc_id_flip_angular_transition = rb_intern("flip_angular_transition");
+	sc_id_zoom_flip_x_transition = rb_intern("zoom_flip_x_transition");
+	sc_id_zoom_flip_y_transition = rb_intern("zoom_flip_y_transition");
+	sc_id_zoom_flip_angular_transition = rb_intern("zoom_flip_angular_transition");
+	sc_id_fade_transition = rb_intern("fade_transition");
+	sc_id_turn_off_tiles_transition = rb_intern("turn_off_tiles_transition");
+	sc_id_split_cols_transition = rb_intern("split_cols_transition");
+	sc_id_split_rows_transition = rb_intern("split_rows_transition");
+	sc_id_fade_t_r_transition = rb_intern("fade_t_r_transition");
+	sc_id_fade_b_l_transition = rb_intern("fade_b_l_transition");
+	sc_id_fade_up_transition = rb_intern("fade_up_transition");
+	sc_id_fade_down_transition = rb_intern("fade_down_transition");
 }

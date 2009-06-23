@@ -204,10 +204,11 @@ void Init_ShinyCocos() {
 	init_rb_cMenu();
 	init_rb_cMenuItemImage();
 	init_rb_cSolidShapeMap();
-	//init_rb_cMenuItemAtlasSprite();
+	init_rb_cTransitionScene();
 	init_rb_mTwitter();
 	init_rb_mUserDefaults();
 	init_rb_cTextField();
+	init_rb_cSlider();
 	init_rb_cAVAudioPlayer();
 	init_sc_cocoa_additions();
 	
