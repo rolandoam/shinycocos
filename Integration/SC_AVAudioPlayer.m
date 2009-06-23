@@ -32,7 +32,7 @@ VALUE rb_cAVAudioPlayer;
 	if (self = [super init]) {
 		NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:nil];
 		player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
-		player.delegate = self;
+		player.delegate = (id)self;
 		rbObject = object;
 	}
 	return self;
@@ -102,10 +102,36 @@ VALUE rb_cAVAudioPlayer_set_delegate(VALUE object, VALUE delegate) {
 }
 
 
+/*
+ * call-seq:
+ *   player.volume = volume   #=> volume (float)
+ *
+ * sets the volume. 1.0 = max volume, 0.0 = no volume
+ */
+VALUE rb_cAVAudioPlayer_set_volume(VALUE object, VALUE volume) {
+	Check_Type(volume, T_FLOAT);
+	AV_PLAYER(object).player.volume = NUM2DBL(volume);
+	return volume;
+}
+
+
+/*
+ * call-seq:
+ *   player.volume   #=> volume (float)
+ *
+ * returns the volume. 1.0 = max volume, 0.0 = no volume
+ */
+VALUE rb_cAVAudioPlayer_volume(VALUE object) {
+	return rb_float_new(AV_PLAYER(object).player.volume);
+}
+
+
 void init_rb_cAVAudioPlayer() {
 	rb_cAVAudioPlayer = rb_define_class_under(rb_mCocos2D, "AVAudioPlayer", rb_cObject);
 	rb_define_singleton_method(rb_cAVAudioPlayer, "new", rb_cAVAudioPlayer_s_new, -1);
 	rb_define_method(rb_cAVAudioPlayer, "play", rb_cAVAudioPlayer_play, 0);
 	rb_define_method(rb_cAVAudioPlayer, "stop", rb_cAVAudioPlayer_stop, 0);
 	rb_define_method(rb_cAVAudioPlayer, "delegate=", rb_cAVAudioPlayer_set_delegate, 1);
+	rb_define_method(rb_cAVAudioPlayer, "volume=", rb_cAVAudioPlayer_set_volume, 1);
+	rb_define_method(rb_cAVAudioPlayer, "volume", rb_cAVAudioPlayer_volume, 0);
 }
