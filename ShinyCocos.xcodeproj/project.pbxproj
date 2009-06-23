@@ -72,8 +72,12 @@
 		A9515E250F9D19E200B2B839 /* SC_Scene.h in Headers */ = {isa = PBXBuildFile; fileRef = A9515E1F0F9D19E200B2B839 /* SC_Scene.h */; };
 		A9515E260F9D19E200B2B839 /* SC_Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = A9515E200F9D19E200B2B839 /* SC_Scene.m */; };
 		A97005B40FCA051F00E1BE12 /* zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A97005B30FCA051F00E1BE12 /* zlib.c */; };
+		A97A764F0FF1697C00550303 /* SC_Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = A97A764D0FF1697C00550303 /* SC_Transition.h */; };
+		A97A76500FF1697C00550303 /* SC_Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A764E0FF1697C00550303 /* SC_Transition.m */; };
 		A98E8F810FD1866B007281B9 /* SC_Twitter.h in Headers */ = {isa = PBXBuildFile; fileRef = A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */; };
 		A98E8F820FD1866B007281B9 /* SC_Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A98E8F800FD1866B007281B9 /* SC_Twitter.m */; };
+		A993E39B0FEFD7390064E74D /* SC_Slider.h in Headers */ = {isa = PBXBuildFile; fileRef = A993E3990FEFD7390064E74D /* SC_Slider.h */; };
+		A993E39C0FEFD7390064E74D /* SC_Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = A993E39A0FEFD7390064E74D /* SC_Slider.m */; };
 		A996A3BA0FB1C7F70040FDF4 /* big5.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B50FB1C7F70040FDF4 /* big5.c */; };
 		A996A3BB0FB1C7F70040FDF4 /* cp949.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B60FB1C7F70040FDF4 /* cp949.c */; };
 		A996A3BC0FB1C7F70040FDF4 /* euc_jp.c in Sources */ = {isa = PBXBuildFile; fileRef = A996A3B70FB1C7F70040FDF4 /* euc_jp.c */; };
@@ -214,8 +218,12 @@
 		A9515E1F0F9D19E200B2B839 /* SC_Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Scene.h; path = Integration/SC_Scene.h; sourceTree = "<group>"; };
 		A9515E200F9D19E200B2B839 /* SC_Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Scene.m; path = Integration/SC_Scene.m; sourceTree = "<group>"; };
 		A97005B30FCA051F00E1BE12 /* zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zlib.c; path = ruby/ext/zlib/zlib.c; sourceTree = "<group>"; };
+		A97A764D0FF1697C00550303 /* SC_Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Transition.h; path = Integration/SC_Transition.h; sourceTree = "<group>"; };
+		A97A764E0FF1697C00550303 /* SC_Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Transition.m; path = Integration/SC_Transition.m; sourceTree = "<group>"; };
 		A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Twitter.h; path = Integration/SC_Twitter.h; sourceTree = "<group>"; };
 		A98E8F800FD1866B007281B9 /* SC_Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Twitter.m; path = Integration/SC_Twitter.m; sourceTree = "<group>"; };
+		A993E3990FEFD7390064E74D /* SC_Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Slider.h; path = Integration/SC_Slider.h; sourceTree = "<group>"; };
+		A993E39A0FEFD7390064E74D /* SC_Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Slider.m; path = Integration/SC_Slider.m; sourceTree = "<group>"; };
 		A996A3B50FB1C7F70040FDF4 /* big5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = big5.c; path = ruby/enc/big5.c; sourceTree = "<group>"; };
 		A996A3B60FB1C7F70040FDF4 /* cp949.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cp949.c; path = ruby/enc/cp949.c; sourceTree = "<group>"; };
 		A996A3B70FB1C7F70040FDF4 /* euc_jp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = euc_jp.c; path = ruby/enc/euc_jp.c; sourceTree = "<group>"; };
@@ -440,6 +448,10 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A97A764D0FF1697C00550303 /* SC_Transition.h */,
+				A97A764E0FF1697C00550303 /* SC_Transition.m */,
+				A993E3990FEFD7390064E74D /* SC_Slider.h */,
+				A993E39A0FEFD7390064E74D /* SC_Slider.m */,
 				A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */,
 				A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */,
 				A9E9CA810FEADD9B00F45939 /* SC_TextField.h */,
@@ -570,6 +582,8 @@
 				A9E9C99A0FEACAD300F45939 /* SC_LabelAtlas.h in Headers */,
 				A9E9CA830FEADD9B00F45939 /* SC_TextField.h in Headers */,
 				A9DF7AAA0FEBF9C300D6E245 /* SC_AVAudioPlayer.h in Headers */,
+				A993E39B0FEFD7390064E74D /* SC_Slider.h in Headers */,
+				A97A764F0FF1697C00550303 /* SC_Transition.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +743,8 @@
 				A9E9C99B0FEACAD300F45939 /* SC_LabelAtlas.m in Sources */,
 				A9E9CA840FEADD9B00F45939 /* SC_TextField.m in Sources */,
 				A9DF7AAB0FEBF9C300D6E245 /* SC_AVAudioPlayer.m in Sources */,
+				A993E39C0FEFD7390064E74D /* SC_Slider.m in Sources */,
+				A97A76500FF1697C00550303 /* SC_Transition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
