@@ -57,6 +57,8 @@ static void eachShape(void *ptr, void* unused)
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event;
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event;
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event;
+// accelerometer delegate
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 // text field delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // simplified alert view delegate protocol
@@ -114,7 +116,7 @@ static void eachShape(void *ptr, void* unused)
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) { // && rb_respond_to(rbDelegate, id_sc_text_field_action)) {
+	if (rbDelegate != Qnil) {
 		VALUE rbTextField = sc_ruby_instance_for(sc_object_hash, textField);
 		if (sc_protect_funcall(rbDelegate, id_sc_text_field_action, 1, rbTextField) != Qnil) {
 			return YES;
@@ -151,6 +153,17 @@ static void eachShape(void *ptr, void* unused)
 	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_cancelled)) {
 		sc_protect_funcall(rbDelegate, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
+	}
+}
+
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
+	if (obj != Qnil) {
+		VALUE rb_arr = rb_ary_new3(3,
+								   rb_float_new(acceleration.x),
+								   rb_float_new(acceleration.y),
+								   rb_float_new(acceleration.z));
+		sc_protect_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
 	}
 }
 
@@ -618,6 +631,19 @@ VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 
 /*
  * call-seq:
+ *   node.become_accelerometer_delegate   #=> node
+ *
+ * Will become the shared accelerometer's delegate. The node must implement
+ * +did_accelerate(accel)+, where +accel+ is an array of three floats (acceleration
+ * in axis x, y and z respectively.
+ */
+VALUE rb_cCocosNode_become_accelerometer_delegate(VALUE object) {
+	[UIAccelerometer sharedAccelerometer].delegate = (id)CC_NODE(object);
+	return object;
+}
+
+/*
+ * call-seq:
  *   node.world_to_node_space([a,b])   #=> new array in node space
  */
 VALUE rb_cCocosNode_world_to_node_space(VALUE object, VALUE point) {
@@ -765,6 +791,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "attach_chipmunk_shape", rb_cCocosNode_attach_chipmunk_shape, 1);
 	rb_define_method(rb_cCocosNode, "schedule", rb_cCocosNode_schedule, 1);
 	rb_define_method(rb_cCocosNode, "unschedule", rb_cCocosNode_unschedule, 1);
+	rb_define_method(rb_cCocosNode, "become_accelerometer_delegate", rb_cCocosNode_become_accelerometer_delegate, 0);
 	
 	// point conversion
 	rb_define_method(rb_cCocosNode, "world_to_node_space", rb_cCocosNode_world_to_node_space, 1);

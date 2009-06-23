@@ -100,5 +100,5 @@ void init_rb_cLayer() {
 	rb_define_singleton_method(rb_cLayer, "new", rb_cLayer_s_new, -1);
 	
 //	rb_define_method(rb_cLayer, "enable_touch", rb_cLayer_enable_touch, 1);
-	rb_define_method(rb_cLayer, "enable_accelerometer", rb_cLayer_enable_accelerometer, 1);
+//	rb_define_method(rb_cLayer, "enable_accelerometer", rb_cLayer_enable_accelerometer, 1);
 }
