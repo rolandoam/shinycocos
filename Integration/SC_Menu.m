@@ -24,7 +24,7 @@
 #import "SC_Menu.h"
 #import "SC_Layer.h"
 
-#pragma mark MenuItem
+#pragma mark MenuItemProxy
 
 @implementation MenuItemProxy
 @synthesize rbObject;
@@ -45,6 +45,8 @@
 		sc_protect_funcall(rbObject, id_sc_item_action, 0, 0);
 }
 @end
+
+#pragma mark MenuItemImage
 
 VALUE rb_cMenuItemImage;
 
@@ -82,9 +84,53 @@ VALUE rb_cMenuItemImage_s_new(VALUE klass, VALUE opts) {
 	return ret;
 }
 
+/*
+ * call-seq:
+ *   item = MenuItemAtlasSprite.new(:normal => normal_atlas_sprite,
+ *                                  :selected => selected_atlas_sprite,
+ *                                  :disabled => disabled_atlas_sprite)   #=> MenuItemAtlasSprite
+ *
+ * <tt>:normal</tt> and <tt>:selected</tt> are required.
+ */
 void init_rb_cMenuItemImage() {
 	rb_cMenuItemImage = rb_define_class_under(rb_mCocos2D, "MenuItemImage", rb_cCocosNode);
 	rb_define_singleton_method(rb_cMenuItemImage, "new", rb_cMenuItemImage_s_new, 1);
+}
+
+#pragma mark MenuItemAtlasSprite
+
+VALUE rb_cMenuItemAtlasSprite;
+
+VALUE rb_cMenuItemAtlasSprite_s_new(VALUE klass, VALUE opts) {
+	Check_Type(opts, T_HASH);
+	// check options
+	VALUE normal_sprite = rb_hash_aref(opts, ID2SYM(id_sc_normal));
+	if (normal_sprite == Qnil)
+		rb_raise(rb_eArgError, "normal sprite required");
+	VALUE selected_sprite = rb_hash_aref(opts, ID2SYM(id_sc_selected));
+	if (selected_sprite == Qnil)
+		rb_raise(rb_eArgError, "selected sprite required");
+	VALUE disabled_sprite = rb_hash_aref(opts, ID2SYM(id_sc_disabled));
+	AtlasSprite *normalSprite = CC_ATLAS_SPRITE(normal_sprite);
+	AtlasSprite *selectedSprite = CC_ATLAS_SPRITE(selected_sprite);
+	AtlasSprite *disabledSprite = (disabled_sprite != Qnil) ? CC_ATLAS_SPRITE(disabled_sprite) : nil;
+	// create proxy
+	MenuItemProxy *mp = [[MenuItemProxy alloc] initWithRubyObject:Qnil];
+	MenuItemAtlasSprite *mi = [[MenuItemAtlasSprite alloc] initFromNormalSprite:normalSprite
+																 selectedSprite:selectedSprite
+																 disabledSprite:disabledSprite
+																		 target:mp
+																	   selector:@selector(proxyRuby:)];
+	VALUE ret = sc_init(klass, nil, mi, 0, 0, YES);
+	mp.rbObject = ret;
+	
+	return ret;
+}
+
+void init_rb_cMenuItemAtlasSprite() {
+	// FIXME: MenuItemAtlasSprite should be a subclass of MenuItemSprite...
+	rb_cMenuItemAtlasSprite = rb_define_class_under(rb_mCocos2D, "MenuItemAtlasSprite", rb_cCocosNode);
+	rb_define_singleton_method(rb_cMenuItemAtlasSprite, "new", rb_cMenuItemAtlasSprite_s_new, 1);
 }
 
 #pragma mark Menu
@@ -111,6 +157,7 @@ typedef union {
  * is an empty array.
  */
 VALUE rb_cMenu_s_new(VALUE klass, VALUE args) {
+	Check_Type(args, T_ARRAY);
 	if (RARRAY_LEN(args) < 1 && rb_block_given_p()) {
 		rb_yield(args);
 	} else if (RARRAY_LEN(args) < 1) {

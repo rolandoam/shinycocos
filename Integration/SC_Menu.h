@@ -34,6 +34,8 @@
 
 extern VALUE rb_cMenu;
 extern VALUE rb_cMenuItemImage;
+extern VALUE rb_cMenuItemAtlasSprite;
 
 void init_rb_cMenu();
 void init_rb_cMenuItem();
+void init_rb_cMenuItemAtlasSprite();

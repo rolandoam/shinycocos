@@ -203,6 +203,7 @@ void Init_ShinyCocos() {
 	init_rb_cLabelAtlas();
 	init_rb_cMenu();
 	init_rb_cMenuItemImage();
+	init_rb_cMenuItemAtlasSprite();
 	init_rb_cSolidShapeMap();
 	init_rb_cTransitionScene();
 	init_rb_mTwitter();
