@@ -104,6 +104,20 @@ VALUE rb_cAVAudioPlayer_set_delegate(VALUE object, VALUE delegate) {
 
 /*
  * call-seq:
+ *   player.loops = loops   #=> Integer
+ *
+ * Set to 0 to play only once (default). Any positive number will loop that
+ * many times. Any negative number will loop until you +stop+ it.
+ */
+VALUE rb_cAVAudioPlayer_set_loops(VALUE object, VALUE loop) {
+	Check_Type(loop, T_FIXNUM);
+	AV_PLAYER(object).player.numberOfLoops = FIX2INT(loop);
+	return loop;
+}
+
+
+/*
+ * call-seq:
  *   player.volume = volume   #=> volume (float)
  *
  * sets the volume. 1.0 = max volume, 0.0 = no volume
@@ -132,6 +146,7 @@ void init_rb_cAVAudioPlayer() {
 	rb_define_method(rb_cAVAudioPlayer, "play", rb_cAVAudioPlayer_play, 0);
 	rb_define_method(rb_cAVAudioPlayer, "stop", rb_cAVAudioPlayer_stop, 0);
 	rb_define_method(rb_cAVAudioPlayer, "delegate=", rb_cAVAudioPlayer_set_delegate, 1);
+	rb_define_method(rb_cAVAudioPlayer, "loops=", rb_cAVAudioPlayer_set_loops, 1);
 	rb_define_method(rb_cAVAudioPlayer, "volume=", rb_cAVAudioPlayer_set_volume, 1);
 	rb_define_method(rb_cAVAudioPlayer, "volume", rb_cAVAudioPlayer_volume, 0);
 }
