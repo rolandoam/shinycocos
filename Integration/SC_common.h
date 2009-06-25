@@ -54,6 +54,7 @@ SC_GETTER_TEMPLATE(CC_TRANS, TransitionScene)
 SC_GETTER_TEMPLATE(UI_TFIELD, UITextField)
 SC_GETTER_TEMPLATE(UI_SLIDER, UISlider)
 SC_GETTER_TEMPLATE(AV_PLAYER, RBAudioPlayer)
+SC_GETTER_TEMPLATE(CC_BMFONT, BitmapFontAtlas)
 
 #define INSPECT(obj) sc_protect_funcall(obj, id_sc_inspect, 0, 0)
 #define RBCALL(obj, func) sc_protect_funcall(obj, rb_intern(func), 0, 0)

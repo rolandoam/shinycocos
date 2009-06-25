@@ -211,6 +211,7 @@ void Init_ShinyCocos() {
 	init_rb_cTextField();
 	init_rb_cSlider();
 	init_rb_cAVAudioPlayer();
+	init_rb_cBitmapFontAtlas();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
