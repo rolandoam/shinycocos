@@ -45,6 +45,7 @@ static void eachShape(void *ptr, void* unused)
 @interface CocosNode (SC_Extension)
 // actions
 - (void)rb_on_enter;
+- (void)rb_on_enter_transition_did_finish;
 - (void)rb_on_exit;
 - (void)rb_draw;
 
@@ -74,6 +75,15 @@ static void eachShape(void *ptr, void* unused)
 	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
 	if (rbObject != Qnil) { // && rb_respond_to(rbObject, id_sc_on_enter)) {
 		sc_protect_funcall(rbObject, id_sc_on_enter, 0, 0);
+	}
+}
+
+- (void)rb_on_enter_transition_did_finish {
+	[self rb_on_enter_transition_did_finish];
+	// call the ruby version
+	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbObject != Qnil) {
+		sc_protect_funcall(rbObject, sc_id_on_enter_transition_did_finish, 0, 0);
 	}
 }
 
@@ -812,6 +822,7 @@ void init_rb_cCocosNode() {
 	
 	// replace the common actions on the CocosNode class
 	sc_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));
+	sc_method_swap([CocosNode class], @selector(onEnterTransitionDidFinish), @selector(rb_on_enter_transition_did_finish));
 	sc_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
 	// replace the stop method on Action (to be able to call the stop handler in ruby)
 	sc_method_swap([Action class], @selector(stop), @selector(rb_stop));

@@ -152,6 +152,30 @@ VALUE rb_mDirector_resume(VALUE module) {
 }
 
 
+/*
+ * call-seq:
+ *   Director.set_2d_projection   #=> nil
+ *
+ * Sets the Directors' projection to 2D
+ */
+VALUE rb_mDirector_set_2d_projection(VALUE module) {
+	[[Director sharedDirector] set2Dprojection];
+	return Qnil;
+}
+
+
+/*
+ * call-seq:
+ *   Director.set_3d_projection   #=> nil
+ *
+ * Sets the Directors' projection to 3D
+ */
+VALUE rb_mDirector_set_3d_projection(VALUE module) {
+	[[Director sharedDirector] set3Dprojection];
+	return Qnil;
+}
+
+
 /* create the Director class, set the methods */
 void init_rb_mDirector() {
 	rb_mDirector = rb_define_module_under(rb_mCocos2D, "Director");
@@ -165,6 +189,8 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "add_text_field", rb_mDirector_add_text_field, 3);
 	rb_define_module_function(rb_mDirector, "pause", rb_mDirector_pause, 0);
 	rb_define_module_function(rb_mDirector, "resume", rb_mDirector_resume, 0);
+	rb_define_module_function(rb_mDirector, "set_2d_projection", rb_mDirector_set_2d_projection, 0);
+	rb_define_module_function(rb_mDirector, "set_3d_projection", rb_mDirector_set_3d_projection, 0);
 	// orientation constants
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_LEFT", INT2FIX(CCDeviceOrientationLandscapeLeft));
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_RIGHT", INT2FIX(CCDeviceOrientationLandscapeRight));

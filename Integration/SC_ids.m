@@ -97,6 +97,7 @@ ID sc_id_fade_t_r_transition;
 ID sc_id_fade_b_l_transition;
 ID sc_id_fade_up_transition;
 ID sc_id_fade_down_transition;
+ID sc_id_on_enter_transition_did_finish;
 
 void init_sc_ids() {
 	id_sc_animate = rb_intern("animate");
@@ -148,6 +149,7 @@ void init_sc_ids() {
 	id_sc_alert_view_did_dismiss = rb_intern("alert_view_did_dismiss");
 	id_sc_av_player_did_finish_playing = rb_intern("player_did_finish_playing");
 	// transitions
+	sc_id_on_enter_transition_did_finish = rb_intern("on_enter_transition_did_finish");
 	sc_id_transition_scene = rb_intern("transition_scene");
 	sc_id_oriented_transition_scene = rb_intern("oriented_transition_scene");
 	sc_id_roto_zoom_transition = rb_intern("roto_zoom_transition");
