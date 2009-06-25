@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A902C4FD0FD5E68900309EC4 /* SC_UserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */; };
 		A902C4FE0FD5E68900309EC4 /* SC_UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */; };
+		A91D3F400FF3CE3100453351 /* SC_BitmatFontAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */; };
+		A91D3F410FF3CE3100453351 /* SC_BitmatFontAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */; };
 		A938D75C0FB11B8600F46FEA /* stringio.c in Sources */ = {isa = PBXBuildFile; fileRef = A938D75B0FB11B8600F46FEA /* stringio.c */; };
 		A93D7DC40FBDE4E100731024 /* SC_Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D7DC30FBDE4E100731024 /* SC_Layer.m */; };
 		A93D7EB50FBE0D9300731024 /* SC_Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D7EB40FBE0D9300731024 /* SC_Menu.m */; };
@@ -155,6 +157,8 @@
 /* Begin PBXFileReference section */
 		A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_UserDefaults.h; path = Integration/SC_UserDefaults.h; sourceTree = "<group>"; };
 		A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_UserDefaults.m; path = Integration/SC_UserDefaults.m; sourceTree = "<group>"; };
+		A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_BitmatFontAtlas.h; path = Integration/SC_BitmatFontAtlas.h; sourceTree = "<group>"; };
+		A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_BitmatFontAtlas.m; path = Integration/SC_BitmatFontAtlas.m; sourceTree = "<group>"; };
 		A938D75B0FB11B8600F46FEA /* stringio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stringio.c; path = ruby/ext/stringio/stringio.c; sourceTree = "<group>"; };
 		A93D7DC30FBDE4E100731024 /* SC_Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Layer.m; path = Integration/SC_Layer.m; sourceTree = "<group>"; };
 		A93D7EB40FBE0D9300731024 /* SC_Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Menu.m; path = Integration/SC_Menu.m; sourceTree = "<group>"; };
@@ -448,6 +452,8 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */,
+				A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */,
 				A97A764D0FF1697C00550303 /* SC_Transition.h */,
 				A97A764E0FF1697C00550303 /* SC_Transition.m */,
 				A993E3990FEFD7390064E74D /* SC_Slider.h */,
@@ -584,6 +590,7 @@
 				A9DF7AAA0FEBF9C300D6E245 /* SC_AVAudioPlayer.h in Headers */,
 				A993E39B0FEFD7390064E74D /* SC_Slider.h in Headers */,
 				A97A764F0FF1697C00550303 /* SC_Transition.h in Headers */,
+				A91D3F400FF3CE3100453351 /* SC_BitmatFontAtlas.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +752,7 @@
 				A9DF7AAB0FEBF9C300D6E245 /* SC_AVAudioPlayer.m in Sources */,
 				A993E39C0FEFD7390064E74D /* SC_Slider.m in Sources */,
 				A97A76500FF1697C00550303 /* SC_Transition.m in Sources */,
+				A91D3F410FF3CE3100453351 /* SC_BitmatFontAtlas.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
