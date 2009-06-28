@@ -29,7 +29,6 @@ ruby libraries, and other common code should be under the directory
 For each cocos2d class there is (or will be) a Ruby version of the
 class, right now, the following classes are implemented:
 
-* Texture2D
 * Director
 * CocosNode
 * Scene
@@ -41,6 +40,12 @@ class, right now, the following classes are implemented:
 * AtlasSprite
 * AtlasSpriteManager
 * AtlasAnimation
+* Label
+* LabelAtlas
+* BitmapFontAtlas
+* Transition
+* Some UIKit Classes: UITextField, UISlider, AVAudioPlayer, UserDefaults
+* Custom ShinyCocos helpers: Twitter, TiledMap
 
 The idea is to support every class provided by cocos2d-iphone. Please
 note that this is a project still starting, so most of the classes are
@@ -48,7 +53,7 @@ not implemented 100%.
 
 == Requirements
 
-* subversion (to fetch current branch-0.7 of cocos2d-iphone)
+* subversion (to fetch current trunk of cocos2d-iphone --working with v0.8--)
 * rake (in order to generate the documentation)
 * rdoc >= 2.4.0 (you can install it with: <tt>sudo gem install rdoc</tt>)
 
