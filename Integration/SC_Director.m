@@ -154,6 +154,20 @@ VALUE rb_mDirector_resume(VALUE module) {
 
 /*
  * call-seq:
+ *   Director.win_size   #=> Array
+ *
+ * Returns an array as with two elements representing the width and height of
+ * the current director's window.
+ */
+VALUE rb_mDirector_win_size(VALUE module) {
+	CGSize size = [[Director sharedDirector] winSize];
+	VALUE ret = rb_ary_new3(2, rb_float_new(size.width), rb_float_new(size.height));
+	return ret;
+}
+
+
+/*
+ * call-seq:
  *   Director.set_2d_projection   #=> nil
  *
  * Sets the Directors' projection to 2D
@@ -189,6 +203,7 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "add_text_field", rb_mDirector_add_text_field, 3);
 	rb_define_module_function(rb_mDirector, "pause", rb_mDirector_pause, 0);
 	rb_define_module_function(rb_mDirector, "resume", rb_mDirector_resume, 0);
+	rb_define_module_function(rb_mDirector, "win_size", rb_mDirector_win_size, 0);
 	rb_define_module_function(rb_mDirector, "set_2d_projection", rb_mDirector_set_2d_projection, 0);
 	rb_define_module_function(rb_mDirector, "set_3d_projection", rb_mDirector_set_3d_projection, 0);
 	// orientation constants
