@@ -473,6 +473,7 @@ VALUE rb_cCocosNode_children(VALUE object) {
 	return rb_iv_get(object, "@children");
 }
 
+
 id create_action(ID name, int argc, VALUE *argv) {
 	id action = nil;
 	
@@ -492,11 +493,11 @@ id create_action(ID name, int argc, VALUE *argv) {
 	} else if ((name == id_sc_move_to || name == id_sc_move_by) && argc == 2) {
 		Check_Type(argv[0], T_FLOAT);
 		Check_Type(argv[1], T_ARRAY);
-		cpVect pos = cpv(NUM2DBL(RARRAY_PTR(argv[0])[0]), NUM2DBL(RARRAY_PTR(argv[0])[1]));
+		cpVect pos = cpv(NUM2DBL(RARRAY_PTR(argv[1])[0]), NUM2DBL(RARRAY_PTR(argv[1])[1]));
 		if (name == id_sc_move_to)
-			action = [MoveTo actionWithDuration:NUM2DBL(argv[1]) position:pos];
+			action = [MoveTo actionWithDuration:NUM2DBL(argv[0]) position:pos];
 		else
-			action = [MoveBy actionWithDuration:NUM2DBL(argv[1]) position:pos];
+			action = [MoveBy actionWithDuration:NUM2DBL(argv[0]) position:pos];
 	} else {
 		rb_raise(rb_eArgError, "Invalid Action");
 	}
