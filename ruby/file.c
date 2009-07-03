@@ -2410,9 +2410,9 @@ rb_file_s_umask(int argc, VALUE *argv)
 #endif
 
 #if USE_NTFS
-#define istrailinggabage(x) ((x) == '.' || (x) == ' ')
+#define istrailinggarbage(x) ((x) == '.' || (x) == ' ')
 #else
-#define istrailinggabage(x) 0
+#define istrailinggarbage(x) 0
 #endif
 
 #ifndef CharNext		/* defined as CharNext[AW] on Windows. */
@@ -2553,9 +2553,9 @@ ntfs_tail(const char *path)
 {
     while (*path == '.') path++;
     while (*path && *path != ':') {
-	if (istrailinggabage(*path)) {
+	if (istrailinggarbage(*path)) {
 	    const char *last = path++;
-	    while (istrailinggabage(*path)) path++;
+	    while (istrailinggarbage(*path)) path++;
 	    if (!*path || *path == ':') return (char *)last;
 	}
 	else if (isdirsep(*path)) {
@@ -2665,6 +2665,7 @@ file_expand_path(VALUE fname, VALUE dname, int abs_mode, VALUE result)
 	    memcpy(p, s, 2);
 	    p += 2;
 	    s += 2;
+	    rb_enc_associate_index(result, rb_usascii_encindex());
 	}
 	else {
 	    /* specified drive, but not full path */
@@ -2723,6 +2724,7 @@ file_expand_path(VALUE fname, VALUE dname, int abs_mode, VALUE result)
 	p = buf + (s - b);
 	BUFCHECK(bdiff >= buflen);
 	memset(buf, '/', p - buf);
+	rb_enc_copy(result, fname);
     }
     if (p > buf && p[-1] == '/')
 	--p;
@@ -2759,7 +2761,7 @@ file_expand_path(VALUE fname, VALUE dname, int abs_mode, VALUE result)
 		    }
 #if USE_NTFS
 		    else {
-			do *++s; while (istrailinggabage(*s));
+			do ++s; while (istrailinggarbage(*s));
 		    }
 #endif
 		    break;
@@ -2779,7 +2781,7 @@ file_expand_path(VALUE fname, VALUE dname, int abs_mode, VALUE result)
 		--s;
 	      case ' ': {
 		const char *e = s;
-		while (istrailinggabage(*s)) s++;
+		while (istrailinggarbage(*s)) s++;
 		if (!*s) {
 		    s = e;
 		    goto endpath;
@@ -3145,10 +3147,10 @@ rb_file_s_extname(VALUE klass, VALUE fname)
     e = 0;
     while (*p && *p == '.') p++;
     while (*p) {
-	if (*p == '.' || istrailinggabage(*p)) {
+	if (*p == '.' || istrailinggarbage(*p)) {
 #if USE_NTFS
 	    const char *last = p++, *dot = last;
-	    while (istrailinggabage(*p)) {
+	    while (istrailinggarbage(*p)) {
 		if (*p == '.') dot = p;
 		p++;
 	    }

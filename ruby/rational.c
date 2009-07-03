@@ -16,10 +16,6 @@
 #define NDEBUG
 #include <assert.h>
 
-#ifndef RATIONAL_NAME
-#define RATIONAL_NAME "Rational"
-#endif
-
 #define ZERO INT2FIX(0)
 #define ONE INT2FIX(1)
 #define TWO INT2FIX(2)
@@ -902,6 +898,12 @@ nurat_coerce(VALUE self, VALUE other)
 	return rb_assoc_new(f_rational_new_bang1(CLASS_OF(self), other), self);
       case T_FLOAT:
 	return rb_assoc_new(other, f_to_f(self));
+      case T_RATIONAL:
+	return rb_assoc_new(other, self);
+      case T_COMPLEX:
+	if (k_exact_p(RCOMPLEX(other)->imag) && f_zero_p(RCOMPLEX(other)->imag))
+	    return rb_assoc_new(f_rational_new_bang1
+				(CLASS_OF(self), RCOMPLEX(other)->real), self);
     }
 
     rb_raise(rb_eTypeError, "%s can't be coerced into %s",
@@ -1212,6 +1214,57 @@ rb_Rational(VALUE x, VALUE y)
     return nurat_s_convert(2, a, rb_cRational);
 }
 
+#define id_numerator rb_intern("numerator")
+#define f_numerator(x) rb_funcall(x, id_numerator, 0)
+
+#define id_denominator rb_intern("denominator")
+#define f_denominator(x) rb_funcall(x, id_denominator, 0)
+
+#define id_to_r rb_intern("to_r")
+#define f_to_r(x) rb_funcall(x, id_to_r, 0)
+
+static VALUE
+numeric_numerator(VALUE self)
+{
+    return f_numerator(f_to_r(self));
+}
+
+static VALUE
+numeric_denominator(VALUE self)
+{
+    return f_denominator(f_to_r(self));
+}
+
+static VALUE
+integer_numerator(VALUE self)
+{
+    return self;
+}
+
+static VALUE
+integer_denominator(VALUE self)
+{
+    return INT2FIX(1);
+}
+
+static VALUE
+float_numerator(VALUE self)
+{
+    double d = RFLOAT_VALUE(self);
+    if (isinf(d) || isnan(d))
+	return self;
+    return rb_call_super(0, 0);
+}
+
+static VALUE
+float_denominator(VALUE self)
+{
+    double d = RFLOAT_VALUE(self);
+    if (isinf(d) || isnan(d))
+	return INT2FIX(1);
+    return rb_call_super(0, 0);
+}
+
 static VALUE
 nilclass_to_r(VALUE self)
 {
@@ -1511,7 +1564,7 @@ Init_Rational(void)
 
     ml = (long)(log(DBL_MAX) / log(2.0) - 1);
 
-    rb_cRational = rb_define_class(RATIONAL_NAME, rb_cNumeric);
+    rb_cRational = rb_define_class("Rational", rb_cNumeric);
 
     rb_define_alloc_func(rb_cRational, nurat_s_alloc);
     rb_undef_method(CLASS_OF(rb_cRational), "allocate");
@@ -1523,7 +1576,7 @@ Init_Rational(void)
     rb_undef_method(CLASS_OF(rb_cRational), "new");
 #endif
 
-    rb_define_global_function(RATIONAL_NAME, nurat_f_rational, -1);
+    rb_define_global_function("Rational", nurat_f_rational, -1);
 
     rb_define_method(rb_cRational, "numerator", nurat_numerator, 0);
     rb_define_method(rb_cRational, "denominator", nurat_denominator, 0);
@@ -1587,6 +1640,15 @@ Init_Rational(void)
     rb_define_method(rb_cInteger, "gcd", rb_gcd, 1);
     rb_define_method(rb_cInteger, "lcm", rb_lcm, 1);
     rb_define_method(rb_cInteger, "gcdlcm", rb_gcdlcm, 1);
+
+    rb_define_method(rb_cNumeric, "numerator", numeric_numerator, 0);
+    rb_define_method(rb_cNumeric, "denominator", numeric_denominator, 0);
+
+    rb_define_method(rb_cInteger, "numerator", integer_numerator, 0);
+    rb_define_method(rb_cInteger, "denominator", integer_denominator, 0);
+
+    rb_define_method(rb_cFloat, "numerator", float_numerator, 0);
+    rb_define_method(rb_cFloat, "denominator", float_denominator, 0);
 
     rb_define_method(rb_cNilClass, "to_r", nilclass_to_r, 0);
     rb_define_method(rb_cInteger, "to_r", integer_to_r, 0);

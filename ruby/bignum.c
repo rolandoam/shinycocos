@@ -1213,7 +1213,10 @@ rb_big2dbl(VALUE x)
 
     if (isinf(d)) {
 	rb_warning("Bignum out of Float range");
-	d = HUGE_VAL;
+	if (d < 0.0)
+	    d = -HUGE_VAL;
+	else
+	    d = HUGE_VAL;
     }
     return d;
 }
@@ -1257,7 +1260,15 @@ rb_big_cmp(VALUE x, VALUE y)
 	break;
 
       case T_FLOAT:
-	return rb_dbl_cmp(rb_big2dbl(x), RFLOAT_VALUE(y));
+	{
+	    double a = RFLOAT_VALUE(y);
+
+	    if (isinf(a)) {
+		if (a > 0.0) return INT2FIX(-1);
+		else return INT2FIX(1);
+	    }
+	    return rb_dbl_cmp(rb_big2dbl(x), a);
+	}
 
       default:
 	return rb_num_coerce_cmp(x, y, rb_intern("<=>"));
@@ -1970,7 +1981,7 @@ static VALUE big_shift(VALUE x, int n)
 
 /*
  *  call-seq:
-  *     big.fdiv(numeric) -> float
+ *     big.fdiv(numeric) -> float
  *
  *  Returns the floating point result of dividing <i>big</i> by
  *  <i>numeric</i>.
@@ -2372,8 +2383,8 @@ rb_big_lshift(VALUE x, VALUE y)
 	y = rb_to_int(y);
     }
 
-    if (neg) return big_rshift(x, shift);
-    return big_lshift(x, shift);
+    x = neg ? big_rshift(x, shift) : big_lshift(x, shift);
+    return bignorm(x);
 }
 
 static VALUE
@@ -2399,7 +2410,7 @@ big_lshift(VALUE x, unsigned long shift)
 	num = BIGDN(num);
     }
     *zds = BIGLO(num);
-    return bignorm(z);
+    return z;
 }
 
 /*
@@ -2438,8 +2449,8 @@ rb_big_rshift(VALUE x, VALUE y)
 	y = rb_to_int(y);
     }
 
-    if (neg) return big_lshift(x, shift);
-    return big_rshift(x, shift);
+    x = neg ? big_lshift(x, shift) : big_rshift(x, shift);
+    return bignorm(x);
 }
 
 static VALUE
@@ -2482,7 +2493,7 @@ big_rshift(VALUE x, unsigned long shift)
     if (!RBIGNUM_SIGN(x)) {
 	get2comp(z);
     }
-    return bignorm(z);
+    return z;
 }
 
 /*

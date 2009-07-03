@@ -415,11 +415,11 @@ load_unlock(const char *ftptr, int done)
  *  the current platform, Ruby loads the shared library as a Ruby
  *  extension. Otherwise, Ruby tries adding ``.rb'', ``.so'', and so on
  *  to the name. The name of the loaded feature is added to the array in
- *  <code>$"</code>. A feature will not be loaded if it's name already
- *  appears in <code>$"</code>. However, the file name is not converted
- *  to an absolute path, so that ``<code>require 'a';require
- *  './a'</code>'' will load <code>a.rb</code> twice.
- *     
+ *  <code>$"</code>. A feature will not be loaded if its name already
+ *  appears in <code>$"</code>. The file name is converted to an absolute
+ *  path, so ``<code>require 'a'; require './a'</code>'' will not load
+ *  <code>a.rb</code> twice.
+ *
  *     require "my-library.rb"
  *     require "db-driver"
  */
@@ -627,8 +627,8 @@ ruby_init_ext(const char *name, void (*init)(void))
 
 /*
  *  call-seq:
- *     mod.autoload(name, filename)   => nil
- *  
+ *     mod.autoload(module, filename)   => nil
+ *
  *  Registers _filename_ to be loaded (using <code>Kernel::require</code>)
  *  the first time that _module_ (which may be a <code>String</code> or
  *  a symbol) is accessed in the namespace of _mod_.
@@ -704,7 +704,7 @@ Init_load()
     static const char var_load_path[] = "$:";
     ID id_load_path = rb_intern2(var_load_path, sizeof(var_load_path)-1);
 
-    rb_define_hooked_variable(var_load_path, (VALUE*)vm, load_path_getter, 0);
+    rb_define_hooked_variable(var_load_path, (VALUE*)vm, load_path_getter, rb_gvar_readonly_setter);
     rb_alias_variable(rb_intern("$-I"), id_load_path);
     rb_alias_variable(rb_intern("$LOAD_PATH"), id_load_path);
     vm->load_path = rb_ary_new();

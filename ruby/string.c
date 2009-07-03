@@ -5710,7 +5710,7 @@ rb_str_each_byte(VALUE str)
 static VALUE
 rb_str_each_char(VALUE str)
 {
-    int i, len, n;
+    long i, len, n;
     const char *ptr;
     rb_encoding *enc;
 
@@ -5759,7 +5759,8 @@ rb_str_each_char(VALUE str)
 static VALUE
 rb_str_each_codepoint(VALUE str)
 {
-    int len, n;
+    long len;
+    int n;
     unsigned int c;
     const char *ptr, *end;
     rb_encoding *enc;
@@ -6645,6 +6646,7 @@ rb_str_partition(VALUE str, VALUE sep)
 	    rb_raise(rb_eTypeError, "type mismatch: %s given",
 		     rb_obj_classname(sep));
 	}
+	sep = tmp;
 	pos = rb_str_index(str, sep, 0);
     }
     if (pos < 0) {
@@ -6692,6 +6694,7 @@ rb_str_rpartition(VALUE str, VALUE sep)
 	    rb_raise(rb_eTypeError, "type mismatch: %s given",
 		     rb_obj_classname(sep));
 	}
+	sep = tmp;
 	pos = rb_str_sublen(str, pos);
 	pos = rb_str_rindex(str, sep, pos);
     }

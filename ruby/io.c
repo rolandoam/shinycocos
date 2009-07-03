@@ -3133,7 +3133,7 @@ fptr_finalize(rb_io_t *fptr, int noraise)
             err = noraise ? Qtrue : INT2NUM(errno);
     }
     if (IS_PREP_STDIO(fptr) || fptr->fd <= 2) {
-        goto check_err;
+        goto skip_fd_close;
     }
     if (fptr->stdio_file) {
         /* fptr->stdio_file is deallocated anyway
@@ -3148,11 +3148,11 @@ fptr_finalize(rb_io_t *fptr, int noraise)
         if (close(fptr->fd) < 0 && NIL_P(err))
             err = noraise ? Qtrue : INT2NUM(errno);
     }
+  skip_fd_close:
     fptr->fd = -1;
     fptr->stdio_file = 0;
     fptr->mode &= ~(FMODE_READABLE|FMODE_WRITABLE);
 
-  check_err:
     if (!NIL_P(err) && !noraise) {
         switch(TYPE(err)) {
           case T_FIXNUM:
@@ -8225,11 +8225,10 @@ argf_each_line(int argc, VALUE *argv, VALUE argf)
 {
     RETURN_ENUMERATOR(argf, argc, argv);
     for (;;) {
-	if (!next_argv()) return Qnil;
+	if (!next_argv()) return argf;
 	rb_block_call(ARGF.current_file, rb_intern("each_line"), argc, argv, rb_yield, 0);
 	ARGF.next_p = 1;
     }
-    return argf;
 }
 
 static VALUE
@@ -8237,7 +8236,7 @@ argf_each_byte(VALUE argf)
 {
     RETURN_ENUMERATOR(argf, 0, 0);
     for (;;) {
-	if (!next_argv()) return Qnil;
+	if (!next_argv()) return argf;
 	rb_block_call(ARGF.current_file, rb_intern("each_byte"), 0, 0, rb_yield, 0);
 	ARGF.next_p = 1;
     }
@@ -8248,7 +8247,7 @@ argf_each_char(VALUE argf)
 {
     RETURN_ENUMERATOR(argf, 0, 0);
     for (;;) {
-	if (!next_argv()) return Qnil;
+	if (!next_argv()) return argf;
 	rb_block_call(ARGF.current_file, rb_intern("each_char"), 0, 0, rb_yield, 0);
 	ARGF.next_p = 1;
     }
@@ -8293,7 +8292,7 @@ argf_binmode_p(VALUE argf)
 static VALUE
 argf_skip(VALUE argf)
 {
-    if (ARGF.next_p != -1) {
+    if (ARGF.init_p && ARGF.next_p == 0) {
 	argf_close(ARGF.current_file);
 	ARGF.next_p = 1;
     }

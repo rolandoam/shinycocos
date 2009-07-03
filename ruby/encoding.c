@@ -456,11 +456,11 @@ require_enc(VALUE enclib)
 static int
 load_encoding(const char *name)
 {
-    VALUE enclib = rb_sprintf("enc/%s", name);
+    VALUE enclib = rb_sprintf("enc/%s.so", name);
     VALUE verbose = ruby_verbose;
     VALUE debug = ruby_debug;
     VALUE loaded;
-    char *s = RSTRING_PTR(enclib) + 4, *e = RSTRING_END(enclib);
+    char *s = RSTRING_PTR(enclib) + 4, *e = RSTRING_END(enclib) - 3;
     int idx;
 
     while (s < e) {
@@ -1300,8 +1300,6 @@ rb_enc_name_list_i(st_data_t name, st_data_t idx, st_data_t arg)
  *       "ISO-8859-1", "Shift_JIS", "EUC-JP",
  *       "Windows-31J",
  *       "BINARY", "CP932", "eucJP"]
- *
- * This list doesn't include dummy encodings.
  *
  */
 

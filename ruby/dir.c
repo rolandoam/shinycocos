@@ -802,6 +802,7 @@ dir_s_getwd(VALUE dir)
     rb_secure(4);
     path = my_getcwd();
     cwd = rb_tainted_str_new2(path);
+    rb_enc_associate(cwd, rb_filesystem_encoding());
 
     xfree(path);
     return cwd;
@@ -1635,7 +1636,7 @@ dir_s_aref(int argc, VALUE *argv, VALUE obj)
  *                          match all files beginning with
  *                          <code>c</code>; <code>*c</code> will match
  *                          all files ending with <code>c</code>; and
- *                          <code>*c*</code> will match all files that
+ *                          <code>\*c\*</code> will match all files that
  *                          have <code>c</code> in them (including at
  *                          the beginning or end). Equivalent to
  *                          <code>/ .* /x</code> in regexp.

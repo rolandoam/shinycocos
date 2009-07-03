@@ -41,7 +41,7 @@ static const char prelude_code0[] =
 ;
 static const char prelude_name1[] = "<internal:prelude>";
 static const char prelude_code1[] =
-"%w'enc/encdb enc/trans/transdb'.each do |init|\n"
+"%w'enc/encdb.so enc/trans/transdb.so'.each do |init|\n"
 "  begin\n"
 "    require(init)\n"
 "  rescue LoadError\n"
@@ -79,7 +79,7 @@ static const char prelude_code2[] =
 "      :ruby_version => \"1.9.1\",\n"
 "      :libdir => \"#{TMP_RUBY_PREFIX}/lib\",\n"
 "      :sitelibdir => \"#{TMP_RUBY_PREFIX}/lib/ruby/site_ruby/1.9.1\",\n"
-"      :arch => \"i386-darwin9.6.0\",\n"
+"      :arch => \"i386-darwin9.7.0\",\n"
 "      :bindir => \"#{TMP_RUBY_PREFIX}/bin\",\n"
 "      :EXEEXT => \"\",\n"
 "      :RUBY_SO_NAME => \"ruby\",\n"
