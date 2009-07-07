@@ -103,31 +103,6 @@ VALUE rb_mDirector_remove_touch_handler(VALUE module, VALUE node) {
 	return node;
 }
 
-/*
- * call-seq:
- *   Director.add_text_field([top, left, width, height], landscape_mode, delegate)   #=> nil
- *
- * Set <tt>landscape_mode</tt> to true if your current orientation is landscape.
- *
- * <tt>delegate</tt> *must* be a CocosNode subclass. Setting a delegate means you have to implement
- * a method <tt>text_field_action</tt> in your class. This method will be called after receiving
- * the <tt>textFieldShouldReturn:</tt> selector in the Obj-C world. It must return true if the
- * text field should resign its first reponder status.
- */
-VALUE rb_mDirector_add_text_field(VALUE module, VALUE size, VALUE landscape, VALUE delegate) {
-	Check_Type(size, T_ARRAY);
-	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(FIX2INT(RARRAY_PTR(size)[0]), FIX2INT(RARRAY_PTR(size)[1]), FIX2INT(RARRAY_PTR(size)[2]), FIX2INT(RARRAY_PTR(size)[3]))];
-	// rotate to portrait
-	if (landscape != Qfalse)
-		[textField setTransform:CGAffineTransformMakeRotation(3.14/2)];
-	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.returnKeyType = UIReturnKeyDone;
-	if (delegate != Qnil)
-		textField.delegate = (id)CC_NODE(delegate);
-	[[Director sharedDirector].openGLView addSubview:textField];
-	
-	return Qnil;
-}
 
 /*
  * call-seq:
@@ -200,7 +175,6 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "replace_scene", rb_mDirector_replace_scene, 1);
 	rb_define_module_function(rb_mDirector, "add_touch_handler", rb_mDirector_add_touch_handler, 1);
 	rb_define_module_function(rb_mDirector, "remove_touch_handler", rb_mDirector_remove_touch_handler, 1);
-	rb_define_module_function(rb_mDirector, "add_text_field", rb_mDirector_add_text_field, 3);
 	rb_define_module_function(rb_mDirector, "pause", rb_mDirector_pause, 0);
 	rb_define_module_function(rb_mDirector, "resume", rb_mDirector_resume, 0);
 	rb_define_module_function(rb_mDirector, "win_size", rb_mDirector_win_size, 0);
