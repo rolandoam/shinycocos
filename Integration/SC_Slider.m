@@ -46,27 +46,43 @@ VALUE rb_cSlider_s_new(int argc, VALUE *argv, VALUE klass) {
 	return ret;
 }
 
+
+/*
+ * call-seq:
+ *   slider.attach   #=> nil
+ *
+ * attaches the slider to the openGLView of the Director
+ */
 VALUE rb_cSlider_attach(VALUE object) {
 	[[Director sharedDirector].openGLView addSubview:UI_SLIDER(object)];
 	return Qnil;
 }
 
+
+/*
+ * call-seq:
+ *   slider.detach   #=> nil
+ *
+ * detaches the slider from the openGLView of the Director
+ */
 VALUE rb_cSlider_detach(VALUE object) {
 	[UI_SLIDER(object) removeFromSuperview];
 	return Qnil;
 }
 
+
 /*
  * call-seq:
- *   text_field.value   #=> string
+ *   slider.value   #=> string
  */
 VALUE rb_cSlider_value(VALUE object) {
 	return rb_float_new(UI_SLIDER(object).value);
 }
 
+
 /*
  * call-seq:
- *   text_field.value = string   #=> string
+ *   slider.value = string   #=> string
  */
 VALUE rb_cSlider_set_value(VALUE object, VALUE rb_value) {
 	Check_Type(rb_value, T_FLOAT);
