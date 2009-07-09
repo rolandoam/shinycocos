@@ -26,19 +26,18 @@
 VALUE rb_cLayer;
 
 @interface RBLayer : Layer
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
+-(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event;
 @end
 
 @implementation RBLayer
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
-	if (obj != Qnil) {
-		VALUE rb_arr = rb_ary_new3(3,
-			rb_float_new(acceleration.x),
-			rb_float_new(acceleration.y),
-			rb_float_new(acceleration.z));
-		sc_protect_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
+-(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil) {
+		if (sc_protect_funcall(rbDelegate, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
+			return YES;
+		}
 	}
+	return NO;
 }
 @end
 
@@ -57,40 +56,19 @@ VALUE rb_cLayer_s_new(int argc, VALUE *argv, VALUE klass) {
 	return ret;
 }
 
-/*
- * call-seq:
- *   layer.enable_touch(true)  #=> true or false
- *
- * Enables/disables the touch capabilities of the layer. When enabling
- * the touch capabilities, the following method could be called:
- *
- * * <tt>touches_began</tt>
- * * <tt>touches_moved</tt>
- * * <tt>touches_ended</tt>
- *
- * All of these methods receive a <tt>touches</tt> argument, which is an
- * array of hashes, where the <tt>:location</tt> element is the position
- * of the touch (as an array of 2 floats), and the <tt>:tap_count</tt>
- * element is an integer.
- */
-//VALUE rb_cLayer_enable_touch(VALUE obj, VALUE enable) {
-//	CC_LAYER(obj).isTouchEnabled = !(enable == Qfalse);
-//	return !(enable == Qfalse);
-//}
 
 /*
  * call-seq:
- *   layer.enable_accelerometer(true)  #=> true or false
+ *   layer.register_with_touch_dispatcher   #=> nil
  *
- * Enables/disables the accelerometer of the layer. The layer should
- * implement <tt>did_accelerate(acceleration)</tt> method. The
- * <tt>acceleration</tt> parameter is an array of 3 floats representing
- * the acceleration in the 3 axes.
+ * register the layer with the touch dispatcher. You should implement the method +touch_began(touch)+
+ * in your subclass.
  */
-VALUE rb_cLayer_enable_accelerometer(VALUE obj, VALUE enable) {
-	CC_LAYER(obj).isAccelerometerEnabled = !(enable == Qfalse);
-	return !(enable == Qfalse);
+VALUE rb_cLayer_register_with_touch_dispatcher(VALUE object) {
+	[CC_LAYER(object) registerWithTouchDispatcher];
+	return Qnil;
 }
+
 
 /*
  * The ruby equivalent of the Layer node
@@ -98,7 +76,5 @@ VALUE rb_cLayer_enable_accelerometer(VALUE obj, VALUE enable) {
 void init_rb_cLayer() {
 	rb_cLayer = rb_define_class_under(rb_mCocos2D, "Layer", rb_cCocosNode);
 	rb_define_singleton_method(rb_cLayer, "new", rb_cLayer_s_new, -1);
-	
-//	rb_define_method(rb_cLayer, "enable_touch", rb_cLayer_enable_touch, 1);
-//	rb_define_method(rb_cLayer, "enable_accelerometer", rb_cLayer_enable_accelerometer, 1);
+	rb_define_method(rb_cLayer, "register_with_touch_dispatcher", rb_cLayer_register_with_touch_dispatcher, 0);
 }
