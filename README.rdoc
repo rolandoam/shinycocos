@@ -37,6 +37,7 @@ class, right now, the following classes are implemented:
 * MenuItemImage
 * TextureNode
 * Sprite
+* Actions (all are added, not all are functional. The not functional ones will raise an exception when trying to create a new instance)
 * AtlasSprite
 * AtlasSpriteManager
 * AtlasAnimation
