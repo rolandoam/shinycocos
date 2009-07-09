@@ -755,8 +755,17 @@ VALUE rb_cReverseTime_s_new(int argc, VALUE *argv, VALUE klass) {
 
 
 VALUE rb_cAnimate_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	Animate *action = [[Animate alloc] init];
+	CHECK_ARGS_NUM(1)
+	Animate *action;
+	if (argc == 2) {
+		action = [[Animate alloc] initWithAnimation:(id<CocosAnimation>)sc_get_objc(argv[0]) restoreOriginalFrame:((argv[1]) != Qfalse ? YES : NO)];
+		argc -= 2;
+		argv += 2;
+	} else {
+		action = [[Animate alloc] initWithAnimation:(id<CocosAnimation>)sc_get_objc(argv[0])];
+		argc -= 1;
+		argv += 1;
+	}
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
 	return ret;
 }
@@ -877,44 +886,6 @@ void init_rb_mAction() {
 	rb_cFiniteTimeAction = rb_define_class_under(rb_mActions, "FiniteTimeAction", rb_cAction); // FiniteTimeAction
 	rb_cRepeatForever = rb_define_class_under(rb_mActions, "RepeatForever", rb_cAction); // RepeatForever
 	rb_cSpeed = rb_define_class_under(rb_mActions, "Speed", rb_cAction); // Speed
-	rb_cCameraAction = rb_define_class_under(rb_mActions, "CameraAction", rb_cIntervalAction); // CameraAction
-	rb_cOrbitCamera = rb_define_class_under(rb_mActions, "OrbitCamera", rb_cCameraAction); // OrbitCamera
-	rb_cEaseAction = rb_define_class_under(rb_mActions, "EaseAction", rb_cIntervalAction); // EaseAction
-	rb_cEaseRateAction = rb_define_class_under(rb_mActions, "EaseRateAction", rb_cEaseAction); // EaseRateAction
-	rb_cEaseIn = rb_define_class_under(rb_mActions, "EaseIn", rb_cEaseRateAction); // EaseIn
-	rb_cEaseOut = rb_define_class_under(rb_mActions, "EaseOut", rb_cEaseRateAction); // EaseOut
-	rb_cEaseInOut = rb_define_class_under(rb_mActions, "EaseInOut", rb_cEaseRateAction); // EaseInOut
-	rb_cEaseExponentialIn = rb_define_class_under(rb_mActions, "EaseExponentialIn", rb_cEaseAction); // EaseExponentialIn
-	rb_cEaseExponentialOut = rb_define_class_under(rb_mActions, "EaseExponentialOut", rb_cEaseAction); // EaseExponentialOut
-	rb_cEaseExponentialInOut = rb_define_class_under(rb_mActions, "EaseExponentialInOut", rb_cEaseAction); // EaseExponentialInOut
-	rb_cEaseSineIn = rb_define_class_under(rb_mActions, "EaseSineIn", rb_cEaseAction); // EaseSineIn
-	rb_cEaseSineOut = rb_define_class_under(rb_mActions, "EaseSineOut", rb_cEaseAction); // EaseSineOut
-	rb_cEaseSineInOut = rb_define_class_under(rb_mActions, "EaseSineInOut", rb_cEaseAction); // EaseSineInOut
-	rb_cGridAction = rb_define_class_under(rb_mActions, "GridAction", rb_cIntervalAction); // GridAction
-	rb_cGrid3DAction = rb_define_class_under(rb_mActions, "Grid3DAction", rb_cGridAction); // Grid3DAction
-	rb_cTiledGrid3DAction = rb_define_class_under(rb_mActions, "TiledGrid3DAction", rb_cGridAction); // TiledGrid3DAction
-	rb_cAccelDeccelAmplitude = rb_define_class_under(rb_mActions, "AccelDeccelAmplitude", rb_cIntervalAction); // AccelDeccelAmplitude
-	rb_cAccelAmplitude = rb_define_class_under(rb_mActions, "AccelAmplitude", rb_cIntervalAction); // AccelAmplitude
-	rb_cDeccelAmplitude = rb_define_class_under(rb_mActions, "DeccelAmplitude", rb_cIntervalAction); // DeccelAmplitude
-	rb_cStopGrid = rb_define_class_under(rb_mActions, "StopGrid", rb_cInstantAction); // StopGrid
-	rb_cReuseGrid = rb_define_class_under(rb_mActions, "ReuseGrid", rb_cInstantAction); // ReuseGrid
-	rb_cWaves3D = rb_define_class_under(rb_mActions, "Waves3D", rb_cGrid3DAction); // Waves3D
-	rb_cFlipX3D = rb_define_class_under(rb_mActions, "FlipX3D", rb_cGrid3DAction); // FlipX3D
-	rb_cFlipY3D = rb_define_class_under(rb_mActions, "FlipY3D", rb_cFlipX3D); // FlipY3D
-	rb_cLens3D = rb_define_class_under(rb_mActions, "Lens3D", rb_cGrid3DAction); // Lens3D
-	rb_cRipple3D = rb_define_class_under(rb_mActions, "Ripple3D", rb_cGrid3DAction); // Ripple3D
-	rb_cShaky3D = rb_define_class_under(rb_mActions, "Shaky3D", rb_cGrid3DAction); // Shaky3D
-	rb_cLiquid = rb_define_class_under(rb_mActions, "Liquid", rb_cGrid3DAction); // Liquid
-	rb_cWaves = rb_define_class_under(rb_mActions, "Waves", rb_cGrid3DAction); // Waves
-	rb_cTwirl = rb_define_class_under(rb_mActions, "Twirl", rb_cGrid3DAction); // Twirl
-	rb_cInstantAction = rb_define_class_under(rb_mActions, "InstantAction", rb_cFiniteTimeAction); // InstantAction
-	rb_cShow = rb_define_class_under(rb_mActions, "Show", rb_cInstantAction); // Show
-	rb_cHide = rb_define_class_under(rb_mActions, "Hide", rb_cInstantAction); // Hide
-	rb_cToggleVisibility = rb_define_class_under(rb_mActions, "ToggleVisibility", rb_cInstantAction); // ToggleVisibility
-	rb_cPlace = rb_define_class_under(rb_mActions, "Place", rb_cInstantAction); // Place
-	rb_cCallFunc = rb_define_class_under(rb_mActions, "CallFunc", rb_cInstantAction); // CallFunc
-	rb_cCallFuncN = rb_define_class_under(rb_mActions, "CallFuncN", rb_cCallFunc); // CallFuncN
-	rb_cCallFuncND = rb_define_class_under(rb_mActions, "CallFuncND", rb_cCallFuncN); // CallFuncND
 	rb_cIntervalAction = rb_define_class_under(rb_mActions, "IntervalAction", rb_cFiniteTimeAction); // IntervalAction
 	rb_cSequence = rb_define_class_under(rb_mActions, "Sequence", rb_cIntervalAction); // Sequence
 	rb_cRepeat = rb_define_class_under(rb_mActions, "Repeat", rb_cIntervalAction); // Repeat
@@ -937,6 +908,44 @@ void init_rb_mAction() {
 	rb_cDelayTime = rb_define_class_under(rb_mActions, "DelayTime", rb_cIntervalAction); // DelayTime
 	rb_cReverseTime = rb_define_class_under(rb_mActions, "ReverseTime", rb_cIntervalAction); // ReverseTime
 	rb_cAnimate = rb_define_class_under(rb_mActions, "Animate", rb_cIntervalAction); // Animate
+	rb_cCameraAction = rb_define_class_under(rb_mActions, "CameraAction", rb_cIntervalAction); // CameraAction
+	rb_cOrbitCamera = rb_define_class_under(rb_mActions, "OrbitCamera", rb_cCameraAction); // OrbitCamera
+	rb_cEaseAction = rb_define_class_under(rb_mActions, "EaseAction", rb_cIntervalAction); // EaseAction
+	rb_cEaseRateAction = rb_define_class_under(rb_mActions, "EaseRateAction", rb_cEaseAction); // EaseRateAction
+	rb_cEaseIn = rb_define_class_under(rb_mActions, "EaseIn", rb_cEaseRateAction); // EaseIn
+	rb_cEaseOut = rb_define_class_under(rb_mActions, "EaseOut", rb_cEaseRateAction); // EaseOut
+	rb_cEaseInOut = rb_define_class_under(rb_mActions, "EaseInOut", rb_cEaseRateAction); // EaseInOut
+	rb_cEaseExponentialIn = rb_define_class_under(rb_mActions, "EaseExponentialIn", rb_cEaseAction); // EaseExponentialIn
+	rb_cEaseExponentialOut = rb_define_class_under(rb_mActions, "EaseExponentialOut", rb_cEaseAction); // EaseExponentialOut
+	rb_cEaseExponentialInOut = rb_define_class_under(rb_mActions, "EaseExponentialInOut", rb_cEaseAction); // EaseExponentialInOut
+	rb_cEaseSineIn = rb_define_class_under(rb_mActions, "EaseSineIn", rb_cEaseAction); // EaseSineIn
+	rb_cEaseSineOut = rb_define_class_under(rb_mActions, "EaseSineOut", rb_cEaseAction); // EaseSineOut
+	rb_cEaseSineInOut = rb_define_class_under(rb_mActions, "EaseSineInOut", rb_cEaseAction); // EaseSineInOut
+	rb_cInstantAction = rb_define_class_under(rb_mActions, "InstantAction", rb_cFiniteTimeAction); // InstantAction
+	rb_cShow = rb_define_class_under(rb_mActions, "Show", rb_cInstantAction); // Show
+	rb_cHide = rb_define_class_under(rb_mActions, "Hide", rb_cInstantAction); // Hide
+	rb_cToggleVisibility = rb_define_class_under(rb_mActions, "ToggleVisibility", rb_cInstantAction); // ToggleVisibility
+	rb_cPlace = rb_define_class_under(rb_mActions, "Place", rb_cInstantAction); // Place
+	rb_cCallFunc = rb_define_class_under(rb_mActions, "CallFunc", rb_cInstantAction); // CallFunc
+	rb_cCallFuncN = rb_define_class_under(rb_mActions, "CallFuncN", rb_cCallFunc); // CallFuncN
+	rb_cCallFuncND = rb_define_class_under(rb_mActions, "CallFuncND", rb_cCallFuncN); // CallFuncND
+	rb_cGridAction = rb_define_class_under(rb_mActions, "GridAction", rb_cIntervalAction); // GridAction
+	rb_cGrid3DAction = rb_define_class_under(rb_mActions, "Grid3DAction", rb_cGridAction); // Grid3DAction
+	rb_cTiledGrid3DAction = rb_define_class_under(rb_mActions, "TiledGrid3DAction", rb_cGridAction); // TiledGrid3DAction
+	rb_cAccelDeccelAmplitude = rb_define_class_under(rb_mActions, "AccelDeccelAmplitude", rb_cIntervalAction); // AccelDeccelAmplitude
+	rb_cAccelAmplitude = rb_define_class_under(rb_mActions, "AccelAmplitude", rb_cIntervalAction); // AccelAmplitude
+	rb_cDeccelAmplitude = rb_define_class_under(rb_mActions, "DeccelAmplitude", rb_cIntervalAction); // DeccelAmplitude
+	rb_cStopGrid = rb_define_class_under(rb_mActions, "StopGrid", rb_cInstantAction); // StopGrid
+	rb_cReuseGrid = rb_define_class_under(rb_mActions, "ReuseGrid", rb_cInstantAction); // ReuseGrid
+	rb_cWaves3D = rb_define_class_under(rb_mActions, "Waves3D", rb_cGrid3DAction); // Waves3D
+	rb_cFlipX3D = rb_define_class_under(rb_mActions, "FlipX3D", rb_cGrid3DAction); // FlipX3D
+	rb_cFlipY3D = rb_define_class_under(rb_mActions, "FlipY3D", rb_cFlipX3D); // FlipY3D
+	rb_cLens3D = rb_define_class_under(rb_mActions, "Lens3D", rb_cGrid3DAction); // Lens3D
+	rb_cRipple3D = rb_define_class_under(rb_mActions, "Ripple3D", rb_cGrid3DAction); // Ripple3D
+	rb_cShaky3D = rb_define_class_under(rb_mActions, "Shaky3D", rb_cGrid3DAction); // Shaky3D
+	rb_cLiquid = rb_define_class_under(rb_mActions, "Liquid", rb_cGrid3DAction); // Liquid
+	rb_cWaves = rb_define_class_under(rb_mActions, "Waves", rb_cGrid3DAction); // Waves
+	rb_cTwirl = rb_define_class_under(rb_mActions, "Twirl", rb_cGrid3DAction); // Twirl
 	rb_cShakyTiles3D = rb_define_class_under(rb_mActions, "ShakyTiles3D", rb_cTiledGrid3DAction); // ShakyTiles3D
 	rb_cShatteredTiles3D = rb_define_class_under(rb_mActions, "ShatteredTiles3D", rb_cTiledGrid3DAction); // ShatteredTiles3D
 	rb_cShuffleTiles = rb_define_class_under(rb_mActions, "ShuffleTiles", rb_cTiledGrid3DAction); // ShuffleTiles
