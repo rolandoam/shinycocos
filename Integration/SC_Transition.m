@@ -114,8 +114,12 @@ VALUE rb_cTransitionScene_s_new(int argc, VALUE *argv, VALUE klass) {
 		ts = [[ZoomFlipAngularTransition alloc] initWithDuration:NUM2DBL(argv[2]) scene:CC_SCENE(argv[1])];
 	} else if (tr_id == sc_id_fade_transition) {
 		if (argc < 4) goto error;
-		Check_Type(argv[3], T_FIXNUM);
-		ts = [[FadeTransition alloc] initWithDuration:NUM2DBL(argv[2]) scene:CC_SCENE(argv[1]) withColorRGB:FIX2INT(argv[3])];
+		Check_Type(argv[3], T_ARRAY);
+		ccColor3B color;
+		color.r = FIX2INT(RARRAY_PTR(argv[3])[0]);
+		color.g = FIX2INT(RARRAY_PTR(argv[3])[1]);
+		color.b = FIX2INT(RARRAY_PTR(argv[3])[2]);
+		ts = [[FadeTransition alloc] initWithDuration:NUM2DBL(argv[2]) scene:CC_SCENE(argv[1]) withColor:color];
 		argc -= 1;
 		argv += 1;
 	} else if (tr_id == sc_id_turn_off_tiles_transition) {
