@@ -17,10 +17,11 @@ class TestScene < MenuScene
     add_child @manager, :z => 0
     @sprite = AtlasSprite.new(:rect => [0, 0, 85, 121], :manager => @manager)
     @sprite.position = [240, 160]
-    @sprite.run_action(:repeat_forever, {}, :animate, @animations[:walk])
+    action = Actions::RepeatForever.new(Actions::Animate.new(@animations[:walk]))
+    @sprite.run_action(action)
     @manager.add_child @sprite, :z => 0
 
-    enable_accelerometer(true)
+    become_accelerometer_delegate
     super
   end
   

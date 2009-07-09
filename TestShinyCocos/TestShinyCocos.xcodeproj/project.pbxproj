@@ -16,10 +16,10 @@
 		A9066C970FBB18830020ABC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9066C920FBB18830020ABC5 /* UIKit.framework */; };
 		A9066D000FBB19F80020ABC5 /* libChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056CE0F9E9AB600C85842 /* libChipmunk.a */; };
 		A9066D910FBB55610020ABC5 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = A9066D210FBB55610020ABC5 /* lib */; };
+		A90689CE10069CA600CB0B28 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90689CD10069CA600CB0B28 /* AVFoundation.framework */; };
 		A93610460FE8022500BD9029 /* black_box.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610430FE8022500BD9029 /* black_box.png */; };
 		A93610470FE8022500BD9029 /* brown_box.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610440FE8022500BD9029 /* brown_box.png */; };
 		A93610480FE8022500BD9029 /* wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610450FE8022500BD9029 /* wheel.png */; };
-		A93610780FE803EC00BD9029 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610770FE803EC00BD9029 /* white.png */; };
 		A93611B20FE96A5B00BD9029 /* tube.png in Resources */ = {isa = PBXBuildFile; fileRef = A93611B10FE96A5B00BD9029 /* tube.png */; };
 		A93D7EA10FBE0BF300731024 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A93D7E9B0FBE0BF300731024 /* vendor */; };
 		A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */; };
@@ -71,6 +71,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 503F25EB0FD3CA2A009BAFB6;
 			remoteInfo = "SoundEngine CocosDenshionTest (experimental)";
+		};
+		A90689F610069CA700CB0B28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 50DFC29F0FF627B6007E7827 /* HelloWorldSample.app */;
+			remoteInfo = HelloWorldSample;
+		};
+		A90689F810069CA700CB0B28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 50D0E05F0FF9232E00098927 /* HelloActionsSample.app */;
+			remoteInfo = HelloActionsSample;
+		};
+		A90689FA10069CA700CB0B28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 50D0E0DE0FF930BA00098927 /* HelloEventsSample.app */;
+			remoteInfo = HelloEventsSample;
 		};
 		A93610400FE801E300BD9029 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -339,6 +360,7 @@
 		A9066C910FBB18830020ABC5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A9066C920FBB18830020ABC5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9066D210FBB55610020ABC5 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		A90689CD10069CA600CB0B28 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A93610430FE8022500BD9029 /* black_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = black_box.png; path = Resources/Images/black_box.png; sourceTree = "<group>"; };
 		A93610440FE8022500BD9029 /* brown_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brown_box.png; path = Resources/Images/brown_box.png; sourceTree = "<group>"; };
 		A93610450FE8022500BD9029 /* wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel.png; path = Resources/Images/wheel.png; sourceTree = "<group>"; };
@@ -381,6 +403,7 @@
 				A9066C960FBB18830020ABC5 /* QuartzCore.framework in Frameworks */,
 				A9066C970FBB18830020ABC5 /* UIKit.framework in Frameworks */,
 				A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */,
+				A90689CE10069CA600CB0B28 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */,
+				A90689CD10069CA600CB0B28 /* AVFoundation.framework */,
 				A9066C8F0FBB18830020ABC5 /* Foundation.framework */,
 				A9066C8E0FBB18830020ABC5 /* CoreGraphics.framework */,
 				A9066C900FBB18830020ABC5 /* OpenGLES.framework */,
@@ -535,6 +559,9 @@
 				A9A057020F9E9AB600C85842 /* Texture2dTest.app */,
 				A93610410FE801E300BD9029 /* TouchesTest.app */,
 				A9A057040F9E9AB600C85842 /* TransitionsTest.app */,
+				A90689F710069CA700CB0B28 /* HelloWorldSample.app */,
+				A90689F910069CA700CB0B28 /* HelloActionsSample.app */,
+				A90689FB10069CA700CB0B28 /* HelloEventsSample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -617,6 +644,27 @@
 			fileType = wrapper.application;
 			path = CocosDenshionTest.app;
 			remoteRef = A902C6170FD6D97C00309EC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A90689F710069CA700CB0B28 /* HelloWorldSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HelloWorldSample.app;
+			remoteRef = A90689F610069CA700CB0B28 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A90689F910069CA700CB0B28 /* HelloActionsSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HelloActionsSample.app;
+			remoteRef = A90689F810069CA700CB0B28 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A90689FB10069CA700CB0B28 /* HelloEventsSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HelloEventsSample.app;
+			remoteRef = A90689FA10069CA700CB0B28 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A93610410FE801E300BD9029 /* TouchesTest.app */ = {
@@ -877,7 +925,6 @@
 				A93610460FE8022500BD9029 /* black_box.png in Resources */,
 				A93610470FE8022500BD9029 /* brown_box.png in Resources */,
 				A93610480FE8022500BD9029 /* wheel.png in Resources */,
-				A93610780FE803EC00BD9029 /* white.png in Resources */,
 				A93611B20FE96A5B00BD9029 /* tube.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

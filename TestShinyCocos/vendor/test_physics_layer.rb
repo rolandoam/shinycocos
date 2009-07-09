@@ -44,7 +44,7 @@ class TestPhysicsLayer < MenuScene
     # become the chipmunk stepper
     become_chipmunk_stepper
     # we want accelerometer!
-    enable_accelerometer(true)
+    become_accelerometer_delegate
   end
 
   def did_accelerate(acceleration)
