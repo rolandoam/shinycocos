@@ -861,7 +861,7 @@ VALUE rb_cSplitCols_s_new(int argc, VALUE *argv, VALUE klass) {
 
 #pragma mark Init Action
 
-void init_rb_cAction() {
+void init_rb_mAction() {
 	rb_mActions = rb_define_module_under(rb_mCocos2D, "Actions");
 
 	// base action class

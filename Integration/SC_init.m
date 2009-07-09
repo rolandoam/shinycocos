@@ -206,6 +206,7 @@ void Init_ShinyCocos() {
 	init_rb_cMenuItemAtlasSprite();
 	init_rb_cSolidShapeMap();
 	init_rb_cTransitionScene();
+	init_rb_mAction();
 	init_rb_mTwitter();
 	init_rb_mUserDefaults();
 	init_rb_cTextField();
