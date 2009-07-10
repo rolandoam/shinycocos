@@ -73,10 +73,17 @@ void ShinyCocosSetup(UIWindow *window) {
 	[window makeKeyAndVisible];
 }
 
+extern void sc_require(char *fname);
+
 void ShinyCocosStart() {
 	int state;
 	ruby_script("main.rb");
-	rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
+	// test for secure_require
+	if (rb_obj_respond_to(rb_mKernel, rb_intern("secure_require"), 0)) {
+		rb_protect(RUBY_METHOD_FUNC(sc_require), (VALUE)"main", &state);
+	} else {
+		rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
+	}
 	if (state != 0)
 		sc_error(state);
 }
