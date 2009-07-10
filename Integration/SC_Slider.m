@@ -20,6 +20,7 @@
 #import <Foundation/Foundation.h>
 #import "ruby.h"
 #import "SC_common.h"
+#import "SC_CocosNode.h"
 #import "SC_Slider.h"
 
 VALUE rb_cSlider;
@@ -91,6 +92,19 @@ VALUE rb_cSlider_set_value(VALUE object, VALUE rb_value) {
 }
 
 
+/*
+ * call-seq:
+ *   slider.add_target(target, event)   #=> target
+ *
+ * adds a target for the specified event. target *must* be a cocos node subclass.
+ */
+VALUE rb_cSlider_add_target(VALUE object, VALUE target, VALUE event) {
+	CHECK_SUBCLASS(target, rb_cCocosNode)
+	[UI_SLIDER(object) addTarget:CC_NODE(target) action:@selector(action:) forControlEvents:FIX2INT(event)];
+	return target;
+}
+
+
 void init_rb_cSlider() {
 	rb_cSlider = rb_define_class_under(rb_mCocos2D, "Slider", rb_cObject);
 	rb_define_singleton_method(rb_cSlider, "new", rb_cSlider_s_new, -1);
@@ -98,4 +112,8 @@ void init_rb_cSlider() {
 	rb_define_method(rb_cSlider, "detach", rb_cSlider_detach, 0);
 	rb_define_method(rb_cSlider, "value", rb_cSlider_value, 0);
 	rb_define_method(rb_cSlider, "value=", rb_cSlider_set_value, 1);
+	rb_define_method(rb_cSlider, "add_target", rb_cSlider_add_target, 2);
+	// need to add the rest of the constants, but first check issue#12 !!!
+	rb_define_const(rb_cSlider, "EVENT_VALUE_CHANGED", INT2FIX(UIControlEventValueChanged));
+	rb_define_const(rb_cSlider, "EVENT_ALL_EVENTS", INT2FIX(UIControlEventAllEvents));
 }

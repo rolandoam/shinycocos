@@ -61,6 +61,8 @@ static void eachShape(void *ptr, void* unused)
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event;
 // accelerometer delegate
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
+// UI Control target
+- (void)action:(id)sender;
 // text field delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // simplified alert view delegate protocol
@@ -122,6 +124,14 @@ static void eachShape(void *ptr, void* unused)
 			ID m = rb_to_id(RARRAY_PTR(methods)[i]);
 			sc_protect_funcall(object, m, 1, rb_float_new(delta));
 		}
+	}
+}
+
+- (void)action:(id)sender {
+	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
+	if (rbDelegate != Qnil) {
+		VALUE rbSender = sc_ruby_instance_for(sc_object_hash, sender);
+		sc_protect_funcall(rbDelegate, id_sc_ui_action, 1, rbSender);
 	}
 }
 
