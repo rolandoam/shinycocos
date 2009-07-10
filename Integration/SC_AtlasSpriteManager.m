@@ -61,8 +61,25 @@ VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 	return ret;
 }
 
+
+/*
+ * call-seq:
+ *   manager.antialias(true)   #=> true/false
+ *
+ * turn on/off the antialias texParams of the texture
+ */
+VALUE rb_cAtlasSpriteManager_antialias(VALUE obj, VALUE alias) {
+	if (alias != Qfalse)
+		[CC_ATLAS_SPRITE_MNG(obj).textureAtlas.texture setAntiAliasTexParameters];
+	else
+		[CC_ATLAS_SPRITE_MNG(obj).textureAtlas.texture setAliasTexParameters];
+	return (alias != Qfalse);
+}
+
+
 void init_rb_cAtlasSpriteManager() {
 	rb_cAtlasSpriteManager = rb_define_class_under(rb_mCocos2D, "AtlasSpriteManager", rb_cCocosNode);
 	rb_define_singleton_method(rb_cAtlasSpriteManager, "new", rb_cAtlasSpriteManager_s_new, -1);
 	rb_define_method(rb_cAtlasSpriteManager, "create_sprite", rb_cAtlasSpriteManager_create_sprite, 1);
+	rb_define_method(rb_cAtlasSpriteManager, "antialias", rb_cAtlasSpriteManager_antialias, 1);
 }
