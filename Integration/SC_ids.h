@@ -65,6 +65,7 @@ extern ID id_sc_alert_view_clicked_button;
 extern ID id_sc_alert_view_cancel;
 extern ID id_sc_alert_view_did_dismiss;
 extern ID id_sc_av_player_did_finish_playing;
+extern ID id_sc_ui_action;
 
 // transitions
 extern ID sc_id_on_enter_transition_did_finish;

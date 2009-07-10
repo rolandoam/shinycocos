@@ -68,6 +68,7 @@ ID id_sc_alert_view_clicked_button;
 ID id_sc_alert_view_cancel;
 ID id_sc_alert_view_did_dismiss;
 ID id_sc_av_player_did_finish_playing;
+ID id_sc_ui_action;
 
 // transitions
 ID sc_id_transition_scene;
@@ -148,6 +149,7 @@ void init_sc_ids() {
 	id_sc_alert_view_cancel = rb_intern("alert_view_cancel");
 	id_sc_alert_view_did_dismiss = rb_intern("alert_view_did_dismiss");
 	id_sc_av_player_did_finish_playing = rb_intern("player_did_finish_playing");
+	id_sc_ui_action = rb_intern("ui_action");
 	// transitions
 	sc_id_on_enter_transition_did_finish = rb_intern("on_enter_transition_did_finish");
 	sc_id_transition_scene = rb_intern("transition_scene");
