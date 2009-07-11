@@ -29,12 +29,12 @@ VALUE rb_cCocosNode;
 
 static void eachShape(void *ptr, void* unused)
 {
-	cpShape *shape = (cpShape*) ptr;
+	cpShape *shape = (cpShape*)ptr;
 	cpBody *body = shape->body;
 	VALUE rb_shape = (VALUE)shape->data;
 	if (rb_shape) {
 		// get node from shape (if any)
-		VALUE node = rb_ivar_get(rb_shape, rb_intern("@cc_node"));
+		VALUE node = rb_ivar_get(rb_shape, id_sc_ivar_cc_node);
 		if (node != Qnil) {
 			CC_NODE(node).position = body->p;
 			CC_NODE(node).rotation = (float)CC_RADIANS_TO_DEGREES(-body->a);
@@ -104,19 +104,24 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (void)chipmunk_step:(ccTime)delta {
-	int steps = 2, i;
-	cpSpace *space = SPACE(rb_gv_get("space"));
-	cpFloat dt = delta/(cpFloat)steps;
-	for (i=0; i < steps; i++)
+	VALUE object = sc_ruby_instance_for(sc_object_hash, self);
+	VALUE rb_space = rb_ivar_get(object, id_sc_ivar_space);
+	if (rb_space == Qnil)
+		return;
+	cpSpace *space = SPACE(rb_space);
+	int steps = 1, i;
+	cpFloat dt = 1.0f/60.0f/(cpFloat)steps;
+	
+	for(i=0; i<steps; i++){
 		cpSpaceStep(space, dt);
+	}
 	
 	cpSpaceHashEach(space->activeShapes, &eachShape, nil);
-	cpSpaceHashEach(space->staticShapes, &eachShape, nil);
 }
 
 - (void)rbScheduler:(ccTime)delta {
 	VALUE object = sc_ruby_instance_for(sc_object_hash, self);
-	VALUE methods = rb_ivar_get(object, rb_intern("@scheduled_methods"));//sc_ruby_instance_for(sc_schedule_methods, self);
+	VALUE methods = rb_ivar_get(object, id_sc_ivar_scheduled_methods);
 	if (methods != Qnil) {
 		int i;
 		for (i=0; i < RARRAY_LEN(methods); i++) {
@@ -407,9 +412,9 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 		rb_raise(rb_eArgError, "invalid number of arguments");
 	}
 	// get the children array
-	VALUE children_ary = rb_iv_get(object, "@children");
+	VALUE children_ary = rb_ivar_get(object, id_sc_ivar_children);
 	if (children_ary == Qnil) {
-		children_ary = rb_iv_set(object, "@children", rb_ary_new());
+		children_ary = rb_ivar_set(object, id_sc_ivar_children, rb_ary_new());
 	}
 	// set default values
 	int z_order = CC_NODE(args[0]).zOrder;
@@ -457,7 +462,7 @@ VALUE rb_cCocosNode_child_with_tag(VALUE object, VALUE tag) {
  *   node.children   #=> array of children (empty if no children has been added)
  */
 VALUE rb_cCocosNode_children(VALUE object) {
-	return rb_iv_get(object, "@children");
+	return rb_ivar_get(object, id_sc_ivar_children);
 }
 
 
@@ -475,7 +480,25 @@ VALUE rb_cCocosNode_run_action(VALUE object, VALUE action) {
 
 /*
  * Will set the node as the stepper for chipmunk (will run the
- * <tt>step:</tt> selector).
+ * <tt>chipmunk_step:</tt> selector).
+ *
+ * The default stepper iterates only over the active shapes, not the static
+ * ones. Also, when becoming the stepper, it must have an instance variable
+ * named +@space+.
+ *
+ * Currently, the code for the stepper is:
+ *
+ *   int steps = 1, i;
+ *   cpFloat dt = 1.0f/60.0f/(cpFloat)steps;
+ *   
+ *   for(i=0; i<steps; i++){
+ *       cpSpaceStep(space, dt);
+ *   }
+ *   cpSpaceHashEach(space->activeShapes, &eachShape, nil);
+ *
+ * You can read a small discussion about this stepper here:
+ *
+ * http://www.cocos2d-iphone.org/forum/topic/596
  */
 VALUE rb_cCocosNode_become_chipmunk_stepper(VALUE object) {
 	[CC_NODE(object) schedule:@selector(chipmunk_step:)];
@@ -488,12 +511,8 @@ VALUE rb_cCocosNode_become_chipmunk_stepper(VALUE object) {
  * cc_node in the shape and set it to the node)
  */
 VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
-	//cocos_holder *ptr;
-	//Data_Get_Struct(object, cocos_holder, ptr);
-	//cpShape *shape = SHAPE(rb_shape);
-	//shape->data = ptr->_obj;
-	rb_ivar_set(rb_shape, rb_intern("@cc_node"), object);
-	rb_ivar_set(object, rb_intern("@shape"), rb_shape);
+	rb_ivar_set(rb_shape, id_sc_ivar_cc_node, object);
+	rb_ivar_set(object, id_sc_ivar_shape, rb_shape);
 	
 	return rb_shape;
 }
@@ -507,11 +526,10 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
  */
 VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {	
 	Check_Type(method, T_SYMBOL);
-	VALUE methods = rb_ivar_get(object, rb_intern("@scheduled_methods")); //sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
+	VALUE methods = rb_ivar_get(object, id_sc_ivar_scheduled_methods);
 	if (methods == Qnil) {
 		methods = rb_ary_new3(1, method);
-		//sc_add_tracking(sc_schedule_methods, CC_NODE(object), methods);
-		rb_ivar_set(object, rb_intern("@scheduled_methods"), methods);
+		rb_ivar_set(object, id_sc_ivar_scheduled_methods, methods);
 		[CC_NODE(object) schedule:@selector(rbScheduler:)];
 	} else {
 		rb_ary_push(methods, method);
@@ -525,14 +543,12 @@ VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {
  */
 VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	Check_Type(method, T_SYMBOL);
-	VALUE methods = rb_ivar_get(object, rb_intern("@scheduled_methods"));//sc_ruby_instance_for(sc_schedule_methods, CC_NODE(object));
+	VALUE methods = rb_ivar_get(object, id_sc_ivar_scheduled_methods);
 	if (methods != Qnil) {
 		sc_protect_funcall(methods, id_sc_delete, 1, method);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[CC_NODE(object) unschedule:@selector(rbScheduler)];
-			// remove the array from the hash
-			//sc_remove_tracking_for(sc_schedule_methods, CC_NODE(object));
 		}
 	}
 	return methods;
