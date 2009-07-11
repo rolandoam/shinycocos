@@ -10,6 +10,10 @@
 #import "ShinyCocos.h"
 #import "cocos2d.h"
 
+// dummy function for future references
+void sc_require(char *fname) {
+}
+
 @implementation TestShinyCocosAppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    

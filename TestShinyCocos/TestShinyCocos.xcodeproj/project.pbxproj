@@ -76,21 +76,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50DFC29F0FF627B6007E7827 /* HelloWorldSample.app */;
+			remoteGlobalIDString = 50DFC29F0FF627B6007E7827;
 			remoteInfo = HelloWorldSample;
 		};
 		A90689F810069CA700CB0B28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50D0E05F0FF9232E00098927 /* HelloActionsSample.app */;
+			remoteGlobalIDString = 50D0E05F0FF9232E00098927;
 			remoteInfo = HelloActionsSample;
 		};
 		A90689FA10069CA700CB0B28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50D0E0DE0FF930BA00098927 /* HelloEventsSample.app */;
+			remoteGlobalIDString = 50D0E0DE0FF930BA00098927;
 			remoteInfo = HelloEventsSample;
 		};
 		A93610400FE801E300BD9029 /* PBXContainerItemProxy */ = {
