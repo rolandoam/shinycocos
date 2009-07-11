@@ -86,7 +86,7 @@ VALUE rb_cTextField_set_value(VALUE object, VALUE rb_str) {
  */
 VALUE rb_cTextField_set_delegate(VALUE object, VALUE delegate) {
 	UI_TFIELD(object).delegate = (id)CC_NODE(delegate);
-	rb_iv_set(object, "@delegate", delegate);
+	rb_ivar_set(object, id_sc_ivar_delegate, delegate);
 	return delegate;
 }
 

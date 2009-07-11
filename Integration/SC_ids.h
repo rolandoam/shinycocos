@@ -66,6 +66,15 @@ extern ID id_sc_alert_view_cancel;
 extern ID id_sc_alert_view_did_dismiss;
 extern ID id_sc_av_player_did_finish_playing;
 extern ID id_sc_ui_action;
+// ivars
+extern ID id_sc_ivar_scheduled_methods;
+extern ID id_sc_ivar_space;
+extern ID id_sc_ivar_children;
+extern ID id_sc_ivar_cc_node;
+extern ID id_sc_ivar_shape;
+extern ID id_sc_ivar_running_scene;
+extern ID id_sc_ivar_items;
+extern ID id_sc_ivar_delegate;
 
 // transitions
 extern ID sc_id_on_enter_transition_did_finish;

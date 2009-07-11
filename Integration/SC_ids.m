@@ -69,6 +69,15 @@ ID id_sc_alert_view_cancel;
 ID id_sc_alert_view_did_dismiss;
 ID id_sc_av_player_did_finish_playing;
 ID id_sc_ui_action;
+// ivars
+ID id_sc_ivar_scheduled_methods;
+ID id_sc_ivar_space;
+ID id_sc_ivar_children;
+ID id_sc_ivar_cc_node;
+ID id_sc_ivar_shape;
+ID id_sc_ivar_running_scene;
+ID id_sc_ivar_items;
+ID id_sc_ivar_delegate;
 
 // transitions
 ID sc_id_transition_scene;
@@ -150,6 +159,15 @@ void init_sc_ids() {
 	id_sc_alert_view_did_dismiss = rb_intern("alert_view_did_dismiss");
 	id_sc_av_player_did_finish_playing = rb_intern("player_did_finish_playing");
 	id_sc_ui_action = rb_intern("ui_action");
+	// ivars
+	id_sc_ivar_scheduled_methods = rb_intern("@scheduled_methods");
+	id_sc_ivar_space = rb_intern("@space");
+	id_sc_ivar_children = rb_intern("@children");
+	id_sc_ivar_cc_node = rb_intern("@cc_node");
+	id_sc_ivar_shape = rb_intern("@shape");
+	id_sc_ivar_running_scene = rb_intern("@running_scene");
+	id_sc_ivar_items = rb_intern("@items");
+	id_sc_ivar_delegate = rb_intern("@delegate");
 	// transitions
 	sc_id_on_enter_transition_did_finish = rb_intern("on_enter_transition_did_finish");
 	sc_id_transition_scene = rb_intern("transition_scene");

@@ -180,7 +180,7 @@ VALUE rb_cMenu_s_new(VALUE klass, VALUE args) {
 	Menu *menu = [[Menu alloc] initWithItems:first vaList:fa.varargs];
 	VALUE ret = sc_init(klass, nil, menu, 0, 0, YES);
 	// keep track of the items in the ruby world
-	rb_iv_set(ret, "@items", args);
+	rb_ivar_set(ret, id_sc_ivar_items, args);
 	sc_add_tracking(sc_object_hash, menu, ret);
 	
 	return ret;
