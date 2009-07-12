@@ -71,7 +71,7 @@ VALUE rb_ary_with_set(NSSet *touches) {
  */
 VALUE sc_funcall(VALUE *args) {
 	if (rb_respond_to(args[0], (ID)args[1]))
-		return rb_funcall2(args[0], (ID)args[1], (long)args[2], (args+3));
+		return rb_funcall3(args[0], (ID)args[1], (int)args[2], (args+3));
 	return Qnil;
 }
 

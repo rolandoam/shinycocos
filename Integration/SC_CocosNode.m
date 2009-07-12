@@ -126,8 +126,8 @@ static void eachShape(void *ptr, void* unused)
 		int i;
 		for (i=0; i < RARRAY_LEN(methods); i++) {
 			// check that the target responds to the action
-			ID m = rb_to_id(RARRAY_PTR(methods)[i]);
-			sc_protect_funcall(object, m, 1, rb_float_new(delta));
+			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
+			sc_protect_funcall(object, m_id, 1, rb_float_new(delta));
 		}
 	}
 }
@@ -520,7 +520,7 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
 /*
  * Will schedule a method to be called every frame
  * 
- *   node.schedule(:every_frame)
+ *   node.schedule(:every_frame)   #=> node
  * 
  * <tt>:every_frame</tt> on <tt>node</tt> will be called every frame.
  */
