@@ -110,7 +110,7 @@ static void eachShape(void *ptr, void* unused)
 		return;
 	cpSpace *space = SPACE(rb_space);
 	int steps = 1, i;
-	cpFloat dt = 1.0f/60.0f/(cpFloat)steps;
+	cpFloat dt = 1.0f/([Director sharedDirector].animationInterval)/(cpFloat)steps;
 	
 	for(i=0; i<steps; i++){
 		cpSpaceStep(space, dt);
