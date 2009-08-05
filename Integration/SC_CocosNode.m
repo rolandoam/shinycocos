@@ -75,27 +75,24 @@ static void eachShape(void *ptr, void* unused)
 - (void)rb_on_enter {
 	[self rb_on_enter];
 	// call the ruby version
-	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil) { // && rb_respond_to(rbObject, id_sc_on_enter)) {
-		sc_protect_funcall(rbObject, id_sc_on_enter, 0, 0);
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_on_enter, 0, 0);
 	}
 }
 
 - (void)rb_on_enter_transition_did_finish {
 	[self rb_on_enter_transition_did_finish];
 	// call the ruby version
-	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil) {
-		sc_protect_funcall(rbObject, sc_id_on_enter_transition_did_finish, 0, 0);
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, sc_id_on_enter_transition_did_finish, 0, 0);
 	}
 }
 
 - (void)rb_on_exit {
 	[self rb_on_exit];
 	// call the ruby version
-	VALUE rbObject = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbObject != Qnil) { // && rb_respond_to(rbObject, id_sc_on_exit)) {
-		sc_protect_funcall(rbObject, id_sc_on_exit, 0, 0);
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_on_exit, 0, 0);
 	}
 }
 
@@ -104,8 +101,9 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (void)chipmunk_step:(ccTime)delta {
-	VALUE object = sc_ruby_instance_for(sc_object_hash, self);
-	VALUE rb_space = rb_ivar_get(object, id_sc_ivar_space);
+	if (!userData)
+		return;
+	VALUE rb_space = rb_ivar_get((VALUE)userData, id_sc_ivar_space);
 	if (rb_space == Qnil)
 		return;
 	cpSpace *space = SPACE(rb_space);
@@ -120,31 +118,30 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (void)rbScheduler:(ccTime)delta {
-	VALUE object = sc_ruby_instance_for(sc_object_hash, self);
-	VALUE methods = rb_ivar_get(object, id_sc_ivar_scheduled_methods);
+	if (!userData)
+		return;
+	VALUE methods = rb_ivar_get((VALUE)userData, id_sc_ivar_scheduled_methods);
 	if (methods != Qnil) {
 		int i;
 		for (i=0; i < RARRAY_LEN(methods); i++) {
 			// check that the target responds to the action
 			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
-			sc_protect_funcall(object, m_id, 1, rb_float_new(delta));
+			sc_protect_funcall((VALUE)userData, m_id, 1, rb_float_new(delta));
 		}
 	}
 }
 
 - (void)action:(id)sender {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) {
+	if (userData) {
 		VALUE rbSender = sc_ruby_instance_for(sc_object_hash, sender);
-		sc_protect_funcall(rbDelegate, id_sc_ui_action, 1, rbSender);
+		sc_protect_funcall((VALUE)userData, id_sc_ui_action, 1, rbSender);
 	}
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) {
+	if (userData) {
 		VALUE rbTextField = sc_ruby_instance_for(sc_object_hash, textField);
-		if (sc_protect_funcall(rbDelegate, id_sc_text_field_action, 1, rbTextField) != Qnil) {
+		if (sc_protect_funcall((VALUE)userData, id_sc_text_field_action, 1, rbTextField) != Qnil) {
 			return YES;
 		}
 	}
@@ -152,9 +149,8 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_began)) {
-		if (sc_protect_funcall(rbDelegate, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
+	if (userData) {
+		if (sc_protect_funcall((VALUE)userData, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
 			return YES;
 		}
 	}
@@ -162,55 +158,48 @@ static void eachShape(void *ptr, void* unused)
 }
 
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_moved)) {
-		sc_protect_funcall(rbDelegate, id_sc_touch_moved, 1, rb_hash_with_touch(touch));
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_touch_moved, 1, rb_hash_with_touch(touch));
 	}
 }
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_ended)) {
-		sc_protect_funcall(rbDelegate, id_sc_touch_ended, 1, rb_hash_with_touch(touch));
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_touch_ended, 1, rb_hash_with_touch(touch));
 	}
 }
 
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) { //&& rb_respond_to(rbDelegate, id_sc_touch_cancelled)) {
-		sc_protect_funcall(rbDelegate, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
 	}
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-	VALUE obj = sc_ruby_instance_for(sc_object_hash, self);
-	if (obj != Qnil) {
+	if (userData) {
 		VALUE rb_arr = rb_ary_new3(3,
 								   rb_float_new(acceleration.x),
 								   rb_float_new(acceleration.y),
 								   rb_float_new(acceleration.z));
-		sc_protect_funcall(obj, id_sc_did_accelerate, 1, rb_arr);
+		sc_protect_funcall((VALUE)userData, id_sc_did_accelerate, 1, rb_arr);
 	}
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) {
-		sc_protect_funcall(rbDelegate, id_sc_alert_view_clicked_button, 1, INT2FIX(buttonIndex));
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_alert_view_clicked_button, 1, INT2FIX(buttonIndex));
 	}
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) {
-		sc_protect_funcall(rbDelegate, id_sc_alert_view_did_dismiss, 1, INT2FIX(buttonIndex));
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_alert_view_did_dismiss, 1, INT2FIX(buttonIndex));
 	}
 }
 
 - (void)alertViewCancel:(UIAlertView *)alertView {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) {
-		sc_protect_funcall(rbDelegate, id_sc_alert_view_cancel, 0, 0);
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_alert_view_cancel, 0, 0);
 	}
 }
 @end
@@ -395,8 +384,8 @@ VALUE rb_cCocosNode_s_new(int argc, VALUE *argv, VALUE klass) {
 		node = [[CocosNode alloc] init];
 	}
 	VALUE obj = sc_init(klass, nil, node, argc, argv, YES);
-	// add the pointer to the object hash
-	sc_add_tracking(sc_object_hash, node, obj);
+	// set the userData field in CocosNode to point to the ruby object
+	((CocosNode *)node).userData = (void *)obj;
 	
 	return obj;
 }
@@ -452,7 +441,7 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 VALUE rb_cCocosNode_child_with_tag(VALUE object, VALUE tag) {
 	id child = [CC_NODE(object) getChildByTag:FIX2INT(tag)];
 	if (child)
-		return sc_ruby_instance_for(sc_object_hash, child);
+		return (VALUE)(((CocosNode *)child).userData);
 	return Qnil;
 }
 

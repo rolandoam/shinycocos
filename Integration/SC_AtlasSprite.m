@@ -43,7 +43,7 @@ VALUE rb_cAtlasSprite_s_new(int argc, VALUE *argv, VALUE klass) {
 	Data_Get_Struct(rb_manager, cocos_holder, ptr);
 	AtlasSprite *sprite = [[AtlasSprite alloc] initWithRect:rect spriteManager:ptr->_obj];
 	VALUE ret = sc_init(klass, nil, sprite, argc-1, argv+1, YES);
-	sc_add_tracking(sc_object_hash, sprite, ret);
+	sprite.userData = (void *)ret;
 	return ret;
 }
 

@@ -44,7 +44,7 @@ VALUE rb_cAtlasSpriteManager_s_new(int argc, VALUE *argv, VALUE klass) {
 		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:FIX2INT(cap)];
 	}
 	VALUE obj = sc_init(klass, nil, manager, 0, 0, YES);
-	sc_add_tracking(sc_object_hash, manager, obj);
+	manager.userData = (void *)obj;
 	return obj;
 }
 
@@ -57,7 +57,7 @@ VALUE rb_cAtlasSpriteManager_create_sprite(VALUE obj, VALUE rb_rect) {
 	AtlasSprite* sprite = [CC_ATLAS_SPRITE_MNG(obj) createSpriteWithRect:rect];
 	// return the sprite as a ruby object
 	VALUE ret = sc_init(rb_cAtlasSprite, nil, sprite, 0, 0, NO);
-	sc_add_tracking(sc_object_hash, sprite, ret);
+	sprite.userData = (void *)ret;
 	return ret;
 }
 

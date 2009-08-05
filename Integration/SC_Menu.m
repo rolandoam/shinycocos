@@ -181,7 +181,7 @@ VALUE rb_cMenu_s_new(VALUE klass, VALUE args) {
 	VALUE ret = sc_init(klass, nil, menu, 0, 0, YES);
 	// keep track of the items in the ruby world
 	rb_ivar_set(ret, id_sc_ivar_items, args);
-	sc_add_tracking(sc_object_hash, menu, ret);
+	menu.userData = (void *)ret;
 	
 	return ret;
 }

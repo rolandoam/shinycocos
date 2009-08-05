@@ -36,7 +36,7 @@ VALUE rb_cSprite_s_new(VALUE klass, VALUE filepath) {
 	Check_Type(filepath, T_STRING);
 	Sprite *obj = [[Sprite alloc] initWithFile:[NSString stringWithCString:StringValueCStr(filepath) encoding:NSUTF8StringEncoding]];
 	VALUE rb_obj = sc_init(klass, nil, obj, 0, 0, YES);
-	sc_add_tracking(sc_object_hash, obj, rb_obj);
+	obj.userData = (void *)rb_obj;
 	
 	return rb_obj;
 }

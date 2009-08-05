@@ -11,6 +11,8 @@
 		A902C4FE0FD5E68900309EC4 /* SC_UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */; };
 		A91D3F400FF3CE3100453351 /* SC_BitmatFontAtlas.h in Headers */ = {isa = PBXBuildFile; fileRef = A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */; };
 		A91D3F410FF3CE3100453351 /* SC_BitmatFontAtlas.m in Sources */ = {isa = PBXBuildFile; fileRef = A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */; };
+		A92C6B671028E14400FC16C3 /* SC_TMXTiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C6B651028E14400FC16C3 /* SC_TMXTiledMap.h */; };
+		A92C6B681028E14400FC16C3 /* SC_TMXTiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C6B661028E14400FC16C3 /* SC_TMXTiledMap.m */; };
 		A938D75C0FB11B8600F46FEA /* stringio.c in Sources */ = {isa = PBXBuildFile; fileRef = A938D75B0FB11B8600F46FEA /* stringio.c */; };
 		A93D7DC40FBDE4E100731024 /* SC_Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D7DC30FBDE4E100731024 /* SC_Layer.m */; };
 		A93D7EB50FBE0D9300731024 /* SC_Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D7EB40FBE0D9300731024 /* SC_Menu.m */; };
@@ -161,6 +163,8 @@
 		A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_UserDefaults.m; path = Integration/SC_UserDefaults.m; sourceTree = "<group>"; };
 		A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_BitmatFontAtlas.h; path = Integration/SC_BitmatFontAtlas.h; sourceTree = "<group>"; };
 		A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_BitmatFontAtlas.m; path = Integration/SC_BitmatFontAtlas.m; sourceTree = "<group>"; };
+		A92C6B651028E14400FC16C3 /* SC_TMXTiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TMXTiledMap.h; path = Integration/SC_TMXTiledMap.h; sourceTree = "<group>"; };
+		A92C6B661028E14400FC16C3 /* SC_TMXTiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TMXTiledMap.m; path = Integration/SC_TMXTiledMap.m; sourceTree = "<group>"; };
 		A938D75B0FB11B8600F46FEA /* stringio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stringio.c; path = ruby/ext/stringio/stringio.c; sourceTree = "<group>"; };
 		A93D7DC30FBDE4E100731024 /* SC_Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Layer.m; path = Integration/SC_Layer.m; sourceTree = "<group>"; };
 		A93D7EB40FBE0D9300731024 /* SC_Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Menu.m; path = Integration/SC_Menu.m; sourceTree = "<group>"; };
@@ -340,6 +344,43 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A92C6B751028FB0400FC16C3 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A993E3990FEFD7390064E74D /* SC_Slider.h */,
+				A993E39A0FEFD7390064E74D /* SC_Slider.m */,
+				A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */,
+				A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */,
+				A9E9CA810FEADD9B00F45939 /* SC_TextField.h */,
+				A9E9CA820FEADD9B00F45939 /* SC_TextField.m */,
+				A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */,
+				A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		A92C6B761028FB3600FC16C3 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A99911AE0F8BEC160026A8BF /* SC_common.h */,
+				A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */,
+				A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */,
+				A9E436C70FA609A300D00AC1 /* SC_init.m */,
+				A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */,
+				A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		A92C6B981028FF2900FC16C3 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */,
+				A98E8F800FD1866B007281B9 /* SC_Twitter.m */,
+			);
+			name = Extras;
+			sourceTree = "<group>";
+		};
 		A94FC0BA0FA0D05C0073C00F /* Chipmunk */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,28 +497,19 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
+				A92C6B981028FF2900FC16C3 /* Extras */,
+				A92C6B761028FB3600FC16C3 /* Base */,
+				A92C6B751028FB0400FC16C3 /* UI */,
 				A9A396891002C3020068F1C2 /* SC_Action.h */,
 				A9A3968A1002C3020068F1C2 /* SC_Action.m */,
 				A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */,
 				A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */,
 				A97A764D0FF1697C00550303 /* SC_Transition.h */,
 				A97A764E0FF1697C00550303 /* SC_Transition.m */,
-				A993E3990FEFD7390064E74D /* SC_Slider.h */,
-				A993E39A0FEFD7390064E74D /* SC_Slider.m */,
-				A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */,
-				A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */,
-				A9E9CA810FEADD9B00F45939 /* SC_TextField.h */,
-				A9E9CA820FEADD9B00F45939 /* SC_TextField.m */,
 				A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */,
 				A9E9C9990FEACAD300F45939 /* SC_LabelAtlas.m */,
 				A9E9C9610FEAB69900F45939 /* SC_Label.h */,
 				A9E9C9620FEAB69900F45939 /* SC_Label.m */,
-				A902C4FB0FD5E68900309EC4 /* SC_UserDefaults.h */,
-				A902C4FC0FD5E68900309EC4 /* SC_UserDefaults.m */,
-				A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */,
-				A98E8F800FD1866B007281B9 /* SC_Twitter.m */,
-				A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */,
-				A9C20C4A0FC12C0300D3D8F8 /* SC_ids.m */,
 				A93D7EBF0FBE49BA00731024 /* SC_Layer.h */,
 				A93D7DC30FBDE4E100731024 /* SC_Layer.m */,
 				A93D7EE30FBE49EB00731024 /* SC_Menu.h */,
@@ -490,7 +522,6 @@
 				A9515E1E0F9D19E200B2B839 /* SC_Director.m */,
 				A9515E1F0F9D19E200B2B839 /* SC_Scene.h */,
 				A9515E200F9D19E200B2B839 /* SC_Scene.m */,
-				A99911AE0F8BEC160026A8BF /* SC_common.h */,
 				A9AC089E0F93860400398C9B /* SC_TextureNode.h */,
 				A9AC089F0F93860400398C9B /* SC_TextureNode.m */,
 				A9AC08860F93856600398C9B /* SC_Sprite.h */,
@@ -500,12 +531,11 @@
 				A94FBF540FA096910073C00F /* SC_AtlasSpriteManager.h */,
 				A94FBF550FA096910073C00F /* SC_AtlasSpriteManager.m */,
 				A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */,
+				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
+				A92C6B651028E14400FC16C3 /* SC_TMXTiledMap.h */,
+				A92C6B661028E14400FC16C3 /* SC_TMXTiledMap.m */,
 				A9C0355E0FCC5CB300D447B4 /* SC_SolidShapeMap.h */,
 				A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */,
-				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
-				A9E436C70FA609A300D00AC1 /* SC_init.m */,
-				A9990EA70F8BADDA0026A8BF /* ShinyCocos.h */,
-				A9990E8E0F8BAA9D0026A8BF /* ShinyCocos.m */,
 			);
 			name = Integration;
 			sourceTree = "<group>";
@@ -598,6 +628,7 @@
 				A97A764F0FF1697C00550303 /* SC_Transition.h in Headers */,
 				A91D3F400FF3CE3100453351 /* SC_BitmatFontAtlas.h in Headers */,
 				A9A3968B1002C3020068F1C2 /* SC_Action.h in Headers */,
+				A92C6B671028E14400FC16C3 /* SC_TMXTiledMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,6 +792,7 @@
 				A97A76500FF1697C00550303 /* SC_Transition.m in Sources */,
 				A91D3F410FF3CE3100453351 /* SC_BitmatFontAtlas.m in Sources */,
 				A9A3968C1002C3020068F1C2 /* SC_Action.m in Sources */,
+				A92C6B681028E14400FC16C3 /* SC_TMXTiledMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,6 +805,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -801,6 +834,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMPRESS_PNG_FILES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = (

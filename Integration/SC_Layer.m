@@ -31,9 +31,8 @@ VALUE rb_cLayer;
 
 @implementation RBLayer
 -(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-	VALUE rbDelegate = sc_ruby_instance_for(sc_object_hash, self);
-	if (rbDelegate != Qnil) {
-		if (sc_protect_funcall(rbDelegate, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
+	if (userData) {
+		if (sc_protect_funcall((VALUE)userData, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
 			return YES;
 		}
 	}
@@ -49,9 +48,9 @@ VALUE rb_cLayer;
  * Creates a new layer
  */
 VALUE rb_cLayer_s_new(int argc, VALUE *argv, VALUE klass) {
-	Layer *layer = [[RBLayer alloc] init];
+	RBLayer *layer = [[RBLayer alloc] init];
 	VALUE ret = sc_init(klass, nil, layer, argc, argv, YES);
-	sc_add_tracking(sc_object_hash, layer, ret);
+	layer.userData = (void *)ret;
 	
 	return ret;
 }

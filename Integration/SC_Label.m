@@ -41,7 +41,7 @@ VALUE rb_cLabel_s_new(int argc, VALUE *argv, VALUE klass) {
 										fontName:[NSString stringWithCString:StringValueCStr(argv[1]) encoding:NSUTF8StringEncoding]
 										fontSize:FIX2INT(argv[2])];
 	VALUE ret = sc_init(klass, nil, label, argc-3, argv+3, YES);
-	sc_add_tracking(sc_object_hash, label, ret);
+	label.userData = (void *)ret;
 	
 	return ret;
 }

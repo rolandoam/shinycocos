@@ -46,7 +46,7 @@ VALUE rb_cLabelAtlas_s_new(int argc, VALUE *argv, VALUE klass) {
 												itemHeight:FIX2INT(argv[3])
 											  startCharMap:((char)(RSTRING_PTR(argv[4])[0]))];
 	VALUE ret = sc_init(klass, nil, label, argc-5, argv+5, YES);
-	sc_add_tracking(sc_object_hash, label, ret);
+	label.userData = (void *)ret;
 	
 	return ret;
 }

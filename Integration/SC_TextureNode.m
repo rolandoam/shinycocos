@@ -31,7 +31,7 @@ VALUE rb_cTextureNode;
 VALUE rb_cTextureNode_s_new(int argc, VALUE *argv, VALUE klass) {
 	TextureNode *node = [[TextureNode alloc] init];
 	VALUE rb_obj = sc_init(klass, nil, node, argc, argv, YES);
-	sc_add_tracking(sc_object_hash, node, rb_obj);
+	node.userData = (void *)rb_obj;
 	
 	return rb_obj;
 }
