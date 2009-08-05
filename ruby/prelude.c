@@ -412,18 +412,18 @@ void
 Init_prelude(void)
 {
   rb_iseq_eval(rb_iseq_compile(
-    rb_str_new(prelude_code0, sizeof(prelude_code0) - 1),
-    rb_str_new(prelude_name0, sizeof(prelude_name0) - 1),
+    rb_usascii_str_new(prelude_code0, sizeof(prelude_code0) - 1),
+    rb_usascii_str_new(prelude_name0, sizeof(prelude_name0) - 1),
     INT2FIX(1)));
 
   rb_iseq_eval(rb_iseq_compile(
-    rb_str_new(prelude_code1, sizeof(prelude_code1) - 1),
-    rb_str_new(prelude_name1, sizeof(prelude_name1) - 1),
+    rb_usascii_str_new(prelude_code1, sizeof(prelude_code1) - 1),
+    rb_usascii_str_new(prelude_name1, sizeof(prelude_name1) - 1),
     INT2FIX(1)));
 
   rb_iseq_eval(rb_iseq_compile(
-    rb_str_new(prelude_code2, sizeof(prelude_code2) - 1),
-    rb_str_new(prelude_name2, sizeof(prelude_name2) - 1),
+    rb_usascii_str_new(prelude_code2, sizeof(prelude_code2) - 1),
+    rb_usascii_str_new(prelude_name2, sizeof(prelude_name2) - 1),
     INT2FIX(0)));
 
 #if 0

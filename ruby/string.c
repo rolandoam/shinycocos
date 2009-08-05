@@ -1357,6 +1357,13 @@ str_offset(const char *p, const char *e, int nth, rb_encoding *enc, int singleby
     return pp - p;
 }
 
+long
+rb_str_offset(VALUE str, long pos)
+{
+    return str_offset(RSTRING_PTR(str), RSTRING_END(str), pos,
+		      STR_ENC_GET(str), single_byte_optimizable(str));
+}
+
 #ifdef NONASCII_MASK
 static char *
 str_utf8_nth(const char *p, const char *e, int nth)
@@ -2371,10 +2378,11 @@ rb_str_index_m(int argc, VALUE *argv, VALUE str)
 
     switch (TYPE(sub)) {
       case T_REGEXP:
+	if (pos > str_strlen(str, STR_ENC_GET(str)))
+	    return Qnil;
 	pos = str_offset(RSTRING_PTR(str), RSTRING_END(str), pos,
-		     rb_enc_check(str, sub), single_byte_optimizable(str));
+			 rb_enc_check(str, sub), single_byte_optimizable(str));
 
-	pos = rb_reg_adjust_startpos(sub, str, pos, 0);
 	pos = rb_reg_search(sub, str, pos, 0);
 	pos = rb_str_sublen(str, pos);
 	break;
@@ -2489,7 +2497,6 @@ rb_str_rindex_m(int argc, VALUE *argv, VALUE str)
 			 STR_ENC_GET(str), single_byte_optimizable(str));
 
 	if (!RREGEXP(sub)->ptr || RREGEXP_SRC_LEN(sub)) {
-	    pos = rb_reg_adjust_startpos(sub, str, pos, 1);
 	    pos = rb_reg_search(sub, str, pos, 1);
 	    pos = rb_str_sublen(str, pos);
 	}
@@ -6619,13 +6626,16 @@ rb_str_center(int argc, VALUE *argv, VALUE str)
 /*
  *  call-seq:
  *     str.partition(sep)              => [head, sep, tail]
- *  
- *  Searches the string for <i>sep</i> and returns the part before
- *  it, the <i>sep</i>, and the part after it.  If <i>sep</i> is not found,
- *  returns <i>str</i> and two empty strings.
- *     
+ *     str.partition(regexp)           => [head, match, tail]
+ *
+ *  Searches <i>sep</i> or pattern (<i>regexp</i>) in the string
+ *  and returns the part before it, the match, and the part
+ *  after it.
+ *  If it is not found, returns two empty strings and <i>str</i>.
+ *
  *     "hello".partition("l")         #=> ["he", "l", "lo"]
  *     "hello".partition("x")         #=> ["hello", "", ""]
+ *     "hello".partition(/.l/)        #=> ["h", "el", "lo"]
  */
 
 static VALUE
@@ -6665,15 +6675,17 @@ rb_str_partition(VALUE str, VALUE sep)
 
 /*
  *  call-seq:
- *     str.rpartition(sep)            => [head, sep, tail]
- *  
- *  Searches <i>sep</i> in the string from the end of the string, and
- *  returns the part before it, the <i>sep</i>, and the part after it.
- *  If <i>sep</i> is not found, returns two empty strings and
- *  <i>str</i>.
- *     
+ *     str.rpartition(sep)             => [head, sep, tail]
+ *     str.rpartition(regexp)          => [head, match, tail]
+ *
+ *  Searches <i>sep</i> or pattern (<i>regexp</i>) in the string from the end
+ *  of the string, and returns the part before it, the match, and the part
+ *  after it.
+ *  If it is not found, returns two empty strings and <i>str</i>.
+ *
  *     "hello".rpartition("l")         #=> ["hel", "l", "o"]
  *     "hello".rpartition("x")         #=> ["", "", "hello"]
+ *     "hello".rpartition(/.l/)        #=> ["he", "ll", "o"]
  */
 
 static VALUE

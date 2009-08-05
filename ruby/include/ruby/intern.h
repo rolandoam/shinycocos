@@ -443,6 +443,9 @@ VALUE rb_obj_init_copy(VALUE,VALUE);
 VALUE rb_obj_taint(VALUE);
 VALUE rb_obj_tainted(VALUE);
 VALUE rb_obj_untaint(VALUE);
+VALUE rb_obj_untrust(VALUE);
+VALUE rb_obj_untrusted(VALUE);
+VALUE rb_obj_trust(VALUE);
 VALUE rb_obj_freeze(VALUE);
 VALUE rb_obj_frozen_p(VALUE);
 VALUE rb_obj_id(VALUE);
@@ -625,6 +628,7 @@ void rb_str_setter(VALUE, ID, VALUE*);
 VALUE rb_str_intern(VALUE);
 VALUE rb_sym_to_s(VALUE);
 VALUE rb_str_length(VALUE);
+long rb_str_offset(VALUE, long);
 size_t rb_str_capacity(VALUE);
 #if defined __GNUC__
 #define rb_str_new_cstr(str) __extension__ (	\

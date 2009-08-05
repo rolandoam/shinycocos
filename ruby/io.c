@@ -130,9 +130,9 @@ struct timeval rb_time_interval(VALUE);
 
 struct argf {
     VALUE filename, current_file;
-    int gets_lineno;
+    int last_lineno;		/* $. */
+    int lineno;
     int init_p, next_p;
-    VALUE lineno;
     VALUE argv;
     char *inplace;
     int binmode;
@@ -1134,7 +1134,7 @@ rb_io_rewind(VALUE io)
     GetOpenFile(io, fptr);
     if (io_seek(fptr, 0L, 0) < 0) rb_sys_fail_path(fptr->pathv);
     if (io == ARGF.current_file) {
-	ARGF.gets_lineno -= fptr->lineno;
+	ARGF.lineno -= fptr->lineno;
     }
     fptr->lineno = 0;
     if (fptr->readconv) {
@@ -1998,6 +1998,7 @@ io_read(int argc, VALUE *argv, VALUE io)
         return Qnil;
     }
     rb_str_resize(str, n);
+    OBJ_TAINT(str);
 
     return str;
 }
@@ -2156,7 +2157,8 @@ rb_io_getline_fast(rb_io_t *fptr, rb_encoding *enc)
     str = io_enc_str(str, fptr);
     ENC_CODERANGE_SET(str, cr);
     fptr->lineno++;
-    ARGF.lineno = INT2FIX(fptr->lineno);
+    ARGF.last_lineno = fptr->lineno;
+    
     return str;
 }
 
@@ -2293,7 +2295,7 @@ rb_io_getline_1(VALUE rs, long limit, VALUE io)
     if (!NIL_P(str)) {
 	if (!nolimit) {
 	    fptr->lineno++;
-	    ARGF.lineno = INT2FIX(fptr->lineno);
+	    ARGF.last_lineno = fptr->lineno;
 	}
     }
 
@@ -3867,7 +3869,7 @@ rb_io_ext_int_to_encs(rb_encoding *ext, rb_encoding *intern, rb_encoding **enc, 
 	intern = rb_default_internal_encoding();
     if (intern == NULL || intern == (rb_encoding *)Qnil || intern == ext) {
 	/* No internal encoding => use external + no transcoding */
-	*enc = default_ext ? NULL : ext;
+	*enc = (default_ext && intern != ext) ? NULL : ext;
 	*enc2 = NULL;
     }
     else {
@@ -4649,9 +4651,19 @@ pipe_open(struct rb_exec_arg *eargp, VALUE prog, const char *modestr, int fmode,
 	    rb_thread_sleep(1);
 	    break;
 	  default:
-	    if (eargp)
-		rb_run_exec_options(&sarg, NULL);
-	    rb_sys_fail(cmd);
+	    {
+		int e = errno;
+		if (eargp)
+		    rb_run_exec_options(&sarg, NULL);
+		close(pair[0]);
+		close(pair[1]);
+		if ((fmode & (FMODE_READABLE|FMODE_WRITABLE)) == (FMODE_READABLE|FMODE_WRITABLE)) {
+		    close(write_pair[0]);
+		    close(write_pair[1]);
+		}
+		errno = e;
+		rb_sys_fail(cmd);
+	    }
 	    break;
 	}
     }
@@ -6041,7 +6053,6 @@ argf_mark(void *ptr)
     struct argf *p = ptr;
     rb_gc_mark(p->filename);
     rb_gc_mark(p->current_file);
-    rb_gc_mark(p->lineno);
     rb_gc_mark(p->argv);
     rb_gc_mark(p->encs.ecopts);
 }
@@ -6058,7 +6069,7 @@ argf_init(struct argf *p, VALUE v)
 {
     p->filename = Qnil;
     p->current_file = Qnil;
-    p->lineno = INT2FIX(0);
+    p->lineno = 0;
     p->argv = v;
 }
 
@@ -6099,15 +6110,15 @@ argf_initialize_copy(VALUE argf, VALUE orig)
 static VALUE
 argf_set_lineno(VALUE argf, VALUE val)
 {
-    ARGF.gets_lineno = NUM2INT(val);
-    ARGF.lineno = INT2FIX(ARGF.gets_lineno);
+    ARGF.lineno = NUM2INT(val);
+    ARGF.last_lineno = ARGF.lineno;
     return Qnil;
 }
 
 static VALUE
 argf_lineno(VALUE argf)
 {
-    return ARGF.lineno;
+    return INT2FIX(ARGF.lineno);
 }
 
 static VALUE
@@ -6155,7 +6166,6 @@ argf_next_argv(VALUE argf)
 	    ARGF.next_p = -1;
 	}
 	ARGF.init_p = 1;
-	ARGF.gets_lineno = 0;
     }
 
     if (ARGF.next_p == 1) {
@@ -6236,7 +6246,7 @@ argf_next_argv(VALUE argf)
 		}
 		ARGF.current_file = prep_io(fr, FMODE_READABLE, rb_cFile, fn);
 	    }
-	    if (ARGF.binmode) rb_io_binmode(ARGF.current_file);
+	    if (ARGF.binmode) rb_io_ascii8bit_binmode(ARGF.current_file);
 	    if (ARGF.encs.enc) {
 		rb_io_t *fptr;
 
@@ -6285,8 +6295,8 @@ argf_getline(int argc, VALUE *argv, VALUE argf)
 	}
     }
     if (!NIL_P(line)) {
-	ARGF.gets_lineno++;
-	ARGF.lineno = INT2FIX(ARGF.gets_lineno);
+	ARGF.lineno++;
+	ARGF.last_lineno = ARGF.lineno;
     }
     return line;
 }
@@ -6295,7 +6305,7 @@ static VALUE
 argf_lineno_getter(ID id, VALUE *var)
 {
     VALUE argf = *var;
-    return ARGF.lineno;
+    return INT2FIX(ARGF.last_lineno);
 }
 
 static void
@@ -6303,8 +6313,7 @@ argf_lineno_setter(VALUE val, ID id, VALUE *var)
 {
     VALUE argf = *var;
     int n = NUM2INT(val);
-    ARGF.gets_lineno = n;
-    ARGF.lineno = INT2FIX(n);
+    ARGF.last_lineno = ARGF.lineno = n;
 }
 
 static VALUE argf_gets(int, VALUE *, VALUE);
@@ -6358,6 +6367,7 @@ argf_gets(int argc, VALUE *argv, VALUE argf)
 
     line = argf_getline(argc, argv, argf);
     rb_lastline_set(line);
+
     return line;
 }
 
@@ -6380,8 +6390,8 @@ rb_gets(void)
     }
     rb_lastline_set(line);
     if (!NIL_P(line)) {
-	ARGF.gets_lineno++;
-	ARGF.lineno = INT2FIX(ARGF.gets_lineno);
+	ARGF.lineno++;
+	ARGF.last_lineno = ARGF.lineno;
     }
 
     return line;
@@ -8279,7 +8289,8 @@ argf_binmode_m(VALUE argf)
     ARGF.binmode = 1;
     next_argv();
     ARGF_FORWARD(0, 0);
-    rb_io_binmode(ARGF.current_file);
+    rb_io_ascii8bit_binmode(ARGF.current_file);
+
     return argf;
 }
 
@@ -8307,7 +8318,7 @@ argf_close_m(VALUE argf)
     if (ARGF.next_p != -1) {
 	ARGF.next_p = 1;
     }
-    ARGF.gets_lineno = 0;
+    ARGF.lineno = 0;
     return argf;
 }
 

@@ -8,7 +8,7 @@
 
   $Idaemons: /home/cvs/rb/enumerator/enumerator.c,v 1.1.1.1 2001/07/15 10:12:48 knu Exp $
   $RoughId: enumerator.c,v 1.6 2003/07/27 11:03:24 nobu Exp $
-  $Id: enumerator.c 23219 2009-04-19 13:33:31Z yugui $
+  $Id: enumerator.c 24122 2009-07-15 12:00:57Z yugui $
 
 ************************************************/
 
@@ -637,12 +637,6 @@ yielder_yield(VALUE obj, VALUE args)
 }
 
 static VALUE
-yielder_new_i(VALUE dummy)
-{
-    return yielder_init(yielder_allocate(rb_cYielder), rb_block_proc());
-}
-
-static VALUE
 yielder_yield_i(VALUE obj, VALUE memo, int argc, VALUE *argv)
 {
     return rb_yield_values2(argc, argv);
@@ -651,7 +645,7 @@ yielder_yield_i(VALUE obj, VALUE memo, int argc, VALUE *argv)
 static VALUE
 yielder_new(void)
 {
-    return rb_iterate(yielder_new_i, (VALUE)0, yielder_yield_i, (VALUE)0);
+    return yielder_init(yielder_allocate(rb_cYielder), rb_proc_new(yielder_yield_i, 0));
 }
 
 /*

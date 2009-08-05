@@ -1171,7 +1171,7 @@ reg_enc_error(VALUE re, VALUE str)
 {
     rb_raise(rb_eEncCompatError,
 	     "incompatible encoding regexp match (%s regexp with %s string)",
-	     rb_enc_name(RREGEXP(re)->ptr->enc),
+	     rb_enc_name(rb_enc_get(re)),
 	     rb_enc_name(rb_enc_get(str)));
 }
 
@@ -2546,7 +2546,7 @@ reg_match_pos(VALUE re, VALUE *strp, long pos)
 		return pos;
 	    }
 	}
-	pos = rb_reg_adjust_startpos(re, str, pos, 0);
+	pos = rb_str_offset(str, pos);
     }
     return rb_reg_search(re, str, pos, 0);
 }

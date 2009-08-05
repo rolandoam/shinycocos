@@ -2,7 +2,7 @@
 
   marshal.c -
 
-  $Author: nobu $
+  $Author: yugui $
   created at: Thu Apr 27 16:30:01 JST 1995
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -496,7 +496,7 @@ w_encoding(VALUE obj, long num, struct dump_call_arg *arg)
 	name = (st_data_t)rb_str_new2(rb_enc_name(enc));
 	st_insert(arg->arg->encodings, (st_data_t)rb_enc_name(enc), name);
     } while (0);
-    w_object(name, arg->arg, arg->limit);
+    w_object(name, arg->arg, arg->limit + 1);
 }
 
 static void
@@ -1371,8 +1371,20 @@ r_object0(struct load_arg *arg, int *ivp, VALUE extmod)
 	{
 	    volatile VALUE str = r_bytes(arg);
 	    int options = r_byte(arg);
-	    v = r_entry(rb_reg_new_str(str, options), arg);
-            v = r_leave(v, arg);
+	    v = rb_reg_new("", 0, options);
+	    if (ivp) {
+		r_ivar(v, arg);
+		*ivp = Qfalse;
+	    }
+	    if (rb_enc_get_index(v) != rb_usascii_encindex())
+		rb_enc_copy(str, v);
+	    if (rb_enc_get_index(str) != rb_utf8_encindex()) {
+#define f_gsub_bang(x,y,z) rb_funcall(x, rb_intern("gsub!"), 2, y, z)
+		f_gsub_bang(str, rb_reg_new("\\\\u", 3, 0), rb_usascii_str_new_cstr("u"));
+	    }
+	    str = r_entry(rb_reg_new_str(str, options), arg);
+	    rb_copy_generic_ivar(str, v);
+	    v = r_leave(str, arg);
 	}
 	break;
 
