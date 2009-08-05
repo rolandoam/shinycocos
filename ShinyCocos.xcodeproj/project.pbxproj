@@ -147,8 +147,6 @@
 		A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */; };
 		A9DF7AAA0FEBF9C300D6E245 /* SC_AVAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */; };
 		A9DF7AAB0FEBF9C300D6E245 /* SC_AVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */; };
-		A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */; };
-		A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */; };
 		A9E436C80FA609A300D00AC1 /* SC_init.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E436C70FA609A300D00AC1 /* SC_init.m */; };
 		A9E9C9630FEAB69900F45939 /* SC_Label.h in Headers */ = {isa = PBXBuildFile; fileRef = A9E9C9610FEAB69900F45939 /* SC_Label.h */; };
 		A9E9C9640FEAB69900F45939 /* SC_Label.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E9C9620FEAB69900F45939 /* SC_Label.m */; };
@@ -299,8 +297,6 @@
 		A9C20C4C0FC12CE700D3D8F8 /* SC_ids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_ids.h; path = Integration/SC_ids.h; sourceTree = "<group>"; };
 		A9DF7AA80FEBF9C300D6E245 /* SC_AVAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_AVAudioPlayer.h; path = Integration/SC_AVAudioPlayer.h; sourceTree = "<group>"; };
 		A9DF7AA90FEBF9C300D6E245 /* SC_AVAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_AVAudioPlayer.m; path = Integration/SC_AVAudioPlayer.m; sourceTree = "<group>"; };
-		A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_TiledMap.h; path = Integration/SC_TiledMap.h; sourceTree = "<group>"; };
-		A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TiledMap.m; path = Integration/SC_TiledMap.m; sourceTree = "<group>"; };
 		A9E436C70FA609A300D00AC1 /* SC_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_init.m; path = Integration/SC_init.m; sourceTree = "<group>"; };
 		A9E9C9610FEAB69900F45939 /* SC_Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Label.h; path = Integration/SC_Label.h; sourceTree = "<group>"; };
 		A9E9C9620FEAB69900F45939 /* SC_Label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Label.m; path = Integration/SC_Label.m; sourceTree = "<group>"; };
@@ -375,8 +371,6 @@
 		A92C6B981028FF2900FC16C3 /* Extras */ = {
 			isa = PBXGroup;
 			children = (
-				A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */,
-				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
 				A94A1D420FB0E5230099E6BE /* SC_CocoaAdditions.h */,
 				A94A1D3B0FB0E4630099E6BE /* SC_CocoaAdditions.m */,
 				A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */,
@@ -621,7 +615,6 @@
 				A996A6A50FB1D23B0040FDF4 /* gram.h in Headers */,
 				A996A6B10FB1D23B0040FDF4 /* syck.h in Headers */,
 				A996A6B70FB1D23B0040FDF4 /* yamlbyte.h in Headers */,
-				A9E2915F0FBA16B300DA3C1E /* SC_TiledMap.h in Headers */,
 				A93D7EC00FBE49BA00731024 /* SC_Layer.h in Headers */,
 				A93D7EE40FBE49EB00731024 /* SC_Menu.h in Headers */,
 				A9C20C4D0FC12CE700D3D8F8 /* SC_ids.h in Headers */,
@@ -784,7 +777,6 @@
 				A996A6B00FB1D23B0040FDF4 /* syck.c in Sources */,
 				A996A6B30FB1D23B0040FDF4 /* token.c in Sources */,
 				A996A6B50FB1D23B0040FDF4 /* yaml2byte.c in Sources */,
-				A9E291600FBA16B300DA3C1E /* SC_TiledMap.m in Sources */,
 				A93D7DC40FBDE4E100731024 /* SC_Layer.m in Sources */,
 				A93D7EB50FBE0D9300731024 /* SC_Menu.m in Sources */,
 				A9C20C4B0FC12C0300D3D8F8 /* SC_ids.m in Sources */,
