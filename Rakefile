@@ -42,6 +42,7 @@ Integration/SC_Scene.m
 Integration/SC_Slider.m
 Integration/SC_SolidShapeMap.m
 Integration/SC_Sprite.m
+Integration/SC_TMXTiledMap.m
 Integration/SC_TextField.m
 Integration/SC_TextureNode.m
 Integration/SC_TiledMap.m

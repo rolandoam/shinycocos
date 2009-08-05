@@ -44,7 +44,8 @@ class, right now, the following classes are implemented:
 * Label
 * LabelAtlas
 * BitmapFontAtlas
-* Transition
+* TMXTiledMap (& friends)
+* Transitions
 * Some UIKit Classes: UITextField, UISlider, AVAudioPlayer, UserDefaults
 * Custom ShinyCocos helpers: Twitter, TiledMap
 

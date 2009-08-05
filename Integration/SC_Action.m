@@ -175,6 +175,8 @@ ruby -ne 'md = $_.match(/@interface +(\w+) *: *(\w+)/); puts "VALUE rb_c#{md[1]}
 */
 
 /*
+ * call-seq:
+ *   doc stub
  */
 VALUE rb_cFiniteTimeAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
@@ -184,17 +186,29 @@ VALUE rb_cFiniteTimeAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFiniteTimeAction_duration(VALUE object) {
 	return rb_float_new(CC_FINITETIMEACTION(object).duration);
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFiniteTimeAction_set_duration(VALUE object, VALUE d) {
 	CC_FINITETIMEACTION(object).duration = NUM2DBL(d);
 	return d;
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFiniteTimeAction_reverse(VALUE object) {
 	FiniteTimeAction *action = [CC_FINITETIMEACTION(object) reverse];
 	if (action) {
@@ -204,6 +218,10 @@ VALUE rb_cFiniteTimeAction_reverse(VALUE object) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cRepeatForever_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(1, rb_cIntervalAction)
 	RepeatForever *action = [[RepeatForever alloc] initWithAction:CC_INTERVALACTION(argv[0])];
@@ -212,6 +230,10 @@ VALUE rb_cRepeatForever_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSpeed_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cIntervalAction)
 	Speed *action = [[Speed alloc] initWithAction:CC_INTERVALACTION(argv[0]) speed:NUM2DBL(argv[1])];
@@ -220,17 +242,29 @@ VALUE rb_cSpeed_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSpeed_speed(VALUE object) {
 	return rb_float_new(CC_SPEED(object).speed);
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSpeed_set_speed(VALUE object, VALUE speed) {
 	CC_SPEED(object).speed = NUM2DBL(speed);
 	return speed;
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cCameraAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	CameraAction *action = [[CameraAction alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -256,6 +290,10 @@ VALUE rb_cOrbitCamera_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(1, rb_cIntervalAction)
 	EaseAction *action = [[EaseAction alloc] initWithAction:CC_INTERVALACTION(argv[0])];
@@ -264,6 +302,10 @@ VALUE rb_cEaseAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseRateAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cIntervalAction)
 	EaseRateAction *action = [[EaseRateAction alloc] initWithAction:CC_INTERVALACTION(argv[0]) rate:NUM2DBL(argv[1])];
@@ -272,6 +314,10 @@ VALUE rb_cEaseRateAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseIn_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseIn *action = [[EaseIn alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -279,6 +325,10 @@ VALUE rb_cEaseIn_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseOut *action = [[EaseOut alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -286,6 +336,10 @@ VALUE rb_cEaseOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseInOut *action = [[EaseInOut alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -293,6 +347,10 @@ VALUE rb_cEaseInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseExponentialIn_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseExponentialIn *action = [[EaseExponentialIn alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -300,6 +358,10 @@ VALUE rb_cEaseExponentialIn_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseExponentialOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseExponentialOut *action = [[EaseExponentialOut alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -307,6 +369,10 @@ VALUE rb_cEaseExponentialOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseExponentialInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseExponentialInOut *action = [[EaseExponentialInOut alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -314,6 +380,10 @@ VALUE rb_cEaseExponentialInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseSineIn_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseSineIn *action = [[EaseSineIn alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -321,6 +391,10 @@ VALUE rb_cEaseSineIn_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseSineOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseSineOut *action = [[EaseSineOut alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -328,6 +402,10 @@ VALUE rb_cEaseSineOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cEaseSineInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	EaseSineInOut *action = [[EaseSineInOut alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -335,6 +413,10 @@ VALUE rb_cEaseSineInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cGridAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	Check_Type(argv[0], T_ARRAY);
@@ -348,6 +430,10 @@ VALUE rb_cGridAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cGrid3DAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	Grid3DAction *action = [[Grid3DAction alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -355,6 +441,10 @@ VALUE rb_cGrid3DAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cTiledGrid3DAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	TiledGrid3DAction *action = [[TiledGrid3DAction alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -362,6 +452,10 @@ VALUE rb_cTiledGrid3DAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cAccelDeccelAmplitude_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cAction)
 	AccelDeccelAmplitude *action = [[AccelDeccelAmplitude alloc] initWithAction:CC_ACTION(argv[0]) duration:NUM2DBL(argv[1])];
@@ -370,6 +464,10 @@ VALUE rb_cAccelDeccelAmplitude_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cAccelAmplitude_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cAction)
 	AccelAmplitude *action = [[AccelAmplitude alloc] initWithAction:CC_ACTION(argv[0]) duration:NUM2DBL(argv[1])];
@@ -378,6 +476,10 @@ VALUE rb_cAccelAmplitude_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cDeccelAmplitude_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cAction)
 	DeccelAmplitude *action = [[DeccelAmplitude alloc] initWithAction:CC_ACTION(argv[0]) duration:NUM2DBL(argv[1])];
@@ -386,6 +488,10 @@ VALUE rb_cDeccelAmplitude_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cStopGrid_s_new(int argc, VALUE *argv, VALUE klass) {
 	StopGrid *action = [[StopGrid alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -393,6 +499,10 @@ VALUE rb_cStopGrid_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cReuseGrid_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
 	ReuseGrid *action = [[ReuseGrid alloc] initWithTimes:FIX2INT(argv[0])];
@@ -401,6 +511,10 @@ VALUE rb_cReuseGrid_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cWaves3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(4)
 	Check_Type(argv[2], T_ARRAY);
@@ -413,6 +527,10 @@ VALUE rb_cWaves3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFlipX3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
 	FlipX3D *action = [[FlipX3D alloc] initWithDuration:NUM2DBL(argv[0])];
@@ -421,6 +539,10 @@ VALUE rb_cFlipX3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFlipY3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	FlipY3D *action = [[FlipY3D alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -428,6 +550,10 @@ VALUE rb_cFlipY3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cLens3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(4)
 	Check_Type(argv[0], T_ARRAY);
@@ -444,6 +570,10 @@ VALUE rb_cLens3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cRipple3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	Ripple3D *action = [[Ripple3D alloc] init];
@@ -452,6 +582,10 @@ VALUE rb_cRipple3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cShaky3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	Shaky3D *action = [[Shaky3D alloc] init];
@@ -460,6 +594,10 @@ VALUE rb_cShaky3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cLiquid_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	Liquid *action = [[Liquid alloc] init];
@@ -468,6 +606,10 @@ VALUE rb_cLiquid_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cWaves_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	Waves *action = [[Waves alloc] init];
@@ -476,6 +618,10 @@ VALUE rb_cWaves_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cTwirl_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	Twirl *action = [[Twirl alloc] init];
@@ -484,6 +630,10 @@ VALUE rb_cTwirl_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cInstantAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	InstantAction *action = [[InstantAction alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -491,6 +641,10 @@ VALUE rb_cInstantAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cShow_s_new(int argc, VALUE *argv, VALUE klass) {
 	Show *action = [[Show alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -498,6 +652,10 @@ VALUE rb_cShow_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cHide_s_new(int argc, VALUE *argv, VALUE klass) {
 	Hide *action = [[Hide alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -505,6 +663,10 @@ VALUE rb_cHide_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cToggleVisibility_s_new(int argc, VALUE *argv, VALUE klass) {
 	ToggleVisibility *action = [[ToggleVisibility alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
@@ -512,6 +674,10 @@ VALUE rb_cToggleVisibility_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cPlace_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
 	CGPoint p;
@@ -523,6 +689,10 @@ VALUE rb_cPlace_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cCallFunc_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	CallFunc *action = [[CallFunc alloc] init];
@@ -531,6 +701,10 @@ VALUE rb_cCallFunc_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cCallFuncN_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	CallFuncN *action = [[CallFuncN alloc] init];
@@ -539,6 +713,10 @@ VALUE rb_cCallFuncN_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cCallFuncND_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	CallFuncND *action = [[CallFuncND alloc] init];
@@ -547,6 +725,10 @@ VALUE rb_cCallFuncND_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cIntervalAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
 	IntervalAction *action = [[IntervalAction alloc] initWithDuration:NUM2DBL(argv[0])];
@@ -555,6 +737,10 @@ VALUE rb_cIntervalAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSequence_s_new(int argc, VALUE *argv, VALUE klass) {
 	// we create a sequence with each two actions from the argument list
 	Sequence *action, *first = nil;
@@ -575,6 +761,10 @@ VALUE rb_cSequence_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cRepeat_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cFiniteTimeAction)
 	Repeat *action = [[Repeat alloc] initWithAction:CC_FINITETIMEACTION(argv[0]) times:FIX2INT(argv[1])];
@@ -583,6 +773,10 @@ VALUE rb_cRepeat_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSpawn_s_new(int argc, VALUE *argv, VALUE klass) {
 	Spawn *action, *first = nil;
 	int i = 0;
@@ -602,6 +796,10 @@ VALUE rb_cSpawn_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cRotateTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	RotateTo *action = [[RotateTo alloc] initWithDuration:NUM2DBL(argv[0]) angle:NUM2DBL(argv[1])];
@@ -610,6 +808,10 @@ VALUE rb_cRotateTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cRotateBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	RotateBy *action = [[RotateBy alloc] initWithDuration:NUM2DBL(argv[0]) angle:NUM2DBL(argv[1])];
@@ -618,6 +820,10 @@ VALUE rb_cRotateBy_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cMoveTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	Check_Type(argv[1], T_ARRAY);
@@ -630,6 +836,10 @@ VALUE rb_cMoveTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cMoveBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	Check_Type(argv[1], T_ARRAY);
@@ -642,6 +852,10 @@ VALUE rb_cMoveBy_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cJumpBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(4)
 	Check_Type(argv[1], T_ARRAY);
@@ -654,6 +868,10 @@ VALUE rb_cJumpBy_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cJumpTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(4)
 	Check_Type(argv[1], T_ARRAY);
@@ -666,6 +884,10 @@ VALUE rb_cJumpTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	BezierBy *action = [[BezierBy alloc] init];
@@ -674,6 +896,10 @@ VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cScaleTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(3)
 	ScaleTo *action = [[ScaleTo alloc] initWithDuration:NUM2DBL(argv[0]) scaleX:NUM2DBL(argv[1]) scaleY:NUM2DBL(argv[2])];
@@ -682,6 +908,10 @@ VALUE rb_cScaleTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cScaleBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(3)
 	ScaleBy *action = [[ScaleBy alloc] initWithDuration:NUM2DBL(argv[0]) scaleX:NUM2DBL(argv[1]) scaleY:NUM2DBL(argv[2])];
@@ -690,6 +920,10 @@ VALUE rb_cScaleBy_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cBlink_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	Blink *action = [[Blink alloc] init];
@@ -698,6 +932,10 @@ VALUE rb_cBlink_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeIn_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeIn *action = [[FadeIn alloc] init];
@@ -706,6 +944,10 @@ VALUE rb_cFadeIn_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeOut_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeOut *action = [[FadeOut alloc] init];
@@ -714,6 +956,10 @@ VALUE rb_cFadeOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeTo *action = [[FadeTo alloc] init];
@@ -722,6 +968,10 @@ VALUE rb_cFadeTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cTintTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	TintTo *action = [[TintTo alloc] init];
@@ -730,6 +980,10 @@ VALUE rb_cTintTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cTintBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	TintBy *action = [[TintBy alloc] init];
@@ -738,6 +992,10 @@ VALUE rb_cTintBy_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cDelayTime_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	DelayTime *action = [[DelayTime alloc] init];
@@ -746,6 +1004,10 @@ VALUE rb_cDelayTime_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cReverseTime_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	ReverseTime *action = [[ReverseTime alloc] init];
@@ -754,6 +1016,10 @@ VALUE rb_cReverseTime_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cAnimate_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
 	Animate *action;
@@ -771,6 +1037,10 @@ VALUE rb_cAnimate_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cShakyTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	ShakyTiles3D *action = [[ShakyTiles3D alloc] init];
@@ -779,6 +1049,10 @@ VALUE rb_cShakyTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cShatteredTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	ShatteredTiles3D *action = [[ShatteredTiles3D alloc] init];
@@ -787,6 +1061,10 @@ VALUE rb_cShatteredTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cShuffleTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	ShuffleTiles *action = [[ShuffleTiles alloc] init];
@@ -795,6 +1073,10 @@ VALUE rb_cShuffleTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeOutTRTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeOutTRTiles *action = [[FadeOutTRTiles alloc] init];
@@ -803,6 +1085,10 @@ VALUE rb_cFadeOutTRTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeOutBLTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeOutBLTiles *action = [[FadeOutBLTiles alloc] init];
@@ -811,6 +1097,10 @@ VALUE rb_cFadeOutBLTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeOutUpTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeOutUpTiles *action = [[FadeOutUpTiles alloc] init];
@@ -819,6 +1109,10 @@ VALUE rb_cFadeOutUpTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cFadeOutDownTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	FadeOutDownTiles *action = [[FadeOutDownTiles alloc] init];
@@ -827,6 +1121,10 @@ VALUE rb_cFadeOutDownTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cTurnOffTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	TurnOffTiles *action = [[TurnOffTiles alloc] init];
@@ -835,6 +1133,10 @@ VALUE rb_cTurnOffTiles_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cWavesTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	WavesTiles3D *action = [[WavesTiles3D alloc] init];
@@ -843,6 +1145,10 @@ VALUE rb_cWavesTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cJumpTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	JumpTiles3D *action = [[JumpTiles3D alloc] init];
@@ -851,6 +1157,10 @@ VALUE rb_cJumpTiles3D_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSplitRows_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	SplitRows *action = [[SplitRows alloc] init];
@@ -859,6 +1169,10 @@ VALUE rb_cSplitRows_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
+/*
+ * call-seq:
+ *   doc stub
+ */
 VALUE rb_cSplitCols_s_new(int argc, VALUE *argv, VALUE klass) {
 	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
 	SplitCols *action = [[SplitCols alloc] init];
