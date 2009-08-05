@@ -21,3 +21,4 @@ extern VALUE rb_cAtlasSprite;
 extern VALUE rb_cAtlasAnimation;
 
 void init_rb_cAtlasAnimation();
+void init_rb_cAtlasSprite();

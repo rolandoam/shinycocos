@@ -18,12 +18,34 @@
  */
 
 #import <objc/runtime.h>
+#import <AVFoundation/AVAudioPlayer.h>
+#import <math.h>
 #import "ruby.h"
 #import "cocos2d.h"
 #import "chipmunk.h"
 #import "SC_ids.h"
-#import <AVFoundation/AVAudioPlayer.h>
 #import "SC_AVAudioPlayer.h"
+#import "SC_Action.h"
+#import "SC_AtlasSprite.h"
+#import "SC_AtlasSpriteManager.h"
+#import "SC_BitmatFontAtlas.h"
+#import "SC_CocoaAdditions.h"
+#import "SC_CocosNode.h"
+#import "SC_Director.h"
+#import "SC_Label.h"
+#import "SC_LabelAtlas.h"
+#import "SC_Layer.h"
+#import "SC_Menu.h"
+#import "SC_Scene.h"
+#import "SC_Slider.h"
+#import "SC_SolidShapeMap.h"
+#import "SC_Sprite.h"
+#import "SC_TMXTiledMap.h"
+#import "SC_TextField.h"
+#import "SC_TextureNode.h"
+#import "SC_Transition.h"
+#import "SC_Twitter.h"
+#import "SC_UserDefaults.h"
 
 typedef struct {
 	id _obj;

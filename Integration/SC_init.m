@@ -197,7 +197,6 @@ void Init_ShinyCocos() {
 	init_rb_cAtlasSpriteManager();
 	init_rb_cAtlasSprite();
 	init_rb_cAtlasAnimation();
-	init_rb_cTiledMap();
 	init_rb_cLayer();
 	init_rb_cLabel();
 	init_rb_cLabelAtlas();
@@ -220,10 +219,14 @@ void Init_ShinyCocos() {
 	rb_define_module_function(rb_mCocos2D, "display_alert", sc_display_alert, -1);
 }
 
+void Init_encdb();
+void Init_stringio();
+void Init_syck();
+void Init_zlib();
+
 void Init_SC_Ruby_Extensions() {
 	Init_encdb();
 	Init_stringio();
 	Init_syck();
 	Init_zlib();
-	// add your extensions init here!
 }

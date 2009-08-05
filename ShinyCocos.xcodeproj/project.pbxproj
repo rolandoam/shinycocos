@@ -37,7 +37,6 @@
 		A9515C730F9D0C5E00B2B839 /* class.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C270F9D0C2F00B2B839 /* class.c */; };
 		A9515C740F9D0C5E00B2B839 /* compar.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C280F9D0C3000B2B839 /* compar.c */; };
 		A9515C790F9D0C5E00B2B839 /* dir.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2D0F9D0C3100B2B839 /* dir.c */; };
-		A9515C7A0F9D0C5E00B2B839 /* dln.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2E0F9D0C3100B2B839 /* dln.c */; };
 		A9515C7B0F9D0C5E00B2B839 /* dmydln.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C2F0F9D0C3100B2B839 /* dmydln.c */; };
 		A9515C7D0F9D0C5E00B2B839 /* dmyext.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C310F9D0C3200B2B839 /* dmyext.c */; };
 		A9515C7F0F9D0C5E00B2B839 /* enum.c in Sources */ = {isa = PBXBuildFile; fileRef = A9515C330F9D0C3200B2B839 /* enum.c */; };
@@ -187,7 +186,6 @@
 		A9515C270F9D0C2F00B2B839 /* class.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = class.c; path = ruby/class.c; sourceTree = "<group>"; };
 		A9515C280F9D0C3000B2B839 /* compar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = compar.c; path = ruby/compar.c; sourceTree = "<group>"; };
 		A9515C2D0F9D0C3100B2B839 /* dir.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dir.c; path = ruby/dir.c; sourceTree = "<group>"; };
-		A9515C2E0F9D0C3100B2B839 /* dln.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dln.c; path = ruby/dln.c; sourceTree = "<group>"; };
 		A9515C2F0F9D0C3100B2B839 /* dmydln.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dmydln.c; path = ruby/dmydln.c; sourceTree = "<group>"; };
 		A9515C310F9D0C3200B2B839 /* dmyext.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dmyext.c; path = ruby/dmyext.c; sourceTree = "<group>"; };
 		A9515C330F9D0C3200B2B839 /* enum.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = enum.c; path = ruby/enum.c; sourceTree = "<group>"; };
@@ -409,7 +407,6 @@
 				A9A6EEEF0FB1C44E000BDD93 /* cont.c */,
 				A9A6EEEB0FB1C416000BDD93 /* debug.c */,
 				A9515C2D0F9D0C3100B2B839 /* dir.c */,
-				A9515C2E0F9D0C3100B2B839 /* dln.c */,
 				A9515C2F0F9D0C3100B2B839 /* dmydln.c */,
 				A9A6EE9D0FB1BF22000BDD93 /* dmyencoding.c */,
 				A9515C310F9D0C3200B2B839 /* dmyext.c */,
@@ -680,7 +677,6 @@
 				A9515C730F9D0C5E00B2B839 /* class.c in Sources */,
 				A9515C740F9D0C5E00B2B839 /* compar.c in Sources */,
 				A9515C790F9D0C5E00B2B839 /* dir.c in Sources */,
-				A9515C7A0F9D0C5E00B2B839 /* dln.c in Sources */,
 				A9515C7B0F9D0C5E00B2B839 /* dmydln.c in Sources */,
 				A9515C7D0F9D0C5E00B2B839 /* dmyext.c in Sources */,
 				A9515C7F0F9D0C5E00B2B839 /* enum.c in Sources */,

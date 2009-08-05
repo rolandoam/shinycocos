@@ -131,3 +131,5 @@ extern VALUE sym_sc_parallax;
 extern VALUE sym_sc_z;
 extern VALUE sym_sc_tag;
 extern VALUE sym_sc_parallax_ratio;
+
+void init_sc_ids();
