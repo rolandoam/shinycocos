@@ -49,11 +49,24 @@ VALUE rb_cTextField_s_new(int argc, VALUE *argv, VALUE klass) {
 	return ret;
 }
 
+
+/*
+ * call-seq:
+ *   text_field.attach   #=> nil
+ *
+ * attaches the text field to the Director's OpenGL view
+ */
 VALUE rb_cTextField_attach(VALUE object) {
 	[[Director sharedDirector].openGLView addSubview:UI_TFIELD(object)];
 	return Qnil;
 }
 
+/*
+ * call-seq:
+ *   text_field.detach   #=> nil
+ *
+ * detaches the text field from the Director's OpenGL view
+ */
 VALUE rb_cTextField_detach(VALUE object) {
 	[UI_TFIELD(object) removeFromSuperview];
 	return Qnil;
@@ -62,6 +75,8 @@ VALUE rb_cTextField_detach(VALUE object) {
 /*
  * call-seq:
  *   text_field.value   #=> string
+ *
+ * returns the value (as a string) of the text field
  */
 VALUE rb_cTextField_value(VALUE object) {
 	return rb_str_new2([UI_TFIELD(object).text cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -70,6 +85,8 @@ VALUE rb_cTextField_value(VALUE object) {
 /*
  * call-seq:
  *   text_field.value = string   #=> string
+ *
+ * sets the value (string) of the text field
  */
 VALUE rb_cTextField_set_value(VALUE object, VALUE rb_str) {
 	Check_Type(rb_str, T_STRING);

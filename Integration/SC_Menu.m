@@ -84,14 +84,6 @@ VALUE rb_cMenuItemImage_s_new(VALUE klass, VALUE opts) {
 	return ret;
 }
 
-/*
- * call-seq:
- *   item = MenuItemAtlasSprite.new(:normal => normal_atlas_sprite,
- *                                  :selected => selected_atlas_sprite,
- *                                  :disabled => disabled_atlas_sprite)   #=> MenuItemAtlasSprite
- *
- * <tt>:normal</tt> and <tt>:selected</tt> are required.
- */
 void init_rb_cMenuItemImage() {
 	rb_cMenuItemImage = rb_define_class_under(rb_mCocos2D, "MenuItemImage", rb_cCocosNode);
 	rb_define_singleton_method(rb_cMenuItemImage, "new", rb_cMenuItemImage_s_new, 1);
@@ -101,6 +93,15 @@ void init_rb_cMenuItemImage() {
 
 VALUE rb_cMenuItemAtlasSprite;
 
+
+/*
+ * call-seq:
+ *   item = MenuItemAtlasSprite.new(:normal => normal_atlas_sprite,
+ *                                  :selected => selected_atlas_sprite,
+ *                                  :disabled => disabled_atlas_sprite)   #=> MenuItemAtlasSprite
+ *
+ * <tt>:normal</tt> and <tt>:selected</tt> are required.
+ */
 VALUE rb_cMenuItemAtlasSprite_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	// check options

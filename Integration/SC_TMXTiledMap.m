@@ -29,6 +29,8 @@ VALUE rb_cTMXLayer;
 /*
  * call-seq:
  *   map = TMXTiledMap.new("my_map.tmx")   #=> a new TMXTiledMap
+ *
+ * creates a new TMXTiledMap from a tmx file (Tiled)
  */
 VALUE rb_cTMXTiledMap_s_new(int argc, VALUE *argv, VALUE klass) {
 	if (argc != 1) {
@@ -45,7 +47,9 @@ VALUE rb_cTMXTiledMap_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   map["layer_name"]   #=> a TMXLayer
+ *   map["layer_name"]   #=> a TMXLayer or nil
+ *
+ * returns the TMXLayer with the given name (or nil if there's no layer with that name)
  */
 VALUE rb_cTMXTiledMap_get_layer(VALUE object, VALUE layer_name) {
 	Check_Type(layer_name, T_STRING);

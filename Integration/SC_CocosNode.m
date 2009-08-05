@@ -350,6 +350,12 @@ VALUE rb_cCocosNode_anchor_point(VALUE object) {
 	return rb_ary_new3(2, rb_float_new(anchor.x), rb_float_new(anchor.y));
 }
 
+/*
+ * call-seq:
+ *  node.anchor_point = [x,y]   #=> [x,y]
+ *
+ * Sets the anchor point for the node. By deafult is its center.
+ */
 VALUE rb_cCocosNode_set_anchor_point(VALUE object, VALUE rb_anchor) {
 	Check_Type(rb_anchor, T_ARRAY);
 	if (RARRAY_LEN(rb_anchor) < 2)

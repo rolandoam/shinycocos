@@ -41,6 +41,13 @@ VALUE rb_cSprite_s_new(VALUE klass, VALUE filepath) {
 	return rb_obj;
 }
 
+
+/*
+ * call-seq:
+ *   sprite.antialias(true/false)   #=> true/false
+ *
+ * sets (or unsets) the antialias tex parameters
+ */
 VALUE rb_cSprite_antialias(VALUE obj, VALUE antialias) {
 	if (antialias != Qfalse) {
 		[CC_SPRITE(obj).texture setAntiAliasTexParameters];
