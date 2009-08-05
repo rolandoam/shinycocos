@@ -375,6 +375,10 @@
 		A92C6B981028FF2900FC16C3 /* Extras */ = {
 			isa = PBXGroup;
 			children = (
+				A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */,
+				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
+				A94A1D420FB0E5230099E6BE /* SC_CocoaAdditions.h */,
+				A94A1D3B0FB0E4630099E6BE /* SC_CocoaAdditions.m */,
 				A98E8F7F0FD1866B007281B9 /* SC_Twitter.h */,
 				A98E8F800FD1866B007281B9 /* SC_Twitter.m */,
 			);
@@ -466,6 +470,45 @@
 			name = ruby;
 			sourceTree = "<group>";
 		};
+		A99164BD102A042700FB563C /* Cocos2D Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A9A396891002C3020068F1C2 /* SC_Action.h */,
+				A9A3968A1002C3020068F1C2 /* SC_Action.m */,
+				A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */,
+				A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */,
+				A97A764D0FF1697C00550303 /* SC_Transition.h */,
+				A97A764E0FF1697C00550303 /* SC_Transition.m */,
+				A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */,
+				A9E9C9990FEACAD300F45939 /* SC_LabelAtlas.m */,
+				A9E9C9610FEAB69900F45939 /* SC_Label.h */,
+				A9E9C9620FEAB69900F45939 /* SC_Label.m */,
+				A93D7EBF0FBE49BA00731024 /* SC_Layer.h */,
+				A93D7DC30FBDE4E100731024 /* SC_Layer.m */,
+				A93D7EE30FBE49EB00731024 /* SC_Menu.h */,
+				A93D7EB40FBE0D9300731024 /* SC_Menu.m */,
+				A9515E1B0F9D19E200B2B839 /* SC_CocosNode.h */,
+				A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */,
+				A9515E1D0F9D19E200B2B839 /* SC_Director.h */,
+				A9515E1E0F9D19E200B2B839 /* SC_Director.m */,
+				A9515E1F0F9D19E200B2B839 /* SC_Scene.h */,
+				A9515E200F9D19E200B2B839 /* SC_Scene.m */,
+				A9AC089E0F93860400398C9B /* SC_TextureNode.h */,
+				A9AC089F0F93860400398C9B /* SC_TextureNode.m */,
+				A9AC08860F93856600398C9B /* SC_Sprite.h */,
+				A9AC08870F93856600398C9B /* SC_Sprite.m */,
+				A94FBF520FA096910073C00F /* SC_AtlasSprite.h */,
+				A94FBF530FA096910073C00F /* SC_AtlasSprite.m */,
+				A94FBF540FA096910073C00F /* SC_AtlasSpriteManager.h */,
+				A94FBF550FA096910073C00F /* SC_AtlasSpriteManager.m */,
+				A92C6B651028E14400FC16C3 /* SC_TMXTiledMap.h */,
+				A92C6B661028E14400FC16C3 /* SC_TMXTiledMap.m */,
+				A9C0355E0FCC5CB300D447B4 /* SC_SolidShapeMap.h */,
+				A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */,
+			);
+			name = "Cocos2D Classes";
+			sourceTree = "<group>";
+		};
 		A996615C0FCF5C7000CAA4DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -497,45 +540,10 @@
 		A9990E8D0F8BAA7F0026A8BF /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				A92C6B981028FF2900FC16C3 /* Extras */,
 				A92C6B761028FB3600FC16C3 /* Base */,
+				A99164BD102A042700FB563C /* Cocos2D Classes */,
+				A92C6B981028FF2900FC16C3 /* Extras */,
 				A92C6B751028FB0400FC16C3 /* UI */,
-				A9A396891002C3020068F1C2 /* SC_Action.h */,
-				A9A3968A1002C3020068F1C2 /* SC_Action.m */,
-				A91D3F3E0FF3CE3100453351 /* SC_BitmatFontAtlas.h */,
-				A91D3F3F0FF3CE3100453351 /* SC_BitmatFontAtlas.m */,
-				A97A764D0FF1697C00550303 /* SC_Transition.h */,
-				A97A764E0FF1697C00550303 /* SC_Transition.m */,
-				A9E9C9980FEACAD300F45939 /* SC_LabelAtlas.h */,
-				A9E9C9990FEACAD300F45939 /* SC_LabelAtlas.m */,
-				A9E9C9610FEAB69900F45939 /* SC_Label.h */,
-				A9E9C9620FEAB69900F45939 /* SC_Label.m */,
-				A93D7EBF0FBE49BA00731024 /* SC_Layer.h */,
-				A93D7DC30FBDE4E100731024 /* SC_Layer.m */,
-				A93D7EE30FBE49EB00731024 /* SC_Menu.h */,
-				A93D7EB40FBE0D9300731024 /* SC_Menu.m */,
-				A94A1D420FB0E5230099E6BE /* SC_CocoaAdditions.h */,
-				A94A1D3B0FB0E4630099E6BE /* SC_CocoaAdditions.m */,
-				A9515E1B0F9D19E200B2B839 /* SC_CocosNode.h */,
-				A9515E1C0F9D19E200B2B839 /* SC_CocosNode.m */,
-				A9515E1D0F9D19E200B2B839 /* SC_Director.h */,
-				A9515E1E0F9D19E200B2B839 /* SC_Director.m */,
-				A9515E1F0F9D19E200B2B839 /* SC_Scene.h */,
-				A9515E200F9D19E200B2B839 /* SC_Scene.m */,
-				A9AC089E0F93860400398C9B /* SC_TextureNode.h */,
-				A9AC089F0F93860400398C9B /* SC_TextureNode.m */,
-				A9AC08860F93856600398C9B /* SC_Sprite.h */,
-				A9AC08870F93856600398C9B /* SC_Sprite.m */,
-				A94FBF520FA096910073C00F /* SC_AtlasSprite.h */,
-				A94FBF530FA096910073C00F /* SC_AtlasSprite.m */,
-				A94FBF540FA096910073C00F /* SC_AtlasSpriteManager.h */,
-				A94FBF550FA096910073C00F /* SC_AtlasSpriteManager.m */,
-				A9E2915D0FBA16B300DA3C1E /* SC_TiledMap.h */,
-				A9E2915E0FBA16B300DA3C1E /* SC_TiledMap.m */,
-				A92C6B651028E14400FC16C3 /* SC_TMXTiledMap.h */,
-				A92C6B661028E14400FC16C3 /* SC_TMXTiledMap.m */,
-				A9C0355E0FCC5CB300D447B4 /* SC_SolidShapeMap.h */,
-				A9C0355F0FCC5CB300D447B4 /* SC_SolidShapeMap.m */,
 			);
 			name = Integration;
 			sourceTree = "<group>";

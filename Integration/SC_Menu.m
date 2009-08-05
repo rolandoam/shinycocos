@@ -61,13 +61,13 @@ VALUE rb_cMenuItemImage;
 VALUE rb_cMenuItemImage_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	// check options
-	VALUE normal_image = rb_hash_aref(opts, ID2SYM(id_sc_normal));
+	VALUE normal_image = rb_hash_aref(opts, sym_sc_normal);
 	if (normal_image == Qnil)
 		rb_raise(rb_eArgError, "normal image required");
-	VALUE selected_image = rb_hash_aref(opts, ID2SYM(id_sc_selected));
+	VALUE selected_image = rb_hash_aref(opts, sym_sc_selected);
 	if (selected_image == Qnil)
 		rb_raise(rb_eArgError, "selected image required");
-	VALUE disabled_image = rb_hash_aref(opts, ID2SYM(id_sc_disabled));
+	VALUE disabled_image = rb_hash_aref(opts, sym_sc_disabled);
 	NSString *normalImage = [NSString stringWithCString:StringValueCStr(normal_image) encoding:NSUTF8StringEncoding];
 	NSString *selectedImage = [NSString stringWithCString:StringValueCStr(selected_image) encoding:NSUTF8StringEncoding];
 	NSString *disabledImage = (disabled_image != Qnil) ? [NSString stringWithCString:StringValueCStr(disabled_image) encoding:NSUTF8StringEncoding] : nil;
@@ -105,13 +105,13 @@ VALUE rb_cMenuItemAtlasSprite;
 VALUE rb_cMenuItemAtlasSprite_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
 	// check options
-	VALUE normal_sprite = rb_hash_aref(opts, ID2SYM(id_sc_normal));
+	VALUE normal_sprite = rb_hash_aref(opts, sym_sc_normal);
 	if (normal_sprite == Qnil)
 		rb_raise(rb_eArgError, "normal sprite required");
-	VALUE selected_sprite = rb_hash_aref(opts, ID2SYM(id_sc_selected));
+	VALUE selected_sprite = rb_hash_aref(opts, sym_sc_selected);
 	if (selected_sprite == Qnil)
 		rb_raise(rb_eArgError, "selected sprite required");
-	VALUE disabled_sprite = rb_hash_aref(opts, ID2SYM(id_sc_disabled));
+	VALUE disabled_sprite = rb_hash_aref(opts, sym_sc_disabled);
 	AtlasSprite *normalSprite = CC_ATLAS_SPRITE(normal_sprite);
 	AtlasSprite *selectedSprite = CC_ATLAS_SPRITE(selected_sprite);
 	AtlasSprite *disabledSprite = (disabled_sprite != Qnil) ? CC_ATLAS_SPRITE(disabled_sprite) : nil;
@@ -204,14 +204,14 @@ VALUE rb_cMenu_align(int argc, VALUE *argv, VALUE obj) {
 		rb_raise(rb_eArgError, "Invalid arguments");
 	}
 	Check_Type(argv[0], T_SYMBOL);
-	if (argv[0] == ID2SYM(id_sc_horizontally)) {
+	if (argv[0] == sym_sc_horizontally) {
 		if (argc == 2) {
 			Check_Type(argv[1], T_FLOAT);
 			[CC_MENU(obj) alignItemsHorizontallyWithPadding:NUM2DBL(argv[1])];
 		} else {
 			[CC_MENU(obj) alignItemsHorizontally];
 		}
-	} else if (argv[0] == ID2SYM(id_sc_vertically)) {
+	} else if (argv[0] == sym_sc_vertically) {
 		if (argc == 2) {
 			[CC_MENU(obj) alignItemsVerticallyWithPadding:NUM2DBL(argv[1])];
 		} else {

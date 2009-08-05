@@ -69,6 +69,7 @@ ID id_sc_alert_view_cancel;
 ID id_sc_alert_view_did_dismiss;
 ID id_sc_av_player_did_finish_playing;
 ID id_sc_ui_action;
+ID id_sc_parallax;
 // ivars
 ID id_sc_ivar_scheduled_methods;
 ID id_sc_ivar_space;
@@ -108,6 +109,30 @@ ID sc_id_fade_b_l_transition;
 ID sc_id_fade_up_transition;
 ID sc_id_fade_down_transition;
 ID sc_id_on_enter_transition_did_finish;
+// symbols
+VALUE sym_sc_map_width;
+VALUE sym_sc_map_height;
+VALUE sym_sc_tile_width;
+VALUE sym_sc_tile_height;
+VALUE sym_sc_starting_gid;
+VALUE sym_sc_data;
+VALUE sym_sc_location;
+VALUE sym_sc_tap_count;
+VALUE sym_sc_capacity;
+VALUE sym_sc_manager;
+VALUE sym_sc_rect;
+VALUE sym_sc_name;
+VALUE sym_sc_delay;
+VALUE sym_sc_frames;
+VALUE sym_sc_normal;
+VALUE sym_sc_selected;
+VALUE sym_sc_disabled;
+VALUE sym_sc_horizontally;
+VALUE sym_sc_vertically;
+VALUE sym_sc_parallax;
+VALUE sym_sc_z;
+VALUE sym_sc_tag;
+VALUE sym_sc_parallax_ratio;
 
 void init_sc_ids() {
 	id_sc_animate = rb_intern("animate");
@@ -159,6 +184,7 @@ void init_sc_ids() {
 	id_sc_alert_view_did_dismiss = rb_intern("alert_view_did_dismiss");
 	id_sc_av_player_did_finish_playing = rb_intern("player_did_finish_playing");
 	id_sc_ui_action = rb_intern("ui_action");
+	id_sc_parallax = rb_intern("parallax");
 	// ivars
 	id_sc_ivar_scheduled_methods = rb_intern("@scheduled_methods");
 	id_sc_ivar_space = rb_intern("@space");
@@ -197,4 +223,28 @@ void init_sc_ids() {
 	sc_id_fade_b_l_transition = rb_intern("fade_b_l_transition");
 	sc_id_fade_up_transition = rb_intern("fade_up_transition");
 	sc_id_fade_down_transition = rb_intern("fade_down_transition");
+	// symbols
+	sym_sc_map_width = ID2SYM(id_sc_map_width);
+	sym_sc_map_height = ID2SYM(id_sc_map_height);
+	sym_sc_tile_width = ID2SYM(id_sc_tile_width);
+	sym_sc_tile_height = ID2SYM(id_sc_tile_height);
+	sym_sc_starting_gid = ID2SYM(id_sc_starting_gid);
+	sym_sc_data = ID2SYM(id_sc_data);
+	sym_sc_location = ID2SYM(id_sc_location);
+	sym_sc_tap_count = ID2SYM(id_sc_tap_count);
+	sym_sc_capacity = ID2SYM(id_sc_capacity);
+	sym_sc_manager = ID2SYM(id_sc_manager);
+	sym_sc_rect = ID2SYM(id_sc_rect);
+	sym_sc_name = ID2SYM(id_sc_name);
+	sym_sc_delay = ID2SYM(id_sc_delay);
+	sym_sc_frames = ID2SYM(id_sc_frames);
+	sym_sc_normal = ID2SYM(id_sc_normal);
+	sym_sc_selected = ID2SYM(id_sc_selected);
+	sym_sc_disabled = ID2SYM(id_sc_disabled);
+	sym_sc_horizontally = ID2SYM(id_sc_horizontally);
+	sym_sc_vertically = ID2SYM(id_sc_vertically);
+	sym_sc_parallax = ID2SYM(id_sc_parallax);
+	sym_sc_z = ID2SYM(id_sc_z);
+	sym_sc_tag = ID2SYM(id_sc_tag);
+	sym_sc_parallax_ratio = ID2SYM(id_sc_parallax_ratio);
 }

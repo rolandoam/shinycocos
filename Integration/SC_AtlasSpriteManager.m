@@ -38,7 +38,7 @@ VALUE rb_cAtlasSpriteManager_s_new(int argc, VALUE *argv, VALUE klass) {
 		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:29];
 	} else {
 		Check_Type(argv[1], T_HASH);
-		VALUE cap = rb_hash_aref(argv[1], ID2SYM(id_sc_capacity));
+		VALUE cap = rb_hash_aref(argv[1], sym_sc_capacity);
 		if (cap == Qnil)
 			rb_raise(rb_eArgError, "no :capacity key in hash");
 		manager = [[AtlasSpriteManager alloc] initWithFile:file capacity:FIX2INT(cap)];

@@ -52,8 +52,8 @@ VALUE rb_hash_with_touch(UITouch *touch) {
 	CGPoint loc = [touch locationInView:[touch view]];
 	NSUInteger taps = [touch tapCount];
 	VALUE h = rb_hash_new();
-	rb_hash_aset(h, ID2SYM(id_sc_location), rb_ary_new3(2, rb_float_new(loc.x), rb_float_new(loc.y)));
-	rb_hash_aset(h, ID2SYM(id_sc_tap_count), INT2FIX(taps));
+	rb_hash_aset(h, sym_sc_location, rb_ary_new3(2, rb_float_new(loc.x), rb_float_new(loc.y)));
+	rb_hash_aset(h, sym_sc_tap_count, INT2FIX(taps));
 	return h;
 }
 

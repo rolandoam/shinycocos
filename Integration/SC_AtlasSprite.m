@@ -35,8 +35,8 @@ VALUE rb_cAtlasSprite_s_new(int argc, VALUE *argv, VALUE klass) {
 		rb_raise(rb_eArgError, "Invalid number of arguments");
 	}
 	Check_Type(argv[0], T_HASH);
-	VALUE rb_manager = rb_hash_aref(argv[0], ID2SYM(id_sc_manager));
-	VALUE rb_rect = rb_hash_aref(argv[0], ID2SYM(id_sc_rect));
+	VALUE rb_manager = rb_hash_aref(argv[0], sym_sc_manager);
+	VALUE rb_rect = rb_hash_aref(argv[0], sym_sc_rect);
 	CGRect rect = sc_make_rect(rb_rect);
 	
 	cocos_holder *ptr;
@@ -62,9 +62,9 @@ void init_rb_cAtlasSprite() {
  */
 VALUE rb_cAtlasAnimation_s_new(VALUE klass, VALUE opts) {
 	Check_Type(opts, T_HASH);
-	VALUE rb_name   = rb_hash_aref(opts, ID2SYM(id_sc_name));
-	VALUE rb_delay  = rb_hash_aref(opts, ID2SYM(id_sc_delay));
-	VALUE rb_frames = rb_hash_aref(opts, ID2SYM(id_sc_frames));
+	VALUE rb_name   = rb_hash_aref(opts, sym_sc_name);
+	VALUE rb_delay  = rb_hash_aref(opts, sym_sc_delay);
+	VALUE rb_frames = rb_hash_aref(opts, sym_sc_frames);
 	AtlasAnimation *anim;
 	if (rb_frames == Qnil) {
 		anim = [[AtlasAnimation alloc] initWithName:[NSString stringWithCString:StringValueCStr(rb_name) encoding:NSUTF8StringEncoding] delay:NUM2DBL(rb_delay)];

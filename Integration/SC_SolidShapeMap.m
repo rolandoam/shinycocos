@@ -155,22 +155,22 @@ VALUE rb_cSolidShapeMap_s_create(VALUE klass, VALUE rb_space, VALUE options) {
 	int map_width, map_height, tile_width, tile_height, starting_gid;
 
 	VALUE tmp;
-	if ((tmp = rb_hash_aref(options, ID2SYM(id_sc_map_width))) != Qnil) {
+	if ((tmp = rb_hash_aref(options, sym_sc_map_width)) != Qnil) {
 		map_width = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_map_height))) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, sym_sc_map_height)) != Qnil) {
 		map_height = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_tile_width))) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, sym_sc_tile_width)) != Qnil) {
 		tile_width = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_tile_height))) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, sym_sc_tile_height)) != Qnil) {
 		tile_height = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_starting_gid))) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, sym_sc_starting_gid)) != Qnil) {
 		starting_gid = FIX2INT(tmp);
 	}
-	if (tmp != Qnil && (tmp = rb_hash_aref(options, ID2SYM(id_sc_data))) != Qnil) {
+	if (tmp != Qnil && (tmp = rb_hash_aref(options, sym_sc_data)) != Qnil) {
 		Check_Type(tmp, T_STRING);
 		unsigned char *data = (unsigned char *)RSTRING_PTR(tmp);
 		add_floor_to_space(space, map_width, map_height, tile_width, tile_height, starting_gid, data, RSTRING_LEN(tmp));

@@ -66,6 +66,7 @@ extern ID id_sc_alert_view_cancel;
 extern ID id_sc_alert_view_did_dismiss;
 extern ID id_sc_av_player_did_finish_playing;
 extern ID id_sc_ui_action;
+extern ID id_sc_parallax;
 // ivars
 extern ID id_sc_ivar_scheduled_methods;
 extern ID id_sc_ivar_space;
@@ -105,3 +106,28 @@ extern ID sc_id_fade_t_r_transition;
 extern ID sc_id_fade_b_l_transition;
 extern ID sc_id_fade_up_transition;
 extern ID sc_id_fade_down_transition;
+
+/* symbols */
+extern VALUE sym_sc_map_width;
+extern VALUE sym_sc_map_height;
+extern VALUE sym_sc_tile_width;
+extern VALUE sym_sc_tile_height;
+extern VALUE sym_sc_starting_gid;
+extern VALUE sym_sc_data;
+extern VALUE sym_sc_location;
+extern VALUE sym_sc_tap_count;
+extern VALUE sym_sc_capacity;
+extern VALUE sym_sc_manager;
+extern VALUE sym_sc_rect;
+extern VALUE sym_sc_name;
+extern VALUE sym_sc_delay;
+extern VALUE sym_sc_frames;
+extern VALUE sym_sc_normal;
+extern VALUE sym_sc_selected;
+extern VALUE sym_sc_disabled;
+extern VALUE sym_sc_horizontally;
+extern VALUE sym_sc_vertically;
+extern VALUE sym_sc_parallax;
+extern VALUE sym_sc_z;
+extern VALUE sym_sc_tag;
+extern VALUE sym_sc_parallax_ratio;
