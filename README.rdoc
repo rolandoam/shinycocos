@@ -88,12 +88,6 @@ You can either fetch it from the project page or using subversion:
 
   svn co http://cocos2d-iphone.googlecode.com/svn/trunk cocos2d-iphone
 
-If you already have a copy of Cocos2D-iphone lying around, you can
-safely create a symbolic link with the name of "cocos2d-iphone":
-
-  cd shinycocos
-  ln -s /path/to/cocos2d-iphone cocos2d-iphone
-
 Open the cocos2d-iphone project and set the output directory for the
 cocos2d-iphone and chipmunk to "../build" instead of "build".
 
@@ -103,32 +97,33 @@ Now you're ready to rock :-)
 
 == Documentation
 
-Use the rakefile:
+You can check the online documentation for the official release here:
 
-  rake rdoc
-  open html/index.html
+http://funkaster.github.com/shinycocos
 
-You might need a newer version of rdoc:
+Also, be sure to check the wiki:
 
-  sudo gem install rdoc
-
-The one that comes with Leopard is too old and complains about the
-enclosing module not being found.
+http://wiki.github.com/funkaster/shinycocos
 
 == Adding extensions from the stdlib
 
-If you need to add an extension from the stdlib (or your own extension)
-add the source file to the "ext" group in the ShinyCocos project file.
-It will be statically linked to ruby. You should also add the Init call
-in the function <tt>Init_SC_Ruby_Extensions</tt>, in the
-<tt>SC_init.m</tt> file.
+If you need to add your own c extension, or one from the stdlib, add
+them to your project, and put the <tt>Init_xxx()</tt> call right after
+the call to SetupShinyCocos() in your main app delegate, like this:
 
-After that, make sure you add an empty file named after your extension,
-i.e: stringio.rb for the StringIO extension, inside the "lib" directory
-of your project. That way, your code can still call
-<tt>require 'stringio'</tt>.
+  ShinyCocosSetup(window);
+  // insert here your ruby extensions (i.e.: Init_xxx())
+  Init_myextension();
+  Init_another_extension();
+  
+  ShinyCocosInitChipmunk();
+  ShinyCocosStart();
 
-I will try to find an easier way :-).
+Be careful with the <tt>require</tt>s though, because if you add the
+extension this way, it will be statically linked, so you don't have to
+<tt>require</tt> it in your code. If you do not want to modify your
+code, just add an empty file named after your extension and put it in
+the <tt>lib</tt> directory of your project.
 
 For ruby-only extensions, just add them to the lib directory.
 
@@ -151,10 +146,6 @@ These are pure-ruby libs (found in the <tt>lib</tt> directory):
 * rexml (no iconv support)
 * set
 * yaml
-
-ShinyCocos libraries (also pure-ruby):
-
-* map_reader (Tiled map support)
 
 == Hey, I found a bug!
 
