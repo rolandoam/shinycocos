@@ -1,7 +1,9 @@
-version 0.1.0 (Birthday Pinata) - xxx
+version 0.1.0 (Birthday Pinata) - 2009-08-09
 . Added NSUserDefaults (basic) access
 . Added Twitter module
+. Added some UI bindings
+. Using cocos2d-iphone 0.8 (svn trunk)
 . Included ruby sources (no need to checkout from svn)
-. Added Chipmunk bindings (rolando)
-. Added License (LGPL) (rolando)
-. First implementation (rolando)
+. Added Chipmunk bindings
+. Added License (LGPL)
+. First implementation
