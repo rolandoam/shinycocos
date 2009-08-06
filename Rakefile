@@ -45,7 +45,6 @@ Integration/SC_Sprite.m
 Integration/SC_TMXTiledMap.m
 Integration/SC_TextField.m
 Integration/SC_TextureNode.m
-Integration/SC_TiledMap.m
 Integration/SC_Transition.m
 Integration/SC_Twitter.m
 Integration/SC_UserDefaults.m
