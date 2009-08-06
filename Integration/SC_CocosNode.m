@@ -128,11 +128,8 @@ static void eachShape(void *ptr, void* unused)
 	if (methods != Qnil) {
 		int i;
 		for (i=0; i < RARRAY_LEN(methods); i++) {
-			// check that the target responds to the action
 			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
-			struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 			sc_protect_funcall((VALUE)userData, m_id, 1, rb_float_new(delta));
-			rb_thread_blocking_region_end(region);
 		}
 	}
 }

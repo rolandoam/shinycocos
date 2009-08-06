@@ -100,7 +100,12 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
 		argv[3] = 0;
     }
 	int state;
+	
+	// block the ruby call
+	struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 	VALUE result = rb_protect(RUBY_METHOD_FUNC(sc_funcall), (VALUE)argv, &state);
+	rb_thread_blocking_region_end(region);
+
 	if (state != 0) {
 		sc_error(state);
 		return Qnil;
