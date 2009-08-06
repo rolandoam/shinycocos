@@ -1,0 +1,1596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Cocos2D::CocosNode</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../Integration/SC_init_m.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="Integration/SC_init.m">Integration/SC_init.m</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000103">::new</a></li>
+					
+					<li><a href="#M000121">#add_child</a></li>
+					
+					<li><a href="#M000119">#anchor_point</a></li>
+					
+					<li><a href="#M000120">#anchor_point=</a></li>
+					
+					<li><a href="#M000126">#attach_chipmunk_shape</a></li>
+					
+					<li><a href="#M000129">#become_accelerometer_delegate</a></li>
+					
+					<li><a href="#M000125">#become_chipmunk_stepper</a></li>
+					
+					<li><a href="#M000133">#camera_center</a></li>
+					
+					<li><a href="#M000134">#camera_center=</a></li>
+					
+					<li><a href="#M000131">#camera_eye</a></li>
+					
+					<li><a href="#M000132">#camera_eye=</a></li>
+					
+					<li><a href="#M000122">#child_with_tag</a></li>
+					
+					<li><a href="#M000123">#children</a></li>
+					
+					<li><a href="#M000137">#draw</a></li>
+					
+					<li><a href="#M000138">#inspect</a></li>
+					
+					<li><a href="#M000135">#on_enter</a></li>
+					
+					<li><a href="#M000136">#on_exit</a></li>
+					
+					<li><a href="#M000109">#position</a></li>
+					
+					<li><a href="#M000116">#position=</a></li>
+					
+					<li><a href="#M000105">#rotation</a></li>
+					
+					<li><a href="#M000112">#rotation=</a></li>
+					
+					<li><a href="#M000124">#run_action</a></li>
+					
+					<li><a href="#M000106">#scale</a></li>
+					
+					<li><a href="#M000113">#scale=</a></li>
+					
+					<li><a href="#M000107">#scale_x</a></li>
+					
+					<li><a href="#M000114">#scale_x=</a></li>
+					
+					<li><a href="#M000108">#scale_y</a></li>
+					
+					<li><a href="#M000115">#scale_y=</a></li>
+					
+					<li><a href="#M000127">#schedule</a></li>
+					
+					<li><a href="#M000111">#tag</a></li>
+					
+					<li><a href="#M000118">#tag=</a></li>
+					
+					<li><a href="#M000128">#unschedule</a></li>
+					
+					<li><a href="#M000117">#visible=</a></li>
+					
+					<li><a href="#M000110">#visible?</a></li>
+					
+					<li><a href="#M000130">#world_to_node_space</a></li>
+					
+					<li><a href="#M000104">#z_order</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Cocos2D.html">Cocos2D</a></li>
+				
+					<li><a href="../Cocos2D/AVAudioPlayer.html">Cocos2D::AVAudioPlayer</a></li>
+				
+					<li><a href="../Cocos2D/Actions.html">Cocos2D::Actions</a></li>
+				
+					<li><a href="../Cocos2D/Actions/AccelAmplitude.html">Cocos2D::Actions::AccelAmplitude</a></li>
+				
+					<li><a href="../Cocos2D/Actions/AccelDeccelAmplitude.html">Cocos2D::Actions::AccelDeccelAmplitude</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
+				
+					<li><a href="../Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
+				
+					<li><a href="../Cocos2D/Actions/CallFunc.html">Cocos2D::Actions::CallFunc</a></li>
+				
+					<li><a href="../Cocos2D/Actions/CallFuncN.html">Cocos2D::Actions::CallFuncN</a></li>
+				
+					<li><a href="../Cocos2D/Actions/CallFuncND.html">Cocos2D::Actions::CallFuncND</a></li>
+				
+					<li><a href="../Cocos2D/Actions/CameraAction.html">Cocos2D::Actions::CameraAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/DeccelAmplitude.html">Cocos2D::Actions::DeccelAmplitude</a></li>
+				
+					<li><a href="../Cocos2D/Actions/DelayTime.html">Cocos2D::Actions::DelayTime</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseAction.html">Cocos2D::Actions::EaseAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseExponentialIn.html">Cocos2D::Actions::EaseExponentialIn</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseExponentialInOut.html">Cocos2D::Actions::EaseExponentialInOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseExponentialOut.html">Cocos2D::Actions::EaseExponentialOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseIn.html">Cocos2D::Actions::EaseIn</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseInOut.html">Cocos2D::Actions::EaseInOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseOut.html">Cocos2D::Actions::EaseOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseRateAction.html">Cocos2D::Actions::EaseRateAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseSineIn.html">Cocos2D::Actions::EaseSineIn</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseSineInOut.html">Cocos2D::Actions::EaseSineInOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/EaseSineOut.html">Cocos2D::Actions::EaseSineOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeIn.html">Cocos2D::Actions::FadeIn</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeOut.html">Cocos2D::Actions::FadeOut</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeOutBLTiles.html">Cocos2D::Actions::FadeOutBLTiles</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeOutDownTiles.html">Cocos2D::Actions::FadeOutDownTiles</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeOutTRTiles.html">Cocos2D::Actions::FadeOutTRTiles</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeOutUpTiles.html">Cocos2D::Actions::FadeOutUpTiles</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FadeTo.html">Cocos2D::Actions::FadeTo</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FiniteTimeAction.html">Cocos2D::Actions::FiniteTimeAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FlipX3D.html">Cocos2D::Actions::FlipX3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/FlipY3D.html">Cocos2D::Actions::FlipY3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Grid3DAction.html">Cocos2D::Actions::Grid3DAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/GridAction.html">Cocos2D::Actions::GridAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Hide.html">Cocos2D::Actions::Hide</a></li>
+				
+					<li><a href="../Cocos2D/Actions/InstantAction.html">Cocos2D::Actions::InstantAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/IntervalAction.html">Cocos2D::Actions::IntervalAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/JumpBy.html">Cocos2D::Actions::JumpBy</a></li>
+				
+					<li><a href="../Cocos2D/Actions/JumpTiles3D.html">Cocos2D::Actions::JumpTiles3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/JumpTo.html">Cocos2D::Actions::JumpTo</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Lens3D.html">Cocos2D::Actions::Lens3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Liquid.html">Cocos2D::Actions::Liquid</a></li>
+				
+					<li><a href="../Cocos2D/Actions/MoveBy.html">Cocos2D::Actions::MoveBy</a></li>
+				
+					<li><a href="../Cocos2D/Actions/MoveTo.html">Cocos2D::Actions::MoveTo</a></li>
+				
+					<li><a href="../Cocos2D/Actions/OrbitCamera.html">Cocos2D::Actions::OrbitCamera</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Place.html">Cocos2D::Actions::Place</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Repeat.html">Cocos2D::Actions::Repeat</a></li>
+				
+					<li><a href="../Cocos2D/Actions/RepeatForever.html">Cocos2D::Actions::RepeatForever</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ReuseGrid.html">Cocos2D::Actions::ReuseGrid</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ReverseTime.html">Cocos2D::Actions::ReverseTime</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Ripple3D.html">Cocos2D::Actions::Ripple3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/RotateBy.html">Cocos2D::Actions::RotateBy</a></li>
+				
+					<li><a href="../Cocos2D/Actions/RotateTo.html">Cocos2D::Actions::RotateTo</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ScaleBy.html">Cocos2D::Actions::ScaleBy</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ScaleTo.html">Cocos2D::Actions::ScaleTo</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Sequence.html">Cocos2D::Actions::Sequence</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Shaky3D.html">Cocos2D::Actions::Shaky3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ShakyTiles3D.html">Cocos2D::Actions::ShakyTiles3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ShatteredTiles3D.html">Cocos2D::Actions::ShatteredTiles3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Show.html">Cocos2D::Actions::Show</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ShuffleTiles.html">Cocos2D::Actions::ShuffleTiles</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Spawn.html">Cocos2D::Actions::Spawn</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Speed.html">Cocos2D::Actions::Speed</a></li>
+				
+					<li><a href="../Cocos2D/Actions/SplitCols.html">Cocos2D::Actions::SplitCols</a></li>
+				
+					<li><a href="../Cocos2D/Actions/SplitRows.html">Cocos2D::Actions::SplitRows</a></li>
+				
+					<li><a href="../Cocos2D/Actions/StopGrid.html">Cocos2D::Actions::StopGrid</a></li>
+				
+					<li><a href="../Cocos2D/Actions/TiledGrid3DAction.html">Cocos2D::Actions::TiledGrid3DAction</a></li>
+				
+					<li><a href="../Cocos2D/Actions/TintBy.html">Cocos2D::Actions::TintBy</a></li>
+				
+					<li><a href="../Cocos2D/Actions/TintTo.html">Cocos2D::Actions::TintTo</a></li>
+				
+					<li><a href="../Cocos2D/Actions/ToggleVisibility.html">Cocos2D::Actions::ToggleVisibility</a></li>
+				
+					<li><a href="../Cocos2D/Actions/TurnOffTiles.html">Cocos2D::Actions::TurnOffTiles</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Twirl.html">Cocos2D::Actions::Twirl</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Waves.html">Cocos2D::Actions::Waves</a></li>
+				
+					<li><a href="../Cocos2D/Actions/Waves3D.html">Cocos2D::Actions::Waves3D</a></li>
+				
+					<li><a href="../Cocos2D/Actions/WavesTiles3D.html">Cocos2D::Actions::WavesTiles3D</a></li>
+				
+					<li><a href="../Cocos2D/AtlasAnimation.html">Cocos2D::AtlasAnimation</a></li>
+				
+					<li><a href="../Cocos2D/AtlasSprite.html">Cocos2D::AtlasSprite</a></li>
+				
+					<li><a href="../Cocos2D/AtlasSpriteManager.html">Cocos2D::AtlasSpriteManager</a></li>
+				
+					<li><a href="../Cocos2D/BitmapFontAtlas.html">Cocos2D::BitmapFontAtlas</a></li>
+				
+					<li><a href="../Cocos2D/CocosNode.html">Cocos2D::CocosNode</a></li>
+				
+					<li><a href="../Cocos2D/Director.html">Cocos2D::Director</a></li>
+				
+					<li><a href="../Cocos2D/Label.html">Cocos2D::Label</a></li>
+				
+					<li><a href="../Cocos2D/LabelAtlas.html">Cocos2D::LabelAtlas</a></li>
+				
+					<li><a href="../Cocos2D/Layer.html">Cocos2D::Layer</a></li>
+				
+					<li><a href="../Cocos2D/Menu.html">Cocos2D::Menu</a></li>
+				
+					<li><a href="../Cocos2D/MenuItemAtlasSprite.html">Cocos2D::MenuItemAtlasSprite</a></li>
+				
+					<li><a href="../Cocos2D/MenuItemImage.html">Cocos2D::MenuItemImage</a></li>
+				
+					<li><a href="../Cocos2D/Scene.html">Cocos2D::Scene</a></li>
+				
+					<li><a href="../Cocos2D/Slider.html">Cocos2D::Slider</a></li>
+				
+					<li><a href="../Cocos2D/SolidShapeMap.html">Cocos2D::SolidShapeMap</a></li>
+				
+					<li><a href="../Cocos2D/Sprite.html">Cocos2D::Sprite</a></li>
+				
+					<li><a href="../Cocos2D/TMXLayer.html">Cocos2D::TMXLayer</a></li>
+				
+					<li><a href="../Cocos2D/TMXTiledMap.html">Cocos2D::TMXTiledMap</a></li>
+				
+					<li><a href="../Cocos2D/TextField.html">Cocos2D::TextField</a></li>
+				
+					<li><a href="../Cocos2D/TextureNode.html">Cocos2D::TextureNode</a></li>
+				
+					<li><a href="../Cocos2D/TransitionScene.html">Cocos2D::TransitionScene</a></li>
+				
+					<li><a href="../Cocos2D/Twitter.html">Cocos2D::Twitter</a></li>
+				
+					<li><a href="../Cocos2D/UserDefaults.html">Cocos2D::UserDefaults</a></li>
+				
+					<li><a href="../File.html">File</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Cocos2D::CocosNode</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="M000103"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">new    #=> CocosNode
+new(a,b)   #=> CocosNode</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Same as CocosNode.node, althought the Obj-C object is not autoreleaseable.
+It will be safely released by ruby&#8217;s GC.
+</p>
+<p>
+Use this when subclassing <a href="CocosNode.html">CocosNode</a> and your
+initializer uses arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+VALUE rb_cCocosNode_s_new(int argc, VALUE *argv, VALUE klass) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="add-child-method" class="method-detail ">
+				<a name="M000121"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_child</span><span
+						class="method-args">(...)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Adds a child. The child should be a subclass of <a
+href="CocosNode.html">CocosNode</a>.
+</p>
+<pre>
+  add_child(obj) #=&gt; obj
+  add_child(obj, :z =&gt; z, :tag =&gt; tag, :parallaxRatio =&gt; ratio)
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="add-child-source">
+<pre>
+VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="anchor-point-method" class="method-detail ">
+				<a name="M000119"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">anchor_point</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns the node&#8217;s anchor point as an array of floats
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="anchor-point-source">
+<pre>
+VALUE rb_cCocosNode_anchor_point(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="anchor-point--method" class="method-detail ">
+				<a name="M000120"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">anchor_point = [x,y]   #=> [x,y]</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the anchor point for the node. By deafult is its center.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="anchor-point--source">
+<pre>
+VALUE rb_cCocosNode_set_anchor_point(VALUE object, VALUE rb_anchor) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attach-chipmunk-shape-method" class="method-detail ">
+				<a name="M000126"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attach_chipmunk_shape</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will bind a Chipmunk Shape to a <a href="CocosNode.html">CocosNode</a>
+(will create an ivar named cc_node in the shape and set it to the node)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attach-chipmunk-shape-source">
+<pre>
+VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="become-accelerometer-delegate-method" class="method-detail ">
+				<a name="M000129"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">become_accelerometer_delegate   #=> node</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will become the shared accelerometer&#8217;s delegate. The node must
+implement +did_accelerate(accel)+, where <tt>accel</tt> is an array of
+three floats (acceleration in axis x, y and z respectively.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="become-accelerometer-delegate-source">
+<pre>
+VALUE rb_cCocosNode_become_accelerometer_delegate(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="become-chipmunk-stepper-method" class="method-detail ">
+				<a name="M000125"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">become_chipmunk_stepper</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will set the node as the stepper for chipmunk (will run the
+<tt>chipmunk_step:</tt> selector).
+</p>
+<p>
+The default stepper iterates only over the active shapes, not the static
+ones. Also, when becoming the stepper, it must have an instance variable
+named +@space+.
+</p>
+<p>
+Currently, the code for the stepper is:
+</p>
+<pre>
+  int steps = 1, i;
+  cpFloat dt = 1.0f/60.0f/(cpFloat)steps;
+
+  for(i=0; i&lt;steps; i++){
+      cpSpaceStep(space, dt);
+  }
+  cpSpaceHashEach(space-&gt;activeShapes, &amp;eachShape, nil);
+</pre>
+<p>
+You can read a small discussion about this stepper here:
+</p>
+<p>
+<a
+href="http://www.cocos2d-iphone.org/forum/topic/596">www.cocos2d-iphone.org/forum/topic/596</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="become-chipmunk-stepper-source">
+<pre>
+VALUE rb_cCocosNode_become_chipmunk_stepper(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="camera-center-method" class="method-detail ">
+				<a name="M000133"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">camera_center   => [x,y,z]</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+returns the camera center as an array of 3 floats
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="camera-center-source">
+<pre>
+VALUE rb_cCocosNode_camera_center(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="camera-center--method" class="method-detail ">
+				<a name="M000134"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">camera_center = [x,y,z]   => [x,y,z]</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the new camera center.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="camera-center--source">
+<pre>
+VALUE rb_cCocosNode_set_camera_center(VALUE object, VALUE position) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="camera-eye-method" class="method-detail ">
+				<a name="M000131"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">camera_eye   => [x,y,z]</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+returns the camera eye as an array of 3 floats
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="camera-eye-source">
+<pre>
+VALUE rb_cCocosNode_camera_eye(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="camera-eye--method" class="method-detail ">
+				<a name="M000132"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">camera_eye = [x,y,z]   => [x,y,z]</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the new camera eye.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="camera-eye--source">
+<pre>
+VALUE rb_cCocosNode_set_camera_eye(VALUE object, VALUE position) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="child-with-tag-method" class="method-detail ">
+				<a name="M000122"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">child_with_tag(tag)   #=> CocosNode</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+returns the child with the specified tag. Nil if there&#8217;s no child
+with that tag.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="child-with-tag-source">
+<pre>
+VALUE rb_cCocosNode_child_with_tag(VALUE object, VALUE tag) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="children-method" class="method-detail ">
+				<a name="M000123"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">children</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+call-seq:
+</p>
+<pre>
+  node.children   #=&gt; array of children (empty if no children has been added)
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="children-source">
+<pre>
+VALUE rb_cCocosNode_children(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="draw-method" class="method-detail ">
+				<a name="M000137"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">draw</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will be called when the node exits the &#8216;stage&#8217;
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="draw-source">
+<pre>
+VALUE rb_cCocosNode_on_exit(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="inspect-method" class="method-detail ">
+				<a name="M000138"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">inspect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+returns info about the object
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="inspect-source">
+<pre>
+VALUE rb_cCocosNode_inspect(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="on-enter-method" class="method-detail ">
+				<a name="M000135"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">on_enter</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will be called when the node enters the &#8216;stage&#8217;
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="on-enter-source">
+<pre>
+VALUE rb_cCocosNode_on_enter(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="on-exit-method" class="method-detail ">
+				<a name="M000136"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">on_exit</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will be called when the node exits the &#8216;stage&#8217;
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="on-exit-source">
+<pre>
+VALUE rb_cCocosNode_on_exit(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="position-method" class="method-detail ">
+				<a name="M000109"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">position</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.position #=> [x,y]
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="position-source">
+<pre>
+VALUE rb_cCocosNode_position(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="position--method" class="method-detail ">
+				<a name="M000116"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">position=</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.position = [x,y] #=> [x,y]
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="position--source">
+<pre>
+VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rotation-method" class="method-detail ">
+				<a name="M000105"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">rotation   => Float</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns the rotation of the sprite
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rotation-source">
+<pre>
+VALUE rb_cCocosNode_rotation(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rotation--method" class="method-detail ">
+				<a name="M000112"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">rotation = 15.0</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the rotation of the sprite
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rotation--source">
+<pre>
+VALUE rb_cCocosNode_set_rotation(VALUE object, VALUE rotation) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="run-action-method" class="method-detail ">
+				<a name="M000124"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">run_action</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<pre>
+   node.run_action(action)   #=&gt; nil
+</pre>
+<p>
+<tt>action</tt> must be a subclass of <a
+href="Actions/Action.html">Cocos2D::Actions::Action</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="run-action-source">
+<pre>
+VALUE rb_cCocosNode_run_action(VALUE object, VALUE action) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="scale-method" class="method-detail ">
+				<a name="M000106"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">scale</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.scale #=> float
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="scale-source">
+<pre>
+VALUE rb_cCocosNode_scale(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="scale--method" class="method-detail ">
+				<a name="M000113"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">scale=</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.scale = 0.5
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="scale--source">
+<pre>
+VALUE rb_cCocosNode_set_scale(VALUE object, VALUE scale) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="scale-x-method" class="method-detail ">
+				<a name="M000107"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">scale_x</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.scale_x #=> float
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="scale-x-source">
+<pre>
+VALUE rb_cCocosNode_scale_x(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="scale-x--method" class="method-detail ">
+				<a name="M000114"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">scale_x=</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.scale_x = 1.1
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="scale-x--source">
+<pre>
+VALUE rb_cCocosNode_set_scale_x(VALUE object, VALUE scale_x) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="scale-y-method" class="method-detail ">
+				<a name="M000108"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">scale_y</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.scale_y #=> float
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="scale-y-source">
+<pre>
+VALUE rb_cCocosNode_scale_y(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="scale-y--method" class="method-detail ">
+				<a name="M000115"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">scale_y=</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.scale_y = 0.3
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="scale-y--source">
+<pre>
+VALUE rb_cCocosNode_set_scale_y(VALUE object, VALUE scale_y) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="schedule-method" class="method-detail ">
+				<a name="M000127"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">schedule</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Will schedule a method to be called every frame
+</p>
+<pre>
+  node.schedule(:every_frame)   #=&gt; node
+</pre>
+<p>
+<tt>:every_frame</tt> on <tt>node</tt> will be called every frame.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="schedule-source">
+<pre>
+VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tag-method" class="method-detail ">
+				<a name="M000111"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tag</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.tag #=> Integer
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tag-source">
+<pre>
+VALUE rb_cCocosNode_tag(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tag--method" class="method-detail ">
+				<a name="M000118"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tag=</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the node&#8217;s tag, it should be an integer.
+</p>
+<pre>
+  node.tag = MY_TAG
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="tag--source">
+<pre>
+VALUE rb_cCocosNode_set_tag(VALUE object, VALUE tag) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="unschedule-method" class="method-detail ">
+				<a name="M000128"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">unschedule</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+will remove a scheduled method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="unschedule-source">
+<pre>
+VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="visible--method" class="method-detail ">
+				<a name="M000117"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">visible=</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the node&#8217;s visibility
+</p>
+<pre>
+  node.visible = true
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="visible--source">
+<pre>
+VALUE rb_cCocosNode_set_visible(VALUE object, VALUE visible) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="visible--method" class="method-detail ">
+				<a name="M000110"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">visible?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+node.visible? #=> true or false
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="visible--source">
+<pre>
+VALUE rb_cCocosNode_visible(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="world-to-node-space-method" class="method-detail ">
+				<a name="M000130"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">world_to_node_space</span><span
+						class="method-args">(p1)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+call-seq:
+</p>
+<pre>
+  node.world_to_node_space([a,b])   #=&gt; new array in node space
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="world-to-node-space-source">
+<pre>
+VALUE rb_cCocosNode_world_to_node_space(VALUE object, VALUE point) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="z-order-method" class="method-detail ">
+				<a name="M000104"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">z_order   => Integer</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns the <a href="CocosNode.html#M000104">z_order</a> of the node
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="z-order-source">
+<pre>
+VALUE rb_cCocosNode_z_order(VALUE object) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
