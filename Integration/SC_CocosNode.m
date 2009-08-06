@@ -26,9 +26,6 @@
 
 VALUE rb_cCocosNode;
 
-struct rb_blocking_region_buffer *rb_thread_blocking_region_begin();
-void rb_thread_blocking_region_end(struct rb_blocking_region_buffer *region);
-
 #pragma mark CocosNode extension
 
 static void eachShape(void *ptr, void* unused)

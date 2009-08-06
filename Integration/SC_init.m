@@ -25,6 +25,9 @@ NSMutableDictionary *sc_object_hash;
 NSMutableDictionary *sc_schedule_methods;
 NSMutableDictionary *sc_handler_hash;
 
+struct rb_blocking_region_buffer *rb_thread_blocking_region_begin();
+void rb_thread_blocking_region_end(struct rb_blocking_region_buffer *region);
+
 #pragma mark Common
 
 void sc_free(void *ptr) {

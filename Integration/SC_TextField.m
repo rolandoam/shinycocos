@@ -28,9 +28,9 @@ VALUE rb_cTextField;
 
 /*
  * call-seq:
- *   TextField.new(size, landscape, text)   #=> a text field
+ *   TextField.new(size, landscape)   #=> a text field
  *
- * size is an array of 4 floats, text is a string, can be nil. Landscape is to rotate the textfield
+ * size is an array of 4 floats. Landscape is to rotate the textfield
  */
 VALUE rb_cTextField_s_new(int argc, VALUE *argv, VALUE klass) {
 	if (argc < 2) {
@@ -90,7 +90,7 @@ VALUE rb_cTextField_value(VALUE object) {
  */
 VALUE rb_cTextField_set_value(VALUE object, VALUE rb_str) {
 	Check_Type(rb_str, T_STRING);
-	UI_TFIELD(object).text = [NSString stringWithCString:StringValueCStr(rb_str) encoding:NSUTF8StringEncoding];
+	UI_TFIELD(object).text = [NSString stringWithCString:RSTRING_PTR(rb_str) encoding:NSUTF8StringEncoding];
 	return rb_str;
 }
 
