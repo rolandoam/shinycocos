@@ -62,12 +62,12 @@ class TestCoordinates < MenuScene
   end
   
   def init_physics
-    $space = CP::Space.new
-    $space.resize_static_hash(400, 40)
-    $space.resize_active_hash(100, 600)
-    $space.gravity = CP::Vec2.new(0.0, -98)
-    $space.iterations = 40
-    $space.elastic_iterations = $space.iterations
+    @space = CP::Space.new
+    @space.resize_static_hash(400, 40)
+    @space.resize_active_hash(100, 600)
+    @space.gravity = CP::Vec2.new(0.0, -98)
+    @space.iterations = 40
+    @space.elastic_iterations = @space.iterations
     # add the floor, we want to simulate the "tube" in tube.png
     # to do that, we will add lots of small segments
     verts = [CP::Vec2.new(0, 5000)]
@@ -81,28 +81,11 @@ class TestCoordinates < MenuScene
     (1...verts.size).each do |i|
       shape = CP::Shape::Segment.new(sbody, first, verts[i], 0.0)
       shape.u = 1.0
-      $space.add_static_shape(shape)
+      @space.add_static_shape(shape)
       first = verts[i]
     end
     # install default stepper
     become_chipmunk_stepper
-    # or, we could use our own stepper
-    # schedule :tick
-  end
-  
-  # the same version of the objc default stepper
-  def tick(delta)
-    steps = 2
-    dt = delta/steps
-    (0...steps).each { |i| $space.step(dt) }
-    (0..2).each { |i|
-      child_with_tag(i).tap do |c|
-        b = c.shape.body
-        c.position = [b.p.x, b.p.y]
-        c.rotation = b.a
-        b.reset_forces
-      end
-    }
   end
   
   def add_physics
@@ -133,9 +116,9 @@ class TestCoordinates < MenuScene
     j2 = CP::Joint::Groove.new(body_wheel1, body2, CP::Vec2.new(0.0,0.1), CP::Vec2.new(0.0,0.0), CP::Vec2.new(-25.0, 0))
     j3 = CP::Joint::Groove.new(body_wheel2, body2, CP::Vec2.new(0.0,0.1), CP::Vec2.new(0.0,0.0), CP::Vec2.new( 25.0, 0))
     # add all bodies/shapes/joints to the space
-    [body1, body2, body_wheel1, body_wheel2].each { |b| $space.add_body(b) }
-    (shapes = [shape1, shape2, shape_wheel1, shape_wheel2]).each { |s| $space.add_shape(s) }
-    [j1, j2, j3].each { |j| $space.add_joint(j) }
+    [body1, body2, body_wheel1, body_wheel2].each { |b| @space.add_body(b) }
+    (shapes = [shape1, shape2, shape_wheel1, shape_wheel2]).each { |s| @space.add_shape(s) }
+    [j1, j2, j3].each { |j| @space.add_joint(j) }
     # attach each body to the corresponding sprite
     (0..3).each do |i|
       child_with_tag(i).tap do |c|

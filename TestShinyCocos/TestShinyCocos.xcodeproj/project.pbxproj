@@ -24,7 +24,6 @@
 		A93D7EA10FBE0BF300731024 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A93D7E9B0FBE0BF300731024 /* vendor */; };
 		A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */; };
 		A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */; };
-		A9A0570B0F9E9B1600C85842 /* main.rb in Resources */ = {isa = PBXBuildFile; fileRef = A9A057080F9E9B1600C85842 /* main.rb */; };
 		A9A057340F9E9B6200C85842 /* libShinyCocos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056A10F9E9AAD00C85842 /* libShinyCocos.a */; };
 		A9A057350F9E9B6800C85842 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056D00F9E9AB600C85842 /* libcocos2d.a */; };
 		A9C0363E0FCCAC5A00D447B4 /* simple_map.tmx in Resources */ = {isa = PBXBuildFile; fileRef = A9C0363C0FCCAC5A00D447B4 /* simple_map.tmx */; };
@@ -342,49 +341,49 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50CB2FCA1004C8B100B7A750 /* libCocosDenshion.a */;
+			remoteGlobalIDString = 50CB2FCA1004C8B100B7A750;
 			remoteInfo = CocosDenshion;
 		};
 		A9E2C08910289843006A9C4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 503164CD10277665003ACFE7 /* liblibpng.a */;
+			remoteGlobalIDString = 503164CD10277665003ACFE7;
 			remoteInfo = libpng;
 		};
 		A9E2C08B10289843006A9C4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50CB30361004C9D300B7A750 /* CocosDenshionDemo.app */;
+			remoteGlobalIDString = 50CB30361004C9D300B7A750;
 			remoteInfo = "CocosDenshionDemo (soundengine)";
 		};
 		A9E2C08D10289843006A9C4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 504799B1100F6A4200D1C71A /* LayerTest.app */;
+			remoteGlobalIDString = 504799B1100F6A4200D1C71A;
 			remoteInfo = LayerTest;
 		};
 		A9E2C08F10289843006A9C4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 503167B41028488E003ACFE7 /* ParticleView.app */;
+			remoteGlobalIDString = 503167B41028488E003ACFE7;
 			remoteInfo = ParticleView;
 		};
 		A9E2C09110289843006A9C4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 503F5CBE101FE930002A37E5 /* TileMapTest.app */;
+			remoteGlobalIDString = 503F5CBE101FE930002A37E5;
 			remoteInfo = TileMapTest;
 		};
 		A9E2C09310289843006A9C4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 50CB34DD100765EF00B7A750 /* Bug422.app */;
+			remoteGlobalIDString = 50CB34DD100765EF00B7A750;
 			remoteInfo = Bug422;
 		};
 /* End PBXContainerItemProxy section */
@@ -406,7 +405,6 @@
 		A93610430FE8022500BD9029 /* black_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = black_box.png; path = Resources/Images/black_box.png; sourceTree = "<group>"; };
 		A93610440FE8022500BD9029 /* brown_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brown_box.png; path = Resources/Images/brown_box.png; sourceTree = "<group>"; };
 		A93610450FE8022500BD9029 /* wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel.png; path = Resources/Images/wheel.png; sourceTree = "<group>"; };
-		A93610770FE803EC00BD9029 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white.png; path = Resources/Images/white.png; sourceTree = "<group>"; };
 		A93611B10FE96A5B00BD9029 /* tube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tube.png; path = Resources/Images/tube.png; sourceTree = "<group>"; };
 		A93D7E9B0FBE0BF300731024 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
 		A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
@@ -414,7 +412,6 @@
 		A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerSimulation.m; sourceTree = "<group>"; };
 		A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShinyCocos.xcodeproj; path = ../ShinyCocos.xcodeproj; sourceTree = SOURCE_ROOT; };
 		A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-iphone.xcodeproj"; path = "../cocos2d-iphone/cocos2d-iphone.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		A9A057080F9E9B1600C85842 /* main.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = main.rb; sourceTree = "<group>"; };
 		A9C0363C0FCCAC5A00D447B4 /* simple_map.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = simple_map.tmx; path = Resources/simple_map.tmx; sourceTree = "<group>"; };
 		A9C0363D0FCCAC5A00D447B4 /* TestTiled.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = TestTiled.tmx; path = Resources/TestTiled.tmx; sourceTree = "<group>"; };
 		A9C036400FCCAC6C00D447B4 /* b1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b1.png; path = Resources/Images/b1.png; sourceTree = "<group>"; };
@@ -487,7 +484,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A9A057080F9E9B1600C85842 /* main.rb */,
 				32CA4F630368D1EE00C91783 /* TestShinyCocos_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -526,7 +522,6 @@
 			isa = PBXGroup;
 			children = (
 				A93611B10FE96A5B00BD9029 /* tube.png */,
-				A93610770FE803EC00BD9029 /* white.png */,
 				A93610430FE8022500BD9029 /* black_box.png */,
 				A93610440FE8022500BD9029 /* brown_box.png */,
 				A93610450FE8022500BD9029 /* wheel.png */,
@@ -995,7 +990,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A0570B0F9E9B1600C85842 /* main.rb in Resources */,
 				A9E53E960F9F6BB9001DC55F /* Entitlements.plist in Resources */,
 				A9066D910FBB55610020ABC5 /* lib in Resources */,
 				A93D7EA10FBE0BF300731024 /* vendor in Resources */,
