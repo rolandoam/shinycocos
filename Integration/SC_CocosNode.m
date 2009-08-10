@@ -81,7 +81,9 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_enter];
 	// call the ruby version
 	if (userData) {
+		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_on_enter, 0, 0);
+		rb_thread_blocking_region_end(region);
 	}
 }
 
@@ -89,7 +91,9 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_enter_transition_did_finish];
 	// call the ruby version
 	if (userData) {
+		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, sc_id_on_enter_transition_did_finish, 0, 0);
+		rb_thread_blocking_region_end(region);
 	}
 }
 
@@ -97,7 +101,9 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_exit];
 	// call the ruby version
 	if (userData) {
+		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_on_exit, 0, 0);
+		rb_thread_blocking_region_end(region);
 	}
 }
 
