@@ -74,7 +74,9 @@ VALUE rb_cSlider_detach(VALUE object) {
 
 /*
  * call-seq:
- *   slider.value   #=> string
+ *   slider.value   #=> float
+ *
+ * returns the current value of the slider as a float
  */
 VALUE rb_cSlider_value(VALUE object) {
 	return rb_float_new(UI_SLIDER(object).value);
@@ -83,7 +85,9 @@ VALUE rb_cSlider_value(VALUE object) {
 
 /*
  * call-seq:
- *   slider.value = string   #=> string
+ *   slider.value = float   #=> float
+ *
+ * sets the current value of the slider
  */
 VALUE rb_cSlider_set_value(VALUE object, VALUE rb_value) {
 	Check_Type(rb_value, T_FLOAT);
