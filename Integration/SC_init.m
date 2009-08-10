@@ -19,14 +19,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SC_common.h"
+#import "Reachability.h"
 
 VALUE rb_mCocos2D;
 NSMutableDictionary *sc_object_hash;
 NSMutableDictionary *sc_schedule_methods;
 NSMutableDictionary *sc_handler_hash;
-
-struct rb_blocking_region_buffer *rb_thread_blocking_region_begin();
-void rb_thread_blocking_region_end(struct rb_blocking_region_buffer *region);
 
 #pragma mark Common
 
@@ -86,7 +84,7 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
 	
     if (n > 0) {
 		long i;
-		argv = ALLOCA_N(VALUE, n+3);
+		argv = ALLOC_N(VALUE, n+3);
 		argv[0] = recv;
 		argv[1] = (VALUE)mid;
 		argv[2] = (VALUE)n;
@@ -96,7 +94,7 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
 		va_end(ar);
     }
     else {
-		argv = ALLOCA_N(VALUE, 4);
+		argv = ALLOC_N(VALUE, 4);
 		argv[0] = recv;
 		argv[1] = (VALUE)mid;
 		argv[2] = (VALUE)n;
@@ -104,10 +102,8 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
     }
 	int state;
 	
-	// block the ruby call
-	struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 	VALUE result = rb_protect(RUBY_METHOD_FUNC(sc_funcall), (VALUE)argv, &state);
-	rb_thread_blocking_region_end(region);
+	free(argv);
 
 	if (state != 0) {
 		sc_error(state);
@@ -178,6 +174,26 @@ VALUE sc_display_alert(int argc, VALUE *argv, VALUE module) {
 
 
 /*
+ * call-seq:
+ *   Cocos2D.reachability_for_host("myhost.com")   #=> integer
+ *
+ * Determines the reachability for the specified host. You should always
+ * try to check for the reachability of a host before actually contacting it.
+ *
+ * Possible return values:
+ *
+ * * <tt>Cocos2D::NOT_REACHABLE</tt>
+ * * <tt>Cocos2D::REACHABLE_VIA_CARRIER_DATA_NETWORK</tt>
+ * * <tt>Cocos2D::REACHABLE_VIA_WIFI_NETWORK</tt>
+ */
+VALUE sc_reachability_for_host(VALUE module, VALUE host) {
+	Check_Type(host, T_STRING);
+	[Reachability sharedReachability].hostName = [NSString stringWithCString:RSTRING_PTR(host) encoding:NSUTF8StringEncoding];
+	return INT2FIX([[Reachability sharedReachability] remoteHostStatus]);
+}
+
+
+/*
  * ShinyCocos
  * 
  * ## Notes
@@ -225,6 +241,14 @@ void Init_ShinyCocos() {
 	/* common utility functions */
 	rb_define_module_function(rb_mCocos2D, "ns_log", sc_ns_log, -1);
 	rb_define_module_function(rb_mCocos2D, "display_alert", sc_display_alert, -1);
+	rb_define_module_function(rb_mCocos2D, "reachability_for_host", sc_reachability_for_host, 1);
+	
+	/* no network conectivity */
+	rb_define_const(rb_mCocos2D, "NOT_REACHABLE", INT2FIX(NotReachable));
+	/* network conectivity through carrier */
+	rb_define_const(rb_mCocos2D, "REACHABLE_VIA_CARRIER_DATA_NETWORK", INT2FIX(ReachableViaCarrierDataNetwork));
+	/* network conectivity through wifi network */
+	rb_define_const(rb_mCocos2D, "REACHABLE_VIA_WIFI_NETWORK", INT2FIX(ReachableViaWiFiNetwork));
 }
 
 void Init_encdb();
