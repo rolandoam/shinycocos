@@ -3,7 +3,7 @@
 
   thread_pthread.c -
 
-  $Author: yugui $
+  $Author: ko1 $
 
   Copyright (C) 2004-2007 Koichi Sasada
 
@@ -264,7 +264,7 @@ extern void *STACK_END_ADDRESS;
 
 #undef ruby_init_stack
 void
-ruby_init_stack(VALUE *addr
+ruby_init_stack(volatile VALUE *addr
 #ifdef __ia64
     , void *bsp
 #endif
@@ -278,7 +278,7 @@ ruby_init_stack(VALUE *addr
         STACK_UPPER((VALUE *)(void *)&addr,
                     native_main_thread.stack_start > addr,
                     native_main_thread.stack_start < addr)) {
-        native_main_thread.stack_start = addr;
+        native_main_thread.stack_start = (VALUE *)addr;
     }
 #endif
 #ifdef __ia64
@@ -465,7 +465,11 @@ native_thread_create(rb_thread_t *th)
     }
     else {
 	pthread_attr_t attr;
+#ifdef __SYMBIAN32__
+	size_t stack_size = 64 * 1024;	/* 64KB: Let's be slightly more frugal on mobile platform */
+#else
 	size_t stack_size = 512 * 1024; /* 512KB */
+#endif
         size_t space;
 
 #ifdef PTHREAD_STACK_MIN
@@ -557,7 +561,7 @@ ubf_pthread_cond_signal(void *ptr)
     pthread_cond_signal(&th->native_thread_data.sleep_cond);
 }
 
-#ifndef __CYGWIN__
+#if !defined(__CYGWIN__) && !defined(__SYMBIAN32__)
 static void
 ubf_select_each(rb_thread_t *th)
 {
@@ -757,7 +761,7 @@ thread_timer(void *dummy)
 	}
 	else rb_bug("thread_timer/timedwait: %d", err);
 
-#ifndef __CYGWIN__
+#if !defined(__CYGWIN__) && !defined(__SYMBIAN32__)
 	if (signal_thread_list_anchor.next) {
 	    FGLOCK(&signal_thread_list_lock, {
 		struct signal_thread_list *list;
@@ -793,7 +797,8 @@ rb_thread_create_timer_thread(void)
 	err = pthread_create(&timer_thread_id, &attr, thread_timer, 0);
 	if (err != 0) {
 	    native_mutex_unlock(&timer_thread_lock);
-	    rb_bug("rb_thread_create_timer_thread: return non-zero (%d)", err);
+	    fprintf(stderr, "[FATAL] Failed to create timer thread (errno: %d)\n", err);
+	    exit(EXIT_FAILURE);
 	}
 	native_cond_wait(&timer_thread_cond, &timer_thread_lock);
 	native_mutex_unlock(&timer_thread_lock);

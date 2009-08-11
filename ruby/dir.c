@@ -2,7 +2,7 @@
 
   dir.c -
 
-  $Author: yugui $
+  $Author: nobu $
   created at: Wed Jan  5 09:51:01 JST 1994
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -478,6 +478,19 @@ dir_path(VALUE dir)
     return rb_str_dup(dirp->path);
 }
 
+#if defined HAVE_READDIR_R
+# define READDIR(dir, enc, entry, dp) (readdir_r(dir, entry, &(dp)) == 0 && dp != 0)
+#elif defined _WIN32
+# define READDIR(dir, enc, entry, dp) ((dp = rb_w32_readdir_with_enc(dir, enc)) != 0)
+#else
+# define READDIR(dir, enc, entry, dp) ((dp = readdir(dir)) != 0)
+#endif
+#if defined HAVE_READDIR_R
+# define IF_HAVE_READDIR_R(something) something
+#else
+# define IF_HAVE_READDIR_R(something) /* nothing */
+#endif
+
 /*
  *  call-seq:
  *     dir.read => string or nil
@@ -495,11 +508,11 @@ dir_read(VALUE dir)
 {
     struct dir_data *dirp;
     struct dirent *dp;
+    IF_HAVE_READDIR_R(struct dirent entry);
 
     GetDIR(dir, dirp);
     errno = 0;
-    dp = readdir(dirp->dir);
-    if (dp) {
+    if (READDIR(dirp->dir, dirp->enc, &entry, dp)) {
 	return rb_external_str_new_with_enc(dp->d_name, NAMLEN(dp), dirp->enc);
     }
     else if (errno == 0) {	/* end of stream */
@@ -533,17 +546,19 @@ dir_each(VALUE dir)
 {
     struct dir_data *dirp;
     struct dirent *dp;
+    IF_HAVE_READDIR_R(struct dirent entry);
 
     RETURN_ENUMERATOR(dir, 0, 0);
     GetDIR(dir, dirp);
     rewinddir(dirp->dir);
-    for (dp = readdir(dirp->dir); dp != NULL; dp = readdir(dirp->dir)) {
+    while (READDIR(dirp->dir, dirp->enc, &entry, dp)) {
 	rb_yield(rb_external_str_new_with_enc(dp->d_name, NAMLEN(dp), dirp->enc));
 	if (dirp->dir == NULL) dir_closed();
     }
     return dir;
 }
 
+#ifdef HAVE_TELLDIR
 /*
  *  call-seq:
  *     dir.pos => integer
@@ -560,18 +575,18 @@ dir_each(VALUE dir)
 static VALUE
 dir_tell(VALUE dir)
 {
-#ifdef HAVE_TELLDIR
     struct dir_data *dirp;
     long pos;
 
     GetDIR(dir, dirp);
     pos = telldir(dirp->dir);
     return rb_int2inum(pos);
-#else
-    rb_notimplement();
-#endif
 }
+#else
+#define dir_tell rb_f_notimplement
+#endif
 
+#ifdef HAVE_SEEKDIR
 /*
  *  call-seq:
  *     dir.seek( integer ) => dir
@@ -590,16 +605,15 @@ static VALUE
 dir_seek(VALUE dir, VALUE pos)
 {
     struct dir_data *dirp;
-    off_t p = NUM2OFFT(pos);
+    long p = NUM2LONG(pos);
 
     GetDIR(dir, dirp);
-#ifdef HAVE_SEEKDIR
     seekdir(dirp->dir, p);
     return dir;
-#else
-    rb_notimplement();
-#endif
 }
+#else
+#define dir_seek rb_f_notimplement
+#endif
 
 /*
  *  call-seq:
@@ -687,7 +701,7 @@ static VALUE
 chdir_yield(struct chdir_data *args)
 {
     dir_chdir(args->new_path);
-    args->done = Qtrue;
+    args->done = TRUE;
     chdir_blocking++;
     if (chdir_thread == Qnil)
 	chdir_thread = rb_thread_current();
@@ -774,7 +788,7 @@ dir_s_chdir(int argc, VALUE *argv, VALUE obj)
 
 	args.old_path = rb_tainted_str_new2(cwd); xfree(cwd);
 	args.new_path = path;
-	args.done = Qfalse;
+	args.done = FALSE;
 	return rb_ensure(chdir_yield, (VALUE)&args, chdir_restore, (VALUE)&args);
     }
     dir_chdir(path);
@@ -821,6 +835,7 @@ check_dirname(volatile VALUE *dir)
     }
 }
 
+#if defined(HAVE_CHROOT)
 /*
  *  call-seq:
  *     Dir.chroot( string ) => 0
@@ -833,18 +848,16 @@ check_dirname(volatile VALUE *dir)
 static VALUE
 dir_s_chroot(VALUE dir, VALUE path)
 {
-#if defined(HAVE_CHROOT) && !defined(__CHECKER__)
     check_dirname(&path);
 
     if (chroot(RSTRING_PTR(path)) == -1)
 	rb_sys_fail(RSTRING_PTR(path));
 
     return INT2FIX(0);
-#else
-    rb_notimplement();
-    return Qnil;		/* not reached */
-#endif
 }
+#else
+#define dir_s_chroot rb_f_notimplement
+#endif
 
 /*
  *  call-seq:
@@ -898,15 +911,16 @@ dir_s_rmdir(VALUE obj, VALUE dir)
     return INT2FIX(0);
 }
 
-static void
-sys_warning_1(const char* mesg)
+static VALUE
+sys_warning_1(VALUE mesg)
 {
-    rb_sys_warning("%s", mesg);
+    rb_sys_warning("%s", (const char *)mesg);
+    return Qnil;
 }
 
-#define GLOB_VERBOSE	(1UL << (sizeof(int) * CHAR_BIT - 1))
+#define GLOB_VERBOSE	(1U << (sizeof(int) * CHAR_BIT - 1))
 #define sys_warning(val) \
-    (void)((flags & GLOB_VERBOSE) && rb_protect((VALUE (*)(VALUE))sys_warning_1, (VALUE)(val), 0))
+    (void)((flags & GLOB_VERBOSE) && rb_protect(sys_warning_1, (VALUE)(val), 0))
 
 #define GLOB_ALLOC(type) (type *)malloc(sizeof(type))
 #define GLOB_ALLOC_N(type, n) (type *)malloc(sizeof(type) * (n))
@@ -1255,10 +1269,12 @@ glob_helper(
 
     if (magical || recursive) {
 	struct dirent *dp;
-	DIR *dirp = do_opendir(*path ? path : ".", flags);
+	DIR *dirp;
+	IF_HAVE_READDIR_R(struct dirent entry);
+	dirp = do_opendir(*path ? path : ".", flags);
 	if (dirp == NULL) return 0;
 
-	for (dp = readdir(dirp); dp != NULL; dp = readdir(dirp)) {
+	while (READDIR(dirp, enc, &entry, dp)) {
 	    char *buf = join_path(path, dirsep, dp->d_name);
 	    enum answer new_isdir = UNKNOWN;
 
@@ -1369,7 +1385,7 @@ ruby_glob0(const char *path, int flags, ruby_glob_func *func, VALUE arg, rb_enco
     struct glob_pattern *list;
     const char *root, *start;
     char *buf;
-    int n;
+    size_t n;
     int status;
 
     start = root = path;
@@ -1474,7 +1490,8 @@ ruby_brace_expand(const char *str, int flags, ruby_glob_func *func, VALUE arg,
     }
 
     if (lbrace && rbrace) {
-	char *buf = GLOB_ALLOC_N(char, strlen(s) + 1);
+	size_t len = strlen(s) + 1;
+	char *buf = GLOB_ALLOC_N(char, len);
 	long shift;
 
 	if (!buf) return -1;
@@ -1493,7 +1510,7 @@ ruby_brace_expand(const char *str, int flags, ruby_glob_func *func, VALUE arg,
 		Inc(p, pend, enc);
 	    }
 	    memcpy(buf+shift, t, p-t);
-	    strcpy(buf+shift+(p-t), rbrace+1);
+	    strlcpy(buf+shift+(p-t), rbrace+1, len-(shift+(p-t)));
 	    status = ruby_brace_expand(buf, flags, func, arg, enc);
 	    if (status) break;
 	}
@@ -1869,6 +1886,30 @@ file_s_fnmatch(int argc, VALUE *argv, VALUE obj)
     return Qfalse;
 }
 
+VALUE rb_home_dir(const char *user, VALUE result);
+
+/*
+ *  call-seq:
+ *    Dir.home()       => "/home/me"
+ *    Dir.home("root") => "/root"
+ *
+ *  Returns the home directory of the current user or the named user
+ *  if given.
+ */
+static VALUE
+dir_s_home(int argc, VALUE *argv, VALUE obj)
+{
+    VALUE user;
+    const char *u = 0;
+
+    rb_scan_args(argc, argv, "01", &user);
+    if (!NIL_P(user)) {
+	SafeStringValue(user);
+	u = StringValueCStr(user);
+    }
+    return rb_home_dir(u, rb_str_new(0, 0));
+}
+
 /*
  *  Objects of class <code>Dir</code> are directory streams representing
  *  directories in the underlying file system. They provide a variety of
@@ -1912,6 +1953,7 @@ Init_Dir(void)
     rb_define_singleton_method(rb_cDir,"rmdir", dir_s_rmdir, 1);
     rb_define_singleton_method(rb_cDir,"delete", dir_s_rmdir, 1);
     rb_define_singleton_method(rb_cDir,"unlink", dir_s_rmdir, 1);
+    rb_define_singleton_method(rb_cDir,"home", dir_s_home, -1);
 
     rb_define_singleton_method(rb_cDir,"glob", dir_s_glob, -1);
     rb_define_singleton_method(rb_cDir,"[]", dir_s_aref, -1);

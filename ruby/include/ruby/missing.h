@@ -3,7 +3,7 @@
   missing.h - prototype for *.c in ./missing, and
   	      for missing timeval struct
 
-  $Author: yugui $
+  $Author: usa $
   created at: Sat May 11 23:46:03 JST 2002
 
 ************************************************/

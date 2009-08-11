@@ -1,8 +1,3 @@
-#define PACKAGE_NAME ""
-#define PACKAGE_TARNAME ""
-#define PACKAGE_VERSION ""
-#define PACKAGE_STRING ""
-#define PACKAGE_BUGREPORT ""
 #define CANONICALIZATION_FOR_MATHN 1
 #define USE_BUILTIN_FRAME_ADDRESS 1
 #define _GNU_SOURCE 1
@@ -31,15 +26,21 @@
 #define SIZEOF_FLOAT 4
 #define SIZEOF_DOUBLE 8
 #define SIZEOF_TIME_T 4
-#define rb_pid_t pid_t
-#define PIDT2NUM(v) LONG2NUM(v)
-#define NUM2PIDT(v) NUM2LONG(v)
-#define rb_uid_t uid_t
-#define UIDT2NUM(v) ULONG2NUM(v)
-#define NUM2UIDT(v) NUM2ULONG(v)
-#define rb_gid_t gid_t
-#define GIDT2NUM(v) ULONG2NUM(v)
-#define NUM2GIDT(v) NUM2ULONG(v)
+#define rb_pid_t int
+#define PIDT2NUM(v) INT2NUM(v)
+#define NUM2PIDT(v) NUM2INT(v)
+#define PRI_PIDT_PREFIX ""
+#define rb_uid_t unsigned int
+#define UIDT2NUM(v) UINT2NUM(v)
+#define NUM2UIDT(v) NUM2UINT(v)
+#define PRI_UIDT_PREFIX ""
+#define rb_gid_t unsigned int
+#define GIDT2NUM(v) UINT2NUM(v)
+#define NUM2GIDT(v) NUM2UINT(v)
+#define PRI_GIDT_PREFIX ""
+#define TIMET2NUM(v) LONG2NUM(v)
+#define NUM2TIMET(v) NUM2LONG(v)
+#define PRI_TIMET_PREFIX "l"
 #define HAVE_PROTOTYPES 1
 #define TOKEN_PASTE(x,y) x##y
 #define STRINGIZE(expr) STRINGIZE0(expr)
@@ -50,16 +51,13 @@
 #define NOINLINE(x) __attribute__ ((noinline)) x
 #define FUNC_STDCALL(x) __attribute__ ((stdcall)) x
 #define FUNC_CDECL(x) __attribute__ ((cdecl)) x
-#ifdef __APPLE__
 #define FUNC_FASTCALL(x) x
-#else
-#define FUNC_FASTCALL(x) __attribute__ ((fastcall)) x
-#endif
-#define RUBY_ALIAS_FUNCTION(old_prot, new_name, args) VALUE old_prot {return new_name args;}
 #define HAVE_DECL_SYS_NERR 1
 #define BROKEN_CRYPT 1
 #define HAVE_LIBDL 1
 #define HAVE_DIRENT_H 1
+#define HAVE__BOOL 1
+#define HAVE_STDBOOL_H 1
 #define HAVE_SYS_WAIT_H 1
 #define HAVE_LIMITS_H 1
 #define HAVE_SYS_FILE_H 1
@@ -77,7 +75,6 @@
 #define HAVE_SYS_RESOURCE_H 1
 #define HAVE_NETINET_IN_SYSTM_H 1
 #define HAVE_FLOAT_H 1
-#define HAVE_PTHREAD_H 1
 #define HAVE_LANGINFO_H 1
 #define HAVE_LOCALE_H 1
 #define HAVE_TIME_H 1
@@ -91,22 +88,35 @@
 #define HAVE_ST_BLOCKS 1
 #define HAVE_STRUCT_STAT_ST_RDEV 1
 #define HAVE_ST_RDEV 1
+#define SIZEOF_STRUCT_STAT_ST_SIZE 8
+#define SIZEOF_STRUCT_STAT_ST_BLOCKS 8
 #define HAVE_STRUCT_STAT_ST_ATIMESPEC 1
 #define HAVE_STRUCT_STAT_ST_MTIMESPEC 1
 #define HAVE_STRUCT_STAT_ST_CTIMESPEC 1
 #define HAVE_STRUCT_TIMESPEC 1
 #define HAVE_RB_FD_INIT 1
 #define HAVE_INT8_T 1
+#define SIZEOF_INT8_T 1
 #define HAVE_UINT8_T 1
+#define SIZEOF_UINT8_T 1
 #define HAVE_INT16_T 1
+#define SIZEOF_INT16_T 2
 #define HAVE_UINT16_T 1
+#define SIZEOF_UINT16_T 2
 #define HAVE_INT32_T 1
+#define SIZEOF_INT32_T 4
 #define HAVE_UINT32_T 1
+#define SIZEOF_UINT32_T 4
 #define HAVE_INT64_T 1
+#define SIZEOF_INT64_T 8
 #define HAVE_UINT64_T 1
+#define SIZEOF_UINT64_T 8
 #define HAVE_INTPTR_T 1
+#define SIZEOF_INTPTR_T 4
 #define HAVE_UINTPTR_T 1
+#define SIZEOF_UINTPTR_T 4
 #define HAVE_SSIZE_T 1
+#define SIZEOF_SSIZE_T 4
 #define GETGROUPS_T gid_t
 #define RETSIGTYPE void
 #define HAVE_ALLOCA_H 1
@@ -136,7 +146,6 @@
 #define HAVE_FORK 1
 #define HAVE_SYSCALL 1
 #define HAVE_CHROOT 1
-#define HAVE_FSYNC 1
 #define HAVE_GETCWD 1
 #define HAVE_TRUNCATE 1
 #define HAVE_FTRUNCATE 1
@@ -148,6 +157,8 @@
 #define HAVE_LINK 1
 #define HAVE_SYMLINK 1
 #define HAVE_READLINK 1
+#define HAVE_READDIR_R 1
+#define HAVE_FSYNC 1
 #define HAVE_SETITIMER 1
 #define HAVE_SETRUID 1
 #define HAVE_SETEUID 1
@@ -199,8 +210,8 @@
 #define HAVE_SENDFILE 1
 #define HAVE_SHUTDOWN 1
 #define HAVE_SIGALTSTACK 1
-#define RUBY_SETJMP(env) setjmp(env)
-#define RUBY_LONGJMP(env,val) longjmp(env,val)
+#define RUBY_SETJMP(env) _setjmp(env)
+#define RUBY_LONGJMP(env,val) _longjmp(env,val)
 #define RUBY_JMP_BUF jmp_buf
 #define HAVE_STRUCT_TM_TM_ZONE 1
 #define HAVE_TM_ZONE 1
@@ -217,6 +228,7 @@
 #define RSHIFT(x,y) ((x)>>(int)y)
 #define FILE_COUNT _r
 #define FILE_READPTR _p
+#define SIZEOF_STRUCT_STAT_ST_INO SIZEOF_LONG
 #define HAVE__SC_CLK_TCK 1
 #define STACK_GROW_DIRECTION -1
 #define _REENTRANT 1
@@ -228,12 +240,17 @@
 #define HAVE_BACKTRACE 1
 #define DLEXT_MAXLEN 7
 #define DLEXT ".bundle"
-#define RUBY_LIB "/usr/local/lib/ruby/1.9.1"
-#define RUBY_SITE_LIB "/usr/local/lib/ruby/site_ruby"
-#define RUBY_SITE_LIB2 "/usr/local/lib/ruby/site_ruby/1.9.1"
-#define RUBY_VENDOR_LIB "/usr/local/lib/ruby/vendor_ruby"
-#define RUBY_VENDOR_LIB2 "/usr/local/lib/ruby/vendor_ruby/1.9.1"
-#define RUBY_PLATFORM "i386-darwin9.6.0"
-#define RUBY_ARCHLIB "/usr/local/lib/ruby/1.9.1/i386-darwin9.6.0"
-#define RUBY_SITE_ARCHLIB "/usr/local/lib/ruby/site_ruby/1.9.1/i386-darwin9.6.0"
-#define RUBY_VENDOR_ARCHLIB "/usr/local/lib/ruby/vendor_ruby/1.9.1/i386-darwin9.6.0"
+#define HAVE_PTHREAD_H 1
+#define RUBY_LIB_VERSION_STYLE 3	/* full */
+#define RUBY_LIB_PREFIX "/usr/local/lib/ruby"
+#define RUBY_LIB RUBY_LIB_PREFIX"/"RUBY_LIB_VERSION
+#define RUBY_SITE_LIB RUBY_LIB_PREFIX"/site_ruby"
+#define RUBY_SITE_LIB2 RUBY_SITE_LIB"/"RUBY_LIB_VERSION
+#define RUBY_VENDOR_LIB RUBY_LIB_PREFIX"/vendor_ruby"
+#define RUBY_VENDOR_LIB2 RUBY_VENDOR_LIB"/"RUBY_LIB_VERSION
+#define RUBY_PLATFORM "i386-darwin9.8.0"
+#define RUBY_ARCHLIB RUBY_LIB"/"RUBY_ARCH
+#define RUBY_SITE_ARCHLIB RUBY_SITE_LIB2"/"RUBY_SITEARCH
+#define RUBY_VENDOR_ARCHLIB RUBY_VENDOR_LIB2"/"RUBY_SITEARCH
+#define FALSE 0
+#define TRUE 1

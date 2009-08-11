@@ -50,13 +50,14 @@ const OnigSyntaxType OnigSyntaxRuby = {
       ONIG_SYN_OP2_CCLASS_SET_OP | ONIG_SYN_OP2_ESC_CAPITAL_C_BAR_CONTROL |
       ONIG_SYN_OP2_ESC_CAPITAL_M_BAR_META | ONIG_SYN_OP2_ESC_V_VTAB |
       ONIG_SYN_OP2_ESC_H_XDIGIT )
-  , ( SYN_GNU_REGEX_BV | 
+  , ( SYN_GNU_REGEX_BV |
       ONIG_SYN_ALLOW_INTERVAL_LOW_ABBREV |
       ONIG_SYN_DIFFERENT_LEN_ALT_LOOK_BEHIND |
       ONIG_SYN_CAPTURE_ONLY_NAMED_GROUP |
       ONIG_SYN_ALLOW_MULTIPLEX_DEFINITION_NAME |
       ONIG_SYN_FIXED_INTERVAL_IS_GREEDY_ONLY |
       ONIG_SYN_WARN_CC_OP_NOT_ESCAPED |
+      ONIG_SYN_WARN_CC_DUP |
       ONIG_SYN_WARN_REDUNDANT_NESTED_REPEAT )
   , ONIG_OPTION_NONE
   ,
@@ -96,6 +97,8 @@ extern void onig_set_verb_warn_func(OnigWarnFunc f)
   onig_verb_warn = f;
 }
 
+static void CC_DUP_WARN(ScanEnv *env);
+
 static void
 bbuf_free(BBuf* bbuf)
 {
@@ -129,7 +132,7 @@ bbuf_clone(BBuf** rto, BBuf* from)
   (OnigCodePoint )(ONIGENC_MBC_MINLEN(enc) > 1 ? 0 : 0x80)
 
 #define SET_ALL_MULTI_BYTE_RANGE(enc, pbuf) \
-  add_code_range_to_buf(pbuf, MBCODE_START_POS(enc), ~((OnigCodePoint )0))
+  add_code_range_to_buf(pbuf, env, MBCODE_START_POS(enc), ~((OnigCodePoint )0))
 
 #define ADD_ALL_MULTI_BYTE_RANGE(enc, mbuf) do {\
   if (! ONIGENC_IS_SINGLEBYTE(enc)) {\
@@ -138,6 +141,11 @@ bbuf_clone(BBuf** rto, BBuf* from)
   }\
 } while (0)
 
+
+#define BITSET_SET_BIT_CHKDUP(bs, pos) do { \
+  if (BITSET_AT(bs, pos)) CC_DUP_WARN(env); \
+  BS_ROOM(bs, pos) |= BS_BIT(pos); \
+} while (0)
 
 #define BITSET_IS_EMPTY(bs,empty) do {\
   int i;\
@@ -150,11 +158,11 @@ bbuf_clone(BBuf** rto, BBuf* from)
 } while (0)
 
 static void
-bitset_set_range(BitSetRef bs, int from, int to)
+bitset_set_range(ScanEnv *env, BitSetRef bs, int from, int to)
 {
   int i;
   for (i = from; i <= to && i < SINGLE_BYTE_SIZE; i++) {
-    BITSET_SET_BIT(bs, i);
+    BITSET_SET_BIT_CHKDUP(bs, i);
   }
 }
 
@@ -217,7 +225,7 @@ onig_strncmp(const UChar* s1, const UChar* s2, int n)
 extern void
 onig_strcpy(UChar* dest, const UChar* src, const UChar* end)
 {
-  int len = end - src;
+  ptrdiff_t len = end - src;
   if (len > 0) {
     xmemcpy(dest, src, len);
     dest[len] = (UChar )0;
@@ -228,7 +236,8 @@ onig_strcpy(UChar* dest, const UChar* src, const UChar* end)
 static UChar*
 strdup_with_null(OnigEncoding enc, UChar* s, UChar* end)
 {
-  int slen, term_len, i;
+  ptrdiff_t slen;
+  int term_len, i;
   UChar *r;
 
   slen = end - s;
@@ -389,7 +398,7 @@ onig_st_insert_strend(hash_table_type* table, const UChar* str_key,
 
 typedef struct {
   UChar* name;
-  int    name_len;   /* byte length */
+  size_t name_len;   /* byte length */
   int    back_num;   /* number of backrefs */
   int    back_alloc;
   int    back_ref1;
@@ -1413,10 +1422,10 @@ node_new_option(OnigOptionType option)
 extern int
 onig_node_str_cat(Node* node, const UChar* s, const UChar* end)
 {
-  int addlen = end - s;
+  ptrdiff_t addlen = end - s;
 
   if (addlen > 0) {
-    int len  = NSTR(node)->end - NSTR(node)->s;
+    ptrdiff_t len  = NSTR(node)->end - NSTR(node)->s;
 
     if (NSTR(node)->capa > 0 || (len + addlen > NODE_STR_BUF_SIZE - 1)) {
       UChar* p;
@@ -1688,7 +1697,7 @@ new_code_range(BBuf** pbuf)
 }
 
 static int
-add_code_range_to_buf(BBuf** pbuf, OnigCodePoint from, OnigCodePoint to)
+add_code_range_to_buf(BBuf** pbuf, ScanEnv* env, OnigCodePoint from, OnigCodePoint to)
 {
   int r, inc_n, pos;
   int low, high, bound, x;
@@ -1735,8 +1744,10 @@ add_code_range_to_buf(BBuf** pbuf, OnigCodePoint from, OnigCodePoint to)
   if (inc_n != 1) {
     if (from > data[low*2])
       from = data[low*2];
+    else CC_DUP_WARN(env);
     if (to < data[(high - 1)*2 + 1])
       to = data[(high - 1)*2 + 1];
+    else CC_DUP_WARN(env);
   }
 
   if (inc_n != 0 && (OnigCodePoint )high < n) {
@@ -1772,11 +1783,11 @@ add_code_range(BBuf** pbuf, ScanEnv* env, OnigCodePoint from, OnigCodePoint to)
       return ONIGERR_EMPTY_RANGE_IN_CHAR_CLASS;
   }
 
-  return add_code_range_to_buf(pbuf, from, to);
+  return add_code_range_to_buf(pbuf, env, from, to);
 }
 
 static int
-not_code_range_buf(OnigEncoding enc, BBuf* bbuf, BBuf** pbuf)
+not_code_range_buf(OnigEncoding enc, BBuf* bbuf, BBuf** pbuf, ScanEnv* env)
 {
   int r, i, n;
   OnigCodePoint pre, from, *data, to = 0;
@@ -1798,14 +1809,14 @@ not_code_range_buf(OnigEncoding enc, BBuf* bbuf, BBuf** pbuf)
     from = data[i*2];
     to   = data[i*2+1];
     if (pre <= from - 1) {
-      r = add_code_range_to_buf(pbuf, pre, from - 1);
+      r = add_code_range_to_buf(pbuf, env, pre, from - 1);
       if (r != 0) return r;
     }
     if (to == ~((OnigCodePoint )0)) break;
     pre = to + 1;
   }
   if (to < ~((OnigCodePoint )0)) {
-    r = add_code_range_to_buf(pbuf, to + 1, ~((OnigCodePoint )0));
+    r = add_code_range_to_buf(pbuf, env, to + 1, ~((OnigCodePoint )0));
   }
   return r;
 }
@@ -1819,7 +1830,7 @@ not_code_range_buf(OnigEncoding enc, BBuf* bbuf, BBuf** pbuf)
 
 static int
 or_code_range_buf(OnigEncoding enc, BBuf* bbuf1, int not1,
-                  BBuf* bbuf2, int not2, BBuf** pbuf)
+                  BBuf* bbuf2, int not2, BBuf** pbuf, ScanEnv* env)
 {
   int r;
   OnigCodePoint i, n1, *data1;
@@ -1845,7 +1856,7 @@ or_code_range_buf(OnigEncoding enc, BBuf* bbuf1, int not1,
 	return bbuf_clone(pbuf, bbuf2);
       }
       else {
-	return not_code_range_buf(enc, bbuf2, pbuf);
+	return not_code_range_buf(enc, bbuf2, pbuf, env);
       }
     }
   }
@@ -1861,21 +1872,21 @@ or_code_range_buf(OnigEncoding enc, BBuf* bbuf1, int not1,
     r = bbuf_clone(pbuf, bbuf2);
   }
   else if (not1 == 0) { /* 1 OR (not 2) */
-    r = not_code_range_buf(enc, bbuf2, pbuf);
+    r = not_code_range_buf(enc, bbuf2, pbuf, env);
   }
   if (r != 0) return r;
 
   for (i = 0; i < n1; i++) {
     from = data1[i*2];
     to   = data1[i*2+1];
-    r = add_code_range_to_buf(pbuf, from, to);
+    r = add_code_range_to_buf(pbuf, env, from, to);
     if (r != 0) return r;
   }
   return 0;
 }
 
 static int
-and_code_range1(BBuf** pbuf, OnigCodePoint from1, OnigCodePoint to1,
+and_code_range1(BBuf** pbuf, ScanEnv* env, OnigCodePoint from1, OnigCodePoint to1,
 	        OnigCodePoint* data, int n)
 {
   int i, r;
@@ -1893,7 +1904,7 @@ and_code_range1(BBuf** pbuf, OnigCodePoint from1, OnigCodePoint to1,
     else if (from2 <= to1) {
       if (to2 < to1) {
 	if (from1 <= from2 - 1) {
-	  r = add_code_range_to_buf(pbuf, from1, from2-1);
+	  r = add_code_range_to_buf(pbuf, env, from1, from2-1);
 	  if (r != 0) return r;
 	}
 	from1 = to2 + 1;
@@ -1908,14 +1919,14 @@ and_code_range1(BBuf** pbuf, OnigCodePoint from1, OnigCodePoint to1,
     if (from1 > to1) break;
   }
   if (from1 <= to1) {
-    r = add_code_range_to_buf(pbuf, from1, to1);
+    r = add_code_range_to_buf(pbuf, env, from1, to1);
     if (r != 0) return r;
   }
   return 0;
 }
 
 static int
-and_code_range_buf(BBuf* bbuf1, int not1, BBuf* bbuf2, int not2, BBuf** pbuf)
+and_code_range_buf(BBuf* bbuf1, int not1, BBuf* bbuf2, int not2, BBuf** pbuf, ScanEnv* env)
 {
   int r;
   OnigCodePoint i, j, n1, n2, *data1, *data2;
@@ -1954,7 +1965,7 @@ and_code_range_buf(BBuf* bbuf1, int not1, BBuf* bbuf2, int not2, BBuf** pbuf)
 	if (to2 < from1) continue;
 	from = MAX(from1, from2);
 	to   = MIN(to1, to2);
-	r = add_code_range_to_buf(pbuf, from, to);
+	r = add_code_range_to_buf(pbuf, env, from, to);
 	if (r != 0) return r;
       }
     }
@@ -1963,7 +1974,7 @@ and_code_range_buf(BBuf* bbuf1, int not1, BBuf* bbuf2, int not2, BBuf** pbuf)
     for (i = 0; i < n1; i++) {
       from1 = data1[i*2];
       to1   = data1[i*2+1];
-      r = and_code_range1(pbuf, from1, to1, data2, n2);
+      r = and_code_range1(pbuf, env, from1, to1, data2, n2);
       if (r != 0) return r;
     }
   }
@@ -1972,8 +1983,9 @@ and_code_range_buf(BBuf* bbuf1, int not1, BBuf* bbuf2, int not2, BBuf** pbuf)
 }
 
 static int
-and_cclass(CClassNode* dest, CClassNode* cc, OnigEncoding enc)
+and_cclass(CClassNode* dest, CClassNode* cc, ScanEnv* env)
 {
+  OnigEncoding enc = env->enc;
   int r, not1, not2;
   BBuf *buf1, *buf2, *pbuf;
   BitSetRef bsr1, bsr2;
@@ -2005,13 +2017,13 @@ and_cclass(CClassNode* dest, CClassNode* cc, OnigEncoding enc)
 
   if (! ONIGENC_IS_SINGLEBYTE(enc)) {
     if (not1 != 0 && not2 != 0) {
-      r = or_code_range_buf(enc, buf1, 0, buf2, 0, &pbuf);
+      r = or_code_range_buf(enc, buf1, 0, buf2, 0, &pbuf, env);
     }
     else {
-      r = and_code_range_buf(buf1, not1, buf2, not2, &pbuf);
+      r = and_code_range_buf(buf1, not1, buf2, not2, &pbuf, env);
       if (r == 0 && not1 != 0) {
 	BBuf *tbuf;
-	r = not_code_range_buf(enc, pbuf, &tbuf);
+	r = not_code_range_buf(enc, pbuf, &tbuf, env);
 	if (r != 0) {
 	  bbuf_free(pbuf);
 	  return r;
@@ -2030,8 +2042,9 @@ and_cclass(CClassNode* dest, CClassNode* cc, OnigEncoding enc)
 }
 
 static int
-or_cclass(CClassNode* dest, CClassNode* cc, OnigEncoding enc)
+or_cclass(CClassNode* dest, CClassNode* cc, ScanEnv* env)
 {
+  OnigEncoding enc = env->enc;
   int r, not1, not2;
   BBuf *buf1, *buf2, *pbuf;
   BitSetRef bsr1, bsr2;
@@ -2063,13 +2076,13 @@ or_cclass(CClassNode* dest, CClassNode* cc, OnigEncoding enc)
 
   if (! ONIGENC_IS_SINGLEBYTE(enc)) {
     if (not1 != 0 && not2 != 0) {
-      r = and_code_range_buf(buf1, 0, buf2, 0, &pbuf);
+      r = and_code_range_buf(buf1, 0, buf2, 0, &pbuf, env);
     }
     else {
-      r = or_code_range_buf(enc, buf1, not1, buf2, not2, &pbuf);
+      r = or_code_range_buf(enc, buf1, not1, buf2, not2, &pbuf, env);
       if (r == 0 && not1 != 0) {
 	BBuf *tbuf;
-	r = not_code_range_buf(enc, pbuf, &tbuf);
+	r = not_code_range_buf(enc, pbuf, &tbuf, env);
 	if (r != 0) {
 	  bbuf_free(pbuf);
 	  return r;
@@ -2658,7 +2671,7 @@ fetch_name(OnigCodePoint start_code, UChar** src, UChar* end,
       }
       else {
 	r = ONIGERR_INVALID_GROUP_NAME;
-	is_num = 0;	
+	is_num = 0;
       }
     }
     else if (!ONIGENC_IS_CODE_WORD(enc, c)) {
@@ -2838,6 +2851,22 @@ CLOSE_BRACKET_WITHOUT_ESC_WARN(ScanEnv* env, UChar* c)
   }
 }
 
+static void
+CC_DUP_WARN(ScanEnv *env)
+{
+  UChar buf[WARN_BUFSIZE];
+  if (onig_warn == onig_null_warn || !RTEST(ruby_verbose)) return ;
+
+  if (IS_SYNTAX_BV((env)->syntax, ONIG_SYN_WARN_CC_DUP) &&
+    !((env)->warnings_flag & ONIG_SYN_WARN_CC_DUP)) {
+    (env)->warnings_flag |= ONIG_SYN_WARN_CC_DUP;
+    onig_snprintf_with_pattern(buf, WARN_BUFSIZE, env->enc,
+	    env->pattern, env->pattern_end,
+	    (UChar* )"character class has duplicated range");
+    (*onig_warn)((char* )buf);
+  }
+}
+
 static UChar*
 find_str_position(OnigCodePoint s[], int n, UChar* from, UChar* to,
 		  UChar **next, OnigEncoding enc)
@@ -2846,7 +2875,7 @@ find_str_position(OnigCodePoint s[], int n, UChar* from, UChar* to,
   OnigCodePoint x;
   UChar *q;
   UChar *p = from;
-  
+
   while (p < to) {
     x = ONIGENC_MBC_TO_CODE(enc, p, to);
     q = p + enclen(enc, p, to);
@@ -3407,7 +3436,7 @@ fetch_token(OnigToken* tok, UChar** src, UChar* end, ScanEnv* env)
         goto skip_backref;
       }
 
-      if (IS_SYNTAX_OP(syn, ONIG_SYN_OP_DECIMAL_BACKREF) && 
+      if (IS_SYNTAX_OP(syn, ONIG_SYN_OP_DECIMAL_BACKREF) &&
 	  (num <= env->num_mem || num <= 9)) { /* This spec. from GNU regex */
 	if (IS_SYNTAX_BV(syn, ONIG_SYN_STRICT_CHECK_BACKREF)) {
 	  if (num > env->num_mem || IS_NULL(SCANENV_MEM_NODES(env)[num]))
@@ -3755,7 +3784,7 @@ fetch_token(OnigToken* tok, UChar** src, UChar* end, ScanEnv* env)
 
 static int
 add_ctype_to_cc_by_range(CClassNode* cc, int ctype ARG_UNUSED, int not,
-			 OnigEncoding enc ARG_UNUSED,
+                         ScanEnv* env,
                          OnigCodePoint sb_out, const OnigCodePoint mbr[])
 {
   int i, r;
@@ -3770,7 +3799,7 @@ add_ctype_to_cc_by_range(CClassNode* cc, int ctype ARG_UNUSED, int not,
 	if (j >= sb_out) {
 	  if (j == ONIGENC_CODE_RANGE_TO(mbr, i)) i++;
 	  else if (j > ONIGENC_CODE_RANGE_FROM(mbr, i)) {
-	    r = add_code_range_to_buf(&(cc->mbuf), j,
+	    r = add_code_range_to_buf(&(cc->mbuf), env, j,
 				      ONIGENC_CODE_RANGE_TO(mbr, i));
 	    if (r != 0) return r;
 	    i++;
@@ -3778,13 +3807,13 @@ add_ctype_to_cc_by_range(CClassNode* cc, int ctype ARG_UNUSED, int not,
 
 	  goto sb_end;
 	}
-        BITSET_SET_BIT(cc->bs, j);
+        BITSET_SET_BIT_CHKDUP(cc->bs, j);
       }
     }
 
   sb_end:
     for ( ; i < n; i++) {
-      r = add_code_range_to_buf(&(cc->mbuf),
+      r = add_code_range_to_buf(&(cc->mbuf), env,
                                 ONIGENC_CODE_RANGE_FROM(mbr, i),
                                 ONIGENC_CODE_RANGE_TO(mbr, i));
       if (r != 0) return r;
@@ -3799,12 +3828,12 @@ add_ctype_to_cc_by_range(CClassNode* cc, int ctype ARG_UNUSED, int not,
 	if (j >= sb_out) {
 	  goto sb_end2;
 	}
-	BITSET_SET_BIT(cc->bs, j);
+	BITSET_SET_BIT_CHKDUP(cc->bs, j);
       }
       prev = ONIGENC_CODE_RANGE_TO(mbr, i) + 1;
     }
     for (j = prev; j < sb_out; j++) {
-      BITSET_SET_BIT(cc->bs, j);
+      BITSET_SET_BIT_CHKDUP(cc->bs, j);
     }
 
   sb_end2:
@@ -3812,14 +3841,14 @@ add_ctype_to_cc_by_range(CClassNode* cc, int ctype ARG_UNUSED, int not,
 
     for (i = 0; i < n; i++) {
       if (prev < ONIGENC_CODE_RANGE_FROM(mbr, i)) {
-	r = add_code_range_to_buf(&(cc->mbuf), prev,
+	r = add_code_range_to_buf(&(cc->mbuf), env, prev,
                                   ONIGENC_CODE_RANGE_FROM(mbr, i) - 1);
 	if (r != 0) return r;
       }
       prev = ONIGENC_CODE_RANGE_TO(mbr, i) + 1;
     }
     if (prev < 0x7fffffff) {
-      r = add_code_range_to_buf(&(cc->mbuf), prev, 0x7fffffff);
+      r = add_code_range_to_buf(&(cc->mbuf), env, prev, 0x7fffffff);
       if (r != 0) return r;
     }
   }
@@ -3837,7 +3866,7 @@ add_ctype_to_cc(CClassNode* cc, int ctype, int not, ScanEnv* env)
 
   r = ONIGENC_GET_CTYPE_CODE_RANGE(enc, ctype, &sb_out, &ranges);
   if (r == 0) {
-    return add_ctype_to_cc_by_range(cc, ctype, not, env->enc, sb_out, ranges);
+    return add_ctype_to_cc_by_range(cc, ctype, not, env, sb_out, ranges);
   }
   else if (r != ONIG_NO_SUPPORT_CONFIG) {
     return r;
@@ -3859,14 +3888,14 @@ add_ctype_to_cc(CClassNode* cc, int ctype, int not, ScanEnv* env)
     if (not != 0) {
       for (c = 0; c < SINGLE_BYTE_SIZE; c++) {
 	if (! ONIGENC_IS_CODE_CTYPE(enc, (OnigCodePoint )c, ctype))
-	  BITSET_SET_BIT(cc->bs, c);
+	  BITSET_SET_BIT_CHKDUP(cc->bs, c);
       }
       ADD_ALL_MULTI_BYTE_RANGE(enc, cc->mbuf);
     }
     else {
       for (c = 0; c < SINGLE_BYTE_SIZE; c++) {
 	if (ONIGENC_IS_CODE_CTYPE(enc, (OnigCodePoint )c, ctype))
-	  BITSET_SET_BIT(cc->bs, c);
+	  BITSET_SET_BIT_CHKDUP(cc->bs, c);
       }
     }
     break;
@@ -3876,13 +3905,13 @@ add_ctype_to_cc(CClassNode* cc, int ctype, int not, ScanEnv* env)
     if (not != 0) {
       for (c = 0; c < SINGLE_BYTE_SIZE; c++) {
 	if (! ONIGENC_IS_CODE_CTYPE(enc, (OnigCodePoint )c, ctype))
-	  BITSET_SET_BIT(cc->bs, c);
+	  BITSET_SET_BIT_CHKDUP(cc->bs, c);
       }
     }
     else {
       for (c = 0; c < SINGLE_BYTE_SIZE; c++) {
 	if (ONIGENC_IS_CODE_CTYPE(enc, (OnigCodePoint )c, ctype))
-	  BITSET_SET_BIT(cc->bs, c);
+	  BITSET_SET_BIT_CHKDUP(cc->bs, c);
       }
       ADD_ALL_MULTI_BYTE_RANGE(enc, cc->mbuf);
     }
@@ -3891,7 +3920,7 @@ add_ctype_to_cc(CClassNode* cc, int ctype, int not, ScanEnv* env)
   case ONIGENC_CTYPE_WORD:
     if (not == 0) {
       for (c = 0; c < SINGLE_BYTE_SIZE; c++) {
-	if (IS_CODE_SB_WORD(enc, c)) BITSET_SET_BIT(cc->bs, c);
+	if (IS_CODE_SB_WORD(enc, c)) BITSET_SET_BIT_CHKDUP(cc->bs, c);
       }
       ADD_ALL_MULTI_BYTE_RANGE(enc, cc->mbuf);
     }
@@ -3899,7 +3928,7 @@ add_ctype_to_cc(CClassNode* cc, int ctype, int not, ScanEnv* env)
       for (c = 0; c < SINGLE_BYTE_SIZE; c++) {
         if ((ONIGENC_CODE_TO_MBCLEN(enc, c) > 0) /* check invalid code point */
 	    && ! ONIGENC_IS_CODE_WORD(enc, c))
-	  BITSET_SET_BIT(cc->bs, c);
+	  BITSET_SET_BIT_CHKDUP(cc->bs, c);
       }
     }
     break;
@@ -4064,7 +4093,7 @@ next_state_class(CClassNode* cc, OnigCodePoint* vs, enum CCVALTYPE* type,
 
   if (*state == CCS_VALUE && *type != CCV_CLASS) {
     if (*type == CCV_SB)
-      BITSET_SET_BIT(cc->bs, (int )(*vs));
+      BITSET_SET_BIT_CHKDUP(cc->bs, (int )(*vs));
     else if (*type == CCV_CODE_POINT) {
       r = add_code_range(&(cc->mbuf), env, *vs, *vs);
       if (r < 0) return r;
@@ -4087,7 +4116,7 @@ next_state_val(CClassNode* cc, OnigCodePoint *vs, OnigCodePoint v,
   switch (*state) {
   case CCS_VALUE:
     if (*type == CCV_SB)
-      BITSET_SET_BIT(cc->bs, (int )(*vs));
+      BITSET_SET_BIT_CHKDUP(cc->bs, (int )(*vs));
     else if (*type == CCV_CODE_POINT) {
       r = add_code_range(&(cc->mbuf), env, *vs, *vs);
       if (r < 0) return r;
@@ -4106,7 +4135,7 @@ next_state_val(CClassNode* cc, OnigCodePoint *vs, OnigCodePoint v,
 	  else
 	    return ONIGERR_EMPTY_RANGE_IN_CHAR_CLASS;
 	}
-	bitset_set_range(cc->bs, (int )*vs, (int )v);
+	bitset_set_range(env, cc->bs, (int )*vs, (int )v);
       }
       else {
 	r = add_code_range(&(cc->mbuf), env, *vs, v);
@@ -4123,7 +4152,7 @@ next_state_val(CClassNode* cc, OnigCodePoint *vs, OnigCodePoint v,
 	  else
 	    return ONIGERR_EMPTY_RANGE_IN_CHAR_CLASS;
 	}
-	bitset_set_range(cc->bs, (int )*vs, (int )(v < 0xff ? v : 0xff));
+	bitset_set_range(env, cc->bs, (int )*vs, (int )(v < 0xff ? v : 0xff));
 	r = add_code_range(&(cc->mbuf), env, (OnigCodePoint )*vs, v);
 	if (r < 0) return r;
 #if 0
@@ -4388,7 +4417,7 @@ parse_char_class(Node** np, OnigToken* tok, UChar** src, UChar* end,
 	  CC_ESC_WARN(env, (UChar* )"-");
 	  goto range_end_val;
 	}
-	
+
 	if (IS_SYNTAX_BV(env->syntax, ONIG_SYN_ALLOW_DOUBLE_RANGE_OP_IN_CC)) {
 	  CC_ESC_WARN(env, (UChar* )"-");
 	  goto sb_char;   /* [0-9-a] is allowed as [0-9\-a] */
@@ -4406,7 +4435,7 @@ parse_char_class(Node** np, OnigToken* tok, UChar** src, UChar* end,
 	r = parse_char_class(&anode, tok, &p, end, env);
 	if (r != 0) goto cc_open_err;
 	acc = NCCLASS(anode);
-	r = or_cclass(cc, acc, env->enc);
+	r = or_cclass(cc, acc, env);
 
 	onig_node_free(anode);
       cc_open_err:
@@ -4426,7 +4455,7 @@ parse_char_class(Node** np, OnigToken* tok, UChar** src, UChar* end,
 	state = CCS_START;
 
 	if (IS_NOT_NULL(prev_cc)) {
-	  r = and_cclass(prev_cc, cc, env->enc);
+	  r = and_cclass(prev_cc, cc, env);
 	  if (r != 0) goto err;
 	  bbuf_free(cc->mbuf);
 	}
@@ -4463,7 +4492,7 @@ parse_char_class(Node** np, OnigToken* tok, UChar** src, UChar* end,
   }
 
   if (IS_NOT_NULL(prev_cc)) {
-    r = and_cclass(prev_cc, cc, env->enc);
+    r = and_cclass(prev_cc, cc, env);
     if (r != 0) goto err;
     bbuf_free(cc->mbuf);
     cc = prev_cc;
@@ -4486,7 +4515,7 @@ parse_char_class(Node** np, OnigToken* tok, UChar** src, UChar* end,
 
       if (ONIGENC_IS_CODE_NEWLINE(env->enc, NEWLINE_CODE)) {
         if (ONIGENC_CODE_TO_MBCLEN(env->enc, NEWLINE_CODE) == 1)
-          BITSET_SET_BIT(cc->bs, NEWLINE_CODE);
+          BITSET_SET_BIT_CHKDUP(cc->bs, NEWLINE_CODE);
         else
           add_code_range(&(cc->mbuf), env, NEWLINE_CODE, NEWLINE_CODE);
       }
@@ -4982,7 +5011,7 @@ i_apply_case_fold(OnigCodePoint from, OnigCodePoint to[],
 	add_code_range(&(cc->mbuf), env, *to, *to);
       }
       else {
-	BITSET_SET_BIT(bs, *to);
+	BITSET_SET_BIT_CHKDUP(bs, *to);
       }
     }
 #else
@@ -4996,7 +5025,7 @@ i_apply_case_fold(OnigCodePoint from, OnigCodePoint to[],
 	  BITSET_CLEAR_BIT(bs, *to);
 	}
 	else
-	  BITSET_SET_BIT(bs, *to);
+	  BITSET_SET_BIT_CHKDUP(bs, *to);
       }
     }
 #endif /* CASE_FOLD_IS_APPLIED_INSIDE_NEGATIVE_CCLASS */
@@ -5073,7 +5102,7 @@ parse_exp(Node** np, OnigToken* tok, int term,
       r = parse_subexp(&target, tok, term, src, end, env);
       env->option = prev;
       if (r < 0) return r;
-      NENCLOSE(*np)->target = target;	
+      NENCLOSE(*np)->target = target;
       return tok->type;
     }
     break;
@@ -5241,7 +5270,7 @@ parse_exp(Node** np, OnigToken* tok, int term,
 	    xmemcpy(new_key, &key, sizeof(type_cclass_key));
             onig_st_add_direct(OnigTypeCClassTable, (st_data_t )new_key,
                                (st_data_t )*np);
-            
+
             THREAD_ATOMIC_END;
           }
           else {
@@ -5387,7 +5416,7 @@ parse_exp(Node** np, OnigToken* tok, int term,
       NQTFR(qn)->greedy = tok->u.repeat.greedy;
       r = set_quantifier(qn, *targetp, group, env);
       if (r < 0) return r;
-      
+
       if (tok->u.repeat.possessive != 0) {
 	Node* en;
 	en = node_new_enclose(ENCLOSE_STOP_BACKTRACK);

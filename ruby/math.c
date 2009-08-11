@@ -2,7 +2,7 @@
 
   math.c -
 
-  $Author: yugui $
+  $Author: akr $
   created at: Tue Jan 25 14:12:56 JST 1994
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -16,7 +16,7 @@
 VALUE rb_mMath;
 
 extern VALUE rb_to_float(VALUE val);
-#define Need_Float(x) (x) = rb_to_float(x)
+#define Need_Float(x) do {if (TYPE(x) != T_FLOAT) {(x) = rb_to_float(x);}} while(0)
 #define Need_Float2(x,y) do {\
     Need_Float(x);\
     Need_Float(y);\
@@ -64,10 +64,10 @@ infinity_check(VALUE arg, double res, const char *msg)
 /*
  *  call-seq:
  *     Math.atan2(y, x)  => float
- *  
+ *
  *  Computes the arc tangent given <i>y</i> and <i>x</i>. Returns
  *  -PI..PI.
- *     
+ *
  */
 
 static VALUE
@@ -81,7 +81,7 @@ math_atan2(VALUE obj, VALUE y, VALUE x)
 /*
  *  call-seq:
  *     Math.cos(x)    => float
- *  
+ *
  *  Computes the cosine of <i>x</i> (expressed in radians). Returns
  *  -1..1.
  */
@@ -96,7 +96,7 @@ math_cos(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.sin(x)    => float
- *  
+ *
  *  Computes the sine of <i>x</i> (expressed in radians). Returns
  *  -1..1.
  */
@@ -113,7 +113,7 @@ math_sin(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.tan(x)    => float
- *  
+ *
  *  Returns the tangent of <i>x</i> (expressed in radians).
  */
 
@@ -128,7 +128,7 @@ math_tan(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.acos(x)    => float
- *  
+ *
  *  Computes the arc cosine of <i>x</i>. Returns 0..PI.
  */
 
@@ -148,7 +148,7 @@ math_acos(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.asin(x)    => float
- *  
+ *
  *  Computes the arc sine of <i>x</i>. Returns -{PI/2} .. {PI/2}.
  */
 
@@ -168,7 +168,7 @@ math_asin(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.atan(x)    => float
- *  
+ *
  *  Computes the arc tangent of <i>x</i>. Returns -{PI/2} .. {PI/2}.
  */
 
@@ -190,7 +190,7 @@ cosh(double x)
 /*
  *  call-seq:
  *     Math.cosh(x)    => float
- *  
+ *
  *  Computes the hyperbolic cosine of <i>x</i> (expressed in radians).
  */
 
@@ -198,7 +198,7 @@ static VALUE
 math_cosh(VALUE obj, VALUE x)
 {
     Need_Float(x);
-    
+
     return DBL2NUM(cosh(RFLOAT_VALUE(x)));
 }
 
@@ -213,7 +213,7 @@ sinh(double x)
 /*
  *  call-seq:
  *     Math.sinh(x)    => float
- *  
+ *
  *  Computes the hyperbolic sine of <i>x</i> (expressed in
  *  radians).
  */
@@ -236,7 +236,7 @@ tanh(double x)
 /*
  *  call-seq:
  *     Math.tanh()    => float
- *  
+ *
  *  Computes the hyperbolic tangent of <i>x</i> (expressed in
  *  radians).
  */
@@ -251,7 +251,7 @@ math_tanh(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.acosh(x)    => float
- *  
+ *
  *  Computes the inverse hyperbolic cosine of <i>x</i>.
  */
 
@@ -271,7 +271,7 @@ math_acosh(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.asinh(x)    => float
- *  
+ *
  *  Computes the inverse hyperbolic sine of <i>x</i>.
  */
 
@@ -285,7 +285,7 @@ math_asinh(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.atanh(x)    => float
- *  
+ *
  *  Computes the inverse hyperbolic tangent of <i>x</i>.
  */
 
@@ -306,8 +306,13 @@ math_atanh(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.exp(x)    => float
- *  
+ *
  *  Returns e**x.
+ *
+ *    Math.exp(0)       #=> 1.0
+ *    Math.exp(1)       #=> 2.718281828459045
+ *    Math.exp(1.5)     #=> 4.4816890703380645
+ *
  */
 
 static VALUE
@@ -330,10 +335,16 @@ math_exp(VALUE obj, VALUE x)
  *  call-seq:
  *     Math.log(numeric)    => float
  *     Math.log(num,base)   => float
- *  
+ *
  *  Returns the natural logarithm of <i>numeric</i>.
  *  If additional second argument is given, it will be the base
  *  of logarithm.
+ *
+ *    Math.log(1)          #=> 0.0
+ *    Math.log(Math::E)    #=> 1.0
+ *    Math.log(Math::E**3) #=> 3.0
+ *    Math.log(12,3)       #=> 2.2618595071429146
+ *
  */
 
 static VALUE
@@ -371,8 +382,14 @@ extern double log2(double);
 /*
  *  call-seq:
  *     Math.log2(numeric)    => float
- *  
+ *
  *  Returns the base 2 logarithm of <i>numeric</i>.
+ *
+ *    Math.log2(1)      #=> 0.0
+ *    Math.log2(2)      #=> 1.0
+ *    Math.log2(32768)  #=> 15.0
+ *    Math.log2(65536)  #=> 16.0
+ *
  */
 
 static VALUE
@@ -392,8 +409,13 @@ math_log2(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.log10(numeric)    => float
- *  
+ *
  *  Returns the base 10 logarithm of <i>numeric</i>.
+ *
+ *    Math.log10(1)       #=> 0.0
+ *    Math.log10(10)      #=> 1.0
+ *    Math.log10(10**100) #=> 100.0
+ *
  */
 
 static VALUE
@@ -413,10 +435,10 @@ math_log10(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.sqrt(numeric)    => float
- *  
+ *
  *  Returns the non-negative square root of <i>numeric</i>.
  *
- *    0.upto(10) {|x|            
+ *    0.upto(10) {|x|
  *      p [x, Math.sqrt(x), Math.sqrt(x)**2]
  *    }
  *    #=>
@@ -450,7 +472,7 @@ math_sqrt(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.cbrt(numeric)    => float
- *  
+ *
  *  Returns the cube root of <i>numeric</i>.
  *
  *    -9.upto(9) {|x|
@@ -489,11 +511,11 @@ math_cbrt(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.frexp(numeric)    => [ fraction, exponent ]
- *  
+ *
  *  Returns a two-element array containing the normalized fraction (a
  *  <code>Float</code>) and exponent (a <code>Fixnum</code>) of
  *  <i>numeric</i>.
- *     
+ *
  *     fraction, exponent = Math.frexp(1234)   #=> [0.6025390625, 11]
  *     fraction * 2**exponent                  #=> 1234.0
  */
@@ -505,7 +527,7 @@ math_frexp(VALUE obj, VALUE x)
     int exp;
 
     Need_Float(x);
-    
+
     d = frexp(RFLOAT_VALUE(x), &exp);
     return rb_assoc_new(DBL2NUM(d), INT2NUM(exp));
 }
@@ -513,9 +535,9 @@ math_frexp(VALUE obj, VALUE x)
 /*
  *  call-seq:
  *     Math.ldexp(flt, int) -> float
- *  
+ *
  *  Returns the value of <i>flt</i>*(2**<i>int</i>).
- *     
+ *
  *     fraction, exponent = Math.frexp(1234)
  *     Math.ldexp(fraction, exponent)   #=> 1234.0
  */
@@ -530,10 +552,10 @@ math_ldexp(VALUE obj, VALUE x, VALUE n)
 /*
  *  call-seq:
  *     Math.hypot(x, y)    => float
- *  
+ *
  *  Returns sqrt(x**2 + y**2), the hypotenuse of a right-angled triangle
  *  with sides <i>x</i> and <i>y</i>.
- *     
+ *
  *     Math.hypot(3, 4)   #=> 5.0
  */
 
@@ -578,48 +600,81 @@ math_erfc(VALUE obj, VALUE x)
  *
  *  Calculates the gamma function of x.
  *
- *  Note that gamma(n) is same as fact(n-1) for integer n >= 0.
+ *  Note that gamma(n) is same as fact(n-1) for integer n > 0.
  *  However gamma(n) returns float and possibly has error in calculation.
  *
  *   def fact(n) (1..n).inject(1) {|r,i| r*i } end
- *   0.upto(25) {|i| p [i, Math.gamma(i+1), fact(i)] }
- *   #=>
- *   [0, 1.0, 1]
- *   [1, 1.0, 1]
- *   [2, 2.0, 2]
- *   [3, 6.0, 6]
- *   [4, 24.0, 24]
- *   [5, 120.0, 120]
- *   [6, 720.0, 720]
- *   [7, 5040.0, 5040]
- *   [8, 40320.0, 40320]
- *   [9, 362880.0, 362880]
- *   [10, 3628800.0, 3628800]
- *   [11, 39916800.0, 39916800]
- *   [12, 479001599.999999, 479001600]
- *   [13, 6227020800.00001, 6227020800]
- *   [14, 87178291199.9998, 87178291200]
- *   [15, 1307674368000.0, 1307674368000]
- *   [16, 20922789888000.0, 20922789888000]
- *   [17, 3.55687428096001e+14, 355687428096000]
- *   [18, 6.40237370572799e+15, 6402373705728000]
- *   [19, 1.21645100408832e+17, 121645100408832000]
- *   [20, 2.43290200817664e+18, 2432902008176640000]
- *   [21, 5.10909421717094e+19, 51090942171709440000]
- *   [22, 1.12400072777761e+21, 1124000727777607680000]
- *   [23, 2.58520167388851e+22, 25852016738884976640000]
- *   [24, 6.20448401733239e+23, 620448401733239439360000]
- *   [25, 1.5511210043331e+25, 15511210043330985984000000]
+ *   1.upto(26) {|i| p [i, Math.gamma(i), fact(i-1)] }
+ *   #=> [1, 1.0, 1]
+ *   #   [2, 1.0, 1]
+ *   #   [3, 2.0, 2]
+ *   #   [4, 6.0, 6]
+ *   #   [5, 24.0, 24]
+ *   #   [6, 120.0, 120]
+ *   #   [7, 720.0, 720]
+ *   #   [8, 5040.0, 5040]
+ *   #   [9, 40320.0, 40320]
+ *   #   [10, 362880.0, 362880]
+ *   #   [11, 3628800.0, 3628800]
+ *   #   [12, 39916800.0, 39916800]
+ *   #   [13, 479001600.0, 479001600]
+ *   #   [14, 6227020800.0, 6227020800]
+ *   #   [15, 87178291200.0, 87178291200]
+ *   #   [16, 1307674368000.0, 1307674368000]
+ *   #   [17, 20922789888000.0, 20922789888000]
+ *   #   [18, 355687428096000.0, 355687428096000]
+ *   #   [19, 6.402373705728e+15, 6402373705728000]
+ *   #   [20, 1.21645100408832e+17, 121645100408832000]
+ *   #   [21, 2.43290200817664e+18, 2432902008176640000]
+ *   #   [22, 5.109094217170944e+19, 51090942171709440000]
+ *   #   [23, 1.1240007277776077e+21, 1124000727777607680000]
+ *   #   [24, 2.5852016738885062e+22, 25852016738884976640000]
+ *   #   [25, 6.204484017332391e+23, 620448401733239439360000]
+ *   #   [26, 1.5511210043330954e+25, 15511210043330985984000000]
  *
  */
 
 static VALUE
 math_gamma(VALUE obj, VALUE x)
 {
+    static double fact_table[] = {
+        /* fact(0) */ 1.0,
+        /* fact(1) */ 1.0,
+        /* fact(2) */ 2.0,
+        /* fact(3) */ 6.0,
+        /* fact(4) */ 24.0,
+        /* fact(5) */ 120.0,
+        /* fact(6) */ 720.0,
+        /* fact(7) */ 5040.0,
+        /* fact(8) */ 40320.0,
+        /* fact(9) */ 362880.0,
+        /* fact(10) */ 3628800.0,
+        /* fact(11) */ 39916800.0,
+        /* fact(12) */ 479001600.0,
+        /* fact(13) */ 6227020800.0,
+        /* fact(14) */ 87178291200.0,
+        /* fact(15) */ 1307674368000.0,
+        /* fact(16) */ 20922789888000.0,
+        /* fact(17) */ 355687428096000.0,
+        /* fact(18) */ 6402373705728000.0,
+        /* fact(19) */ 121645100408832000.0,
+        /* fact(20) */ 2432902008176640000.0,
+        /* fact(21) */ 51090942171709440000.0,
+        /* fact(22) */ 1124000727777607680000.0,
+        /* fact(23)=25852016738884976640000 needs 56bit mantissa which is
+         * impossible to represent exactly in IEEE 754 double. */
+    };
     double d0, d;
+    double intpart, fracpart;
     Need_Float(x);
-    errno = 0;
     d0 = RFLOAT_VALUE(x);
+    fracpart = modf(d0, &intpart);
+    if (fracpart == 0.0 &&
+            0 < intpart &&
+            (size_t)intpart <= sizeof(fact_table)/sizeof(*fact_table)) {
+        return DBL2NUM(fact_table[(int)intpart - 1]);
+    }
+    errno = 0;
     d = tgamma(d0);
     domain_check(d0, d, "gamma");
     return DBL2NUM(d);
@@ -689,7 +744,7 @@ exp1(sqrt)
  *  trigonometric and transcendental functions. See class
  *  <code>Float</code> for a list of constants that
  *  define Ruby's floating point accuracy.
- */     
+ */
 
 
 void

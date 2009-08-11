@@ -2,7 +2,7 @@
 
   encoding.c -
 
-  $Author: yugui $
+  $Author: nobu $
   created at: Thu May 24 17:23:27 JST 2007
 
   Copyright (C) 2007 Yukihiro Matsumoto
@@ -45,19 +45,29 @@ void rb_enc_init(void);
 #define ENCODING_COUNT ENCINDEX_BUILTIN_MAX
 #define UNSPECIFIED_ENCODING INT_MAX
 
+#define ENCODING_NAMELEN_MAX 63
+#define valid_encoding_name_p(name) ((name) && strlen(name) <= ENCODING_NAMELEN_MAX)
+
 #define enc_autoload_p(enc) (!rb_enc_mbmaxlen(enc))
 
 static int load_encoding(const char *name);
 
-static void
-enc_mark(void *ptr)
+static size_t
+enc_memsize(void *p)
 {
+    return 0;
 }
+
+static const rb_data_type_t encoding_data_type = {
+    "encoding", 0, 0, enc_memsize,
+};
+
+#define is_data_encoding(obj) (RTYPEDDATA_P(obj) && RTYPEDDATA_TYPE(obj) != &encoding_data_type)
 
 static VALUE
 enc_new(rb_encoding *encoding)
 {
-    return Data_Wrap_Struct(rb_cEncoding, enc_mark, 0, encoding);
+    return TypedData_Wrap_Struct(rb_cEncoding, &encoding_data_type, encoding);
 }
 
 VALUE
@@ -97,8 +107,7 @@ check_encoding(rb_encoding *enc)
 static int
 enc_check_encoding(VALUE obj)
 {
-    if (SPECIAL_CONST_P(obj) || BUILTIN_TYPE(obj) != T_DATA ||
-	RDATA(obj)->dmark != enc_mark) {
+    if (SPECIAL_CONST_P(obj) || !rb_typeddata_is_kind_of(obj, &encoding_data_type)) {
 	return -1;
     }
     return check_encoding(RDATA(obj)->data);
@@ -183,6 +192,7 @@ enc_register_at(int index, const char *name, rb_encoding *encoding)
     struct rb_encoding_entry *ent = &enc_table.list[index];
     VALUE list;
 
+    if (!valid_encoding_name_p(name)) return -1;
     if (!ent->name) {
 	ent->name = name = strdup(name);
     }
@@ -273,6 +283,18 @@ set_base_encoding(int index, rb_encoding *base)
     enc_table.list[index].base = base;
     if (rb_enc_dummy_p(base)) ENC_SET_DUMMY(enc);
     return enc;
+}
+
+/* for encdb.h
+ * Set base encoding for encodings which are not replicas
+ * but not in their own files.
+ */
+void
+rb_enc_set_base(const char *name, const char *orig)
+{
+    int idx = rb_enc_registered(name);
+    int origidx = rb_enc_registered(orig);
+    set_base_encoding(idx, rb_enc_from_index(origidx));
 }
 
 int
@@ -366,6 +388,7 @@ enc_alias_internal(const char *alias, int idx)
 static int
 enc_alias(const char *alias, int idx)
 {
+    if (!valid_encoding_name_p(alias)) return -1;
     alias = enc_alias_internal(alias, idx);
     set_encoding_const(alias, rb_enc_from_index(idx));
     return idx;
@@ -539,16 +562,16 @@ rb_enc_find(const char *name)
 static inline int
 enc_capable(VALUE obj)
 {
-    if (SPECIAL_CONST_P(obj)) return Qfalse;
+    if (SPECIAL_CONST_P(obj)) return SYMBOL_P(obj);
     switch (BUILTIN_TYPE(obj)) {
       case T_STRING:
       case T_REGEXP:
       case T_FILE:
-	return Qtrue;
+	return TRUE;
       case T_DATA:
-	if (RDATA(obj)->dmark == enc_mark) return Qtrue;
+	if (!is_data_encoding(obj)) return TRUE;
       default:
-	return Qfalse;
+	return FALSE;
     }
 }
 
@@ -565,28 +588,36 @@ rb_enc_get_index(VALUE obj)
     int i = -1;
     VALUE tmp;
 
+    if (SPECIAL_CONST_P(obj)) {
+	if (!SYMBOL_P(obj)) return -1;
+	obj = rb_id2str(SYM2ID(obj));
+    }
     switch (BUILTIN_TYPE(obj)) {
-        default:
-	case T_STRING:
-	case T_REGEXP:
-	    i = ENCODING_GET_INLINED(obj);
-	    if (i == ENCODING_INLINE_MAX) {
-		VALUE iv;
+      as_default:
+      default:
+      case T_STRING:
+      case T_REGEXP:
+	i = ENCODING_GET_INLINED(obj);
+	if (i == ENCODING_INLINE_MAX) {
+	    VALUE iv;
 
-		iv = rb_ivar_get(obj, rb_id_encoding());
-		i = NUM2INT(iv);
-	    }
-	    break;
-	case T_FILE:
-	    tmp = rb_funcall(obj, rb_intern("internal_encoding"), 0, 0);
-	    if (NIL_P(tmp)) obj = rb_funcall(obj, rb_intern("external_encoding"), 0, 0);
-	    else obj = tmp;
-	    if (NIL_P(obj)) break;
-	case T_DATA:
-	    if (RDATA(obj)->dmark == enc_mark) {
-		i = enc_check_encoding(obj);
-	    }
-	    break;
+	    iv = rb_ivar_get(obj, rb_id_encoding());
+	    i = NUM2INT(iv);
+	}
+	break;
+      case T_FILE:
+	tmp = rb_funcall(obj, rb_intern("internal_encoding"), 0, 0);
+	if (NIL_P(tmp)) obj = rb_funcall(obj, rb_intern("external_encoding"), 0, 0);
+	else obj = tmp;
+	if (NIL_P(obj)) break;
+      case T_DATA:
+	if (is_data_encoding(obj)) {
+	    i = enc_check_encoding(obj);
+	}
+	else {
+	    goto as_default;
+	}
+	break;
     }
     return i;
 }
@@ -609,6 +640,9 @@ rb_enc_associate_index(VALUE obj, int idx)
 /*    enc_check_capable(obj);*/
     if (rb_enc_get_index(obj) == idx)
     	return obj;
+    if (SPECIAL_CONST_P(obj)) {
+	rb_raise(rb_eArgError, "cannot set encoding");
+    }
     if (!ENC_CODERANGE_ASCIIONLY(obj) ||
 	!rb_enc_asciicompat(rb_enc_from_index(idx))) {
 	ENC_CODERANGE_CLEAR(obj);
@@ -727,6 +761,12 @@ rb_obj_encoding(VALUE obj)
 }
 
 int
+rb_enc_fast_mbclen(const char *p, const char *e, rb_encoding *enc)
+{
+    return ONIGENC_MBC_ENC_LEN(enc, (UChar*)p, (UChar*)e);
+}
+
+int
 rb_enc_mbclen(const char *p, const char *e, rb_encoding *enc)
 {
     int n = ONIGENC_PRECISE_MBC_ENC_LEN(enc, (UChar*)p, (UChar*)e);
@@ -734,7 +774,7 @@ rb_enc_mbclen(const char *p, const char *e, rb_encoding *enc)
         return MBCLEN_CHARFOUND_LEN(n);
     else {
         int min = rb_enc_mbminlen(enc);
-        return min <= e-p ? min : e-p;
+        return min <= e-p ? min : (int)(e-p);
     }
 }
 
@@ -746,7 +786,7 @@ rb_enc_precise_mbclen(const char *p, const char *e, rb_encoding *enc)
         return ONIGENC_CONSTRUCT_MBCLEN_NEEDMORE(1);
     n = ONIGENC_PRECISE_MBC_ENC_LEN(enc, (UChar*)p, (UChar*)e);
     if (e-p < n)
-        return ONIGENC_CONSTRUCT_MBCLEN_NEEDMORE(n-(e-p));
+        return ONIGENC_CONSTRUCT_MBCLEN_NEEDMORE(n-(int)(e-p));
     return n;
 }
 
@@ -774,16 +814,25 @@ rb_enc_ascget(const char *p, const char *e, int *len, rb_encoding *enc)
 }
 
 unsigned int
-rb_enc_codepoint(const char *p, const char *e, rb_encoding *enc)
+rb_enc_codepoint_len(const char *p, const char *e, int *len_p, rb_encoding *enc)
 {
     int r;
     if (e <= p)
         rb_raise(rb_eArgError, "empty string");
     r = rb_enc_precise_mbclen(p, e, enc);
-    if (MBCLEN_CHARFOUND_P(r))
+    if (MBCLEN_CHARFOUND_P(r)) {
+	if (len_p) *len_p = MBCLEN_CHARFOUND_LEN(r);
         return rb_enc_mbc_to_codepoint(p, e, enc);
+    }
     else
 	rb_raise(rb_eArgError, "invalid byte sequence in %s", rb_enc_name(enc));
+}
+
+#undef rb_enc_codepoint
+unsigned int
+rb_enc_codepoint(const char *p, const char *e, rb_encoding *enc)
+{
+    return rb_enc_codepoint_len(p, e, 0, enc);
 }
 
 int
@@ -925,7 +974,7 @@ enc_find(VALUE klass, VALUE enc)
  *   Encoding.compatible?(str1, str2) => enc or nil
  *
  * Checks the compatibility of two strings.
- * If they are compatible, means concatenatable, 
+ * If they are compatible, means concatenatable,
  * returns an encoding which the concatinated string will be.
  * If they are not compatible, nil is returned.
  *
@@ -1037,7 +1086,7 @@ rb_filesystem_encoding(void)
     snprintf(cp, sizeof cp, "CP%d", AreFileApisANSI() ? GetACP() : GetOEMCP());
     enc = rb_enc_find(cp);
 #elif defined __APPLE__
-    enc = rb_enc_find("UTF8-MAC");
+    enc = rb_utf8_encoding();
 #else
     enc = rb_default_external_encoding();
 #endif
@@ -1052,10 +1101,11 @@ struct default_encoding {
 static int
 enc_set_default_encoding(struct default_encoding *def, VALUE encoding, const char *name)
 {
-    int overridden = Qfalse;
+    int overridden = FALSE;
+
     if (def->index != -2)
 	/* Already set */
-	overridden = Qtrue;
+	overridden = TRUE;
 
     if (NIL_P(encoding)) {
 	def->index = -1;
@@ -1248,17 +1298,22 @@ set_encoding_const(const char *name, rb_encoding *enc)
 	}
     }
     if (!*s) {
+	if (s - name > ENCODING_NAMELEN_MAX) return;
 	valid = 1;
 	rb_define_const(rb_cEncoding, name, encoding);
     }
     if (!valid || haslower) {
-	int len = strlen(name) + 1;
+	size_t len = s - name;
+	if (len > ENCODING_NAMELEN_MAX) return;
 	if (!haslower || !hasupper) {
 	    do {
 		if (ISLOWER(*s)) haslower = 1;
 		if (ISUPPER(*s)) hasupper = 1;
 	    } while (*++s && (!haslower || !hasupper));
+	    len = s - name;
 	}
+	len += strlen(s);
+	if (len++ > ENCODING_NAMELEN_MAX) return;
 	MEMCPY(s = ALLOCA_N(char, len), name, char, len);
 	name = s;
 	if (!valid) {

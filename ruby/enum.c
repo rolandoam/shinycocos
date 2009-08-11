@@ -2,7 +2,7 @@
 
   enum.c -
 
-  $Author: yugui $
+  $Author: nobu $
   created at: Fri Oct  1 15:15:19 JST 1993
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -31,8 +31,9 @@ enum_values_pack(int argc, VALUE *argv)
 #define enum_yield rb_yield_values2
 
 static VALUE
-grep_i(VALUE i, VALUE *arg, int argc, VALUE *argv)
+grep_i(VALUE i, VALUE args, int argc, VALUE *argv)
 {
+    VALUE *arg = (VALUE *)args;
     ENUM_WANT_SVALUE();
 
     if (RTEST(rb_funcall(arg[0], id_eqq, 1, i))) {
@@ -42,8 +43,9 @@ grep_i(VALUE i, VALUE *arg, int argc, VALUE *argv)
 }
 
 static VALUE
-grep_iter_i(VALUE i, VALUE *arg, int argc, VALUE *argv)
+grep_iter_i(VALUE i, VALUE args, int argc, VALUE *argv)
 {
+    VALUE *arg = (VALUE *)args;
     ENUM_WANT_SVALUE();
 
     if (RTEST(rb_funcall(arg[0], id_eqq, 1, i))) {
@@ -362,6 +364,7 @@ collect_i(VALUE i, VALUE ary, int argc, VALUE *argv)
 static VALUE
 collect_all(VALUE i, VALUE ary, int argc, VALUE *argv)
 {
+    rb_thread_check_ints();
     rb_ary_push(ary, enum_values_pack(argc, argv));
 
     return Qnil;
@@ -655,6 +658,9 @@ enum_first(int argc, VALUE *argv, VALUE obj)
 	rb_scan_args(argc, argv, "01", &n);
 	len = NUM2LONG(n);
 	if (len == 0) return rb_ary_new2(0);
+	if (len < 0) {
+	    rb_raise(rb_eArgError, "negative length");
+	}
 	params[0] = len;
 	params[1] = rb_ary_new2(len);
     }
@@ -817,7 +823,11 @@ enum_sort_by(VALUE obj)
     return ary;
 }
 
+#define ENUMFUNC(name) rb_block_given_p() ? name##_iter_i : name##_i
+
 #define DEFINE_ENUMFUNCS(name) \
+static VALUE enum_##name##_func(VALUE result, VALUE *memo); \
+\
 static VALUE \
 name##_i(VALUE i, VALUE *memo, int argc, VALUE *argv) \
 { \
@@ -828,10 +838,12 @@ static VALUE \
 name##_iter_i(VALUE i, VALUE *memo, int argc, VALUE *argv) \
 { \
     return enum_##name##_func(enum_yield(argc, argv), memo); \
-}
-    
-static VALUE
-enum_all_func(VALUE result, VALUE *memo)
+} \
+\
+static VALUE \
+enum_##name##_func(VALUE result, VALUE *memo)
+
+DEFINE_ENUMFUNCS(all)
 {
     if (!RTEST(result)) {
 	*memo = Qfalse;
@@ -839,8 +851,6 @@ enum_all_func(VALUE result, VALUE *memo)
     }
     return Qnil;
 }
-
-DEFINE_ENUMFUNCS(all)
 
 /*
  *  call-seq:
@@ -864,12 +874,11 @@ enum_all(VALUE obj)
 {
     VALUE result = Qtrue;
 
-    rb_block_call(obj, id_each, 0, 0, rb_block_given_p() ? all_iter_i : all_i, (VALUE)&result);
+    rb_block_call(obj, id_each, 0, 0, ENUMFUNC(all), (VALUE)&result);
     return result;
 }
 
-static VALUE
-enum_any_func(VALUE result, VALUE *memo)
+DEFINE_ENUMFUNCS(any)
 {
     if (RTEST(result)) {
 	*memo = Qtrue;
@@ -877,8 +886,6 @@ enum_any_func(VALUE result, VALUE *memo)
     }
     return Qnil;
 }
-
-DEFINE_ENUMFUNCS(any)
 
 /*
  *  call-seq:
@@ -903,12 +910,11 @@ enum_any(VALUE obj)
 {
     VALUE result = Qfalse;
 
-    rb_block_call(obj, id_each, 0, 0, rb_block_given_p() ? any_iter_i : any_i, (VALUE)&result);
+    rb_block_call(obj, id_each, 0, 0, ENUMFUNC(any), (VALUE)&result);
     return result;
 }
 
-static VALUE
-enum_one_func(VALUE result, VALUE *memo)
+DEFINE_ENUMFUNCS(one)
 {
     if (RTEST(result)) {
 	if (*memo == Qundef) {
@@ -921,8 +927,6 @@ enum_one_func(VALUE result, VALUE *memo)
     }
     return Qnil;
 }
-
-DEFINE_ENUMFUNCS(one)
 
 /*
  *  call-seq:
@@ -947,13 +951,12 @@ enum_one(VALUE obj)
 {
     VALUE result = Qundef;
 
-    rb_block_call(obj, id_each, 0, 0, rb_block_given_p() ? one_iter_i : one_i, (VALUE)&result);
+    rb_block_call(obj, id_each, 0, 0, ENUMFUNC(one), (VALUE)&result);
     if (result == Qundef) return Qfalse;
     return result;
 }
 
-static VALUE
-enum_none_func(VALUE result, VALUE *memo)
+DEFINE_ENUMFUNCS(none)
 {
     if (RTEST(result)) {
 	*memo = Qfalse;
@@ -961,8 +964,6 @@ enum_none_func(VALUE result, VALUE *memo)
     }
     return Qnil;
 }
-
-DEFINE_ENUMFUNCS(none)
 
 /*
  *  call-seq:
@@ -984,7 +985,7 @@ enum_none(VALUE obj)
 {
     VALUE result = Qtrue;
 
-    rb_block_call(obj, id_each, 0, 0, rb_block_given_p() ? none_iter_i : none_i, (VALUE)&result);
+    rb_block_call(obj, id_each, 0, 0, ENUMFUNC(none), (VALUE)&result);
     return result;
 }
 
@@ -1436,8 +1437,8 @@ enum_each_with_index(int argc, VALUE *argv, VALUE obj)
 
 /*
  *  call-seq:
- *     enum.reverse_each {|item| block } 
- *  
+ *     enum.reverse_each {|item| block }
+ *
  *  Traverses <i>enum</i> in reverse order.
  */
 
@@ -1464,7 +1465,7 @@ zip_ary(VALUE val, NODE *memo, int argc, VALUE *argv)
 {
     volatile VALUE result = memo->u1.value;
     volatile VALUE args = memo->u2.value;
-    int n = memo->u3.cnt++;
+    long n = memo->u3.cnt++;
     volatile VALUE tmp;
     int i;
 
@@ -1567,13 +1568,13 @@ enum_zip(int argc, VALUE *argv, VALUE obj)
     NODE *memo;
     VALUE result = Qnil;
     VALUE args = rb_ary_new4(argc, argv);
-    int allary = Qtrue;
+    int allary = TRUE;
 
     argv = RARRAY_PTR(args);
     for (i=0; i<argc; i++) {
 	VALUE ary = rb_check_array_type(argv[i]);
 	if (NIL_P(ary)) {
-	    allary = Qfalse;
+	    allary = FALSE;
 	    break;
 	}
 	argv[i] = ary;
@@ -1802,6 +1803,25 @@ enum_cycle(int argc, VALUE *argv, VALUE obj)
 }
 
 /*
+ *  call-seq:
+ *     enum.join(sep=$,)    -> str
+ *
+ *  Returns a string created by converting each element of the
+ *  <i>enum</i> to a string, separated by <i>sep</i>.
+ */
+
+static VALUE
+enum_join(int argc, VALUE *argv, VALUE obj)
+{
+    VALUE sep;
+
+    rb_scan_args(argc, argv, "01", &sep);
+    if (NIL_P(sep)) sep = rb_output_fs;
+
+    return rb_ary_join(enum_to_a(0, 0, obj), sep);
+}
+
+/*
  *  The <code>Enumerable</code> mixin provides collection classes with
  *  several traversal and searching methods, and with the ability to
  *  sort. The class must provide a method <code>each</code>, which
@@ -1860,6 +1880,7 @@ Init_Enumerable(void)
     rb_define_method(rb_mEnumerable, "drop", enum_drop, 1);
     rb_define_method(rb_mEnumerable, "drop_while", enum_drop_while, 0);
     rb_define_method(rb_mEnumerable, "cycle", enum_cycle, -1);
+    rb_define_method(rb_mEnumerable, "join", enum_join, -1);
 
     id_eqq  = rb_intern("===");
     id_each = rb_intern("each");

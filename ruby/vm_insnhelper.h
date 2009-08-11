@@ -2,7 +2,7 @@
 
   insnhelper.h - helper macros to implement each instructions
 
-  $Author: yugui $
+  $Author: ko1 $
   created at: 04/01/01 15:50:34 JST
 
   Copyright (C) 2004-2007 Koichi Sasada
@@ -137,10 +137,10 @@ extern VALUE ruby_vm_const_missing_count;
 
 #define GET_PREV_DFP(dfp)                ((VALUE *)((dfp)[0] & ~0x03))
 
-#define GET_GLOBAL(entry)       rb_gvar_get((struct global_entry*)entry)
-#define SET_GLOBAL(entry, val)  rb_gvar_set((struct global_entry*)entry, val)
+#define GET_GLOBAL(entry)       rb_gvar_get((struct rb_global_entry*)entry)
+#define SET_GLOBAL(entry, val)  rb_gvar_set((struct rb_global_entry*)entry, val)
 
-#define GET_CONST_INLINE_CACHE(dst) ((IC) * (GET_PC() + (dst) + 1))
+#define GET_CONST_INLINE_CACHE(dst) ((IC) * (GET_PC() + (dst) + 2))
 
 /**********************************************************/
 /* deal with values                                       */
@@ -154,13 +154,13 @@ extern VALUE ruby_vm_const_missing_count;
 
 #define COPY_CREF(c1, c2) do {  \
   NODE *__tmp_c2 = (c2); \
-  c1->nd_clss = __tmp_c2->nd_clss; \
-  c1->nd_visi = __tmp_c2->nd_visi; \
-  c1->nd_next = __tmp_c2->nd_next; \
+  c1->nd_clss = rb_gc_write_barrier((VALUE)__tmp_c2->nd_clss);\
+  c1->nd_visi = __tmp_c2->nd_visi;\
+  c1->nd_next = (NODE *)rb_gc_write_barrier((VALUE)__tmp_c2->nd_next);\
 } while (0)
 
-#define CALL_METHOD(num, blockptr, flag, id, mn, recv) do { \
-    VALUE v = vm_call_method(th, GET_CFP(), num, blockptr, flag, id, mn, recv); \
+#define CALL_METHOD(num, blockptr, flag, id, me, recv) do { \
+    VALUE v = vm_call_method(th, GET_CFP(), num, blockptr, flag, id, me, recv); \
     if (v == Qundef) { \
 	RESTORE_REGS(); \
 	NEXT_INSN(); \
@@ -189,7 +189,7 @@ extern VALUE ruby_vm_const_missing_count;
 
 #define CALL_SIMPLE_METHOD(num, id, recv) do { \
     VALUE klass = CLASS_OF(recv); \
-    CALL_METHOD(num, 0, 0, id, rb_method_node(klass, id), recv); \
+    CALL_METHOD(num, 0, 0, id, rb_method_entry(klass, id), recv); \
 } while (0)
 
 #endif /* RUBY_INSNHELPER_H */

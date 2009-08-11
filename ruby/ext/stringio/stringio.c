@@ -2,7 +2,7 @@
 
   stringio.c -
 
-  $Author: yugui $
+  $Author: matz $
   $RoughId: stringio.c,v 1.13 2002/03/14 03:24:18 nobu Exp $
   created at: Tue Feb 19 04:10:38 JST 2002
 
@@ -86,11 +86,11 @@ get_strio(VALUE self)
 }
 
 static VALUE
-strio_substr(struct StringIO *ptr, int pos, int len)
+strio_substr(struct StringIO *ptr, long pos, long len)
 {
     VALUE str = ptr->string;
     rb_encoding *enc = rb_enc_get(str);
-    int rlen = RSTRING_LEN(str) - pos;
+    long rlen = RSTRING_LEN(str) - pos;
 
     if (len > rlen) len = rlen;
     if (len < 0) len = 0;
@@ -160,7 +160,7 @@ static void
 strio_init(int argc, VALUE *argv, struct StringIO *ptr)
 {
     VALUE string, mode;
-    int trunc = Qfalse;
+    int trunc = 0;
 
     switch (rb_scan_args(argc, argv, "02", &string, &mode)) {
       case 2:
@@ -824,6 +824,37 @@ strio_each_char(VALUE self)
     return self;
 }
 
+/*
+ * call-seq:
+ *   strio.each_codepoint {|c| block }  -> strio
+ *
+ * See IO#each_codepoint.
+ */
+static VALUE
+strio_each_codepoint(VALUE self)
+{
+    struct StringIO *ptr;
+    rb_encoding *enc;
+    unsigned int c;
+    int n;
+
+    RETURN_ENUMERATOR(self, 0, 0);
+
+    ptr = readable(StringIO(self));
+    enc = rb_enc_get(ptr->string);
+    for (;;) {
+	if (ptr->pos >= RSTRING_LEN(ptr->string)) {
+	    return self;
+	}
+
+	c = rb_enc_codepoint_len(RSTRING_PTR(ptr->string)+ptr->pos,
+				 RSTRING_END(ptr->string), &n, enc);
+	rb_yield(UINT2NUM(c));
+	ptr->pos += n;
+    }
+    return self;
+}
+
 /* Boyer-Moore search: copied from regex.c */
 static void
 bm_init_skip(long *skip, const char *pat, long m)
@@ -1214,9 +1245,6 @@ strio_sysread(int argc, VALUE *argv, VALUE self)
 
 #define strio_syswrite strio_write
 
-/* call-seq: strio.path -> nil */
-#define strio_path strio_nil
-
 /*
  * call-seq:
  *   strio.isatty -> nil
@@ -1354,7 +1382,6 @@ Init_stringio()
     rb_define_method(StringIO, "sync", strio_get_sync, 0);
     rb_define_method(StringIO, "sync=", strio_set_sync, 1);
     rb_define_method(StringIO, "tell", strio_tell, 0);
-    rb_define_method(StringIO, "path", strio_path, 0);
 
     rb_define_method(StringIO, "each", strio_each, -1);
     rb_define_method(StringIO, "each_line", strio_each, -1);
@@ -1363,6 +1390,8 @@ Init_stringio()
     rb_define_method(StringIO, "bytes", strio_each_byte, 0);
     rb_define_method(StringIO, "each_char", strio_each_char, 0);
     rb_define_method(StringIO, "chars", strio_each_char, 0);
+    rb_define_method(StringIO, "each_codepoint", strio_each_codepoint, 0);
+    rb_define_method(StringIO, "codepoints", strio_each_codepoint, 0);
     rb_define_method(StringIO, "getc", strio_getc, 0);
     rb_define_method(StringIO, "ungetc", strio_ungetc, 1);
     rb_define_method(StringIO, "ungetbyte", strio_ungetbyte, 1);

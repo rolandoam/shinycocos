@@ -193,6 +193,11 @@ VALUE sc_reachability_for_host(VALUE module, VALUE host) {
 }
 
 
+VALUE sc_test(VALUE module) {
+	return rb_float_new(1.1f);
+}
+
+
 /*
  * ShinyCocos
  * 
@@ -242,6 +247,7 @@ void Init_ShinyCocos() {
 	rb_define_module_function(rb_mCocos2D, "ns_log", sc_ns_log, -1);
 	rb_define_module_function(rb_mCocos2D, "display_alert", sc_display_alert, -1);
 	rb_define_module_function(rb_mCocos2D, "reachability_for_host", sc_reachability_for_host, 1);
+	rb_define_module_function(rb_mCocos2D, "test", sc_test, 0);
 	
 	/* no network conectivity */
 	rb_define_const(rb_mCocos2D, "NOT_REACHABLE", INT2FIX(NotReachable));

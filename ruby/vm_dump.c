@@ -2,7 +2,7 @@
 
   vm_dump.c -
 
-  $Author: yugui $
+  $Author: ko1 $
 
   Copyright (C) 2004-2007 Koichi Sasada
 
@@ -34,11 +34,11 @@ control_frame_dump(rb_thread_t *th, rb_control_frame_t *cfp)
 	biseq_name = "";	/* RSTRING(cfp->block_iseq->name)->ptr; */
     }
 
-    if (lfp < 0 || lfp > th->stack_size) {
+    if (lfp < 0 || (size_t)lfp > th->stack_size) {
 	lfp = (ptrdiff_t)cfp->lfp;
 	lfp_in_heap = 'p';
     }
-    if (dfp < 0 || dfp > th->stack_size) {
+    if (dfp < 0 || (size_t)dfp > th->stack_size) {
 	dfp = (ptrdiff_t)cfp->dfp;
 	dfp_in_heap = 'p';
     }
@@ -112,9 +112,9 @@ control_frame_dump(rb_thread_t *th, rb_control_frame_t *cfp)
 	    }
 	}
     }
-    else if (cfp->method_id) {
-	iseq_name = rb_id2name(cfp->method_id);
-	snprintf(posbuf, MAX_POSBUF, ":%s", rb_id2name(cfp->method_id));
+    else if (cfp->me) {
+	iseq_name = rb_id2name(cfp->me->original_id);
+	snprintf(posbuf, MAX_POSBUF, ":%s", rb_id2name(cfp->me->original_id));
 	line = -1;
     }
 
@@ -236,6 +236,7 @@ rb_vmdebug_stack_dump_th(VALUE thval)
     rb_vmdebug_stack_dump_raw(th, th->cfp);
 }
 
+#if VMDEBUG > 2
 static void
 vm_stack_dump_each(rb_thread_t *th, rb_control_frame_t *cfp)
 {
@@ -252,7 +253,7 @@ vm_stack_dump_each(rb_thread_t *th, rb_control_frame_t *cfp)
 
     if (iseq == 0) {
 	if (RUBYVM_CFUNC_FRAME_P(cfp)) {
-	    name = rb_id2name(cfp->method_id);
+	    name = rb_id2name(cfp->me->original_id);
 	}
 	else {
 	    name = "?";
@@ -322,7 +323,7 @@ vm_stack_dump_each(rb_thread_t *th, rb_control_frame_t *cfp)
 	rb_bug("unsupport frame type: %08lx", VM_FRAME_TYPE(cfp));
     }
 }
-
+#endif
 
 void
 rb_vmdebug_debug_print_register(rb_thread_t *th)
@@ -337,9 +338,9 @@ rb_vmdebug_debug_print_register(rb_thread_t *th)
 	pc = cfp->pc - cfp->iseq->iseq_encoded;
     }
 
-    if (lfp < 0 || lfp > th->stack_size)
+    if (lfp < 0 || (size_t)lfp > th->stack_size)
 	lfp = -1;
-    if (dfp < 0 || dfp > th->stack_size)
+    if (dfp < 0 || (size_t)dfp > th->stack_size)
 	dfp = -1;
 
     cfpi = ((rb_control_frame_t *)(th->stack + th->stack_size)) - cfp;
@@ -563,33 +564,34 @@ rb_vmdebug_thread_dump_state(VALUE self)
     return Qnil;
 }
 
-VALUE rb_make_backtrace(void);
+static int
+bugreport_backtrace(void *arg, const char *file, int line, const char *method)
+{
+    if (!*(int *)arg) {
+	fprintf(stderr, "-- Ruby level backtrace information"
+		"-----------------------------------------\n");
+	*(int *)arg = 1;
+    }
+    fprintf(stderr, "%s:%d:in `%s'\n", file, line, method);
+    return 0;
+}
 
+#if HAVE_BACKTRACE
+#include <execinfo.h>
+#endif
 void
 rb_vm_bugreport(void)
 {
-    VALUE bt;
-
     if (GET_THREAD()->vm) {
 	int i;
 	SDR();
 
-	bt = rb_make_backtrace();
-
-	if (bt) {
-	    fprintf(stderr, "-- Ruby level backtrace information"
-		    "-----------------------------------------\n");
-
-	    for (i = 0; i < RARRAY_LEN(bt); i++) {
-		VALUE str = RARRAY_PTR(bt)[i];
-		fprintf(stderr, "%s\n", RSTRING_PTR(str));
-	    }
-	    fprintf(stderr, "\n");
+	if (rb_backtrace_each(bugreport_backtrace, &i)) {
+	    fputs("\n", stderr);
 	}
     }
 
 #if HAVE_BACKTRACE
-#include <execinfo.h>
 #define MAX_NATIVE_TRACE 1024
     {
 	static void *trace[MAX_NATIVE_TRACE];
@@ -599,15 +601,13 @@ rb_vm_bugreport(void)
 
 	fprintf(stderr, "-- C level backtrace information "
 		"-------------------------------------------\n");
-	for (i=0; i<n; i++) {
-	    const char *info = syms ? syms[i] : "";
-	    fprintf(stderr, "%p %s\n", trace[i], info);
-	}
-	fprintf(stderr, "\n");
-
 	if (syms) {
+	    for (i=0; i<n; i++) {
+		fprintf(stderr, "%s\n", syms[i]);
+	    }
 	    free(syms);
 	}
+	fprintf(stderr, "\n");
     }
 #endif
 }

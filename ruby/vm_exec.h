@@ -2,7 +2,7 @@
 
   vm.h -
 
-  $Author: yugui $
+  $Author: ko1 $
   created at: 04/01/01 16:56:59 JST
 
   Copyright (C) 2004-2007 Koichi Sasada

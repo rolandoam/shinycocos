@@ -95,12 +95,6 @@ typedef unsigned int uintptr_t;
 # define mode_t int
 #endif
 
-#ifdef _M_IX86
-# define WIN95 1
-#else
-# undef  WIN95
-#endif
-
 #ifdef WIN95
 extern DWORD rb_w32_osid(void);
 #define rb_w32_iswinnt()  (rb_w32_osid() == VER_PLATFORM_WIN32_NT)
@@ -197,8 +191,8 @@ extern int rb_w32_stat(const char *, struct stat *);
 extern int rb_w32_fstat(int, struct stat *);
 #endif
 
-#define strcasecmp		stricmp
-#define strncasecmp		strnicmp
+#define strcasecmp		_stricmp
+#define strncasecmp		_strnicmp
 #define fsync			_commit
 
 #ifdef __MINGW32__
@@ -209,6 +203,21 @@ struct timezone {
 #undef isascii
 #define isascii __isascii
 #endif
+
+struct iovec {
+    void *iov_base;
+    size_t iov_len;
+};
+struct msghdr {
+    void *msg_name;
+    int msg_namelen;
+    struct iovec *msg_iov;
+    int msg_iovlen;
+    void *msg_control;
+    int msg_controllen;
+    int msg_flags;
+};
+
 #define NtInitialize ruby_sysinit
 extern int    rb_w32_cmdvector(const char *, char ***);
 extern rb_pid_t  rb_w32_pipe_exec(const char *, const char *, int, int *, int *);
@@ -230,6 +239,8 @@ extern int    WSAAPI rb_w32_recv(int, char *, int, int);
 extern int    WSAAPI rb_w32_recvfrom(int, char *, int, int, struct sockaddr *, int *);
 extern int    WSAAPI rb_w32_send(int, const char *, int, int);
 extern int    WSAAPI rb_w32_sendto(int, const char *, int, int, const struct sockaddr *, int);
+extern int    recvmsg(int, struct msghdr *, int);
+extern int    sendmsg(int, const struct msghdr *, int);
 extern int    WSAAPI rb_w32_setsockopt(int, int, int, const char *, int);
 extern int    WSAAPI rb_w32_shutdown(int, int);
 extern int    WSAAPI rb_w32_socket(int, int, int);
@@ -538,6 +549,7 @@ HANDLE GetCurrentThreadHandle(void);
 int  rb_w32_sleep(unsigned long msec);
 int  rb_w32_putc(int, FILE*);
 int  rb_w32_getc(FILE*);
+int  rb_w32_wopen(const WCHAR *, int, ...);
 int  rb_w32_open(const char *, int, ...);
 int  rb_w32_close(int);
 int  rb_w32_fclose(FILE*);

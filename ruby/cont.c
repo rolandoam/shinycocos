@@ -1,8 +1,8 @@
 /**********************************************************************
 
-  cont.c - 
+  cont.c -
 
-  $Author: yugui $
+  $Author: nobu $
   created at: Thu May 23 09:03:43 2007
 
   Copyright (C) 2007 Koichi Sasada
@@ -29,8 +29,8 @@ typedef struct rb_context_struct {
     VALUE value;
     VALUE *vm_stack;
 #ifdef CAPTURE_JUST_VALID_VM_STACK
-    int vm_stack_slen;  /* length of stack (head of th->stack) */
-    int vm_stack_clen;  /* length of control frames (tail of th->stack) */
+    size_t vm_stack_slen;  /* length of stack (head of th->stack) */
+    size_t vm_stack_clen;  /* length of control frames (tail of th->stack) */
 #endif
     VALUE *machine_stack;
     VALUE *machine_stack_src;
@@ -179,7 +179,7 @@ fiber_free(void *ptr)
 static void
 cont_save_machine_stack(rb_thread_t *th, rb_context_t *cont)
 {
-    int size;
+    size_t size;
     rb_thread_t *sth = &cont->saved_thread;
 
     SET_MACHINE_STACK_END(&th->machine_stack_end);
@@ -372,10 +372,13 @@ static volatile int C(a), C(b), C(c), C(d), C(e);
 static volatile int C(f), C(g), C(h), C(i), C(j);
 static volatile int C(k), C(l), C(m), C(n), C(o);
 static volatile int C(p), C(q), C(r), C(s), C(t);
+#if 0
+{/* the above lines make cc-mode.el confused so much */}
+#endif
 int rb_dummy_false = 0;
-NORETURN(NOINLINE(static void register_stack_extend(rb_context_t *, VALUE *)));
+NORETURN(NOINLINE(static void register_stack_extend(rb_context_t *, VALUE *, VALUE *)));
 static void
-register_stack_extend(rb_context_t *cont, VALUE *curr_bsp)
+register_stack_extend(rb_context_t *cont, VALUE *vp, VALUE *curr_bsp)
 {
     if (rb_dummy_false) {
         /* use registers as much as possible */
@@ -389,9 +392,9 @@ register_stack_extend(rb_context_t *cont, VALUE *curr_bsp)
         E(p) = E(q) = E(r) = E(s) = E(t) = 0;
     }
     if (curr_bsp < cont->machine_register_stack_src+cont->machine_register_stack_size) {
-        register_stack_extend(cont, (VALUE*)rb_ia64_bsp());
+        register_stack_extend(cont, vp, (VALUE*)rb_ia64_bsp());
     }
-    cont_restore_1(cont);
+    cont_restore_0(cont, vp);
 }
 #undef C
 #undef E
@@ -401,38 +404,53 @@ static void
 cont_restore_0(rb_context_t *cont, VALUE *addr_in_prev_frame)
 {
     if (cont->machine_stack_src) {
+#ifdef HAVE_ALLOCA
+#define STACK_PAD_SIZE 1
+#else
 #define STACK_PAD_SIZE 1024
+#endif
 	VALUE space[STACK_PAD_SIZE];
 
-#if STACK_GROW_DIRECTION < 0 /* downward */
-	if (addr_in_prev_frame > cont->machine_stack_src) {
-	    cont_restore_0(cont, &space[0]);
-	}
-#elif STACK_GROW_DIRECTION > 0 /* upward */
-	if (addr_in_prev_frame < cont->machine_stack_src + cont->machine_stack_size) {
-	    cont_restore_0(cont, &space[STACK_PAD_SIZE-1]);
-	}
-#else
+#if !STACK_GROW_DIRECTION
 	if (addr_in_prev_frame > &space[0]) {
 	    /* Stack grows downward */
-	    if (addr_in_prev_frame > cont->machine_stack_src) {
+#endif
+#if STACK_GROW_DIRECTION <= 0
+	    volatile VALUE *const end = cont->machine_stack_src;
+	    if (&space[0] > end) {
+# ifdef HAVE_ALLOCA
+		volatile VALUE *sp = ALLOCA_N(VALUE, &space[0] - end);
+		(void)sp;
+# else
 		cont_restore_0(cont, &space[0]);
+# endif
 	    }
+#endif
+#if !STACK_GROW_DIRECTION
 	}
 	else {
 	    /* Stack grows upward */
-	    if (addr_in_prev_frame < cont->machine_stack_src + cont->machine_stack_size) {
+#endif
+#if STACK_GROW_DIRECTION >= 0
+	    volatile VALUE *const end = cont->machine_stack_src + cont->machine_stack_size;
+	    if (&space[STACK_PAD_SIZE] < end) {
+# ifdef HAVE_ALLOCA
+		volatile VALUE *sp = ALLOCA_N(VALUE, end - &space[STACK_PAD_SIZE]);
+		(void)sp;
+# else
 		cont_restore_0(cont, &space[STACK_PAD_SIZE-1]);
+# endif
 	    }
+#endif
+#if !STACK_GROW_DIRECTION
 	}
 #endif
     }
-#ifdef __ia64
-    register_stack_extend(cont, (VALUE*)rb_ia64_bsp());
-#else
     cont_restore_1(cont);
-#endif
 }
+#ifdef __ia64
+#define cont_restore_0(cont, vp) register_stack_extend(cont, vp, (VALUE*)rb_ia64_bsp());
+#endif
 
 /*
  *  Document-class: Continuation
@@ -444,24 +462,24 @@ cont_restore_0(rb_context_t *cont, VALUE *addr_in_prev_frame)
  *  Continuations are somewhat analogous to a structured version of C's
  *  <code>setjmp/longjmp</code> (although they contain more state, so
  *  you might consider them closer to threads).
- *     
+ *
  *  For instance:
- *     
+ *
  *     arr = [ "Freddie", "Herbie", "Ron", "Max", "Ringo" ]
  *     callcc{|$cc|}
  *     puts(message = arr.shift)
  *     $cc.call unless message =~ /Max/
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     Freddie
  *     Herbie
  *     Ron
  *     Max
- *     
+ *
  *  This (somewhat contrived) example allows the inner loop to abandon
  *  processing early:
- *     
+ *
  *     callcc {|cont|
  *       for i in 0..4
  *         print "\n#{i}: "
@@ -472,9 +490,9 @@ cont_restore_0(rb_context_t *cont, VALUE *addr_in_prev_frame)
  *       end
  *     }
  *     print "\n"
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     0:   0  1  2  3  4
  *     1:   5  6  7  8  9
  *     2:  10 11 12 13 14
@@ -484,7 +502,7 @@ cont_restore_0(rb_context_t *cont, VALUE *addr_in_prev_frame)
 /*
  *  call-seq:
  *     callcc {|cont| block }   =>  obj
- *  
+ *
  *  Generates a <code>Continuation</code> object, which it passes to the
  *  associated block. Performing a <em>cont</em><code>.call</code> will
  *  cause the <code>callcc</code> to return (as will falling through the
@@ -526,13 +544,13 @@ make_passing_arg(int argc, VALUE *argv)
  *  call-seq:
  *     cont.call(args, ...)
  *     cont[args, ...]
- *  
+ *
  *  Invokes the continuation. The program continues from the end of the
  *  <code>callcc</code> block. If no arguments are given, the original
  *  <code>callcc</code> returns <code>nil</code>. If one argument is
  *  given, <code>callcc</code> returns it. Otherwise, an array
  *  containing <i>args</i> is returned.
- *     
+ *
  *     callcc {|cont|  cont.call }           #=> nil
  *     callcc {|cont|  cont.call 1 }         #=> 1
  *     callcc {|cont|  cont.call 1, 2, 3 }   #=> [1, 2, 3]
@@ -575,26 +593,26 @@ rb_cont_call(int argc, VALUE *argv, VALUE contval)
  *  Document-class: Fiber
  *
  *  Fibers are primitives for implementing light weight cooperative
- *  concurrency in Ruby. Basically they are a means of creating code blocks 
- *  that can be paused and resumed, much like threads. The main difference 
- *  is that they are never preempted and that the scheduling must be done by 
- *  the programmer and not the VM. 
+ *  concurrency in Ruby. Basically they are a means of creating code blocks
+ *  that can be paused and resumed, much like threads. The main difference
+ *  is that they are never preempted and that the scheduling must be done by
+ *  the programmer and not the VM.
  *
  *  As opposed to other stackless light weight concurrency models, each fiber
  *  comes with a small 4KB stack. This enables the fiber to be paused from deeply
  *  nested function calls within the fiber block.
  *
- *  When a fiber is created it will not run automatically. Rather it must be 
- *  be explicitly asked to run using the <code>Fiber#resume</code> method. 
- *  The code running inside the fiber can give up control by calling 
- *  <code>Fiber.yield</code> in which case it yields control back to caller 
+ *  When a fiber is created it will not run automatically. Rather it must be
+ *  be explicitly asked to run using the <code>Fiber#resume</code> method.
+ *  The code running inside the fiber can give up control by calling
+ *  <code>Fiber.yield</code> in which case it yields control back to caller
  *  (the caller of the <code>Fiber#resume</code>).
- * 
- *  Upon yielding or termination the Fiber returns the value of the last 
+ *
+ *  Upon yielding or termination the Fiber returns the value of the last
  *  executed expression
- *  
+ *
  *  For instance:
- *  
+ *
  *    fiber = Fiber.new do
  *      Fiber.yield 1
  *      2
@@ -603,20 +621,20 @@ rb_cont_call(int argc, VALUE *argv, VALUE contval)
  *    puts fiber.resume
  *    puts fiber.resume
  *    puts fiber.resume
- *    
+ *
  *  <em>produces</em>
- *    
+ *
  *    1
  *    2
  *    FiberError: dead fiber called
- *     
+ *
  *  The <code>Fiber#resume</code> method accepts an arbitary number of
  *  parameters, if it is the first call to <code>resume</code> then they
  *  will be passed as block arguments. Otherwise they will be the return
  *  value of the call to <code>Fiber.yield</code>
  *
  *  Example:
- *  
+ *
  *    fiber = Fiber.new do |first|
  *      second = Fiber.yield first + 2
  *    end
@@ -626,7 +644,7 @@ rb_cont_call(int argc, VALUE *argv, VALUE contval)
  *    puts fiber.resume 18
  *
  *  <em>produces</em>
- *    
+ *
  *    12
  *    14
  *    FiberError: dead fiber called
@@ -801,7 +819,7 @@ root_fiber_alloc(rb_thread_t *th)
 }
 
 VALUE
-rb_fiber_current()
+rb_fiber_current(void)
 {
     rb_thread_t *th = GET_THREAD();
     if (th->fiber == 0) {
@@ -915,7 +933,7 @@ rb_fiber_yield(int argc, VALUE *argv)
 /*
  *  call-seq:
  *     fiber.alive? -> true or false
- *  
+ *
  *  Returns true if the fiber can still be resumed (or transferred to).
  *  After finishing execution of the fiber block this method will always
  *  return false.
@@ -925,19 +943,19 @@ rb_fiber_alive_p(VALUE fibval)
 {
     rb_fiber_t *fib;
     GetFiberPtr(fibval, fib);
-    return fib->status != TERMINATED;
+    return fib->status != TERMINATED ? Qtrue : Qfalse;
 }
 
 /*
  *  call-seq:
  *     fiber.resume(args, ...) -> obj
- *  
+ *
  *  Resumes the fiber from the point at which the last <code>Fiber.yield</code>
- *  was called, or starts running it if it is the first call to 
+ *  was called, or starts running it if it is the first call to
  *  <code>resume</code>. Arguments passed to resume will be the value of
- *  the <code>Fiber.yield</code> expression or will be passed as block 
+ *  the <code>Fiber.yield</code> expression or will be passed as block
  *  parameters to the fiber's block if this is the first <code>resume</code>.
- *  
+ *
  *  Alternatively, when resume is called it evaluates to the arguments passed
  *  to the next <code>Fiber.yield</code> statement inside the fiber's block
  *  or to the block value if it runs to completion without any
@@ -952,15 +970,15 @@ rb_fiber_m_resume(int argc, VALUE *argv, VALUE fib)
 /*
  *  call-seq:
  *     fiber.transfer(args, ...) -> obj
- *  
+ *
  *  Transfer control to another fiber, resuming it from where it last
- *  stopped or starting it if it was not resumed before. The calling 
+ *  stopped or starting it if it was not resumed before. The calling
  *  fiber will be suspended much like in a call to <code>Fiber.yield</code>.
- *  
- *  The fiber which recieves the transfer call is treats it much like 
+ *
+ *  The fiber which recieves the transfer call is treats it much like
  *  a resume call. Arguments passed to transfer are treated like those
  *  passed to resume.
- *     
+ *
  *  You cannot resume a fiber that transferred control to another one.
  *  This will cause a double resume error. You need to transfer control
  *  back to this fiber before it can yield and resume.
@@ -974,7 +992,7 @@ rb_fiber_m_transfer(int argc, VALUE *argv, VALUE fib)
 /*
  *  call-seq:
  *     Fiber.yield(args, ...) -> obj
- *  
+ *
  *  Yields control back to the context that resumed the fiber, passing
  *  along any arguments that were passed to it. The fiber will resume
  *  processing at this point when <code>resume</code> is called next.
@@ -990,7 +1008,7 @@ rb_fiber_s_yield(int argc, VALUE *argv, VALUE klass)
 /*
  *  call-seq:
  *     Fiber.current() -> fiber
- *  
+ *
  *  Returns the current fiber. You need to <code>require 'fiber'</code>
  *  before using this method. If you are not running in the context of
  *  a fiber this method will return the root fiber.

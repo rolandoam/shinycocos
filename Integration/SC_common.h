@@ -19,7 +19,7 @@
 
 #import <objc/runtime.h>
 #import <AVFoundation/AVAudioPlayer.h>
-#import <math.h>
+#include <math.h>
 #import "ruby.h"
 #import "cocos2d.h"
 #import "chipmunk.h"

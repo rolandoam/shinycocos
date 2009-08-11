@@ -52,7 +52,7 @@ static unsigned char PadBuf[WORD_ALIGNMENT_SIZE];
 static UChar*
 str_dup(UChar* s, UChar* end)
 {
-  int len = end - s;
+  ptrdiff_t len = end - s;
 
   if (len > 0) {
     UChar* r = (UChar* )xmalloc(len + 1);
@@ -73,7 +73,7 @@ swap_node(Node* a, Node* b)
   if (NTYPE(a) == NT_STR) {
     StrNode* sn = NSTR(a);
     if (sn->capa == 0) {
-      int len = sn->end - sn->s;
+      size_t len = sn->end - sn->s;
       sn->s   = sn->buf;
       sn->end = sn->s + len;
     }
@@ -82,7 +82,7 @@ swap_node(Node* a, Node* b)
   if (NTYPE(b) == NT_STR) {
     StrNode* sn = NSTR(b);
     if (sn->capa == 0) {
-      int len = sn->end - sn->s;
+      size_t len = sn->end - sn->s;
       sn->s   = sn->buf;
       sn->end = sn->s + len;
     }
@@ -416,7 +416,7 @@ compile_tree_n_times(Node* node, int n, regex_t* reg)
 }
 
 static int
-add_compile_string_length(UChar* s ARG_UNUSED, int mb_len, int str_len,
+add_compile_string_length(UChar* s ARG_UNUSED, int mb_len, OnigDistance str_len,
                           regex_t* reg ARG_UNUSED, int ignore_case)
 {
   int len;
@@ -2555,7 +2555,7 @@ is_not_included(Node* x, Node* y, regex_t* reg)
 	  }
 	}
 	break;
-	
+
       default:
 	break;
       }
@@ -3294,7 +3294,7 @@ expand_case_fold_string_alt(int item_num, OnigCaseFoldCodeItem items[],
   for (i = 0; i < item_num; i++) {
     snode = onig_node_new_str(NULL, NULL);
     if (IS_NULL(snode)) goto mem_err;
-    
+
     for (j = 0; j < items[i].code_len; j++) {
       len = ONIGENC_CODE_TO_MBC(reg->enc, items[i].code[j], buf);
       if (len < 0) {
@@ -4004,15 +4004,15 @@ distance_value(MinMaxLen* mm)
 {
   /* 1000 / (min-max-dist + 1) */
   static const short int dist_vals[] = {
-    1000,  500,  333,  250,  200,  167,  143,  125,  111,  100, 
-      91,   83,   77,   71,   67,   63,   59,   56,   53,   50, 
-      48,   45,   43,   42,   40,   38,   37,   36,   34,   33, 
-      32,   31,   30,   29,   29,   28,   27,   26,   26,   25, 
-      24,   24,   23,   23,   22,   22,   21,   21,   20,   20, 
-      20,   19,   19,   19,   18,   18,   18,   17,   17,   17, 
-      16,   16,   16,   16,   15,   15,   15,   15,   14,   14, 
-      14,   14,   14,   14,   13,   13,   13,   13,   13,   13, 
-      12,   12,   12,   12,   12,   12,   11,   11,   11,   11, 
+    1000,  500,  333,  250,  200,  167,  143,  125,  111,  100,
+      91,   83,   77,   71,   67,   63,   59,   56,   53,   50,
+      48,   45,   43,   42,   40,   38,   37,   36,   34,   33,
+      32,   31,   30,   29,   29,   28,   27,   26,   26,   25,
+      24,   24,   23,   23,   22,   22,   21,   21,   20,   20,
+      20,   19,   19,   19,   18,   18,   18,   17,   17,   17,
+      16,   16,   16,   16,   15,   15,   15,   15,   14,   14,
+      14,   14,   14,   14,   13,   13,   13,   13,   13,   13,
+      12,   12,   12,   12,   12,   12,   11,   11,   11,   11,
       11,   11,   11,   11,   11,   10,   10,   10,   10,   10
   };
 
@@ -4899,7 +4899,7 @@ set_optimize_exact_info(regex_t* reg, OptExactInfo* e)
     reg->exact = str_dup(e->s, e->s + e->len);
     CHECK_NULL_RETURN_MEMERR(reg->exact);
     reg->exact_end = reg->exact + e->len;
- 
+
     allow_reverse =
 	ONIGENC_IS_ALLOWED_REVERSE_MATCH(reg->enc, reg->exact, reg->exact_end);
 
@@ -5200,6 +5200,20 @@ onig_free(regex_t* reg)
     onig_free_body(reg);
     xfree(reg);
   }
+}
+
+size_t
+onig_memsize(regex_t *reg)
+{
+    size_t size = sizeof(regex_t);
+    if (IS_NOT_NULL(reg->p))                size += reg->alloc;
+    if (IS_NOT_NULL(reg->exact))            size += reg->exact_end - reg->exact;
+    if (IS_NOT_NULL(reg->int_map))          size += sizeof(int) * ONIG_CHAR_TABLE_SIZE;
+    if (IS_NOT_NULL(reg->int_map_backward)) size += sizeof(int) * ONIG_CHAR_TABLE_SIZE;
+    if (IS_NOT_NULL(reg->repeat_range))     size += reg->repeat_range_alloc * sizeof(OnigRepeatRange);
+    if (IS_NOT_NULL(reg->chain))            size += onig_memsize(reg->chain);
+
+    return size;
 }
 
 #define REGEX_TRANSFER(to,from) do {\
@@ -5938,7 +5952,7 @@ onig_print_compiled_byte_code(FILE* f, UChar* bp, UChar** nextp,
       p_len_string(f, len, 1, bp);
       bp += len;
       break;
-    
+
     case OP_EXACTMB2N1:
       p_string(f, 2, bp); bp += 2; break;
     case OP_EXACTMB2N2:
@@ -5958,7 +5972,7 @@ onig_print_compiled_byte_code(FILE* f, UChar* bp, UChar** nextp,
     case OP_EXACTMBN:
       {
 	int mb_len;
-      
+
 	GET_LENGTH_INC(mb_len, bp);
 	GET_LENGTH_INC(len, bp);
 	fprintf(f, ":%d:%d:", mb_len, len);

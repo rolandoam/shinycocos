@@ -1,8 +1,8 @@
 /**********************************************************************
 
-  vm_core.h - 
+  vm_core.h -
 
-  $Author: yugui $
+  $Author: ko1 $
   created at: 04/01/01 19:41:38 JST
 
   Copyright (C) 2004-2007 Koichi Sasada
@@ -21,6 +21,7 @@
 #include "debug.h"
 #include "vm_opts.h"
 #include "id.h"
+#include "method.h"
 
 #if   defined(_WIN32)
 #include "thread_win32.h"
@@ -92,6 +93,8 @@
 
 typedef unsigned long rb_num_t;
 
+/* iseq data type */
+
 struct iseq_compile_data_ensure_node_stack;
 
 typedef struct rb_compile_option_struct {
@@ -105,6 +108,14 @@ typedef struct rb_compile_option_struct {
     int trace_instruction;
     int debug_level;
 } rb_compile_option_t;
+
+struct iseq_inline_cache_entry {
+    long  ic_vmstat;
+    VALUE ic_class;
+    VALUE ic_value;
+    rb_method_entry_t *ic_method;
+#define ic_index ic_vmstat
+};
 
 #if 1
 #define GetCoreDataFromValue(obj, type, ptr) do { \
@@ -132,16 +143,20 @@ struct rb_iseq_struct {
     unsigned long iseq_size;
     VALUE mark_ary;	/* Array: includes operands which should be GC marked */
     VALUE coverage;     /* coverage array */
+    unsigned short line_no;
 
     /* insn info, must be freed */
     struct iseq_insn_info_entry *insn_info_table;
-    unsigned long insn_info_size;
+    size_t insn_info_size;
 
     ID *local_table;		/* must free */
     int local_table_size;
 
     /* method, class frame: sizeof(vars) + 1, block frame: sizeof(vars) */
-    int local_size; 
+    int local_size;
+
+    struct iseq_inline_cache_entry *ic_entries;
+    int ic_size;
 
     /**
      * argument information
@@ -176,7 +191,7 @@ struct rb_iseq_struct {
     int arg_size;
     VALUE *arg_opt_table;
 
-    int stack_max; /* for stack overflow check */
+    size_t stack_max; /* for stack overflow check */
 
     /* catch table */
     struct iseq_catch_table_entry *catch_table;
@@ -194,7 +209,7 @@ struct rb_iseq_struct {
     VALUE orig;			/* non-NULL if its data have origin */
 
     /* block inlining */
-    /* 
+    /*
      * NODE *node;
      * void *special_block_builder;
      * void *cached_special_block_builder;
@@ -218,8 +233,6 @@ enum ruby_special_exceptions {
     ruby_error_sysstack,
     ruby_special_error_count
 };
-
-typedef struct rb_iseq_struct rb_iseq_t;
 
 #define GetVMPtr(obj, ptr) \
   GetCoreDataFromValue(obj, rb_vm_t, ptr)
@@ -250,7 +263,7 @@ typedef struct rb_vm_struct {
     VALUE load_path;
     VALUE loaded_features;
     struct st_table *loading_table;
-    
+
     /* signal */
     struct {
 	VALUE cmd;
@@ -281,8 +294,7 @@ typedef struct {
     VALUE *dfp;			/* cfp[7] / block[2] */
     rb_iseq_t *block_iseq;	/* cfp[8] / block[3] */
     VALUE proc;			/* cfp[9] / block[4] */
-    ID method_id;               /* cfp[10] saved in special case */
-    VALUE method_class;         /* cfp[11] saved in special case */
+    const rb_method_entry_t *me;/* cfp[10] */
 } rb_control_frame_t;
 
 typedef struct rb_block_struct {
@@ -339,12 +351,12 @@ typedef struct rb_thread_struct
     int safe_level;
     int raised_flag;
     VALUE last_status; /* $? */
-    
+
     /* passing state */
     int state;
 
     /* for rb_iterate */
-    rb_block_t *passed_block;
+    const rb_block_t *passed_block;
 
     /* for load(true) */
     VALUE top_self;
@@ -433,8 +445,8 @@ typedef struct rb_thread_struct
 VALUE rb_iseq_new(NODE*, VALUE, VALUE, VALUE, VALUE);
 VALUE rb_iseq_new_top(NODE *node, VALUE name, VALUE filename, VALUE parent);
 VALUE rb_iseq_new_main(NODE *node, VALUE filename);
-VALUE rb_iseq_new_with_bopt(NODE*, VALUE, VALUE, VALUE, VALUE, VALUE);
-VALUE rb_iseq_new_with_opt(NODE*, VALUE, VALUE, VALUE, VALUE, const rb_compile_option_t*);
+VALUE rb_iseq_new_with_bopt(NODE*, VALUE, VALUE, VALUE, VALUE, VALUE, VALUE);
+VALUE rb_iseq_new_with_opt(NODE*, VALUE, VALUE, VALUE, VALUE, VALUE, const rb_compile_option_t*);
 VALUE rb_iseq_compile(VALUE src, VALUE file, VALUE line);
 VALUE rb_iseq_disasm(VALUE self);
 VALUE rb_iseq_disasm_insn(VALUE str, VALUE *iseqval, int pos, rb_iseq_t *iseq, VALUE child);
@@ -448,11 +460,6 @@ RUBY_EXTERN VALUE rb_mRubyVMFrozenCore;
 
 /* each thread has this size stack : 128KB */
 #define RUBY_VM_THREAD_STACK_SIZE (128 * 1024)
-
-struct global_entry {
-    struct global_variable *var;
-    ID id;
-};
 
 #define GetProcPtr(obj, ptr) \
   GetCoreDataFromValue(obj, rb_proc_t, ptr)
@@ -485,7 +492,6 @@ typedef struct {
     VALUE env;
 } rb_binding_t;
 
-
 /* used by compile time and send insn */
 #define VM_CALL_ARGS_SPLAT_BIT     (0x01 << 1)
 #define VM_CALL_ARGS_BLOCKARG_BIT  (0x01 << 2)
@@ -494,7 +500,7 @@ typedef struct {
 #define VM_CALL_TAILCALL_BIT       (0x01 << 5)
 #define VM_CALL_TAILRECURSION_BIT  (0x01 << 6)
 #define VM_CALL_SUPER_BIT          (0x01 << 7)
-#define VM_CALL_SEND_BIT           (0x01 << 8)
+#define VM_CALL_OPT_SEND_BIT       (0x01 << 8)
 
 #define VM_SPECIAL_OBJECT_VMCORE   0x01
 #define VM_SPECIAL_OBJECT_CBASE    0x02
@@ -517,18 +523,11 @@ typedef struct {
 /* other frame flag */
 #define VM_FRAME_FLAG_PASSED 0x0100
 
-
 #define RUBYVM_CFUNC_FRAME_P(cfp) \
   (VM_FRAME_TYPE(cfp) == VM_FRAME_MAGIC_CFUNC)
 
-
-/* inline (method|const) cache */
-#define NEW_INLINE_CACHE_ENTRY() NEW_WHILE(Qundef, 0, 0)
-#define ic_class  u1.value
-#define ic_method u2.node
-#define ic_value  u2.value
-#define ic_vmstat u3.cnt
-typedef NODE *IC;
+/* inline cache */
+typedef struct iseq_inline_cache_entry *IC;
 
 void rb_vm_change_state(void);
 
@@ -574,9 +573,7 @@ extern void rb_vmdebug_stack_dump_raw(rb_thread_t *, rb_control_frame_t *);
 #define SDR2(cfp) rb_vmdebug_stack_dump_raw(GET_THREAD(), (cfp))
 void rb_vm_bugreport(void);
 
-
 /* functions about thread/vm execution */
-
 VALUE rb_iseq_eval(VALUE iseqval);
 VALUE rb_iseq_eval_main(VALUE iseqval);
 void rb_enable_interrupt(void);
@@ -584,17 +581,23 @@ void rb_disable_interrupt(void);
 int rb_thread_method_id_and_class(rb_thread_t *th, ID *idp, VALUE *klassp);
 
 VALUE rb_vm_invoke_proc(rb_thread_t *th, rb_proc_t *proc, VALUE self,
-			int argc, const VALUE *argv, rb_block_t *blockptr);
+			int argc, const VALUE *argv, const rb_block_t *blockptr);
 VALUE rb_vm_make_proc(rb_thread_t *th, const rb_block_t *block, VALUE klass);
 VALUE rb_vm_make_env_object(rb_thread_t *th, rb_control_frame_t *cfp);
 
 void *rb_thread_call_with_gvl(void *(*func)(void *), void *data1);
 int ruby_thread_has_gvl_p(void);
+VALUE rb_make_backtrace(void);
+typedef int rb_backtrace_iter_func(void *, const char *, int, const char *);
+VALUE rb_backtrace_each(rb_backtrace_iter_func *iter, void *arg);
 rb_control_frame_t *rb_vm_get_ruby_level_next_cfp(rb_thread_t *th, rb_control_frame_t *cfp);
 
 NOINLINE(void rb_gc_save_machine_context(rb_thread_t *));
 
 #define sysstack_error GET_VM()->special_exceptions[ruby_error_sysstack]
+
+VALUE rb_str_resurrect(VALUE str);
+VALUE rb_ary_resurrect(VALUE ary);
 
 /* for thread */
 
@@ -619,11 +622,13 @@ extern rb_vm_t *ruby_current_vm;
 #define RUBY_VM_SET_FINALIZER_INTERRUPT(th) ((th)->interrupt_flag |= 0x04)
 #define RUBY_VM_INTERRUPTED(th) ((th)->interrupt_flag & 0x02)
 
-void rb_thread_execute_interrupts(rb_thread_t *);
+void rb_threadptr_signal_raise(rb_thread_t *th, int sig);
+void rb_threadptr_signal_exit(rb_thread_t *th);
+void rb_threadptr_execute_interrupts(rb_thread_t *);
 
 #define RUBY_VM_CHECK_INTS_TH(th) do { \
   if (UNLIKELY(th->interrupt_flag)) { \
-    rb_thread_execute_interrupts(th); \
+    rb_threadptr_execute_interrupts(th); \
   } \
 } while (0)
 

@@ -2,7 +2,7 @@
 
   signal.c -
 
-  $Author: yugui $
+  $Author: ko1 $
   created at: Tue Dec 20 10:13:44 JST 1994
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -306,14 +306,14 @@ ruby_default_signal(int sig)
 /*
  *  call-seq:
  *     Process.kill(signal, pid, ...)    => fixnum
- *  
+ *
  *  Sends the given signal to the specified process id(s), or to the
  *  current process if _pid_ is zero. _signal_ may be an
  *  integer signal number or a POSIX signal name (either with or without
  *  a +SIG+ prefix). If _signal_ is negative (or starts
  *  with a minus sign), kills process groups instead of
  *  processes. Not all signals are available on all platforms.
- *     
+ *
  *     pid = fork do
  *        Signal.trap("HUP") { puts "Ouch!"; exit }
  *        # ... do some work ...
@@ -321,9 +321,9 @@ ruby_default_signal(int sig)
  *     # ...
  *     Process.kill("HUP", pid)
  *     Process.wait
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     Ouch!
  */
 
@@ -409,7 +409,7 @@ static struct {
 #endif
 
 typedef RETSIGTYPE (*sighandler_t)(int);
-#ifdef SA_SIGINFO
+#if defined SA_SIGINFO && !defined __SYMBIAN32__
 typedef void ruby_sigaction_t(int, siginfo_t*, void*);
 #define SIGINFO_ARG , siginfo_t *info, void *ctx
 #else
@@ -514,7 +514,7 @@ sighandler(int sig)
 }
 
 int
-rb_signal_buff_size()
+rb_signal_buff_size(void)
 {
     return signal_buff.size;
 }
@@ -534,7 +534,7 @@ static int trap_last_mask;
 void
 rb_disable_interrupt(void)
 {
-#ifndef _WIN32
+#if USE_TRAP_MASK
     sigset_t mask;
     sigfillset(&mask);
     sigdelset(&mask, SIGVTALRM);
@@ -546,7 +546,7 @@ rb_disable_interrupt(void)
 void
 rb_enable_interrupt(void)
 {
-#ifndef _WIN32
+#if USE_TRAP_MASK
     sigset_t mask;
     sigemptyset(&mask);
     pthread_sigmask(SIG_SETMASK, &mask, NULL);
@@ -664,12 +664,12 @@ rb_signal_exec(rb_thread_t *th, int sig)
 #ifdef SIGUSR2
 	  case SIGUSR2:
 #endif
-	    rb_thread_signal_raise(th, sig);
+	    rb_threadptr_signal_raise(th, sig);
 	    break;
 	}
     }
     else if (cmd == Qundef) {
-	rb_thread_signal_exit(th);
+	rb_threadptr_signal_exit(th);
     }
     else {
 	signal_exec(cmd, safe, sig);
@@ -935,7 +935,7 @@ sig_trap(int argc, VALUE *argv)
     struct trap_arg arg;
 
     rb_secure(2);
-    if (argc == 0 || argc > 2) {
+    if (argc < 1 || argc > 2) {
 	rb_raise(rb_eArgError, "wrong number of arguments -- trap(sig, cmd)/trap(sig){...}");
     }
 
@@ -944,7 +944,7 @@ sig_trap(int argc, VALUE *argv)
 	arg.cmd = rb_block_proc();
 	arg.func = sighandler;
     }
-    else if (argc == 2) {
+    else {
 	arg.cmd = argv[1];
 	arg.func = trap_handler(&arg.cmd, arg.sig);
     }
@@ -1043,7 +1043,7 @@ init_sigchld(int sig)
 #endif
 
 void
-ruby_sig_finalize()
+ruby_sig_finalize(void)
 {
     sighandler_t oldfunc;
 

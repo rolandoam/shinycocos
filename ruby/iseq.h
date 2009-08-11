@@ -2,7 +2,7 @@
 
   iseq.h -
 
-  $Author: yugui $
+  $Author: ko1 $
   created at: 04/01/01 23:36:57 JST
 
   Copyright (C) 2004-2008 Koichi Sasada
@@ -19,7 +19,7 @@ VALUE rb_iseq_build_from_ary(rb_iseq_t *iseq, VALUE locals, VALUE args,
 			     VALUE exception, VALUE body);
 
 /* iseq.c */
-VALUE ruby_iseq_load(VALUE data, VALUE parent, VALUE opt);
+VALUE rb_iseq_load(VALUE data, VALUE parent, VALUE opt);
 struct st_table *ruby_insn_make_insn_table(void);
 
 #define ISEQ_TYPE_TOP    INT2FIX(1)

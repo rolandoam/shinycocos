@@ -2,13 +2,13 @@
 
   enumerator.c - provides Enumerator class
 
-  $Author: yugui $
+  $Author: nobu $
 
   Copyright (C) 2001-2003 Akinori MUSHA
 
   $Idaemons: /home/cvs/rb/enumerator/enumerator.c,v 1.1.1.1 2001/07/15 10:12:48 knu Exp $
   $RoughId: enumerator.c,v 1.6 2003/07/27 11:03:24 nobu Exp $
-  $Id: enumerator.c 24122 2009-07-15 12:00:57Z yugui $
+  $Id: enumerator.c 24195 2009-07-18 08:05:32Z nobu $
 
 ************************************************/
 
@@ -21,8 +21,8 @@
  * object.
  */
 VALUE rb_cEnumerator;
+static ID id_rewind, id_each;
 static VALUE sym_each;
-static ID id_rewind;
 
 VALUE rb_eStopIteration;
 
@@ -154,7 +154,7 @@ enum_each_slice(VALUE obj, VALUE n)
     args[0] = rb_ary_new2(size);
     args[1] = (VALUE)size;
 
-    rb_block_call(obj, SYM2ID(sym_each), 0, 0, each_slice_i, (VALUE)args);
+    rb_block_call(obj, id_each, 0, 0, each_slice_i, (VALUE)args);
 
     ary = args[0];
     if (RARRAY_LEN(ary) > 0) rb_yield(ary);
@@ -211,7 +211,7 @@ enum_each_cons(VALUE obj, VALUE n)
     args[0] = rb_ary_new2(size);
     args[1] = (VALUE)size;
 
-    rb_block_call(obj, SYM2ID(sym_each), 0, 0, each_cons_i, (VALUE)args);
+    rb_block_call(obj, id_each, 0, 0, each_cons_i, (VALUE)args);
 
     return Qnil;
 }
@@ -229,7 +229,7 @@ each_with_object_i(VALUE val, VALUE memo)
  *
  *  Iterates the given block for each element with an arbitrary
  *  object given, and returns the initially given object.
-
+ *
  *  If no block is given, returns an enumerator.
  *
  *  e.g.:
@@ -242,7 +242,7 @@ enum_each_with_object(VALUE obj, VALUE memo)
 {
     RETURN_ENUMERATOR(obj, 1, &memo);
 
-    rb_block_call(obj, SYM2ID(sym_each), 0, 0, each_with_object_i, memo);
+    rb_block_call(obj, id_each, 0, 0, each_with_object_i, memo);
 
     return memo;
 }
@@ -389,7 +389,7 @@ enumerator_each(VALUE obj)
     if (!rb_block_given_p()) return obj;
     e = enumerator_ptr(obj);
     if (e->args) {
-	argc = RARRAY_LEN(e->args);
+	argc = RARRAY_LENINT(e->args);
 	argv = RARRAY_PTR(e->args);
     }
     return rb_block_call(e->obj, e->meth, argc, argv,
@@ -412,29 +412,48 @@ enumerator_with_index_i(VALUE val, VALUE *memo, int argc, VALUE *argv)
 
 /*
  *  call-seq:
- *    e.with_index {|(*args), idx| ... }
- *    e.with_index
+ *    e.with_index(offset = 0) {|(*args), idx| ... }
+ *    e.with_index(offset = 0)
  *
  *  Iterates the given block for each element with an index, which
- *  start from 0.  If no block is given, returns an enumerator.
+ *  starts from +offset+.  If no block is given, returns an enumerator.
  *
  */
 static VALUE
-enumerator_with_index(VALUE obj)
+enumerator_with_index(int argc, VALUE *argv, VALUE obj)
 {
     struct enumerator *e;
-    VALUE memo = 0;
-    int argc = 0;
-    VALUE *argv = 0;
+    VALUE memo;
 
-    RETURN_ENUMERATOR(obj, 0, 0);
+    rb_scan_args(argc, argv, "01", &memo);
+    RETURN_ENUMERATOR(obj, argc, argv);
+    memo = NIL_P(memo) ? 0 : (VALUE)NUM2LONG(memo);
     e = enumerator_ptr(obj);
     if (e->args) {
-	argc = RARRAY_LEN(e->args);
+	argc = RARRAY_LENINT(e->args);
 	argv = RARRAY_PTR(e->args);
+    }
+    else {
+	argc = 0;
+	argv = NULL;
     }
     return rb_block_call(e->obj, e->meth, argc, argv,
 			 enumerator_with_index_i, (VALUE)&memo);
+}
+
+/*
+ *  call-seq:
+ *    e.each_with_index {|(*args), idx| ... }
+ *    e.each_with_index
+ *
+ *  Same as Enumeartor#with_index, except each_with_index does not
+ *  receive an offset argument.
+ *
+ */
+static VALUE
+enumerator_each_with_index(VALUE obj)
+{
+    return enumerator_with_index(0, NULL, obj);
 }
 
 static VALUE
@@ -467,7 +486,7 @@ enumerator_with_object(VALUE obj, VALUE memo)
     RETURN_ENUMERATOR(obj, 1, &memo);
     e = enumerator_ptr(obj);
     if (e->args) {
-	argc = RARRAY_LEN(e->args);
+	argc = RARRAY_LENINT(e->args);
 	argv = RARRAY_PTR(e->args);
     }
     rb_block_call(e->obj, e->meth, argc, argv,
@@ -489,7 +508,7 @@ next_i(VALUE curr, VALUE obj)
     struct enumerator *e = enumerator_ptr(obj);
     VALUE nil = Qnil;
 
-    rb_block_call(obj, rb_intern("each"), 0, 0, next_ii, obj);
+    rb_block_call(obj, id_each, 0, 0, next_ii, obj);
     e->no_next = Qtrue;
     return rb_fiber_yield(1, &nil);
 }
@@ -558,6 +577,68 @@ enumerator_rewind(VALUE obj)
     e->dst = Qnil;
     e->no_next = Qfalse;
     return obj;
+}
+
+static VALUE
+inspect_enumerator(VALUE obj, VALUE dummy, int recur)
+{
+    struct enumerator *e = enumerator_ptr(obj);
+    const char *cname = rb_obj_classname(obj);
+    VALUE eobj, str;
+    int tainted, untrusted;
+
+    if (recur) {
+	str = rb_sprintf("#<%s: ...>", cname);
+	OBJ_TAINT(str);
+	return str;
+    }
+
+    eobj = e->obj;
+
+    tainted   = OBJ_TAINTED(eobj);
+    untrusted = OBJ_UNTRUSTED(eobj);
+
+    /* (1..100).each_cons(2) => "#<Enumerator: 1..100:each_cons(2)>" */
+    str = rb_sprintf("#<%s: ", cname);
+    rb_str_concat(str, rb_inspect(eobj));
+    rb_str_buf_cat2(str, ":");
+    rb_str_buf_cat2(str, rb_id2name(e->meth));
+
+    if (e->args) {
+	long   argc = RARRAY_LEN(e->args);
+	VALUE *argv = RARRAY_PTR(e->args);
+
+	rb_str_buf_cat2(str, "(");
+
+	while (argc--) {
+	    VALUE arg = *argv++;
+
+	    rb_str_concat(str, rb_inspect(arg));
+	    rb_str_buf_cat2(str, argc > 0 ? ", " : ")");
+
+	    if (OBJ_TAINTED(arg)) tainted = TRUE;
+	    if (OBJ_UNTRUSTED(arg)) untrusted = TRUE;
+	}
+    }
+
+    rb_str_buf_cat2(str, ">");
+
+    if (tainted) OBJ_TAINT(str);
+    if (untrusted) OBJ_UNTRUST(str);
+    return str;
+}
+
+/*
+ * call-seq:
+ *   e.inspect  => string
+ *
+ *  Create a printable version of <i>e</i>.
+ */
+
+static VALUE
+enumerator_inspect(VALUE obj)
+{
+    return rb_exec_recursive(inspect_enumerator, obj, 0);
 }
 
 /*
@@ -782,12 +863,13 @@ Init_Enumerator(void)
     rb_define_method(rb_cEnumerator, "initialize", enumerator_initialize, -1);
     rb_define_method(rb_cEnumerator, "initialize_copy", enumerator_init_copy, 1);
     rb_define_method(rb_cEnumerator, "each", enumerator_each, 0);
-    rb_define_method(rb_cEnumerator, "each_with_index", enumerator_with_index, 0);
+    rb_define_method(rb_cEnumerator, "each_with_index", enumerator_each_with_index, 0);
     rb_define_method(rb_cEnumerator, "each_with_object", enumerator_with_object, 1);
-    rb_define_method(rb_cEnumerator, "with_index", enumerator_with_index, 0);
+    rb_define_method(rb_cEnumerator, "with_index", enumerator_with_index, -1);
     rb_define_method(rb_cEnumerator, "with_object", enumerator_with_object, 1);
     rb_define_method(rb_cEnumerator, "next", enumerator_next, 0);
     rb_define_method(rb_cEnumerator, "rewind", enumerator_rewind, 0);
+    rb_define_method(rb_cEnumerator, "inspect", enumerator_inspect, 0);
 
     rb_eStopIteration = rb_define_class("StopIteration", rb_eIndexError);
 
@@ -806,8 +888,9 @@ Init_Enumerator(void)
     rb_define_method(rb_cYielder, "yield", yielder_yield, -2);
     rb_define_method(rb_cYielder, "<<", yielder_yield, -2);
 
-    sym_each = ID2SYM(rb_intern("each"));
     id_rewind = rb_intern("rewind");
+    id_each = rb_intern("each");
+    sym_each = ID2SYM(id_each);
 
     rb_provide("enumerator.so");	/* for backward compatibility */
 }

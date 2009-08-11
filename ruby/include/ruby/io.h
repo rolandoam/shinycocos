@@ -2,7 +2,7 @@
 
   rubyio.h -
 
-  $Author: yugui $
+  $Author: naruse $
   created at: Fri Nov 12 16:47:09 JST 1993
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -94,6 +94,7 @@ typedef struct rb_io_t {
 #define FMODE_TEXTMODE              0x00001000
 #define FMODE_EOF                   0x00002000
 /* #define FMODE_PREP               0x00010000 */
+#define FMODE_STRIP_BOM             0x00100000
 
 #define GetOpenFile(obj,fp) rb_io_check_closed((fp) = RFILE(rb_io_taint_check(obj))->fptr)
 

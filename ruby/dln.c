@@ -2,7 +2,7 @@
 
   dln.c -
 
-  $Author: yugui $
+  $Author: nobu $
   created at: Tue Jan 18 17:05:06 JST 1994
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -14,12 +14,6 @@
 
 #ifdef HAVE_STDLIB_H
 # include <stdlib.h>
-#endif
-
-#ifdef __CHECKER__
-#undef HAVE_DLOPEN
-#undef USE_DLN_A_OUT
-#undef USE_DLN_DLOPEN
 #endif
 
 #ifdef USE_DLN_A_OUT
@@ -91,19 +85,19 @@ char *getenv();
 #endif
 
 #ifndef FUNCNAME_PATTERN
-# if defined(__hp9000s300) ||  (defined(__NetBSD__) && !defined(__ELF__)) || defined(__BORLANDC__) || (defined(__FreeBSD__) && !defined(__ELF__)) || (defined(__OpenBSD__) && !defined(__ELF__)) || defined(NeXT) || defined(__WATCOMC__) || defined(MACOSX_DYLD)
+# if defined(__hp9000s300) || ((defined(__NetBSD__) || defined(__FreeBSD__) || defined(__OpenBSD__)) && !defined(__ELF__)) || defined(__BORLANDC__) || defined(NeXT) || defined(__WATCOMC__) || defined(MACOSX_DYLD)
 #  define FUNCNAME_PATTERN "_Init_%s"
 # else
 #  define FUNCNAME_PATTERN "Init_%s"
 # endif
 #endif
 
-static int
+static size_t
 init_funcname_len(char **buf, const char *file)
 {
     char *p;
     const char *slash;
-    int len;
+    size_t len;
 
     /* Load the file as an object one */
     for (slash = file-1; *file; file++) /* Find position of last '/' */
@@ -121,13 +115,13 @@ init_funcname_len(char **buf, const char *file)
 }
 
 #define init_funcname(buf, file) do {\
-    int len = init_funcname_len(buf, file);\
+    size_t len = init_funcname_len(buf, file);\
     char *tmp = ALLOCA_N(char, len+1);\
     if (!tmp) {\
 	free(*buf);\
 	rb_memerror();\
     }\
-    strcpy(tmp, *buf);\
+    strlcpy(tmp, *buf, len + 1);\
     free(*buf);\
     *buf = tmp;\
 } while (0)
@@ -445,14 +439,14 @@ undef_print(char *key, char *value)
 }
 
 static void
-dln_print_undef()
+dln_print_undef(void)
 {
     fprintf(stderr, " Undefined symbols:\n");
     st_foreach(undef_tbl, undef_print, NULL);
 }
 
 static void
-dln_undefined()
+dln_undefined(void)
 {
     if (undef_tbl->num_entries > 0) {
 	fprintf(stderr, "dln: Calling undefined function\n");
@@ -766,7 +760,7 @@ load_1(int fd, long disp, const char *need_init)
 		}
 	    } /* end.. look it up */
 	    else { /* is static */
-		switch (R_SYMBOL(rel)) { 
+		switch (R_SYMBOL(rel)) {
 		  case N_TEXT:
 		  case N_DATA:
 		    datum = block;
@@ -1158,7 +1152,7 @@ aix_loaderror(const char *pathname)
     char *message[8], errbuf[1024];
     int i,j;
 
-    struct errtab { 
+    struct errtab {
 	int errnum;
 	char *errstr;
     } load_errtab[] = {
@@ -1181,7 +1175,7 @@ aix_loaderror(const char *pathname)
 
     snprintf(errbuf, 1024, "load failed - %s ", pathname);
 
-    if (!loadquery(1, &message[0], sizeof(message))) 
+    if (!loadquery(1, &message[0], sizeof(message)))
 	ERRBUF_APPEND(strerror(errno));
     for(i = 0; message[i] && *message[i]; i++) {
 	int nerr = atoi(message[i]);
@@ -1189,7 +1183,7 @@ aix_loaderror(const char *pathname)
            if (nerr == load_errtab[i].errnum && load_errtab[i].errstr)
 		ERRBUF_APPEND(load_errtab[i].errstr);
 	}
-	while (isdigit(*message[i])) message[i]++; 
+	while (isdigit(*message[i])) message[i]++;
 	ERRBUF_APPEND(message[i]);
 	ERRBUF_APPEND("\n");
     }
@@ -1224,7 +1218,7 @@ dln_load(const char *file)
     /* Load the file as an object one */
     init_funcname(&buf, file);
 
-    strcpy(winfile, file);
+    strlcpy(winfile, file, sizeof(winfile));
 
     /* Load file */
     if ((handle = LoadLibrary(winfile)) == NULL) {
@@ -1275,6 +1269,11 @@ dln_load(const char *file)
 	}
 
 	init_fct = (void(*)())dlsym(handle, buf);
+#if defined __SYMBIAN32__
+	if (init_fct == NULL) {
+	    init_fct = (void(*)())dlsym(handle, "1"); /* Some Symbian versions do not support symbol table in DLL, ordinal numbers only */
+	}
+#endif
 	if (init_fct == NULL) {
 	    error = DLN_ERROR();
 	    dlclose(handle);
@@ -1334,7 +1333,7 @@ dln_load(const char *file)
 #define DLN_DEFINED
 /*----------------------------------------------------
    By SHIROYAMA Takayuki Psi@fortune.nest.or.jp
- 
+
    Special Thanks...
     Yu tomoak-i@is.aist-nara.ac.jp,
     Mi hisho@tasihara.nest.or.jp,
@@ -1349,9 +1348,9 @@ dln_load(const char *file)
 	char *object_files[2] = {NULL, NULL};
 
 	void (*init_fct)();
-	
+
 	object_files[0] = (char*)file;
-	
+
 	s = NXOpenFile(2,NX_WRITEONLY);
 
 	/* Load object file, if return value ==0 ,  load failed*/
@@ -1398,7 +1397,7 @@ dln_load(const char *file)
 	/* lookup the initial function */
 	if(!NSIsSymbolNameDefined(buf)) {
 	    rb_loaderror("Failed to lookup Init function %.200s",file);
-	}	
+	}
 	init_fct = NSAddressOfSymbol(NSLookupAndBindSymbol(buf));
 	(*init_fct)();
 
@@ -1420,7 +1419,7 @@ dln_load(const char *file)
 	rb_loaderror("Failed to load add_on %.200s error_code=%x",
 	  file, img_id);
       }
-      
+
       /* find symbol for module initialize function. */
       /* The Be Book KernelKit Images section described to use
 	 B_SYMBOL_TYPE_TEXT for symbol of function, not
@@ -1470,10 +1469,10 @@ dln_load(const char *file)
     return 0;			/* dummy return */
 }
 
-static char *dln_find_1(const char *fname, const char *path, char *buf, int size, int exe_flag);
+static char *dln_find_1(const char *fname, const char *path, char *buf, size_t size, int exe_flag);
 
 char *
-dln_find_exe_r(const char *fname, const char *path, char *buf, int size)
+dln_find_exe_r(const char *fname, const char *path, char *buf, size_t size)
 {
     if (!path) {
 	path = getenv(PATH_ENV);
@@ -1490,7 +1489,7 @@ dln_find_exe_r(const char *fname, const char *path, char *buf, int size)
 }
 
 char *
-dln_find_file_r(const char *fname, const char *path, char *buf, int size)
+dln_find_file_r(const char *fname, const char *path, char *buf, size_t size)
 {
     if (!path) path = ".";
     return dln_find_1(fname, path, buf, size, 0);
@@ -1511,14 +1510,14 @@ dln_find_file(const char *fname, const char *path)
 }
 
 static char *
-dln_find_1(const char *fname, const char *path, char *fbuf, int size,
+dln_find_1(const char *fname, const char *path, char *fbuf, size_t size,
 	   int exe_flag /* non 0 if looking for executable. */)
 {
     register const char *dp;
     register const char *ep;
     register char *bp;
     struct stat st;
-    int i, fspace;
+    size_t i, fspace;
 #ifdef DOSISH
     static const char extension[][5] = {
 	".exe", ".com", ".cmd", ".bat",
@@ -1594,7 +1593,7 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 #undef RETURN_IF
 
     for (dp = path;; dp = ++ep) {
-	register int l;
+	register size_t l;
 
 	/* extract a component */
 	ep = strchr(dp, PATH_SEP[0]);
@@ -1616,7 +1615,7 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 
 	    if (*dp == '~' && (l == 1 ||
 #if defined(DOSISH)
-			       dp[1] == '\\' || 
+			       dp[1] == '\\' ||
 #endif
 			       dp[1] == '/')) {
 		char *home;
@@ -1624,8 +1623,9 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 		home = getenv("HOME");
 		if (home != NULL) {
 		    i = strlen(home);
-		    if ((fspace -= i) < 0)
+		    if (fspace < i)
 			goto toolong;
+		    fspace -= i;
 		    memcpy(bp, home, i);
 		    bp += i;
 		}
@@ -1633,8 +1633,9 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 		l--;
 	    }
 	    if (l > 0) {
-		if ((fspace -= l) < 0)
+		if (fspace < l)
 		    goto toolong;
+		fspace -= l;
 		memcpy(bp, dp, l);
 		bp += l;
 	    }
@@ -1646,7 +1647,7 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 
 	/* now append the file name */
 	i = strlen(fname);
-	if ((fspace -= i) < 0) {
+	if (fspace < i) {
 	  toolong:
 	    fprintf(stderr, "openpath: pathname too long (ignored)\n");
 	    *bp = '\0';
@@ -1654,6 +1655,7 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 	    fprintf(stderr, "\tFile \"%s\"\n", fname);
 	    goto next;
 	}
+	fspace -= i;
 	memcpy(bp, fname, i + 1);
 
 #if defined(DOSISH)
@@ -1666,7 +1668,7 @@ dln_find_1(const char *fname, const char *path, char *fbuf, int size,
 		    fprintf(stderr, "\tFile \"%s%s\"\n", fname, extension[j]);
 		    continue;
 		}
-		strcpy(bp + i, extension[j]);
+		strlcpy(bp + i, extension[j], fspace);
 		if (stat(fbuf, &st) == 0)
 		    return fbuf;
 	    }

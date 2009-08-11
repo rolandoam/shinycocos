@@ -150,14 +150,13 @@
      idRespond_to = 366,
      idIFUNC = 367,
      idCFUNC = 368,
-     idThrowState = 369,
-     id_core_set_method_alias = 370,
-     id_core_set_variable_alias = 371,
-     id_core_undef_method = 372,
-     id_core_define_method = 373,
-     id_core_define_singleton_method = 374,
-     id_core_set_postexe = 375,
-     tLAST_TOKEN = 376
+     id_core_set_method_alias = 369,
+     id_core_set_variable_alias = 370,
+     id_core_undef_method = 371,
+     id_core_define_method = 372,
+     id_core_define_singleton_method = 373,
+     id_core_set_postexe = 374,
+     tLAST_TOKEN = 375
    };
 #endif
 /* Tokens.  */
@@ -272,14 +271,13 @@
 #define idRespond_to 366
 #define idIFUNC 367
 #define idCFUNC 368
-#define idThrowState 369
-#define id_core_set_method_alias 370
-#define id_core_set_variable_alias 371
-#define id_core_undef_method 372
-#define id_core_define_method 373
-#define id_core_define_singleton_method 374
-#define id_core_set_postexe 375
-#define tLAST_TOKEN 376
+#define id_core_set_method_alias 369
+#define id_core_set_variable_alias 370
+#define id_core_undef_method 371
+#define id_core_define_method 372
+#define id_core_define_singleton_method 373
+#define id_core_set_postexe 374
+#define tLAST_TOKEN 375
 
 
 

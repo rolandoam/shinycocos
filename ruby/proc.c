@@ -2,7 +2,7 @@
 
   proc.c - Proc, Binding, Env
 
-  $Author: yugui $
+  $Author: ko1 $
   created at: Wed Jan 17 12:13:14 2007
 
   Copyright (C) 2004-2007 Koichi Sasada
@@ -13,11 +13,10 @@
 #include "gc.h"
 
 struct METHOD {
-    VALUE oclass;		/* class that holds the method */
-    VALUE rclass;		/* class of the receiver */
     VALUE recv;
-    ID id, oid;
-    NODE *body;
+    VALUE rclass;
+    ID id;
+    rb_method_entry_t *me;
 };
 
 VALUE rb_cUnboundMethod;
@@ -25,9 +24,12 @@ VALUE rb_cMethod;
 VALUE rb_cBinding;
 VALUE rb_cProc;
 
+VALUE rb_iseq_parameters(const rb_iseq_t *iseq, int is_proc);
+
 static VALUE bmcall(VALUE, VALUE);
 static int method_arity(VALUE);
-static VALUE rb_obj_is_method(VALUE m);
+static int rb_obj_is_method(VALUE m);
+rb_iseq_t *rb_method_get_iseq(VALUE method);
 
 /* Proc */
 
@@ -59,21 +61,30 @@ proc_mark(void *ptr)
     RUBY_MARK_LEAVE("proc");
 }
 
+static size_t
+proc_memsize(void *ptr)
+{
+    return ptr ? sizeof(rb_proc_t) : 0;
+}
+
+static const rb_data_type_t proc_data_type = {
+    "proc",
+    proc_mark,
+    proc_free,
+    proc_memsize,
+};
+
 VALUE
 rb_proc_alloc(VALUE klass)
 {
-    VALUE obj;
     rb_proc_t *proc;
-    obj = Data_Make_Struct(klass, rb_proc_t, proc_mark, proc_free, proc);
-    MEMZERO(proc, rb_proc_t, 1);
-    return obj;
+    return TypedData_Make_Struct(klass, rb_proc_t, &proc_data_type, proc);
 }
 
 VALUE
 rb_obj_is_proc(VALUE proc)
 {
-    if (TYPE(proc) == T_DATA &&
-	RDATA(proc)->dfree == (RUBY_DATA_FUNC) proc_free) {
+    if (rb_typeddata_is_kind_of(proc, &proc_data_type)) {
 	return Qtrue;
     }
     else {
@@ -243,12 +254,25 @@ binding_mark(void *ptr)
     RUBY_MARK_LEAVE("binding");
 }
 
+static size_t
+binding_memsize(void *ptr)
+{
+    return ptr ? sizeof(rb_binding_t) : 0;
+}
+
+static const rb_data_type_t binding_data_type = {
+    "binding",
+    binding_mark,
+    binding_free,
+    binding_memsize,
+};
+
 static VALUE
 binding_alloc(VALUE klass)
 {
     VALUE obj;
     rb_binding_t *bind;
-    obj = Data_Make_Struct(klass, rb_binding_t, binding_mark, binding_free, bind);
+    obj = TypedData_Make_Struct(klass, rb_binding_t, &binding_data_type, bind);
     return obj;
 }
 
@@ -291,12 +315,12 @@ rb_binding_new(void)
 /*
  *  call-seq:
  *     binding -> a_binding
- *  
+ *
  *  Returns a +Binding+ object, describing the variable and
  *  method bindings at the point of call. This object can be used when
  *  calling +eval+ to execute the evaluated command in this
  *  environment. Also see the description of class +Binding+.
- *     
+ *
  *     def getBinding(param)
  *       return binding
  *     end
@@ -385,7 +409,7 @@ proc_new(VALUE klass, int is_lambda)
     if (is_lambda) {
 	rb_proc_t *proc;
 	GetProcPtr(procval, proc);
-	proc->is_lambda = Qtrue;
+	proc->is_lambda = TRUE;
     }
     return procval;
 }
@@ -394,12 +418,12 @@ proc_new(VALUE klass, int is_lambda)
  *  call-seq:
  *     Proc.new {|...| block } => a_proc
  *     Proc.new                => a_proc
- *  
+ *
  *  Creates a new <code>Proc</code> object, bound to the current
  *  context. <code>Proc::new</code> may be called without a block only
  *  within a method with an attached block, in which case that block is
  *  converted to the <code>Proc</code> object.
- *     
+ *
  *     def proc_from
  *       Proc.new
  *     end
@@ -410,7 +434,7 @@ proc_new(VALUE klass, int is_lambda)
 static VALUE
 rb_proc_s_new(int argc, VALUE *argv, VALUE klass)
 {
-    VALUE block = proc_new(klass, Qfalse);
+    VALUE block = proc_new(klass, FALSE);
 
     rb_obj_call_init(block, argc, argv);
     return block;
@@ -426,13 +450,13 @@ rb_proc_s_new(int argc, VALUE *argv, VALUE klass)
 VALUE
 rb_block_proc(void)
 {
-    return proc_new(rb_cProc, Qfalse);
+    return proc_new(rb_cProc, FALSE);
 }
 
 VALUE
 rb_block_lambda(void)
 {
-    return proc_new(rb_cProc, Qtrue);
+    return proc_new(rb_cProc, TRUE);
 }
 
 VALUE
@@ -463,7 +487,7 @@ proc_lambda(void)
  *     prc.call(params,...)   => obj
  *     prc[params,...]        => obj
  *     prc.(params,...)       => obj
- *  
+ *
  *  Invokes the block, setting the block's parameters to the values in
  *  <i>params</i> using something close to method calling semantics.
  *  Generates a warning if multiple values are passed to a proc that
@@ -478,15 +502,15 @@ proc_lambda(void)
  *
  *  Returns the value of the last expression evaluated in the block. See
  *  also <code>Proc#yield</code>.
- *     
+ *
  *     a_proc = Proc.new {|a, *b| b.collect {|i| i*a }}
  *     a_proc.call(9, 1, 2, 3)   #=> [9, 18, 27]
  *     a_proc[9, 1, 2, 3]        #=> [9, 18, 27]
  *     a_proc = Proc.new {|a,b| a}
  *     a_proc.call(1,2,3)
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     prog.rb:5: wrong number of arguments (3 for 2) (ArgumentError)
  *     	from prog.rb:4:in `call'
  *     	from prog.rb:5
@@ -495,7 +519,7 @@ proc_lambda(void)
 /*
  *  call-seq:
  *     prc === obj   => obj
- *  
+ *
  *  Invokes the block, with <i>obj</i> as the block's parameter.  It is
  *  to allow a proc object to be a target of when clause in the case statement.
  */
@@ -566,14 +590,14 @@ rb_proc_call_with_block(VALUE self, int argc, VALUE *argv, VALUE pass_procval)
 /*
  *  call-seq:
  *     prc.arity -> fixnum
- *  
+ *
  *  Returns the number of arguments that would not be ignored. If the block
  *  is declared to take no arguments, returns 0. If the block is known
  *  to take exactly n arguments, returns n. If the block has optional
  *  arguments, return -n-1, where n is the number of mandatory
  *  arguments. A <code>proc</code> with no argument declarations
  *  is the same a block declaring <code>||</code> as its arguments.
- *     
+ *
  *     Proc.new {}.arity          #=>  0
  *     Proc.new {||}.arity        #=>  0
  *     Proc.new {|a|}.arity       #=>  1
@@ -587,6 +611,13 @@ rb_proc_call_with_block(VALUE self, int argc, VALUE *argv, VALUE pass_procval)
 static VALUE
 proc_arity(VALUE self)
 {
+    int arity = rb_proc_arity(self);
+    return INT2FIX(arity);
+}
+
+int
+rb_proc_arity(VALUE self)
+{
     rb_proc_t *proc;
     rb_iseq_t *iseq;
     GetProcPtr(self, proc);
@@ -594,39 +625,41 @@ proc_arity(VALUE self)
     if (iseq) {
 	if (BUILTIN_TYPE(iseq) != T_NODE) {
 	    if (iseq->arg_rest < 0) {
-		return INT2FIX(iseq->argc);
+		return iseq->argc;
 	    }
 	    else {
-		return INT2FIX(-(iseq->argc + 1 + iseq->arg_post_len));
+		return -(iseq->argc + 1 + iseq->arg_post_len);
 	    }
 	}
 	else {
 	    NODE *node = (NODE *)iseq;
 	    if (nd_type(node) == NODE_IFUNC && node->nd_cfnc == bmcall) {
 		/* method(:foo).to_proc.arity */
-		return INT2FIX(method_arity(node->nd_tval));
+		return method_arity(node->nd_tval);
 	    }
 	}
     }
-    return INT2FIX(-1);
-}
-
-int
-rb_proc_arity(VALUE proc)
-{
-    return FIX2INT(proc_arity(proc));
+    return -1;
 }
 
 static rb_iseq_t *
-get_proc_iseq(VALUE self)
+get_proc_iseq(VALUE self, int *is_proc)
 {
     rb_proc_t *proc;
     rb_iseq_t *iseq;
 
     GetProcPtr(self, proc);
     iseq = proc->block.iseq;
-    if (!RUBY_VM_NORMAL_ISEQ_P(iseq))
-	return 0;
+    if (is_proc) *is_proc = !proc->is_lambda;
+    if (!RUBY_VM_NORMAL_ISEQ_P(iseq)) {
+	NODE *node = (NODE *)iseq;
+	iseq = 0;
+	if (nd_type(node) == NODE_IFUNC && node->nd_cfnc == bmcall) {
+	    /* method(:foo).to_proc */
+	    iseq = rb_method_get_iseq(node->nd_tval);
+	    if (is_proc) *is_proc = 0;
+	}
+    }
     return iseq;
 }
 
@@ -657,7 +690,44 @@ iseq_location(rb_iseq_t *iseq)
 VALUE
 rb_proc_location(VALUE self)
 {
-    return iseq_location(get_proc_iseq(self));
+    return iseq_location(get_proc_iseq(self, 0));
+}
+
+static VALUE
+unnamed_parameters(int arity)
+{
+    VALUE a, param = rb_ary_new2((arity < 0) ? -arity : arity);
+    int n = (arity < 0) ? ~arity : arity;
+    ID req, rest;
+    CONST_ID(req, "req");
+    a = rb_ary_new3(1, ID2SYM(req));
+    OBJ_FREEZE(a);
+    for (; n; --n) {
+	rb_ary_push(param, a);
+    }
+    if (arity < 0) {
+	CONST_ID(rest, "rest");
+	rb_ary_store(param, ~arity, rb_ary_new3(1, ID2SYM(rest)));
+    }
+    return param;
+}
+
+/*
+ * call-seq:
+ *    proc.parameters  => array
+ *
+ * returns the parameter information of this proc
+ */
+
+static VALUE
+rb_proc_parameters(VALUE self)
+{
+    int is_proc;
+    rb_iseq_t *iseq = get_proc_iseq(self, &is_proc);
+    if (!iseq) {
+	return unnamed_parameters(rb_proc_arity(self));
+    }
+    return rb_iseq_parameters(iseq, is_proc);
 }
 
 /*
@@ -675,8 +745,7 @@ proc_eq(VALUE self, VALUE other)
 	return Qtrue;
     }
     else {
-	if (TYPE(other)          == T_DATA &&
-	    RDATA(other)->dmark  == proc_mark) {
+	if (rb_obj_is_proc(other)) {
 	    rb_proc_t *p1, *p2;
 	    GetProcPtr(self, p1);
 	    GetProcPtr(other, p2);
@@ -702,13 +771,13 @@ proc_eq(VALUE self, VALUE other)
 static VALUE
 proc_hash(VALUE self)
 {
-    int hash;
+    long hash;
     rb_proc_t *proc;
     GetProcPtr(self, proc);
     hash = (long)proc->block.iseq;
     hash ^= (long)proc->envval;
     hash ^= (long)proc->block.lfp >> 16;
-    return INT2FIX(hash);
+    return LONG2FIX(hash);
 }
 
 /*
@@ -727,14 +796,14 @@ proc_to_s(VALUE self)
     const char *cname = rb_obj_classname(self);
     rb_iseq_t *iseq;
     const char *is_lambda;
-    
+
     GetProcPtr(self, proc);
     iseq = proc->block.iseq;
     is_lambda = proc->is_lambda ? " (lambda)" : "";
 
     if (RUBY_VM_NORMAL_ISEQ_P(iseq)) {
 	int line_no = 0;
-	
+
 	if (iseq->insn_info_table) {
 	    line_no = rb_iseq_first_lineno(iseq);
 	}
@@ -756,7 +825,7 @@ proc_to_s(VALUE self)
 /*
  *  call-seq:
  *     prc.to_proc -> prc
- *  
+ *
  *  Part of the protocol for converting objects to <code>Proc</code>
  *  objects. Instances of class <code>Proc</code> simply return
  *  themselves.
@@ -769,70 +838,74 @@ proc_to_proc(VALUE self)
 }
 
 static void
-bm_mark(struct METHOD *data)
+bm_mark(void *ptr)
 {
+    struct METHOD *data = ptr;
     rb_gc_mark(data->rclass);
-    rb_gc_mark(data->oclass);
     rb_gc_mark(data->recv);
-    rb_gc_mark((VALUE)data->body);
+    rb_gc_mark_method_entry(data->me);
 }
 
-NODE *
-rb_method_body(VALUE method)
+static size_t
+bm_memsize(void *ptr)
 {
-    struct METHOD *data;
-
-    if (TYPE(method) == T_DATA &&
-	RDATA(method)->dmark == (RUBY_DATA_FUNC) bm_mark) {
-	Data_Get_Struct(method, struct METHOD, data);
-	return data->body;
-    }
-    else {
-	return 0;
-    }
+    return ptr ? sizeof(struct METHOD) : 0;
 }
 
-NODE *rb_get_method_body(VALUE klass, ID id, ID *idp);
+static const rb_data_type_t method_data_type = {
+    "method",
+    bm_mark,
+    RUBY_TYPED_DEFAULT_FREE,
+    bm_memsize,
+};
+
+static inline int
+rb_obj_is_method(VALUE m)
+{
+    return rb_typeddata_is_kind_of(m, &method_data_type);
+}
 
 static VALUE
 mnew(VALUE klass, VALUE obj, ID id, VALUE mclass, int scope)
 {
     VALUE method;
-    NODE *body;
-    struct METHOD *data;
     VALUE rclass = klass;
-    ID oid = id;
+    ID rid = id;
+    struct METHOD *data;
+    rb_method_entry_t *me;
 
   again:
-    if ((body = rb_get_method_body(klass, id, 0)) == 0) {
-	rb_print_undef(rclass, oid, 0);
+    me = rb_method_entry(klass, id);
+    if (!me) {
+	rb_print_undef(klass, id, 0);
     }
-    if (scope && (body->nd_noex & NOEX_MASK) != NOEX_PUBLIC) {
-	rb_print_undef(rclass, oid, (int)(body->nd_noex & NOEX_MASK));
+    if (scope && (me->flag & NOEX_MASK) != NOEX_PUBLIC) {
+	rb_print_undef(rclass, me->original_id, (int)(me->flag & NOEX_MASK));
     }
-
-    klass = body->nd_clss;
-    body = body->nd_body;
-
-    if (nd_type(body) == NODE_ZSUPER) {
-	klass = RCLASS_SUPER(klass);
+    if (me->type == VM_METHOD_TYPE_ZSUPER) {
+	klass = RCLASS_SUPER(me->klass);
+	id = me->original_id;
 	goto again;
     }
+
+    klass = me->klass;
 
     while (rclass != klass &&
 	   (FL_TEST(rclass, FL_SINGLETON) || TYPE(rclass) == T_ICLASS)) {
 	rclass = RCLASS_SUPER(rclass);
     }
-    if (TYPE(klass) == T_ICLASS)
-	klass = RBASIC(klass)->klass;
-    method = Data_Make_Struct(mclass, struct METHOD, bm_mark, -1, data);
-    data->oclass = klass;
-    data->recv = obj;
 
-    data->id = id;
-    data->body = body;
+    if (TYPE(klass) == T_ICLASS) {
+	klass = RBASIC(klass)->klass;
+    }
+
+    method = TypedData_Make_Struct(mclass, struct METHOD, &method_data_type, data);
+
+    data->recv = obj;
     data->rclass = rclass;
-    data->oid = oid;
+    data->id = rid;
+    data->me = me;
+
     OBJ_INFECT(method, klass);
 
     return method;
@@ -849,7 +922,7 @@ mnew(VALUE klass, VALUE obj, ID id, VALUE mclass, int scope)
  *  associated with an iterator. They may also be unbound from one
  *  object (creating an <code>UnboundMethod</code>) and bound to
  *  another.
- *     
+ *
  *     class Thing
  *       def square(n)
  *         n*n
@@ -857,10 +930,10 @@ mnew(VALUE klass, VALUE obj, ID id, VALUE mclass, int scope)
  *     end
  *     thing = Thing.new
  *     meth  = thing.method(:square)
- *     
+ *
  *     meth.call(9)                 #=> 81
  *     [ 1, 2, 3 ].collect(&meth)   #=> [1, 4, 9]
- *     
+ *
  */
 
 /*
@@ -871,24 +944,26 @@ mnew(VALUE klass, VALUE obj, ID id, VALUE mclass, int scope)
  * object and contain the same body.
  */
 
-
 static VALUE
 method_eq(VALUE method, VALUE other)
 {
     struct METHOD *m1, *m2;
+    extern int rb_method_entry_eq(rb_method_entry_t *m1, rb_method_entry_t *m2);
 
-    if (TYPE(other) != T_DATA
-	|| RDATA(other)->dmark != (RUBY_DATA_FUNC) bm_mark)
+    if (!rb_obj_is_method(other))
 	return Qfalse;
     if (CLASS_OF(method) != CLASS_OF(other))
 	return Qfalse;
 
-    Data_Get_Struct(method, struct METHOD, m1);
-    Data_Get_Struct(other, struct METHOD, m2);
+    Check_TypedStruct(method, &method_data_type);
+    m1 = (struct METHOD *)DATA_PTR(method);
+    m2 = (struct METHOD *)DATA_PTR(other);
 
-    if (m1->oclass != m2->oclass || m1->rclass != m2->rclass ||
-	m1->recv != m2->recv || m1->body != m2->body)
+    if (!rb_method_entry_eq(m1->me, m2->me) ||
+	m1->rclass != m2->rclass ||
+	m1->recv != m2->recv) {
 	return Qfalse;
+    }
 
     return Qtrue;
 }
@@ -906,11 +981,10 @@ method_hash(VALUE method)
     struct METHOD *m;
     long hash;
 
-    Data_Get_Struct(method, struct METHOD, m);
-    hash = (long)m->oclass;
-    hash ^= (long)m->rclass;
+    TypedData_Get_Struct(method, struct METHOD, &method_data_type, m);
+    hash =  (long)m->rclass;
     hash ^= (long)m->recv;
-    hash ^= (long)m->body;
+    hash ^= (long)m->me;
 
     return INT2FIX(hash);
 }
@@ -918,7 +992,7 @@ method_hash(VALUE method)
 /*
  *  call-seq:
  *     meth.unbind    => unbound_method
- *  
+ *
  *  Dissociates <i>meth</i> from it's current receiver. The resulting
  *  <code>UnboundMethod</code> can subsequently be bound to a new object
  *  of the same class (see <code>UnboundMethod</code>).
@@ -930,15 +1004,13 @@ method_unbind(VALUE obj)
     VALUE method;
     struct METHOD *orig, *data;
 
-    Data_Get_Struct(obj, struct METHOD, orig);
-    method =
-	Data_Make_Struct(rb_cUnboundMethod, struct METHOD, bm_mark, -1, data);
-    data->oclass = orig->oclass;
+    TypedData_Get_Struct(obj, struct METHOD, &method_data_type, orig);
+    method = TypedData_Make_Struct(rb_cUnboundMethod, struct METHOD,
+				   &method_data_type, data);
     data->recv = Qundef;
     data->id = orig->id;
-    data->body = orig->body;
+    data->me = orig->me;
     data->rclass = orig->rclass;
-    data->oid = orig->oid;
     OBJ_INFECT(method, obj);
 
     return method;
@@ -947,7 +1019,7 @@ method_unbind(VALUE obj)
 /*
  *  call-seq:
  *     meth.receiver    => object
- *  
+ *
  *  Returns the bound receiver of the method object.
  */
 
@@ -956,14 +1028,14 @@ method_receiver(VALUE obj)
 {
     struct METHOD *data;
 
-    Data_Get_Struct(obj, struct METHOD, data);
+    TypedData_Get_Struct(obj, struct METHOD, &method_data_type, data);
     return data->recv;
 }
 
 /*
  *  call-seq:
  *     meth.name    => symbol
- *  
+ *
  *  Returns the name of the method.
  */
 
@@ -972,14 +1044,14 @@ method_name(VALUE obj)
 {
     struct METHOD *data;
 
-    Data_Get_Struct(obj, struct METHOD, data);
+    TypedData_Get_Struct(obj, struct METHOD, &method_data_type, data);
     return ID2SYM(data->id);
 }
 
 /*
  *  call-seq:
  *     meth.owner    => class_or_module
- *  
+ *
  *  Returns the class or module that defines the method.
  */
 
@@ -988,20 +1060,20 @@ method_owner(VALUE obj)
 {
     struct METHOD *data;
 
-    Data_Get_Struct(obj, struct METHOD, data);
-    return data->oclass;
+    TypedData_Get_Struct(obj, struct METHOD, &method_data_type, data);
+    return data->me->klass;
 }
 
 /*
  *  call-seq:
  *     obj.method(sym)    => method
- *  
+ *
  *  Looks up the named method as a receiver in <i>obj</i>, returning a
  *  <code>Method</code> object (or raising <code>NameError</code>). The
  *  <code>Method</code> object acts as a closure in <i>obj</i>'s object
  *  instance, so instance variables and the value of <code>self</code>
  *  remain available.
- *     
+ *
  *     class Demo
  *       def initialize(n)
  *         @iv = n
@@ -1010,11 +1082,11 @@ method_owner(VALUE obj)
  *         "Hello, @iv = #{@iv}"
  *       end
  *     end
- *     
+ *
  *     k = Demo.new(99)
  *     m = k.method(:hello)
  *     m.call   #=> "Hello, @iv = 99"
- *     
+ *
  *     l = Demo.new('Fred')
  *     m = l.method("hello")
  *     m.call   #=> "Hello, @iv = Fred"
@@ -1023,22 +1095,22 @@ method_owner(VALUE obj)
 VALUE
 rb_obj_method(VALUE obj, VALUE vid)
 {
-    return mnew(CLASS_OF(obj), obj, rb_to_id(vid), rb_cMethod, Qfalse);
+    return mnew(CLASS_OF(obj), obj, rb_to_id(vid), rb_cMethod, FALSE);
 }
 
 VALUE
 rb_obj_public_method(VALUE obj, VALUE vid)
 {
-    return mnew(CLASS_OF(obj), obj, rb_to_id(vid), rb_cMethod, Qtrue);
+    return mnew(CLASS_OF(obj), obj, rb_to_id(vid), rb_cMethod, TRUE);
 }
 
 /*
  *  call-seq:
  *     mod.instance_method(symbol)   => unbound_method
- *  
+ *
  *  Returns an +UnboundMethod+ representing the given
  *  instance method in _mod_.
- *     
+ *
  *     class Interpreter
  *       def do_a() print "there, "; end
  *       def do_d() print "Hello ";  end
@@ -1054,40 +1126,40 @@ rb_obj_public_method(VALUE obj, VALUE vid)
  *         string.each_byte {|b| Dispatcher[b].bind(self).call }
  *       end
  *     end
- *     
- *     
+ *
+ *
  *     interpreter = Interpreter.new
  *     interpreter.interpret('dave')
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     Hello there, Dave!
  */
 
 static VALUE
 rb_mod_instance_method(VALUE mod, VALUE vid)
 {
-    return mnew(mod, Qundef, rb_to_id(vid), rb_cUnboundMethod, Qfalse);
+    return mnew(mod, Qundef, rb_to_id(vid), rb_cUnboundMethod, FALSE);
 }
 
 static VALUE
 rb_mod_public_instance_method(VALUE mod, VALUE vid)
 {
-    return mnew(mod, Qundef, rb_to_id(vid), rb_cUnboundMethod, Qtrue);
+    return mnew(mod, Qundef, rb_to_id(vid), rb_cUnboundMethod, TRUE);
 }
 
 /*
  *  call-seq:
  *     define_method(symbol, method)     => new_method
  *     define_method(symbol) { block }   => proc
- *  
+ *
  *  Defines an instance method in the receiver. The _method_
  *  parameter can be a +Proc+ or +Method+ object.
  *  If a block is specified, it is used as the method body. This block
  *  is evaluated using <code>instance_eval</code>, a point that is
  *  tricky to demonstrate because <code>define_method</code> is private.
  *  (This is why we resort to the +send+ hack in this example.)
- *     
+ *
  *     class A
  *       def fred
  *         puts "In Fred"
@@ -1105,9 +1177,9 @@ rb_mod_public_instance_method(VALUE mod, VALUE vid)
  *     a.wilma
  *     a.create_method(:betty) { p self }
  *     a.betty
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     In Fred
  *     Charge it!
  *     #<B:0x401b39e8>
@@ -1118,7 +1190,6 @@ rb_mod_define_method(int argc, VALUE *argv, VALUE mod)
 {
     ID id;
     VALUE body;
-    NODE *node;
     int noex = NOEX_PUBLIC;
 
     if (argc == 1) {
@@ -1138,7 +1209,7 @@ rb_mod_define_method(int argc, VALUE *argv, VALUE mod)
 	rb_raise(rb_eArgError, "wrong number of arguments (%d for 1)", argc);
     }
 
-    if (RDATA(body)->dmark == (RUBY_DATA_FUNC) bm_mark) {
+    if (rb_obj_is_method(body)) {
 	struct METHOD *method = (struct METHOD *)DATA_PTR(body);
 	VALUE rclass = method->rclass;
 	if (rclass != mod) {
@@ -1152,7 +1223,7 @@ rb_mod_define_method(int argc, VALUE *argv, VALUE mod)
 			 rb_class2name(rclass));
 	    }
 	}
-	node = method->body;
+	rb_add_method_me(mod, id, method->me, noex);
     }
     else if (rb_obj_is_proc(body)) {
 	rb_proc_t *proc;
@@ -1161,21 +1232,44 @@ rb_mod_define_method(int argc, VALUE *argv, VALUE mod)
 	if (BUILTIN_TYPE(proc->block.iseq) != T_NODE) {
 	    proc->block.iseq->defined_method_id = id;
 	    proc->block.iseq->klass = mod;
-	    proc->is_lambda = Qtrue;
-	    proc->is_from_method = Qtrue;
+	    proc->is_lambda = TRUE;
+	    proc->is_from_method = TRUE;
 	}
-	node = NEW_BMETHOD(body);
+	rb_add_method(mod, id, VM_METHOD_TYPE_BMETHOD, (void *)body, noex);
     }
     else {
 	/* type error */
 	rb_raise(rb_eTypeError, "wrong argument type (expected Proc/Method)");
     }
 
-    /* TODO: visibility */
-
-    rb_add_method(mod, id, node, noex);
     return body;
 }
+
+/*
+ *  call-seq:
+ *     define_singleton_method(symbol, method) => new_method
+ *     define_singleton_method(symbol) { block } => proc
+ *
+ *  Defines a singleton method in the receiver. The _method_
+ *  parameter can be a +Proc+ or +Method+ object.
+ *  If a block is specified, it is used as the method body. 
+ *
+ *     class A
+ *       class << self
+ *         def class_name
+ *           to_s
+ *         end
+ *       end
+ *     end
+ *     A.define_singleton_method(:who_am_i) do
+ *       "I am: #{class_name}"
+ *     end
+ *     A.who_am_i   # ==> "I am: A"
+ *
+ *     guy = "Bob"
+ *     guy.define_singleton_method(:hello) { "#{self}: Hello there!" }
+ *     guy.hello    # =>  "Bob: Hello there!"
+ */
 
 static VALUE
 rb_obj_define_method(int argc, VALUE *argv, VALUE obj)
@@ -1196,8 +1290,8 @@ method_clone(VALUE self)
     VALUE clone;
     struct METHOD *orig, *data;
 
-    Data_Get_Struct(self, struct METHOD, orig);
-    clone = Data_Make_Struct(CLASS_OF(self), struct METHOD, bm_mark, -1, data);
+    TypedData_Get_Struct(self, struct METHOD, &method_data_type, orig);
+    clone = TypedData_Make_Struct(CLASS_OF(self), struct METHOD, &method_data_type, data);
     CLONESETUP(clone, self);
     *data = *orig;
 
@@ -1208,10 +1302,10 @@ method_clone(VALUE self)
  *  call-seq:
  *     meth.call(args, ...)    => obj
  *     meth[args, ...]         => obj
- *  
+ *
  *  Invokes the <i>meth</i> with the specified arguments, returning the
  *  method's return value.
- *     
+ *
  *     m = 12.method("+")
  *     m.call(3)    #=> 15
  *     m.call(20)   #=> 32
@@ -1225,7 +1319,7 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
     int state;
     volatile int safe = -1;
 
-    Data_Get_Struct(method, struct METHOD, data);
+    TypedData_Get_Struct(method, struct METHOD, &method_data_type, data);
     if (data->recv == Qundef) {
 	rb_raise(rb_eTypeError, "can't call unbound method; bind first");
     }
@@ -1238,12 +1332,11 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
     }
     if ((state = EXEC_TAG()) == 0) {
 	rb_thread_t *th = GET_THREAD();
-	VALUE rb_vm_call(rb_thread_t * th, VALUE klass, VALUE recv, VALUE id, ID oid,
-			 int argc, const VALUE *argv, const NODE *body, int nosuper);
+	VALUE rb_vm_call(rb_thread_t *th, VALUE recv, VALUE id, int argc, const VALUE *argv,
+			 const rb_method_entry_t *me);
 
 	PASS_PASSED_BLOCK_TH(th);
-	result = rb_vm_call(th, data->oclass, data->recv, data->id, data->oid,
-			    argc, argv, data->body, 0);
+	result = rb_vm_call(th, data->recv, data->id,  argc, argv, data->me);
     }
     POP_TAG();
     if (safe >= 0)
@@ -1262,17 +1355,17 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
  *  with a particular object: these method objects are bound to that
  *  object. Bound method objects for an object can be created using
  *  <code>Object#method</code>.
- *     
+ *
  *  Ruby also supports unbound methods; methods objects that are not
  *  associated with a particular object. These can be created either by
  *  calling <code>Module#instance_method</code> or by calling
  *  <code>unbind</code> on a bound method object. The result of both of
  *  these is an <code>UnboundMethod</code> object.
- *     
+ *
  *  Unbound methods can only be called after they are bound to an
  *  object. That object must be be a kind_of? the method's original
  *  class.
- *     
+ *
  *     class Square
  *       def area
  *         @side * @side
@@ -1281,17 +1374,17 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
  *         @side = side
  *       end
  *     end
- *     
+ *
  *     area_un = Square.instance_method(:area)
- *     
+ *
  *     s = Square.new(12)
  *     area = area_un.bind(s)
  *     area.call   #=> 144
- *     
+ *
  *  Unbound methods are a reference to the method at the time it was
  *  objectified: subsequent changes to the underlying class will not
  *  affect the unbound method.
- *     
+ *
  *     class Test
  *       def test
  *         :original
@@ -1306,17 +1399,17 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
  *     t = Test.new
  *     t.test            #=> :modified
  *     um.bind(t).call   #=> :original
- *     
+ *
  */
 
 /*
  *  call-seq:
  *     umeth.bind(obj) -> method
- *  
+ *
  *  Bind <i>umeth</i> to <i>obj</i>. If <code>Klass</code> was the class
  *  from which <i>umeth</i> was obtained,
  *  <code>obj.kind_of?(Klass)</code> must be true.
- *     
+ *
  *     class A
  *       def test
  *         puts "In test, class = #{self.class}"
@@ -1326,8 +1419,8 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
  *     end
  *     class C < B
  *     end
- *     
- *     
+ *
+ *
  *     um = B.instance_method(:test)
  *     bm = um.bind(C.new)
  *     bm.call
@@ -1335,9 +1428,9 @@ rb_method_call(int argc, VALUE *argv, VALUE method)
  *     bm.call
  *     bm = um.bind(A.new)
  *     bm.call
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     In test, class = C
  *     In test, class = B
  *     prog.rb:16:in `bind': bind argument must be an instance of B (TypeError)
@@ -1349,7 +1442,7 @@ umethod_bind(VALUE method, VALUE recv)
 {
     struct METHOD *data, *bound;
 
-    Data_Get_Struct(method, struct METHOD, data);
+    TypedData_Get_Struct(method, struct METHOD, &method_data_type, data);
     if (data->rclass != CLASS_OF(recv)) {
 	if (FL_TEST(data->rclass, FL_SINGLETON)) {
 	    rb_raise(rb_eTypeError,
@@ -1361,7 +1454,7 @@ umethod_bind(VALUE method, VALUE recv)
 	}
     }
 
-    method = Data_Make_Struct(rb_cMethod, struct METHOD, bm_mark, -1, bound);
+    method = TypedData_Make_Struct(rb_cMethod, struct METHOD, &method_data_type, bound);
     *bound = *data;
     bound->recv = recv;
     bound->rclass = CLASS_OF(recv);
@@ -1370,48 +1463,56 @@ umethod_bind(VALUE method, VALUE recv)
 }
 
 int
-rb_node_arity(NODE* body)
+rb_method_entry_arity(const rb_method_entry_t *me)
 {
-    switch (nd_type(body)) {
-      case NODE_CFUNC:
-	if (body->nd_argc < 0)
+    switch (me->type) {
+      case VM_METHOD_TYPE_CFUNC:
+	if (me->body.cfunc.argc < 0)
 	    return -1;
-	return check_argc(body->nd_argc);
-      case NODE_ZSUPER:
+	return check_argc(me->body.cfunc.argc);
+      case VM_METHOD_TYPE_ZSUPER:
 	return -1;
-      case NODE_ATTRSET:
+      case VM_METHOD_TYPE_ATTRSET:
 	return 1;
-      case NODE_IVAR:
+      case VM_METHOD_TYPE_IVAR:
 	return 0;
-      case NODE_BMETHOD:
-	return rb_proc_arity(body->nd_cval);
-      case RUBY_VM_METHOD_NODE:
-	{
-	    rb_iseq_t *iseq;
-	    GetISeqPtr((VALUE)body->nd_body, iseq);
-	    if (iseq->arg_rest == -1 && iseq->arg_opts == 0) {
-		return iseq->argc;
-	    }
-	    else {
-		return -(iseq->argc + 1 + iseq->arg_post_len);
-	    }
-	}
-      default:
-	rb_raise(rb_eArgError, "invalid node 0x%x", nd_type(body));
+      case VM_METHOD_TYPE_BMETHOD:
+	return rb_proc_arity(me->body.proc);
+      case VM_METHOD_TYPE_ISEQ: {
+	  rb_iseq_t *iseq = me->body.iseq;
+	  if (iseq->arg_rest == -1 && iseq->arg_opts == 0) {
+	      return iseq->argc;
+	  }
+	  else {
+	      return -(iseq->argc + 1 + iseq->arg_post_len);
+	  }
+      }
+      case VM_METHOD_TYPE_UNDEF:
+      case VM_METHOD_TYPE_NOTIMPLEMENTED:
+	return 0;
+      case VM_METHOD_TYPE_OPTIMIZED: {
+	  switch (me->body.optimize_type) {
+	    case OPTIMIZED_METHOD_TYPE_SEND:
+	      return -1;
+	    default:
+	      break;
+	  }
+      }
     }
+    rb_bug("rb_method_entry_arity: invalid method entry type (%d)", me->type);
 }
 
 /*
  *  call-seq:
  *     meth.arity    => fixnum
- *  
+ *
  *  Returns an indication of the number of arguments accepted by a
  *  method. Returns a nonnegative integer for methods that take a fixed
  *  number of arguments. For Ruby methods that take a variable number of
  *  arguments, returns -n-1, where n is the number of required
  *  arguments. For methods written in C, returns -1 if the call takes a
  *  variable number of arguments.
- *     
+ *
  *     class C
  *       def one;    end
  *       def two(a); end
@@ -1427,7 +1528,7 @@ rb_node_arity(NODE* body)
  *     c.method(:four).arity    #=> 2
  *     c.method(:five).arity    #=> -3
  *     c.method(:six).arity     #=> -3
- *     
+ *
  *     "cat".method(:size).arity      #=> 0
  *     "cat".method(:replace).arity   #=> 1
  *     "cat".method(:squeeze).arity   #=> -1
@@ -1446,15 +1547,15 @@ method_arity(VALUE method)
 {
     struct METHOD *data;
 
-    Data_Get_Struct(method, struct METHOD, data);
-    return rb_node_arity(data->body);
+    TypedData_Get_Struct(method, struct METHOD, &method_data_type, data);
+    return rb_method_entry_arity(data->me);
 }
 
 int
 rb_mod_method_arity(VALUE mod, ID id)
 {
-    NODE *node = rb_method_node(mod, id);
-    return rb_node_arity(node);
+    rb_method_entry_t *me = rb_method_entry(mod, id);
+    return rb_method_entry_arity(me);
 }
 
 int
@@ -1463,23 +1564,23 @@ rb_obj_method_arity(VALUE obj, ID id)
     return rb_mod_method_arity(CLASS_OF(obj), id);
 }
 
-static rb_iseq_t *
-get_method_iseq(VALUE method)
+rb_iseq_t *
+rb_method_get_iseq(VALUE method)
 {
     struct METHOD *data;
-    NODE *body;
-    rb_iseq_t *iseq;
+    rb_method_entry_t *me;
 
-    Data_Get_Struct(method, struct METHOD, data);
-    body = data->body;
-    switch (nd_type(body)) {
-      case RUBY_VM_METHOD_NODE:
-	GetISeqPtr((VALUE)body->nd_body, iseq);
-	if (RUBY_VM_NORMAL_ISEQ_P(iseq)) break;
+    TypedData_Get_Struct(method, struct METHOD, &method_data_type, data);
+    me = data->me;
+
+    switch (me->type) {
+      case VM_METHOD_TYPE_BMETHOD:
+	return get_proc_iseq(me->body.proc, 0);
+      case VM_METHOD_TYPE_ISEQ:
+	return me->body.iseq;
       default:
 	return 0;
     }
-    return iseq;
 }
 
 /*
@@ -1493,7 +1594,24 @@ get_method_iseq(VALUE method)
 VALUE
 rb_method_location(VALUE method)
 {
-    return iseq_location(get_method_iseq(method));
+    return iseq_location(rb_method_get_iseq(method));
+}
+
+/*
+ * call-seq:
+ *    meth.parameters  => array
+ *
+ * returns the parameter information of this method
+ */
+
+static VALUE
+rb_method_parameters(VALUE method)
+{
+    rb_iseq_t *iseq = rb_method_get_iseq(method);
+    if (!iseq) {
+	return unnamed_parameters(method_arity(method));
+    }
+    return rb_iseq_parameters(iseq, 0);
 }
 
 /*
@@ -1514,17 +1632,17 @@ method_inspect(VALUE method)
     const char *s;
     const char *sharp = "#";
 
-    Data_Get_Struct(method, struct METHOD, data);
+    TypedData_Get_Struct(method, struct METHOD, &method_data_type, data);
     str = rb_str_buf_new2("#<");
     s = rb_obj_classname(method);
     rb_str_buf_cat2(str, s);
     rb_str_buf_cat2(str, ": ");
 
-    if (FL_TEST(data->oclass, FL_SINGLETON)) {
-	VALUE v = rb_iv_get(data->oclass, "__attached__");
+    if (FL_TEST(data->me->klass, FL_SINGLETON)) {
+	VALUE v = rb_iv_get(data->me->klass, "__attached__");
 
 	if (data->recv == Qundef) {
-	    rb_str_buf_append(str, rb_inspect(data->oclass));
+	    rb_str_buf_append(str, rb_inspect(data->me->klass));
 	}
 	else if (data->recv == v) {
 	    rb_str_buf_append(str, rb_inspect(v));
@@ -1540,14 +1658,17 @@ method_inspect(VALUE method)
     }
     else {
 	rb_str_buf_cat2(str, rb_class2name(data->rclass));
-	if (data->rclass != data->oclass) {
+	if (data->rclass != data->me->klass) {
 	    rb_str_buf_cat2(str, "(");
-	    rb_str_buf_cat2(str, rb_class2name(data->oclass));
+	    rb_str_buf_cat2(str, rb_class2name(data->me->klass));
 	    rb_str_buf_cat2(str, ")");
 	}
     }
     rb_str_buf_cat2(str, sharp);
-    rb_str_append(str, rb_id2str(data->oid));
+    rb_str_append(str, rb_id2str(data->me->original_id));
+    if (data->me->type == VM_METHOD_TYPE_NOTIMPLEMENTED) {
+        rb_str_buf_cat2(str, " (not-implemented)");
+    }
     rb_str_buf_cat2(str, ">");
 
     return str;
@@ -1596,7 +1717,7 @@ rb_proc_new(
 /*
  *  call-seq:
  *     meth.to_proc    => prc
- *  
+ *
  *  Returns a <code>Proc</code> object corresponding to this method.
  */
 
@@ -1618,15 +1739,6 @@ method_proc(VALUE method)
     GetProcPtr(procval, proc);
     proc->is_from_method = 1;
     return procval;
-}
-
-static VALUE
-rb_obj_is_method(VALUE m)
-{
-    if (TYPE(m) == T_DATA && RDATA(m)->dmark == (RUBY_DATA_FUNC) bm_mark) {
-	return Qtrue;
-    }
-    return Qfalse;
 }
 
 /*
@@ -1658,15 +1770,15 @@ localjump_reason(VALUE exc)
 /*
  *  call-seq:
  *     prc.binding    => binding
- *  
+ *
  *  Returns the binding associated with <i>prc</i>. Note that
  *  <code>Kernel#eval</code> accepts either a <code>Proc</code> or a
  *  <code>Binding</code> object as its second parameter.
- *     
+ *
  *     def fred(param)
  *       proc {}
  *     end
- *     
+ *
  *     b = fred(99)
  *     eval("param", b.binding)   #=> 99
  */
@@ -1776,7 +1888,7 @@ curry(VALUE dummy, VALUE args, int argc, VALUE *argv, VALUE passed_proc)
 static VALUE
 proc_curry(int argc, VALUE *argv, VALUE self)
 {
-    int sarity, marity = FIX2INT(proc_arity(self));
+    int sarity, marity = rb_proc_arity(self);
     VALUE arity, opt = Qfalse;
 
     if (marity < 0) {
@@ -1802,18 +1914,18 @@ proc_curry(int argc, VALUE *argv, VALUE self)
  *  <code>Proc</code> objects are blocks of code that have been bound to
  *  a set of local variables. Once bound, the code may be called in
  *  different contexts and still access those variables.
- *     
+ *
  *     def gen_times(factor)
  *       return Proc.new {|n| n*factor }
  *     end
- *     
+ *
  *     times3 = gen_times(3)
  *     times5 = gen_times(5)
- *     
+ *
  *     times3.call(12)               #=> 36
  *     times5.call(5)                #=> 25
  *     times3.call(times5.call(4))   #=> 60
- *     
+ *
  */
 
 void
@@ -1823,10 +1935,22 @@ Init_Proc(void)
     rb_cProc = rb_define_class("Proc", rb_cObject);
     rb_undef_alloc_func(rb_cProc);
     rb_define_singleton_method(rb_cProc, "new", rb_proc_s_new, -1);
+
+#if 0 /* incomplete. */
+    rb_add_method(rb_cProc, rb_intern("call"), VM_METHOD_TYPE_OPTIMIZED,
+		  (void *)OPTIMIZED_METHOD_TYPE_CALL, 0);
+    rb_add_method(rb_cProc, rb_intern("[]"), VM_METHOD_TYPE_OPTIMIZED,
+		  (void *)OPTIMIZED_METHOD_TYPE_CALL, 0);
+    rb_add_method(rb_cProc, rb_intern("==="), VM_METHOD_TYPE_OPTIMIZED,
+		  (void *)OPTIMIZED_METHOD_TYPE_CALL, 0);
+    rb_add_method(rb_cProc, rb_intern("yield"), VM_METHOD_TYPE_OPTIMIZED,
+		  (void *)OPTIMIZED_METHOD_TYPE_CALL, 0);
+#else
     rb_define_method(rb_cProc, "call", proc_call, -1);
     rb_define_method(rb_cProc, "[]", proc_call, -1);
     rb_define_method(rb_cProc, "===", proc_call, -1);
     rb_define_method(rb_cProc, "yield", proc_call, -1);
+#endif
     rb_define_method(rb_cProc, "to_proc", proc_to_proc, 0);
     rb_define_method(rb_cProc, "arity", proc_arity, 0);
     rb_define_method(rb_cProc, "clone", proc_clone, 0);
@@ -1839,6 +1963,7 @@ Init_Proc(void)
     rb_define_method(rb_cProc, "binding", proc_binding, 0);
     rb_define_method(rb_cProc, "curry", proc_curry, -1);
     rb_define_method(rb_cProc, "source_location", rb_proc_location, 0);
+    rb_define_method(rb_cProc, "parameters", rb_proc_parameters, 0);
 
     /* Exceptions */
     rb_eLocalJumpError = rb_define_class("LocalJumpError", rb_eStandardError);
@@ -1874,6 +1999,7 @@ Init_Proc(void)
     rb_define_method(rb_cMethod, "owner", method_owner, 0);
     rb_define_method(rb_cMethod, "unbind", method_unbind, 0);
     rb_define_method(rb_cMethod, "source_location", rb_method_location, 0);
+    rb_define_method(rb_cMethod, "parameters", rb_method_parameters, 0);
     rb_define_method(rb_mKernel, "method", rb_obj_method, 1);
     rb_define_method(rb_mKernel, "public_method", rb_obj_public_method, 1);
 
@@ -1892,6 +2018,7 @@ Init_Proc(void)
     rb_define_method(rb_cUnboundMethod, "owner", method_owner, 0);
     rb_define_method(rb_cUnboundMethod, "bind", umethod_bind, 1);
     rb_define_method(rb_cUnboundMethod, "source_location", rb_method_location, 0);
+    rb_define_method(rb_cUnboundMethod, "parameters", rb_method_parameters, 0);
 
     /* Module#*_method */
     rb_define_method(rb_cModule, "instance_method", rb_mod_instance_method, 1);
@@ -1910,11 +2037,11 @@ Init_Proc(void)
  *  are all retained. Binding objects can be created using
  *  <code>Kernel#binding</code>, and are made available to the callback
  *  of <code>Kernel#set_trace_func</code>.
- *     
+ *
  *  These binding objects can be passed as the second argument of the
  *  <code>Kernel#eval</code> method, establishing an environment for the
  *  evaluation.
- *     
+ *
  *     class Demo
  *       def initialize(n)
  *         @secret = n
@@ -1923,18 +2050,18 @@ Init_Proc(void)
  *         return binding()
  *       end
  *     end
- *     
+ *
  *     k1 = Demo.new(99)
  *     b1 = k1.getBinding
  *     k2 = Demo.new(-3)
  *     b2 = k2.getBinding
- *     
+ *
  *     eval("@secret", b1)   #=> 99
  *     eval("@secret", b2)   #=> -3
  *     eval("@secret")       #=> nil
- *     
+ *
  *  Binding objects have no class-specific methods.
- *     
+ *
  */
 
 void

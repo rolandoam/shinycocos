@@ -2,7 +2,7 @@
 
   error.c -
 
-  $Author: yugui $
+  $Author: nobu $
   created at: Mon Aug  9 16:11:34 JST 1993
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -99,7 +99,7 @@ compile_warn_print(const char *file, int line, const char *fmt, va_list args)
     int len;
 
     compile_snprintf(buf, BUFSIZ, file, line, fmt, args);
-    len = strlen(buf);
+    len = (int)strlen(buf);
     buf[len++] = '\n';
     rb_write_error2(buf, len);
 }
@@ -142,7 +142,7 @@ warn_print(const char *fmt, va_list args)
     int len;
 
     err_snprintf(buf, BUFSIZ, fmt, args);
-    len = strlen(buf);
+    len = (int)strlen(buf);
     buf[len++] = '\n';
     rb_write_error2(buf, len);
 }
@@ -205,8 +205,8 @@ report_bug(const char *file, int line, const char *fmt, va_list args)
     FILE *out = stderr;
     int len = err_position_0(buf, BUFSIZ, file, line);
 
-    if (fwrite(buf, 1, len, out) == len ||
-	fwrite(buf, 1, len, (out = stdout)) == len) {
+    if ((ssize_t)fwrite(buf, 1, len, out) == (ssize_t)len ||
+	(ssize_t)fwrite(buf, 1, len, (out = stdout)) == (ssize_t)len) {
 
 	fputs("[BUG] ", out);
 	vfprintf(out, fmt, args);
@@ -216,7 +216,9 @@ report_bug(const char *file, int line, const char *fmt, va_list args)
 
 	fprintf(out,
 		"[NOTE]\n"
-		"You may encounter a bug of Ruby interpreter. Bug reports are welcome.\n"
+		"You may have encountered a bug in the Ruby interpreter"
+		" or extension libraries.\n"
+		"Bug reports are welcome.\n"
 		"For details: http://www.ruby-lang.org/bugreport.html\n\n");
     }
 }
@@ -280,12 +282,14 @@ rb_check_type(VALUE x, int t)
     const struct types *type = builtin_types;
     const struct types *const typeend = builtin_types +
 	sizeof(builtin_types) / sizeof(builtin_types[0]);
+    int xt;
 
     if (x == Qundef) {
 	rb_bug("undef leaked to the Ruby space");
     }
 
-    if (TYPE(x) != t) {
+    xt = TYPE(x);
+    if (xt != t || (xt == T_DATA && RTYPEDDATA_P(x))) {
 	while (type < typeend) {
 	    if (type->type == t) {
 		const char *etype;
@@ -312,6 +316,36 @@ rb_check_type(VALUE x, int t)
 	}
 	rb_bug("unknown type 0x%x (0x%x given)", t, TYPE(x));
     }
+}
+
+int
+rb_typeddata_is_kind_of(VALUE obj, const rb_data_type_t *data_type)
+{
+    if (SPECIAL_CONST_P(obj) || BUILTIN_TYPE(obj) != T_DATA ||
+	!RTYPEDDATA_P(obj) || RTYPEDDATA_TYPE(obj) != data_type) {
+	return 0;
+    }
+    return 1;
+}
+
+void *
+rb_check_typeddata(VALUE obj, const rb_data_type_t *data_type)
+{
+    const char *etype;
+    static const char mesg[] = "wrong argument type %s (expected %s)";
+
+    if (SPECIAL_CONST_P(obj) || BUILTIN_TYPE(obj) != T_DATA) {
+	Check_Type(obj, T_DATA);
+    }
+    if (!RTYPEDDATA_P(obj)) {
+	etype = rb_obj_classname(obj);
+	rb_raise(rb_eTypeError, mesg, etype, data_type->wrap_struct_name);
+    }
+    else if (RTYPEDDATA_TYPE(obj) != data_type) {
+	etype = RTYPEDDATA_TYPE(obj)->wrap_struct_name;
+	rb_raise(rb_eTypeError, mesg, etype, data_type->wrap_struct_name);
+    }
+    return DATA_PTR(obj);
 }
 
 /* exception classes */
@@ -346,6 +380,8 @@ VALUE rb_eSystemCallError;
 VALUE rb_mErrno;
 static VALUE rb_eNOERROR;
 
+#undef rb_exc_new2
+
 VALUE
 rb_exc_new(VALUE etype, const char *ptr, long len)
 {
@@ -369,7 +405,7 @@ rb_exc_new3(VALUE etype, VALUE str)
  * call-seq:
  *    Exception.new(msg = nil)   =>  exception
  *
- *  Construct a new Exception object, optionally passing in 
+ *  Construct a new Exception object, optionally passing in
  *  a message.
  */
 
@@ -390,12 +426,12 @@ exc_initialize(int argc, VALUE *argv, VALUE exc)
  *
  *  call-seq:
  *     exc.exception(string) -> an_exception or exc
- *  
+ *
  *  With no argument, or if the argument is the same as the receiver,
  *  return the receiver. Otherwise, create a new
  *  exception object of the same class as the receiver, but with a
  *  message equal to <code>string.to_str</code>.
- *     
+ *
  */
 
 static VALUE
@@ -476,27 +512,27 @@ exc_inspect(VALUE exc)
 /*
  *  call-seq:
  *     exception.backtrace    => array
- *  
+ *
  *  Returns any backtrace associated with the exception. The backtrace
  *  is an array of strings, each containing either ``filename:lineNo: in
  *  `method''' or ``filename:lineNo.''
- *     
+ *
  *     def a
  *       raise "boom"
  *     end
- *     
+ *
  *     def b
  *       a()
  *     end
- *     
+ *
  *     begin
  *       b()
  *     rescue => detail
  *       print detail.backtrace.join("\n")
  *     end
- *     
+ *
  *  <em>produces:</em>
- *     
+ *
  *     prog.rb:2:in `a'
  *     prog.rb:6:in `b'
  *     prog.rb:10
@@ -536,11 +572,11 @@ rb_check_backtrace(VALUE bt)
 /*
  *  call-seq:
  *     exc.set_backtrace(array)   =>  array
- *  
+ *
  *  Sets the backtrace information associated with <i>exc</i>. The
  *  argument must be an array of <code>String</code> objects in the
  *  format described in <code>Exception#backtrace</code>.
- *     
+ *
  */
 
 static VALUE
@@ -552,9 +588,9 @@ exc_set_backtrace(VALUE exc, VALUE bt)
 /*
  *  call-seq:
  *     exc == obj   => true or false
- *  
+ *
  *  Equality---If <i>obj</i> is not an <code>Exception</code>, returns
- *  <code>false</code>. Otherwise, returns <code>true</code> if <i>exc</i> and 
+ *  <code>false</code>. Otherwise, returns <code>true</code> if <i>exc</i> and
  *  <i>obj</i> share same class, messages, and backtrace.
  */
 
@@ -846,7 +882,7 @@ rb_invalid_str(const char *str, const char *type)
     rb_raise(rb_eArgError, "invalid value for %s: %s", type, RSTRING_PTR(s));
 }
 
-/* 
+/*
  *  Document-module: Errno
  *
  *  Ruby exception objects are subclasses of <code>Exception</code>.
@@ -856,21 +892,21 @@ rb_invalid_str(const char *str, const char *type)
  *  number generating its own subclass of <code>SystemCallError</code>.
  *  As the subclass is created in module <code>Errno</code>, its name
  *  will start <code>Errno::</code>.
- *     
+ *
  *  The names of the <code>Errno::</code> classes depend on
  *  the environment in which Ruby runs. On a typical Unix or Windows
  *  platform, there are <code>Errno</code> classes such as
  *  <code>Errno::EACCES</code>, <code>Errno::EAGAIN</code>,
  *  <code>Errno::EINTR</code>, and so on.
- *     
+ *
  *  The integer operating system error number corresponding to a
  *  particular error is available as the class constant
  *  <code>Errno::</code><em>error</em><code>::Errno</code>.
- *     
+ *
  *     Errno::EACCES::Errno   #=> 13
  *     Errno::EAGAIN::Errno   #=> 11
  *     Errno::EINTR::Errno    #=> 4
- *     
+ *
  *  The full list of operating system errors on your particular platform
  *  are available as the constants of <code>Errno</code>.
  *
@@ -1014,7 +1050,7 @@ syserr_eqq(VALUE self, VALUE exc)
  *  statements in <code>begin/end</code> blocks. <code>Exception</code>
  *  objects carry information about the exception---its type (the
  *  exception's class name), an optional descriptive string, and
- *  optional traceback information. Programs may subclass 
+ *  optional traceback information. Programs may subclass
  *  <code>Exception</code> to add additional information.
  */
 
@@ -1129,8 +1165,8 @@ rb_fatal(const char *fmt, ...)
     rb_exc_fatal(rb_exc_new3(rb_eFatal, mesg));
 }
 
-void
-rb_sys_fail(const char *mesg)
+static VALUE
+make_errno_exc(const char *mesg)
 {
     int n = errno;
     VALUE arg;
@@ -1141,7 +1177,21 @@ rb_sys_fail(const char *mesg)
     }
 
     arg = mesg ? rb_str_new2(mesg) : Qnil;
-    rb_exc_raise(rb_class_new_instance(1, &arg, get_syserr(n)));
+    return rb_class_new_instance(1, &arg, get_syserr(n));
+}
+
+void
+rb_sys_fail(const char *mesg)
+{
+    rb_exc_raise(make_errno_exc(mesg));
+}
+
+void
+rb_mod_sys_fail(VALUE mod, const char *mesg)
+{
+    VALUE exc = make_errno_exc(mesg);
+    rb_extend_object(exc, mod);
+    rb_exc_raise(exc);
 }
 
 void

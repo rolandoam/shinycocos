@@ -66,11 +66,11 @@ set_backtrace(VALUE info, VALUE bt)
 static void
 error_print(void)
 {
-    VALUE errat = Qnil;		/* OK */
+    volatile VALUE errat = Qnil;		/* OK */
     VALUE errinfo = GET_THREAD()->errinfo;
     volatile VALUE eclass, e;
-    const char *einfo;
-    long elen;
+    const char *volatile einfo;
+    volatile long elen;
 
     if (NIL_P(errinfo))
 	return;
@@ -87,10 +87,12 @@ error_print(void)
     if (NIL_P(errat)) {
 	const char *file = rb_sourcefile();
 	int line = rb_sourceline();
-	if (file)
-	    warn_printf("%s:%d", file, line);
-	else
+	if (!file)
 	    warn_printf("%d", line);
+	else if (!line)
+	    warn_printf("%s", file);
+	else
+	    warn_printf("%s:%d", file, line);
     }
     else if (RARRAY_LEN(errat) == 0) {
 	error_pos();
@@ -159,7 +161,7 @@ error_print(void)
 	long len = RARRAY_LEN(errat);
 	VALUE *ptr = RARRAY_PTR(errat);
         int skip = eclass == rb_eSysStackError;
-	
+
 #define TRACE_MAX (TRACE_HEAD+TRACE_TAIL+5)
 #define TRACE_HEAD 8
 #define TRACE_TAIL 5
@@ -215,7 +217,7 @@ error_handle(int ex)
     int status = EXIT_FAILURE;
     rb_thread_t *th = GET_THREAD();
 
-    if (rb_thread_set_raised(th))
+    if (rb_threadptr_set_raised(th))
 	return EXIT_FAILURE;
     switch (ex & TAG_MASK) {
       case 0:
@@ -267,6 +269,6 @@ error_handle(int ex)
 	rb_bug("Unknown longjmp status %d", ex);
 	break;
     }
-    rb_thread_reset_raised(th);
+    rb_threadptr_reset_raised(th);
     return status;
 }

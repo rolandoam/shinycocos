@@ -2,7 +2,7 @@
 
   re.c -
 
-  $Author: yugui $
+  $Author: naruse $
   created at: Mon Aug  9 18:24:49 JST 1993
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -366,7 +366,7 @@ rb_reg_expr_str(VALUE str, const char *s, long len)
 	    else if (!rb_enc_isspace(c, enc)) {
 		char b[8];
 
-		sprintf(b, "\\x%02X", c);
+		snprintf(b, sizeof(b), "\\x%02X", c);
 		rb_str_buf_cat(str, b, 4);
 	    }
 	    else {
@@ -708,7 +708,7 @@ reg_named_captures_iter(const OnigUChar *name, const OnigUChar *name_end,
  * A key of the hash is a name of the named captures.
  * A value of the hash is an array which is list of indexes of corresponding
  * named captures.
- * 
+ *
  *    /(?<foo>.)(?<bar>.)/.named_captures
  *    #=> {"foo"=>[1], "bar"=>[2]}
  *
@@ -792,14 +792,19 @@ match_alloc(VALUE klass)
 }
 
 typedef struct {
-    int byte_pos;
-    int char_pos;
+    long byte_pos;
+    long char_pos;
 } pair_t;
 
 static int
 pair_byte_cmp(const void *pair1, const void *pair2)
 {
-    return ((pair_t*)pair1)->byte_pos - ((pair_t*)pair2)->byte_pos;
+    long diff = ((pair_t*)pair1)->byte_pos - ((pair_t*)pair2)->byte_pos;
+#if SIZEOF_LONG > SIZEOF_INT
+    return diff ? diff > 0 ? 1 : -1 : 0;
+#else
+    return (int)diff;
+#endif
 }
 
 static void
@@ -1008,6 +1013,11 @@ match_backref_number(VALUE match, VALUE backref)
     return num;
 }
 
+int
+rb_reg_backref_number(VALUE match, VALUE backref)
+{
+    return match_backref_number(match, backref);
+}
 
 /*
  *  call-seq:
@@ -1249,10 +1259,10 @@ rb_reg_prepare_re(VALUE re, VALUE str)
     return reg;
 }
 
-int
-rb_reg_adjust_startpos(VALUE re, VALUE str, int pos, int reverse)
+long
+rb_reg_adjust_startpos(VALUE re, VALUE str, long pos, int reverse)
 {
-    int range;
+    long range;
     rb_encoding *enc;
     UChar *p, *string;
 
@@ -1280,10 +1290,10 @@ rb_reg_adjust_startpos(VALUE re, VALUE str, int pos, int reverse)
     return pos;
 }
 
-int
-rb_reg_search(VALUE re, VALUE str, int pos, int reverse)
+long
+rb_reg_search(VALUE re, VALUE str, long pos, int reverse)
 {
-    int result;
+    long result;
     VALUE match;
     struct re_registers regi, *regs = &regi;
     char *range = RSTRING_PTR(str);
@@ -1339,7 +1349,7 @@ rb_reg_search(VALUE re, VALUE str, int pos, int reverse)
 	}
 	else {
 	    onig_errmsg_buffer err = "";
-	    onig_error_code_to_str((UChar*)err, result);
+	    onig_error_code_to_str((UChar*)err, (int)result);
 	    rb_reg_raise(RREGEXP_SRC_PTR(re), RREGEXP_SRC_LEN(re), err, 0);
 	}
     }
@@ -1518,13 +1528,17 @@ last_paren_match_getter(void)
 static VALUE
 match_array(VALUE match, int start)
 {
-    struct re_registers *regs = RMATCH_REGS(match);
-    VALUE ary = rb_ary_new2(regs->num_regs);
-    VALUE target = RMATCH(match)->str;
+    struct re_registers *regs;
+    VALUE ary;
+    VALUE target;
     int i;
     int taint = OBJ_TAINTED(match);
 
     match_check(match);
+    regs = RMATCH_REGS(match);
+    ary = rb_ary_new2(regs->num_regs);
+    target = RMATCH(match)->str;
+
     for (i=start; i<regs->num_regs; i++) {
 	if (regs->beg[i] == -1) {
 	    rb_ary_push(ary, Qnil);
@@ -1677,7 +1691,8 @@ match_aref(int argc, VALUE *argv, VALUE match)
 static VALUE
 match_entry(VALUE match, long n)
 {
-    return rb_reg_nth_match(n, match);
+    /* n should not exceed num_regs */
+    return rb_reg_nth_match((int)n, match);
 }
 
 
@@ -1697,8 +1712,10 @@ match_entry(VALUE match, long n)
 static VALUE
 match_values_at(int argc, VALUE *argv, VALUE match)
 {
-    struct re_registers *regs = RMATCH_REGS(match);
+    struct re_registers *regs;
+
     match_check(match);
+    regs = RMATCH_REGS(match);
     return rb_get_values_at(match, regs->num_regs, argc, argv, match_entry);
 }
 
@@ -1836,7 +1853,7 @@ read_escaped_byte(const char **pp, const char *end, onig_errmsg_buffer err)
     const char *p = *pp;
     int code;
     int meta_prefix = 0, ctrl_prefix = 0;
-    int len;
+    size_t len;
     int retbyte;
 
     retbyte = -1;
@@ -1864,12 +1881,12 @@ again:
       case '0': case '1': case '2': case '3':
       case '4': case '5': case '6': case '7':
         p--;
-        code = ruby_scan_oct(p, end < p+3 ? end-p : 3, &len);
+        code = scan_oct(p, end < p+3 ? end-p : 3, &len);
         p += len;
         break;
 
       case 'x': /* \xHH */
-        code = ruby_scan_hex(p, end < p+2 ? end-p : 2, &len);
+        code = scan_hex(p, end < p+2 ? end-p : 2, &len);
         if (len < 1) {
             errcpy(err, "invalid hex escape");
             return -1;
@@ -2035,7 +2052,7 @@ unescape_unicode_list(const char **pp, const char *end,
     const char *p = *pp;
     int has_unicode = 0;
     unsigned long code;
-    int len;
+    size_t len;
 
     while (p < end && ISSPACE(*p)) p++;
 
@@ -2070,7 +2087,7 @@ unescape_unicode_bmp(const char **pp, const char *end,
         VALUE buf, rb_encoding **encp, onig_errmsg_buffer err)
 {
     const char *p = *pp;
-    int len;
+    size_t len;
     unsigned long code;
 
     if (end < p+4) {
@@ -2125,7 +2142,7 @@ unescape_nonascii(const char *p, const char *end, rb_encoding *enc,
               case '1': case '2': case '3':
               case '4': case '5': case '6': case '7': /* \O, \OO, \OOO or backref */
                 {
-                    int octlen;
+                    size_t octlen;
                     if (ruby_scan_oct(p-1, end-(p-1), &octlen) <= 0177) {
                         /* backref or 7bit octal.
                            no need to unescape anyway.
@@ -2133,7 +2150,7 @@ unescape_nonascii(const char *p, const char *end, rb_encoding *enc,
                         goto escape_asis;
                     }
                 }
-                /* xxx: How about more than 199 subexpressions? */ 
+                /* xxx: How about more than 199 subexpressions? */
 
               case '0': /* \0, \0O, \0OO */
 
@@ -2247,13 +2264,14 @@ rb_reg_check_preprocess(VALUE str)
 }
 
 static VALUE
-rb_reg_preprocess_dregexp(VALUE ary)
+rb_reg_preprocess_dregexp(VALUE ary, int options)
 {
     rb_encoding *fixed_enc = 0;
     rb_encoding *regexp_enc = 0;
     onig_errmsg_buffer err = "";
     int i;
     VALUE result = 0;
+    rb_encoding *ascii8bit = rb_ascii8bit_encoding();
 
     if (RARRAY_LEN(ary) == 0) {
         rb_raise(rb_eArgError, "no arguments given");
@@ -2265,10 +2283,16 @@ rb_reg_preprocess_dregexp(VALUE ary)
         char *p, *end;
         rb_encoding *src_enc;
 
+	src_enc = rb_enc_get(str);
+	if (options & ARG_ENCODING_NONE &&
+		src_enc != ascii8bit &&
+		rb_enc_str_coderange(str) != ENC_CODERANGE_7BIT) {
+	    rb_raise(rb_eRegexpError, "/.../n has a non escaped non ASCII character in non ASCII-8BIT script");
+	}
+
         StringValue(str);
         p = RSTRING_PTR(str);
         end = p + RSTRING_LEN(str);
-        src_enc = rb_enc_get(str);
 
         buf = rb_reg_preprocess(p, end, src_enc, &fixed_enc, err);
 
@@ -2296,7 +2320,7 @@ rb_reg_preprocess_dregexp(VALUE ary)
 }
 
 static int
-rb_reg_initialize(VALUE obj, const char *s, int len, rb_encoding *enc,
+rb_reg_initialize(VALUE obj, const char *s, long len, rb_encoding *enc,
 		  int options, onig_errmsg_buffer err)
 {
     struct RRegexp *re = RREGEXP(obj);
@@ -2344,7 +2368,7 @@ rb_reg_initialize(VALUE obj, const char *s, int len, rb_encoding *enc,
     if (options & ARG_ENCODING_NONE) {
         re->basic.flags |= REG_ENCODING_NONE;
     }
-    
+
     re->ptr = make_regexp(RSTRING_PTR(unescaped), RSTRING_LEN(unescaped), enc,
 			  options & ARG_REG_OPTION_MASK, err);
     if (!re->ptr) return -1;
@@ -2404,7 +2428,7 @@ rb_reg_new_str(VALUE s, int options)
 VALUE
 rb_reg_new_ary(VALUE ary, int opt)
 {
-    return rb_reg_new_str(rb_reg_preprocess_dregexp(ary), opt);
+    return rb_reg_new_str(rb_reg_preprocess_dregexp(ary, opt), opt);
 }
 
 VALUE
@@ -2465,7 +2489,8 @@ rb_reg_regcomp(VALUE str)
 static VALUE
 rb_reg_hash(VALUE re)
 {
-    int hashval, len;
+    unsigned long hashval;
+    long len;
     char *p;
 
     rb_reg_check(re);
@@ -2477,7 +2502,7 @@ rb_reg_hash(VALUE re)
     }
     hashval = hashval + (hashval>>5);
 
-    return INT2FIX(hashval);
+    return LONG2FIX(hashval);
 }
 
 
@@ -2570,7 +2595,7 @@ reg_match_pos(VALUE re, VALUE *strp, long pos)
  *
  *  If it is not matched, nil is assigned for the variables.
  *
- *     /(?<lhs>\w+)\s*=\s*(?<rhs>\w+)/ =~ "  x = "   
+ *     /(?<lhs>\w+)\s*=\s*(?<rhs>\w+)/ =~ "  x = "
  *     p lhs    #=> nil
  *     p rhs    #=> nil
  *
@@ -2688,18 +2713,18 @@ rb_reg_match2(VALUE re)
  *
  *     /(.)(.)(.)/.match("abc")[2]   #=> "b"
  *     /(.)(.)/.match("abc", 1)[2]   #=> "c"
- *     
+ *
  *  If a block is given, invoke the block with MatchData if match succeed, so
  *  that you can write
- *     
+ *
  *     pat.match(str) {|m| ...}
- *     
+ *
  *  instead of
- *      
+ *
  *     if m = pat.match(str)
  *       ...
  *     end
- *      
+ *
  *  The return value is a value from block execution in this case.
  */
 
@@ -3194,7 +3219,7 @@ rb_reg_regsub(VALUE str, VALUE src, struct re_registers *regs, VALUE regexp)
           case 'k':
             if (s < e && ASCGET(s, e, &clen) == '<') {
                 char *name, *name_end;
-               
+
                 name_end = name = s + clen;
                 while (name_end < e) {
                     c = ASCGET(name_end, e, &clen);
@@ -3407,6 +3432,7 @@ Init_Regexp(void)
     rb_define_const(rb_cRegexp, "IGNORECASE", INT2FIX(ONIG_OPTION_IGNORECASE));
     rb_define_const(rb_cRegexp, "EXTENDED", INT2FIX(ONIG_OPTION_EXTEND));
     rb_define_const(rb_cRegexp, "MULTILINE", INT2FIX(ONIG_OPTION_MULTILINE));
+    rb_define_const(rb_cRegexp, "FIXEDENCODING", INT2FIX(ARG_ENCODING_FIXED));
 
     rb_global_variable(&reg_cache);
 

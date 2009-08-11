@@ -1,5 +1,5 @@
 /*
-    $Id: strscan.c 18968 2008-08-31 02:43:17Z akr $
+    $Id: strscan.c 23721 2009-06-17 04:57:11Z matz $
 
     Copyright (c) 1999-2006 Minero Aoki
 
@@ -931,17 +931,6 @@ strscan_matched_size(VALUE self)
 }
 
 /*
- * Equivalent to #matched_size.
- * This method is obsolete; use #matched_size instead.
- */
-static VALUE
-strscan_matchedsize(VALUE self)
-{
-    rb_warning("StringScanner#matchedsize is obsolete; use #matched_size instead");
-    return strscan_matched_size(self);
-}
-
-/*
  * call-seq: [](n)
  *
  * Return the n-th subgroup in the most recent match.
@@ -1268,7 +1257,7 @@ Init_strscan()
     tmp = rb_str_new2(STRSCAN_VERSION);
     rb_obj_freeze(tmp);
     rb_const_set(StringScanner, rb_intern("Version"), tmp);
-    tmp = rb_str_new2("$Id: strscan.c 18968 2008-08-31 02:43:17Z akr $");
+    tmp = rb_str_new2("$Id: strscan.c 23721 2009-06-17 04:57:11Z matz $");
     rb_obj_freeze(tmp);
     rb_const_set(StringScanner, rb_intern("Id"), tmp);
     
@@ -1317,7 +1306,6 @@ Init_strscan()
     rb_define_method(StringScanner, "matched?",    strscan_matched_p,   0);
     rb_define_method(StringScanner, "matched",     strscan_matched,     0);
     rb_define_method(StringScanner, "matched_size", strscan_matched_size, 0);
-    rb_define_method(StringScanner, "matchedsize", strscan_matchedsize, 0);
     rb_define_method(StringScanner, "[]",          strscan_aref,        1);
     rb_define_method(StringScanner, "pre_match",   strscan_pre_match,   0);
     rb_define_method(StringScanner, "post_match",  strscan_post_match,  0);
