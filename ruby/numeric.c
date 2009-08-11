@@ -1256,7 +1256,6 @@ flo_is_infinite_p(VALUE num)
  *  <code>false</code>).
  *
  */
-
 static VALUE
 flo_is_finite_p(VALUE num)
 {

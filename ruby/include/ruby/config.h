@@ -130,7 +130,9 @@
 #define HAVE_FLOCK 1
 #define HAVE_VSNPRINTF 1
 #define HAVE_ISNAN 1
+#ifdef TARGET_CPU_X86
 #define HAVE_FINITE 1
+#endif
 #define HAVE_ISINF 1
 #define HAVE_HYPOT 1
 #define HAVE_ACOSH 1
