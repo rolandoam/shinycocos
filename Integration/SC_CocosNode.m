@@ -26,10 +26,6 @@
 
 VALUE rb_cCocosNode;
 
-struct rb_blocking_region_buffer *rb_thread_blocking_region_begin();
-void rb_thread_blocking_region_end(struct rb_blocking_region_buffer *region);
-
-
 #pragma mark CocosNode extension
 
 static void eachShape(void *ptr, void* unused)
@@ -81,9 +77,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_enter];
 	// call the ruby version
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_on_enter, 0, 0);
-		rb_thread_blocking_region_end(region);
 	}
 }
 
@@ -91,9 +85,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_enter_transition_did_finish];
 	// call the ruby version
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, sc_id_on_enter_transition_did_finish, 0, 0);
-		rb_thread_blocking_region_end(region);
 	}
 }
 
@@ -101,9 +93,7 @@ static void eachShape(void *ptr, void* unused)
 	[self rb_on_exit];
 	// call the ruby version
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_on_exit, 0, 0);
-		rb_thread_blocking_region_end(region);
 	}
 }
 
@@ -136,9 +126,7 @@ static void eachShape(void *ptr, void* unused)
 		int i;
 		for (i=0; i < RARRAY_LEN(methods); i++) {
 			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
-			struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 			sc_protect_funcall((VALUE)userData, m_id, 1, rb_float_new(delta));
-			rb_thread_blocking_region_end(region);
 		}
 	}
 }
@@ -146,56 +134,44 @@ static void eachShape(void *ptr, void* unused)
 - (void)action:(id)sender {
 	if (userData) {
 		VALUE rbSender = sc_ruby_instance_for(sc_object_hash, sender);
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_ui_action, 1, rbSender);
-		rb_thread_blocking_region_end(region);
 	}
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	if (userData) {
 		VALUE rbTextField = sc_ruby_instance_for(sc_object_hash, textField);
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		if (sc_protect_funcall((VALUE)userData, id_sc_text_field_action, 1, rbTextField) != Qnil) {
 			return YES;
 		}
-		rb_thread_blocking_region_end(region);
 	}
 	return NO;
 }
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		if (sc_protect_funcall((VALUE)userData, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
 			return YES;
 		}
-		rb_thread_blocking_region_end(region);
 	}
 	return NO;
 }
 
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_touch_moved, 1, rb_hash_with_touch(touch));
-		rb_thread_blocking_region_end(region);
 	}
 }
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_touch_ended, 1, rb_hash_with_touch(touch));
-		rb_thread_blocking_region_end(region);
 	}
 }
 
 - (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
 	if (userData) {
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_touch_cancelled, 1, rb_hash_with_touch(touch));
-		rb_thread_blocking_region_end(region);
 	}
 }
 
@@ -205,9 +181,7 @@ static void eachShape(void *ptr, void* unused)
 								   rb_float_new(acceleration.x),
 								   rb_float_new(acceleration.y),
 								   rb_float_new(acceleration.z));
-		struct rb_blocking_region_buffer *region = rb_thread_blocking_region_begin();
 		sc_protect_funcall((VALUE)userData, id_sc_did_accelerate, 1, rb_arr);
-		rb_thread_blocking_region_end(region);
 	}
 }
 

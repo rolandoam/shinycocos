@@ -182,6 +182,7 @@ extern NSMutableDictionary *sc_object_hash;
 extern NSMutableDictionary *sc_schedule_methods;
 extern NSMutableDictionary *sc_handler_hash;
 extern id accDelegate;
+extern id _appDelegate;
 
 VALUE sc_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *argv, BOOL release_on_free);
 VALUE rb_hash_with_touch(UITouch *touch);

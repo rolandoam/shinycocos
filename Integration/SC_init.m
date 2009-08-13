@@ -26,6 +26,14 @@ NSMutableDictionary *sc_object_hash;
 NSMutableDictionary *sc_schedule_methods;
 NSMutableDictionary *sc_handler_hash;
 
+struct sc_funcall_param {
+	VALUE recv;
+	ID method_id;
+	int n;
+	VALUE *argv;
+	int state;
+};
+
 #pragma mark Common
 
 void sc_free(void *ptr) {
@@ -70,44 +78,49 @@ VALUE rb_ary_with_set(NSSet *touches) {
 /*
  * like rb_funcall, but check if the receiver responds to the method
  */
-VALUE sc_funcall(VALUE *args) {
-	if (rb_respond_to(args[0], (ID)args[1]))
-		return rb_funcall3(args[0], (ID)args[1], (int)args[2], (args+3));
-	return Qnil;
+VALUE sc_funcall(struct sc_funcall_param *param) {
+//	if (rb_obj_respond_to(param->recv, param->method_id, Qfalse))
+		return rb_funcall3(param->recv, param->method_id, param->n, param->argv);
+//	return Qnil;
 }
 
 #define va_init_list(a,b) va_start(a,b)
 VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
-    VALUE *argv;
-    va_list ar;
-    va_init_list(ar, n);
-	
-    if (n > 0) {
-		long i;
-		argv = ALLOC_N(VALUE, n+3);
-		argv[0] = recv;
-		argv[1] = (VALUE)mid;
-		argv[2] = (VALUE)n;
-		for (i = 0; i < n; i++) {
-			argv[i+3] = va_arg(ar, VALUE);
+	VALUE result;
+	@synchronized(_appDelegate) {
+		struct sc_funcall_param *p;
+		va_list ar;
+		va_init_list(ar, n);
+		
+		p = ALLOC(struct sc_funcall_param);
+		p->state = 0;
+		p->argv = nil;
+		if (n > 0) {
+			long i;
+			p->argv = ALLOC_N(VALUE, n);
+			p->recv = recv;
+			p->method_id = mid;
+			p->n = n;
+			for (i = 0; i < n; i++) {
+				p->argv[i] = va_arg(ar, VALUE);
+			}
+			va_end(ar);
 		}
-		va_end(ar);
-    }
-    else {
-		argv = ALLOC_N(VALUE, 4);
-		argv[0] = recv;
-		argv[1] = (VALUE)mid;
-		argv[2] = (VALUE)n;
-		argv[3] = 0;
-    }
-	int state;
-	
-	VALUE result = rb_protect(RUBY_METHOD_FUNC(sc_funcall), (VALUE)argv, &state);
-	free(argv);
+		else {
+			p->recv = recv;
+			p->method_id = mid;
+			p->n = n;
+		}
+		
+		result = rb_protect(RUBY_METHOD_FUNC(sc_funcall), (VALUE)p, &(p->state));
+		if (p->argv)
+			xfree(p->argv);
+		xfree(p);
 
-	if (state != 0) {
-		sc_error(state);
-		return Qnil;
+		if (p->state != 0) {
+//			sc_error(p->state);
+			result = Qnil;
+		}
 	}
 	return result;
 }
@@ -193,11 +206,6 @@ VALUE sc_reachability_for_host(VALUE module, VALUE host) {
 }
 
 
-VALUE sc_test(VALUE module) {
-	return rb_float_new(1.1f);
-}
-
-
 /*
  * ShinyCocos
  * 
@@ -247,7 +255,6 @@ void Init_ShinyCocos() {
 	rb_define_module_function(rb_mCocos2D, "ns_log", sc_ns_log, -1);
 	rb_define_module_function(rb_mCocos2D, "display_alert", sc_display_alert, -1);
 	rb_define_module_function(rb_mCocos2D, "reachability_for_host", sc_reachability_for_host, 1);
-	rb_define_module_function(rb_mCocos2D, "test", sc_test, 0);
 	
 	/* no network conectivity */
 	rb_define_const(rb_mCocos2D, "NOT_REACHABLE", INT2FIX(NotReachable));

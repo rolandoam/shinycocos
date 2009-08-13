@@ -30,12 +30,16 @@ void sc_method_swap(Class cls, SEL orig, SEL repl) {
 
 static char **sc_argv;
 static int    sc_argc;
+id _appDelegate;
 
-void ShinyCocosSetup(UIWindow *window) {
-	if (![NSThread isMainThread]) {
-		NSLog(@"must call ShiniCocosSetup from main thread!");
+void ShinyCocosSetup(UIWindow *window, id appDelegate) {
+	/*
+	if (![NSThread isMainThread] || ![NSThread isMultiThreaded]) {
+		NSLog(@"must call ShiniCocosSetup from main thread! (%d,%d)", [NSThread isMainThread], [NSThread isMultiThreaded]);
 		exit(0);
 	}
+	*/
+	_appDelegate = appDelegate;
 	
 	/* prepare ruby stuff */
 	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];

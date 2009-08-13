@@ -18,7 +18,7 @@
  */
 
 /* setup cocos2d <-> ruby integration */
-void ShinyCocosSetup(UIWindow *window);
+void ShinyCocosSetup(UIWindow *window, id appDelegate);
 /* will require "main.rb" from the Resource Path */
 void ShinyCocosStart();
 /* init chipmunk, call this before ShinyCocosStart() */
