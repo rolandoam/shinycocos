@@ -290,6 +290,8 @@ search_method(VALUE klass, ID id)
 rb_method_entry_t *
 rb_get_method_entry(VALUE klass, ID id)
 {
+	// GFF (searching for random crash bug)
+	// printf("rb_get_method_entry for %s (%s, %d)\n", rb_id2name(id), rb_class2name(klass), id);
     rb_method_entry_t *me = search_method(klass, id);
 
     if (ruby_running) {
