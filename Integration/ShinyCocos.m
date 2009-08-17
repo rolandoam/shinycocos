@@ -32,15 +32,7 @@ static char **sc_argv;
 static int    sc_argc;
 id _appDelegate;
 
-void ShinyCocosSetup(UIWindow *window, id appDelegate) {
-	/*
-	if (![NSThread isMainThread] || ![NSThread isMultiThreaded]) {
-		NSLog(@"must call ShiniCocosSetup from main thread! (%d,%d)", [NSThread isMainThread], [NSThread isMultiThreaded]);
-		exit(0);
-	}
-	*/
-	_appDelegate = appDelegate;
-	
+void ShinyCocosSetup() {	
 	/* prepare ruby stuff */
 	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 	NSString *rubyLib = [NSString stringWithFormat:@"%@/lib", resourcePath];
@@ -67,7 +59,13 @@ void ShinyCocosSetup(UIWindow *window, id appDelegate) {
 	/* init our stuff */
 	Init_ShinyCocos();
 	Init_SC_Ruby_Extensions();
-	
+}
+
+extern void sc_require(char *fname);
+
+void ShinyCocosStart(UIWindow *window, id appDelegate) {
+	int state;
+	_appDelegate = appDelegate;
 	/* hide the top bar */
 	[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 	/* init the window stuff */
@@ -75,12 +73,7 @@ void ShinyCocosSetup(UIWindow *window, id appDelegate) {
 	[window setMultipleTouchEnabled:YES];
 	[[Director sharedDirector] attachInWindow:window];
 	[window makeKeyAndVisible];
-}
-
-extern void sc_require(char *fname);
-
-void ShinyCocosStart() {
-	int state;
+	
 	ruby_script("main.rb");
 	// test for secure_require
 	if (rb_obj_respond_to(rb_mKernel, rb_intern("secure_require"), 0)) {

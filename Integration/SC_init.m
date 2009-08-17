@@ -79,9 +79,9 @@ VALUE rb_ary_with_set(NSSet *touches) {
  * like rb_funcall, but check if the receiver responds to the method
  */
 VALUE sc_funcall(struct sc_funcall_param *param) {
-//	if (rb_obj_respond_to(param->recv, param->method_id, Qfalse))
+	if (rb_obj_respond_to(param->recv, param->method_id, Qfalse))
 		return rb_funcall3(param->recv, param->method_id, param->n, param->argv);
-//	return Qnil;
+	return Qnil;
 }
 
 #define va_init_list(a,b) va_start(a,b)
@@ -118,7 +118,7 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
 		xfree(p);
 
 		if (p->state != 0) {
-//			sc_error(p->state);
+			sc_error(p->state);
 			result = Qnil;
 		}
 	}
