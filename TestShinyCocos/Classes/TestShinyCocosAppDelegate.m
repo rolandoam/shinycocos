@@ -18,10 +18,7 @@ void sc_require(char *fname) {
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	ShinyCocosSetup(window);
-	// insert here your ruby extensions (i.e.: Init_xxx())
-	ShinyCocosInitChipmunk();
-	ShinyCocosStart();
+	ShinyCocosStart(window, self);
 }
 
 // getting a call, pause the game

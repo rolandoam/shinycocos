@@ -22,6 +22,7 @@
 		A93610480FE8022500BD9029 /* wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = A93610450FE8022500BD9029 /* wheel.png */; };
 		A93611B20FE96A5B00BD9029 /* tube.png in Resources */ = {isa = PBXBuildFile; fileRef = A93611B10FE96A5B00BD9029 /* tube.png */; };
 		A93D7EA10FBE0BF300731024 /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A93D7E9B0FBE0BF300731024 /* vendor */; };
+		A93E59AB1038E509005FAD9B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93E59AA1038E509005FAD9B /* SystemConfiguration.framework */; };
 		A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */; };
 		A98CD4A70FB4BBA90017E521 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */; };
 		A9A057340F9E9B6200C85842 /* libShinyCocos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A056A10F9E9AAD00C85842 /* libShinyCocos.a */; };
@@ -334,7 +335,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC045055464E500DB518D;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* ShinyCocos */;
 			remoteInfo = ShinyCocos;
 		};
 		A9E2C08710289843006A9C4B /* PBXContainerItemProxy */ = {
@@ -407,6 +408,7 @@
 		A93610450FE8022500BD9029 /* wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel.png; path = Resources/Images/wheel.png; sourceTree = "<group>"; };
 		A93611B10FE96A5B00BD9029 /* tube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tube.png; path = Resources/Images/tube.png; sourceTree = "<group>"; };
 		A93D7E9B0FBE0BF300731024 /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vendor; sourceTree = "<group>"; };
+		A93E59AA1038E509005FAD9B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		A98CD4A50FB4BBA90017E521 /* AccelerometerSimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSimulation.h; sourceTree = "<group>"; };
 		A98CD4A60FB4BBA90017E521 /* AccelerometerSimulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerSimulation.m; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				A9066C970FBB18830020ABC5 /* UIKit.framework in Frameworks */,
 				A97006350FCA058A00E1BE12 /* libz.1.2.3.dylib in Frameworks */,
 				A90689CE10069CA600CB0B28 /* AVFoundation.framework in Frameworks */,
+				A93E59AB1038E509005FAD9B /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				A97006340FCA058A00E1BE12 /* libz.1.2.3.dylib */,
+				A93E59AA1038E509005FAD9B /* SystemConfiguration.framework */,
 				A90689CD10069CA600CB0B28 /* AVFoundation.framework */,
 				A9066C8F0FBB18830020ABC5 /* Foundation.framework */,
 				A9066C8E0FBB18830020ABC5 /* CoreGraphics.framework */,
@@ -587,6 +591,7 @@
 				A9A056EE0F9E9AB600C85842 /* IntervalTest.app */,
 				A9E2C08E10289843006A9C4B /* LayerTest.app */,
 				A9A056F00F9E9AB600C85842 /* MenuTest.app */,
+				A9A057000F9E9AB600C85842 /* MotionStreakTest.app */,
 				A9A056F20F9E9AB600C85842 /* ParallaxTest.app */,
 				A9E2C09010289843006A9C4B /* ParticleView.app */,
 				A9A056F40F9E9AB600C85842 /* ParticleTest.app */,
@@ -596,7 +601,6 @@
 				A9A056F80F9E9AB600C85842 /* RotateWorldTest.app */,
 				A9A056FA0F9E9AB600C85842 /* SceneTest.app */,
 				A9A056FE0F9E9AB600C85842 /* SpritesTest.app */,
-				A9A057000F9E9AB600C85842 /* StreakTest.app */,
 				A9A057020F9E9AB600C85842 /* Texture2dTest.app */,
 				A9E2C09210289843006A9C4B /* TileMapTest.app */,
 				A93610410FE801E300BD9029 /* TouchesTest.app */,
@@ -913,10 +917,10 @@
 			remoteRef = A9A056FD0F9E9AB600C85842 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		A9A057000F9E9AB600C85842 /* StreakTest.app */ = {
+		A9A057000F9E9AB600C85842 /* MotionStreakTest.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = StreakTest.app;
+			path = MotionStreakTest.app;
 			remoteRef = A9A056FF0F9E9AB600C85842 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShinyCocos.h"
 
 int main(int argc, char *argv[]) {
-    
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, @"TestShinyCocosAppDelegate");
+ 	ShinyCocosSetup();
+	// insert here your ruby extensions (i.e.: Init_xxx())
+	ShinyCocosInitChipmunk();
+	int retVal = UIApplicationMain(argc, argv, nil, @"TestShinyCocosAppDelegate");
     [pool release];
     return retVal;
 }
