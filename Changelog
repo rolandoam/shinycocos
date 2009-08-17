@@ -1,3 +1,8 @@
+version 0.1.2 - 2009-08-16
+. Changes in Startup API
+. Updates ruby & cocos2d
+version 0.1.1 - 2009-08-10
+. Trying to fix RCB (Random Crash Bug)
 version 0.1.0 (Birthday Pinata) - 2009-08-09
 . Added NSUserDefaults (basic) access
 . Added Twitter module
