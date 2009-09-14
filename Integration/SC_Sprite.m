@@ -32,10 +32,13 @@ VALUE rb_cSprite;
  *
  * Creates a new sprite using the given file
  */
-VALUE rb_cSprite_s_new(VALUE klass, VALUE filepath) {
-	Check_Type(filepath, T_STRING);
-	Sprite *obj = [[Sprite alloc] initWithFile:[NSString stringWithCString:StringValueCStr(filepath) encoding:NSUTF8StringEncoding]];
-	VALUE rb_obj = sc_init(klass, nil, obj, 0, 0, YES);
+VALUE rb_cSprite_s_new(int argc, VALUE *argv, VALUE klass) {
+	if (argc < 1) {
+		rb_raise(rb_eArgError, "Invalid number of arguments");
+	}
+	Check_Type(argv[0], T_STRING);
+	Sprite *obj = [[Sprite alloc] initWithFile:[NSString stringWithCString:StringValueCStr(argv[0]) encoding:NSUTF8StringEncoding]];
+	VALUE rb_obj = sc_init(klass, nil, obj, argc-1, argv+1, YES);
 	obj.userData = (void *)rb_obj;
 	
 	return rb_obj;
@@ -59,6 +62,6 @@ VALUE rb_cSprite_antialias(VALUE obj, VALUE antialias) {
 
 void init_rb_cSprite() {
 	rb_cSprite = rb_define_class_under(rb_mCocos2D, "Sprite", rb_cTextureNode);
-	rb_define_singleton_method(rb_cSprite, "new", rb_cSprite_s_new, 1);
+	rb_define_singleton_method(rb_cSprite, "new", rb_cSprite_s_new, -1);
 	rb_define_method(rb_cSprite, "antialias", rb_cSprite_antialias, 1);
 }
