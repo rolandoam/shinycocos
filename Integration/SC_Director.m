@@ -87,11 +87,27 @@ VALUE rb_mDirector_display_fps(VALUE module, VALUE display) {
 
 /*
  * call-seq:
- *   Director.add_event_handler(some_node)   #=> some_node
+ *   Director.add_touch_handler(some_node, standard = true, priority = 0)   #=> some_node
+ *
+ * Adds a touch handler. By default it's a standard handler, that means the object
+ * should respond to touches_(began|cancelled|ended). If it's not a standard handler,
+ * it's assumed to be a targeted handler. In that case, the object should respond to
+ * touch_(began|cancelled|ended).
+ *
+ * In all cases, some_node MUST BE a CocosNode subclass.
  */
-VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) {
-	[[TouchDispatcher sharedDispatcher] addTargetedDelegate:(id)CC_NODE(node) priority:0 swallowsTouches:YES];
-	return node;
+VALUE rb_mDirector_add_touch_handler(int argc, VALUE *argv, VALUE module) {
+	if (argc < 1 || argc > 3 || !(rb_obj_is_kind_of(argv[0], rb_cCocosNode))) {
+		rb_raise(rb_eArgError, "Invalid arguments. Check that node is a subclass of CocosNode");
+	}
+	VALUE standard = ((argc == 2) ? argv[1] : Qtrue);
+	VALUE priority = ((argc == 3) ? argv[2] : INT2FIX(0));
+	if (RTEST(standard)) {
+		[[TouchDispatcher sharedDispatcher] addStandardDelegate:(id)CC_NODE(argv[0]) priority:FIX2INT(priority)];
+	} else {
+		[[TouchDispatcher sharedDispatcher] addTargetedDelegate:(id)CC_NODE(argv[0]) priority:FIX2INT(priority) swallowsTouches:YES];
+	}
+	return argv[0];
 }
 
 /*
@@ -173,7 +189,7 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "display_fps", rb_mDirector_display_fps, 1);
 	rb_define_module_function(rb_mDirector, "run_scene", rb_mDirector_run_scene, 1);
 	rb_define_module_function(rb_mDirector, "replace_scene", rb_mDirector_replace_scene, 1);
-	rb_define_module_function(rb_mDirector, "add_touch_handler", rb_mDirector_add_touch_handler, 1);
+	rb_define_module_function(rb_mDirector, "add_touch_handler", rb_mDirector_add_touch_handler, -1);
 	rb_define_module_function(rb_mDirector, "remove_touch_handler", rb_mDirector_remove_touch_handler, 1);
 	rb_define_module_function(rb_mDirector, "pause", rb_mDirector_pause, 0);
 	rb_define_module_function(rb_mDirector, "resume", rb_mDirector_resume, 0);

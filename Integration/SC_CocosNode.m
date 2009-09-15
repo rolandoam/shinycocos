@@ -55,7 +55,12 @@ static void eachShape(void *ptr, void* unused)
 - (void)chipmunk_step:(ccTime)delta;
 // ruby schedule support
 - (void)rbScheduler:(ccTime)delta;
-// event handler
+// standard event handler
+- (BOOL)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+- (BOOL)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
+- (BOOL)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+- (BOOL)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
+// targeted event handler
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event;
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event;
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event;
@@ -148,13 +153,53 @@ static void eachShape(void *ptr, void* unused)
 	return NO;
 }
 
+/* standard event handler */
+- (BOOL)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (userData) {
+		if (RTEST(sc_protect_funcall((VALUE)userData, id_sc_touches_began, 1, rb_ary_with_set(touches)))) {
+			return kEventHandled;
+		}
+	}
+	return kEventIgnored;
+}
+
+- (BOOL)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (userData) {
+		if (RTEST(sc_protect_funcall((VALUE)userData, id_sc_touches_moved, 1, rb_ary_with_set(touches)))) {
+			return kEventHandled;
+		}
+	}
+	return kEventIgnored;
+}
+
+- (BOOL)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (userData) {
+		if (RTEST(sc_protect_funcall((VALUE)userData, id_sc_touches_ended, 1, rb_ary_with_set(touches)))) {
+			return kEventHandled;
+		}
+	}
+	return kEventIgnored;
+}
+
+- (BOOL)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (userData) {
+		if (RTEST(sc_protect_funcall((VALUE)userData, id_sc_touches_cancelled, 1, rb_ary_with_set(touches)))) {
+			return kEventHandled;
+		}
+	}
+	return kEventIgnored;
+}
+
+
+
+/* targeted event handler */
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
 	if (userData) {
 		if (sc_protect_funcall((VALUE)userData, id_sc_touch_began, 1, rb_hash_with_touch(touch)) != Qfalse) {
-			return YES;
+			return kEventHandled;
 		}
 	}
-	return NO;
+	return kEventIgnored;
 }
 
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
