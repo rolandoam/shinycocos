@@ -483,6 +483,19 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
 	return args[0];
 }
 
+
+/*
+ * call-seq:
+ *   node.remove_child(some_child)   #=> node
+ *
+ * removes a child from the children's list.
+ */
+VALUE rb_cCocosNode_remove_child(VALUE object, VALUE child) {
+	[CC_NODE(object) removeChild:CC_NODE(child) cleanup:YES];
+	return object;
+}
+
+
 /*
  * call-seq:
  *   node.child_with_tag(tag)   #=> CocosNode
@@ -749,6 +762,7 @@ void init_rb_cCocosNode() {
 	
 	// misc
 	rb_define_method(rb_cCocosNode, "add_child", rb_cCocosNode_add_child, -1);
+	rb_define_method(rb_cCocosNode, "remove_child", rb_cCocosNode_remove_child, 1);
 	rb_define_method(rb_cCocosNode, "child_with_tag", rb_cCocosNode_child_with_tag, 1);
 	rb_define_method(rb_cCocosNode, "children", rb_cCocosNode_children, 0);
 	rb_define_method(rb_cCocosNode, "run_action", rb_cCocosNode_run_action, 1);
