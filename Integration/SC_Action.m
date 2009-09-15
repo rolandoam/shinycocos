@@ -534,7 +534,7 @@ VALUE rb_cWaves3D_s_new(int argc, VALUE *argv, VALUE klass) {
 VALUE rb_cFlipX3D_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
 	FlipX3D *action = [[FlipX3D alloc] initWithDuration:NUM2DBL(argv[0])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
 	return ret;
 }
 
@@ -768,7 +768,7 @@ VALUE rb_cSequence_s_new(int argc, VALUE *argv, VALUE klass) {
 VALUE rb_cRepeat_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM_AND_SUBCLASS(2, rb_cFiniteTimeAction)
 	Repeat *action = [[Repeat alloc] initWithAction:CC_FINITETIMEACTION(argv[0]) times:FIX2INT(argv[1])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
 	return ret;
 }
 
@@ -803,7 +803,7 @@ VALUE rb_cSpawn_s_new(int argc, VALUE *argv, VALUE klass) {
 VALUE rb_cRotateTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	RotateTo *action = [[RotateTo alloc] initWithDuration:NUM2DBL(argv[0]) angle:NUM2DBL(argv[1])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
 	return ret;
 }
 
@@ -815,7 +815,7 @@ VALUE rb_cRotateTo_s_new(int argc, VALUE *argv, VALUE klass) {
 VALUE rb_cRotateBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)
 	RotateBy *action = [[RotateBy alloc] initWithDuration:NUM2DBL(argv[0]) angle:NUM2DBL(argv[1])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
 	return ret;
 }
 
@@ -831,7 +831,7 @@ VALUE rb_cMoveTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	p.x = NUM2DBL(RARRAY_PTR(argv[1])[0]);
 	p.y = NUM2DBL(RARRAY_PTR(argv[1])[1]);
 	MoveTo *action = [[MoveTo alloc] initWithDuration:NUM2DBL(argv[0]) position:p];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
 	return ret;
 }
 
@@ -847,7 +847,7 @@ VALUE rb_cMoveBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	p.x = NUM2DBL(RARRAY_PTR(argv[1])[0]);
 	p.y = NUM2DBL(RARRAY_PTR(argv[1])[1]);
 	MoveBy *action = [[MoveBy alloc] initWithDuration:NUM2DBL(argv[0]) position:p];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
 	return ret;
 }
 
@@ -863,7 +863,7 @@ VALUE rb_cJumpBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	p.x = NUM2DBL(RARRAY_PTR(argv[1])[0]);
 	p.y = NUM2DBL(RARRAY_PTR(argv[1])[1]);
 	JumpBy *action = [[JumpBy alloc] initWithDuration:NUM2DBL(argv[0]) position:p height:NUM2DBL(argv[2]) jumps:FIX2INT(argv[3])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-4, argv+4, YES);
 	return ret;
 }
 
@@ -879,7 +879,7 @@ VALUE rb_cJumpTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	p.x = NUM2DBL(RARRAY_PTR(argv[1])[0]);
 	p.y = NUM2DBL(RARRAY_PTR(argv[1])[1]);
 	JumpTo *action = [[JumpTo alloc] initWithDuration:NUM2DBL(argv[0]) position:p height:NUM2DBL(argv[2]) jumps:FIX2INT(argv[3])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-4, argv+4, YES);
 	return ret;
 }
 
@@ -903,7 +903,7 @@ VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
 VALUE rb_cScaleTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(3)
 	ScaleTo *action = [[ScaleTo alloc] initWithDuration:NUM2DBL(argv[0]) scaleX:NUM2DBL(argv[1]) scaleY:NUM2DBL(argv[2])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-3, argv+3, YES);
 	return ret;
 }
 
@@ -915,7 +915,7 @@ VALUE rb_cScaleTo_s_new(int argc, VALUE *argv, VALUE klass) {
 VALUE rb_cScaleBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(3)
 	ScaleBy *action = [[ScaleBy alloc] initWithDuration:NUM2DBL(argv[0]) scaleX:NUM2DBL(argv[1]) scaleY:NUM2DBL(argv[2])];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	VALUE ret = sc_init(klass, nil, action, argc-3, argv+3, YES);
 	return ret;
 }
 
