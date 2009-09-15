@@ -20,9 +20,20 @@ class TestScene < MenuScene
     action = Actions::RepeatForever.new(Actions::Animate.new(@animations[:walk]))
     @sprite.run_action(action)
     @manager.add_child @sprite, :z => 0
+    @sprite_test = Sprite.new("ball.png")
+    @sprite_test.position = [100, 100]
+    add_child @sprite_test
 
     become_accelerometer_delegate
+    
+    # install standard touch handler
+    Director.add_touch_handler(self)
+    # continue with the menu scene initialization
     super
+  end
+  
+  def touches_began(touches)
+    @sprite_test.run_action(Actions::MoveBy.new(1.0, [35.0, 0.0]))
   end
   
   # acceleration is an array of floats
