@@ -314,25 +314,36 @@ VALUE rb_cEaseRateAction_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
-/*
+
+
+/* 
  * call-seq:
- *   doc stub
+ *   Actions::EaseIn.new another_action
+ *
+ * example:
+ *   node.run_action Actions::EaseIn.new(Actions::MoveTo.new(10, [20,20]))
  */
 VALUE rb_cEaseIn_s_new(int argc, VALUE *argv, VALUE klass) {
-	EaseIn *action = [[EaseIn alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM_AND_SUBCLASS(1, rb_cIntervalAction)
+	EaseIn *action = [[EaseIn alloc]  initWithAction:CC_INTERVALACTION(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
 	return ret;
 }
 
 
-/*
+/* 
  * call-seq:
- *   doc stub
+ *   Actions::EaseOut.new another_action
+ *
+ * example:
+ *   node.run_action Actions::EaseOut.new(Actions::MoveTo.new(10, [20,20]))
  */
 VALUE rb_cEaseOut_s_new(int argc, VALUE *argv, VALUE klass) {
-	EaseOut *action = [[EaseOut alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM_AND_SUBCLASS(1, rb_cIntervalAction)
+	EaseOut *action = [[EaseOut alloc]  initWithAction:CC_INTERVALACTION(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
 	return ret;
+	
 }
 
 
@@ -347,26 +358,35 @@ VALUE rb_cEaseInOut_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
-/*
+/* 
  * call-seq:
- *   doc stub
+ *   Actions::EaseExponentialIn.new another_action
+ *
+ * example:
+ *   node.run_action Actions::EaseExponentialIn.new(Actions::MoveTo.new(10, [20,20]))
  */
 VALUE rb_cEaseExponentialIn_s_new(int argc, VALUE *argv, VALUE klass) {
-	EaseExponentialIn *action = [[EaseExponentialIn alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM_AND_SUBCLASS(1, rb_cIntervalAction)
+	EaseExponentialIn *action = [[EaseExponentialIn alloc]  initWithAction:CC_INTERVALACTION(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
 	return ret;
 }
 
 
-/*
+/* 
  * call-seq:
- *   doc stub
+ *   Actions::EaseExponentialOut.new another_action
+ *
+ * example:
+ *   node.run_action Actions::EaseExponentialOut.new(Actions::MoveTo.new(10, [20,20]))
  */
 VALUE rb_cEaseExponentialOut_s_new(int argc, VALUE *argv, VALUE klass) {
-	EaseExponentialOut *action = [[EaseExponentialOut alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM_AND_SUBCLASS(1, rb_cIntervalAction)
+	EaseExponentialOut *action = [[EaseExponentialOut alloc]  initWithAction:CC_INTERVALACTION(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
 	return ret;
 }
+
 
 
 /*
@@ -884,14 +904,32 @@ VALUE rb_cJumpTo_s_new(int argc, VALUE *argv, VALUE klass) {
 }
 
 
-/*
+/* 
  * call-seq:
- *   doc stub
+ *   Actions::BezierBy.new duration, start_pos, cntrl_pt_1, cntrl_pt_2, end_pos
+ *
+ * example:
+ *   node.run_action Actions::BezierBy.new(5, [0,0], [-20,40], [30,-50], [20,20])
+ * 
+ * Generate BezierBy action, for moving a sprite along a Bezier curve..
+ * It's a DoBy action, so all points are relative to the starting position of the node..
  */
 VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	BezierBy *action = [[BezierBy alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	
+	CHECK_ARGS_NUM(5)
+	Check_Type(argv[1], T_ARRAY);
+	Check_Type(argv[2], T_ARRAY);
+	Check_Type(argv[3], T_ARRAY);
+	Check_Type(argv[4], T_ARRAY);
+	
+	ccBezierConfig config;
+	config.startPosition	= cpv(NUM2DBL(RARRAY_PTR(argv[1])[0]), NUM2DBL(RARRAY_PTR(argv[1])[1]));
+	config.controlPoint_1	= cpv(NUM2DBL(RARRAY_PTR(argv[2])[0]), NUM2DBL(RARRAY_PTR(argv[2])[1]));
+	config.controlPoint_2	= cpv(NUM2DBL(RARRAY_PTR(argv[3])[0]), NUM2DBL(RARRAY_PTR(argv[3])[1]));
+	config.endPosition		= cpv(NUM2DBL(RARRAY_PTR(argv[4])[0]), NUM2DBL(RARRAY_PTR(argv[4])[1]));
+	
+	BezierBy *action = [[BezierBy alloc] initWithDuration: NUM2DBL(argv[0]) bezier: config];
+	VALUE ret = sc_init(klass, nil, action, argc-5, argv+5, YES);
 	return ret;
 }
 
