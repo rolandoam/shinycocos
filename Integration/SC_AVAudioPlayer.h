@@ -21,11 +21,11 @@ extern VALUE rb_cAVAudioPlayer;
 
 @interface RBAudioPlayer : NSObject <AVAudioPlayerDelegate>
 {
-	VALUE rbObject;
 	AVAudioPlayer *player;
+	VALUE userData;
 }
 
-@property (readwrite) VALUE rbObject;
+@property (readwrite, assign) VALUE userData;
 @property (readonly) AVAudioPlayer *player;
 
 - (id)initWithRubyObject:(VALUE)object file:(NSString *)file;

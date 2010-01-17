@@ -37,7 +37,11 @@ struct sc_funcall_param {
 #pragma mark Common
 
 void sc_free(void *ptr) {
-	[(((cocos_holder *)(ptr))->_obj) release];
+	CocosNode *obj = (CocosNode *)(((cocos_holder *)(ptr))->_obj);
+	if (obj) {
+		obj.userData = nil; // we set this to nil because ruby has already cleared this
+		[obj release];
+	}
 	free(ptr);
 }
 
@@ -79,9 +83,12 @@ VALUE rb_ary_with_set(NSSet *touches) {
  * like rb_funcall, but check if the receiver responds to the method
  */
 VALUE sc_funcall(struct sc_funcall_param *param) {
-	if (rb_obj_respond_to(param->recv, param->method_id, Qfalse))
-		return rb_funcall3(param->recv, param->method_id, param->n, param->argv);
-	return Qnil;
+	VALUE ret = Qnil;
+//	@synchronized(_appDelegate) {
+		if (rb_obj_respond_to(param->recv, param->method_id, Qfalse))
+			ret = rb_funcall3(param->recv, param->method_id, param->n, param->argv);
+//	}
+	return ret;
 }
 
 #define va_init_list(a,b) va_start(a,b)
@@ -129,14 +136,20 @@ void sc_error(int state) {
 	VALUE err    = rb_funcall(rb_gv_get("$!"), id_sc_message, 0, 0);
 	VALUE err_bt = rb_gv_get("$@");
 	VALUE err_bt_str = rb_funcall(err_bt, id_sc_join, 1, rb_str_new2("\n"));
-	NSLog(@"RubyError: %s\n%s",
+	CCLOG(@"RubyError: %s\n%s",
 		  StringValueCStr(err),
 		  StringValueCStr(err_bt_str));
 }
 
 
 /*
- * use this with caution, this is really slow!
+ * call-seq:
+ *   ns_log "something to log here", "something else here", [1,2,3], aRubyObject
+ *  
+ * NOTE: Use this with caution, this is really slow!
+ * 
+ * For every argument passed, if it's not a string, +inspect+ is called on it to convert it
+ * to string.
  */
 VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 	/* create the template string */
@@ -150,7 +163,7 @@ VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) {
 	}
 	VALUE template_final = sc_protect_funcall(template_ary, id_sc_join, 1, rb_str_new2(" "));	
 	
-	NSLog([NSString stringWithCString:StringValueCStr(template_final) encoding:NSUTF8StringEncoding]);
+	CCLOG([NSString stringWithCString:StringValueCStr(template_final) encoding:NSUTF8StringEncoding]);
 	return Qnil;
 }
 
@@ -270,8 +283,8 @@ void Init_syck();
 void Init_zlib();
 
 void Init_SC_Ruby_Extensions() {
-	Init_encdb();
-	Init_stringio();
-	Init_syck();
+//	Init_encdb();
+//	Init_stringio();
+//	Init_syck();
 	Init_zlib();
 }

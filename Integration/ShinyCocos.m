@@ -44,7 +44,7 @@ void ShinyCocosSetup() {
 	sc_argv[0] = "ShinyCocos";
 	sc_argv[1] = (char *)[entryPoint cStringUsingEncoding:NSUTF8StringEncoding];
 	
-	ruby_sysinit(&sc_argc, &sc_argv);
+	// ruby_sysinit(&sc_argc, &sc_argv);
 	{
 	RUBY_INIT_STACK;
 	ruby_init();

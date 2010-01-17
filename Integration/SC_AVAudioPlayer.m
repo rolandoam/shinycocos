@@ -25,7 +25,7 @@ VALUE rb_cAVAudioPlayer;
 
 @implementation RBAudioPlayer
 
-@synthesize rbObject;
+@synthesize userData;
 @synthesize player;
 
 - (id)initWithRubyObject:(VALUE)object file:(NSString *)file {
@@ -33,14 +33,14 @@ VALUE rb_cAVAudioPlayer;
 		NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:nil];
 		player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		player.delegate = (id)self;
-		rbObject = object;
+		userData = object;
 	}
 	return self;
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-	if (rbObject) {
-		sc_protect_funcall(rbObject, id_sc_av_player_did_finish_playing, 1, ((flag) ? Qtrue : Qfalse));
+	if (userData) {
+		sc_protect_funcall(userData, id_sc_av_player_did_finish_playing, 1, ((flag) ? Qtrue : Qfalse));
 	}
 }
 
@@ -97,7 +97,7 @@ VALUE rb_cAVAudioPlayer_stop(VALUE object) {
  * delegate should implement player_did_finish_playing(successfully)
  */
 VALUE rb_cAVAudioPlayer_set_delegate(VALUE object, VALUE delegate) {
-	AV_PLAYER(object).rbObject = delegate;
+	AV_PLAYER(object).userData = delegate;
 	return delegate;
 }
 

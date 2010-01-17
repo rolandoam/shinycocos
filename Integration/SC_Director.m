@@ -68,9 +68,13 @@ VALUE rb_mDirector_run_scene(VALUE module, VALUE scene) {
  * Replaces the current scene with a new one
  */
 VALUE rb_mDirector_replace_scene(VALUE module, VALUE scene) {
+	// register current scene and de-register old scene
+	rb_gc_register_address(&scene);
+	CocosNode *oldScene = [Director sharedDirector].runningScene;
+	VALUE rbOldScene = (VALUE)oldScene.userData;
 	[[Director sharedDirector] replaceScene:CC_SCENE(scene)];
-	// replace the running scene instance variable
-	rb_ivar_set(module, id_sc_ivar_running_scene, scene);
+	rb_gc_unregister_address(&rbOldScene);
+
 	return scene;
 }
 

@@ -158,7 +158,7 @@ VALUE rb_cTransitionScene_s_new(int argc, VALUE *argv, VALUE klass) {
 
 error:
 	if (ts == nil) {
-		rb_raise(rb_eArgError, "Invalid arguments for transition %s", rb_sym_to_s(argv[0]));
+		rb_raise(rb_eArgError, "Invalid arguments for transition %s", rb_str_new2(rb_id2name(SYM2ID(argv[0]))));
 	}
 	VALUE ret = sc_init(klass, nil, ts, argc, argv, YES);
 	return ret;

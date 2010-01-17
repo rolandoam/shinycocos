@@ -348,7 +348,7 @@ VALUE rb_cCocosNode_set_position(VALUE object, VALUE position) {
 		CC_NODE(object).position = cpv(NUM2DBL(RARRAY_PTR(position)[0]), NUM2DBL(RARRAY_PTR(position)[1]));
 		return position;
 	} else {
-		NSLog(@"Invalid array size for position");
+		CCLOG(@"Invalid array size for position");
 		return Qnil;
 	}
 }
@@ -419,9 +419,6 @@ VALUE rb_cCocosNode_set_anchor_point(VALUE object, VALUE rb_anchor) {
  *     node = CocosNode.new    #=> CocosNode
  *     node = CocosNodeSubclass.new(a,b)   #=> CocosNode
  * 
- * Same as CocosNode.node, althought the Obj-C object is not
- * autoreleaseable. It will be safely released by ruby's GC.
- * 
  * Use this when subclassing CocosNode and your initializer uses
  * arguments.
  */
@@ -440,6 +437,16 @@ VALUE rb_cCocosNode_s_new(int argc, VALUE *argv, VALUE klass) {
 	
 	return obj;
 }
+
+
+/*
+ * call-seq:
+ *   node = CocosNode.new    #=> a new CocosNode
+ */
+VALUE rb_cCocosNode_init(int argc, VALUE *argv, VALUE object) {
+	return object;
+}
+
 
 /*
  * Adds a child. The child should be a subclass of CocosNode.
@@ -738,6 +745,7 @@ VALUE rb_cCocosNode_inspect(VALUE object) {
 void init_rb_cCocosNode() {
 	rb_cCocosNode = rb_define_class_under(rb_mCocos2D, "CocosNode", rb_cObject);
 	rb_define_singleton_method(rb_cCocosNode, "new", rb_cCocosNode_s_new, -1);
+	rb_define_method(rb_cCocosNode, "initializer", rb_cCocosNode_init, -1);
 	
 	// getters
 	rb_define_method(rb_cCocosNode, "z_order", rb_cCocosNode_z_order, 0);
