@@ -1,8 +1,9 @@
 require 'menu_scene'
 
 module TouchDelegate
-  def touch_began(touch)
+  def touches_began(touches)
     pos = self.position
+    touch = touches.first
     tpos = @scene.world_to_node_space(touch[:location])
     if (tpos[1] - pos[0]).abs < 16 && (tpos[0] - pos[1]).abs < 18
       # apply force to the black box

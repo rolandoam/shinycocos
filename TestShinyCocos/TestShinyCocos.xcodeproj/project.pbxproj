@@ -93,6 +93,20 @@
 			remoteGlobalIDString = 50B2C4D00E100AEA00AE9530;
 			remoteInfo = Chipmunk;
 		};
+		A9851786107AB48900A2F1ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 505461DF10616AE100AB7C52;
+			remoteInfo = FontLabel;
+		};
+		A9851788107AB48900A2F1ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A056A20F9E9AB600C85842 /* cocos2d-iphone.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAABAA9A1059A42E00794EB3;
+			remoteInfo = FontTest;
+		};
 		A9A056A00F9E9AAD00C85842 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9A056990F9E9AAD00C85842 /* ShinyCocos.xcodeproj */;
@@ -577,6 +591,7 @@
 				A9A056D20F9E9AB600C85842 /* libcocos2d-documentation.a */,
 				A9E2C08810289843006A9C4B /* libCocosDenshion.a */,
 				A9A056CA0F9E9AB600C85842 /* libcocos Live.a */,
+				A9851787107AB48900A2F1ED /* libFontLabel.a */,
 				A9E2C08A10289843006A9C4B /* liblibpng.a */,
 				A9A056CC0F9E9AB600C85842 /* libTouchJSON.a */,
 				A9A056C80F9E9AB600C85842 /* libvorbis.a */,
@@ -597,6 +612,7 @@
 				A9A056E80F9E9AB600C85842 /* EaseActionsTest.app */,
 				A9A056EA0F9E9AB600C85842 /* EffectsTest.app */,
 				A9A056EC0F9E9AB600C85842 /* EffectsAdvancedTest.app */,
+				A9851789107AB48900A2F1ED /* FontTest.app */,
 				A9A056EE0F9E9AB600C85842 /* IntervalTest.app */,
 				A9E2C08E10289843006A9C4B /* LayerTest.app */,
 				A9A056F00F9E9AB600C85842 /* MenuTest.app */,
@@ -713,6 +729,20 @@
 			fileType = wrapper.application;
 			path = TouchesTest.app;
 			remoteRef = A93610400FE801E300BD9029 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A9851787107AB48900A2F1ED /* libFontLabel.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFontLabel.a;
+			remoteRef = A9851786107AB48900A2F1ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A9851789107AB48900A2F1ED /* FontTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = FontTest.app;
+			remoteRef = A9851788107AB48900A2F1ED /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A9A056A10F9E9AAD00C85842 /* libShinyCocos.a */ = {
