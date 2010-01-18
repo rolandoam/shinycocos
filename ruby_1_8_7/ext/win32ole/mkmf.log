@@ -1,0 +1,24 @@
+have_library: checking for main() in -lole32... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/win32ole  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lole32  -ldl -lobjc  "
+ld: library not found for -lole32
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/win32ole  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lole32  -ldl -lobjc  "
+ld: library not found for -lole32
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { main(); return 0; }
+/* end */
+
+--------------------
+

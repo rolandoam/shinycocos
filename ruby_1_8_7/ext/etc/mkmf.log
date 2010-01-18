@@ -1,0 +1,299 @@
+have_library: checking for getpwnam() in -lsun... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lsun  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getpwnam' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getpwnam; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lsun  -ldl -lobjc  "
+ld: library not found for -lsun
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getpwnam(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getlogin()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getlogin' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getlogin; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getlogin(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getpwent()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getpwent' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getpwent; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getpwent(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getgrent()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getgrent' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getgrent; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getgrent(); return 0; }
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_gecos in pwd.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_gecos - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_change in pwd.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_change - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_quota in pwd.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:5: error: 'struct passwd' has no member named 'pw_quota'
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_quota - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_age in pwd.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:5: error: 'struct passwd' has no member named 'pw_age'
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_age - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_class in pwd.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_class - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_comment in pwd.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:5: error: 'struct passwd' has no member named 'pw_comment'
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_comment - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_expire in pwd.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_expire - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct passwd.pw_passwd in pwd.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <pwd.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct passwd*)0)->pw_passwd - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct group.gr_passwd in grp.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <grp.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int s = (char *)&((struct group*)0)->gr_passwd - (char *)0;
+/* end */
+
+--------------------
+
+have_type: checking for uid_t in sys/types.h,pwd.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <pwd.h>
+3: 
+4: /*top*/
+5: typedef uid_t conftest_type;
+6: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:5: error: size of array 'conftest_const' is negative
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <pwd.h>
+3: 
+4: /*top*/
+5: int conftest_const[(sizeof(uid_t) > sizeof(long)) ? 1 : -1];
+/* end */
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <pwd.h>
+3: 
+4: /*top*/
+5: int conftest_const[((uid_t)-1 > 0) ? 1 : -1];
+/* end */
+
+have_type: checking for gid_t in sys/types.h,grp.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <grp.h>
+3: 
+4: /*top*/
+5: typedef gid_t conftest_type;
+6: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:5: error: size of array 'conftest_const' is negative
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <grp.h>
+3: 
+4: /*top*/
+5: int conftest_const[(sizeof(gid_t) > sizeof(long)) ? 1 : -1];
+/* end */
+
+"gcc -I../.. -I../../. -I../.././ext/etc  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <grp.h>
+3: 
+4: /*top*/
+5: int conftest_const[((gid_t)-1 > 0) ? 1 : -1];
+/* end */
+

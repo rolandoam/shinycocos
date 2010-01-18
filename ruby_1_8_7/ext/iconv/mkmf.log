@@ -1,0 +1,53 @@
+have_func: checking for iconv() in iconv.h... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/iconv  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+Undefined symbols:
+  "_iconv", referenced from:
+      _iconv$non_lazy_ptr in cc9A82vI.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: #include <iconv.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int t() { void ((*volatile p)()); p = (void ((*)()))iconv; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/iconv  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:5: error: too few arguments to function 'iconv'
+checked program was:
+/* begin */
+1: #include <iconv.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int t() { iconv(); return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for iconv() in -liconv... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/iconv  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -liconv  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: #include <iconv.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int t() { void ((*volatile p)()); p = (void ((*)()))iconv; return 0; }
+/* end */
+
+--------------------
+
+checking for const of iconv() 2nd argument... -------------------- no
+
+gcc -E -I../.. -I../../. -I../.././ext/iconv  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c  |
+iconv (iconv_t ,
+ char ** , size_t * ,
+ char ** , size_t * );
+--------------------
+

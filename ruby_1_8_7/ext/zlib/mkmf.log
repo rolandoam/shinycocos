@@ -1,0 +1,34 @@
+have_library: checking for deflateReset() in -lz... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/zlib  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lz  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'deflateReset' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))deflateReset; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/zlib  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lz  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { deflateReset(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for zlib.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/zlib  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <zlib.h>
+/* end */
+
+--------------------
+

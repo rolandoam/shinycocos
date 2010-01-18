@@ -1,0 +1,10 @@
+have_header: checking for st.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/syck  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <st.h>
+/* end */
+
+--------------------
+

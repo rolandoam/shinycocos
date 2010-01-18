@@ -1,0 +1,3901 @@
+have_library: checking for t_open() in -lnsl... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lnsl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 't_open' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))t_open; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lnsl  -ldl -lobjc  "
+ld: library not found for -lnsl
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { t_open(); return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for socket() in -lsocket... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lsocket  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'socket' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))socket; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lsocket  -ldl -lobjc  "
+ld: library not found for -lsocket
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { socket(); return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for dlopen() in -ldl... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'dlopen' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))dlopen; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { dlopen(); return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for log() in -lm... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -lm -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'log' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))log; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -lm -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: warning: incompatible implicit declaration of built-in function 'log'
+conftest.c:3: error: too few arguments to function 'log'
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { log(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for tcl.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <tcl.h>
+/* end */
+
+--------------------
+
+have_header: checking for tk.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <tk.h>
+/* end */
+
+--------------------
+
+find_library: checking for XOpenDisplay() in -lX11... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'XOpenDisplay' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))XOpenDisplay; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -lX11
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { XOpenDisplay(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ldl  -lruby-static -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'XOpenDisplay' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))XOpenDisplay; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ldl  -lruby-static -lX11 -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { XOpenDisplay(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.6... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl86... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.6g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl86g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.6... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl86... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.6g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.6g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl86g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl86g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.5... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl85... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.5g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl85g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.5... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl85... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.5g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.5g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl85g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -lX11 -ldl  -lruby-static -ltcl85g -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltcl85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tcl_FindExecutable() in -ltcl8.4... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tcl_FindExecutable' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tcl_FindExecutable; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -lX11 -ldl  -lruby-static -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tcl_FindExecutable(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.6... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk86... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.6g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk86g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.6... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk86... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.6g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.6g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.6g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk86g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk86g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk86g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.5... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk85... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.5g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk85g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.5... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk85... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.5g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.5g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk8.5g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk85g... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/local/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/pkg/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/usr/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L/Tcl/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk85g -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+ld: library not found for -ltk85g
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for Tk_Init() in -ltk8.4... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.4 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'Tk_Init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))Tk_Init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltcl8.4 -lX11 -ldl  -lruby-static -ltk8.4 -ltcl8.4 -lX11 -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { Tk_Init(); return 0; }
+/* end */
+
+--------------------
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltk8.4 -ltcl8.4 -lX11 -ldl  -lruby-static  -ldl -lobjc  "
+conftest.c: In function 'main':
+conftest.c:1: warning: incompatible implicit declaration of built-in function 'exit'
+checked program was:
+/* begin */
+1: int main() { exit(0); }
+/* end */
+
+./conftest
+"gcc -o conftest -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L/usr/X11/lib -L.     -ltk8.4 -ltcl8.4 -lX11 -ldl  -lruby-static  -ldl -lobjc  "
+conftest.c: In function 'main':
+conftest.c:5: warning: incompatible implicit declaration of built-in function 'exit'
+checked program was:
+/* begin */
+1: #include <tcl.h>
+2: int main() {
+3:    Tcl_Interp *ip;
+4:    ip = Tcl_CreateInterp();
+5:    exit((Tcl_Eval(ip, "set tcl_platform(threaded)") == TCL_OK)? 0: 1);
+6: }
+/* end */
+
+./conftest
+"gcc -I../.. -I../../. -I../.././ext/tk  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:4:3: error: #error 
+conftest.c:5: error: syntax error before '>>' token
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: /*top*/
+3: #ifndef HAVE_NATIVETHREAD
+4: # error
+5: >>>>>> HAVE_NATIVETHREAD undefined <<<<<<
+6: #endif
+/* end */
+

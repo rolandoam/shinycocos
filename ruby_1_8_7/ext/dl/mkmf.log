@@ -1,0 +1,158 @@
+"gcc -E -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer  conftest.c -o conftest.i"
+conftest.c:3:2: error: #error int not needed
+checked program was:
+/* begin */
+1: #include "config.h"
+2: #if SIZEOF_INT == SIZEOF_LONG
+3: #error int not needed
+4: #endif
+/* end */
+
+"gcc -E -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "config.h"
+2: #if SIZEOF_FLOAT == SIZEOF_DOUBLE
+3: #error float not needed
+4: #endif
+/* end */
+
+"gcc -E -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer  conftest.c -o conftest.i"
+conftest.c:3:2: error: #error void* not needed
+checked program was:
+/* begin */
+1: #include "config.h"
+2: #if SIZEOF_VOIDP == SIZEOF_INT || SIZEOF_VOIDP == SIZEOF_LONG
+3: #error void* not needed
+4: #endif
+/* end */
+
+have_header: checking for windows.h... -------------------- no
+
+"gcc -E -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer  conftest.c -o conftest.i"
+conftest.c:1:21: error: windows.h: No such file or directory
+checked program was:
+/* begin */
+1: #include <windows.h>
+/* end */
+
+--------------------
+
+have_header: checking for dlfcn.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <dlfcn.h>
+/* end */
+
+--------------------
+
+have_library: checking for main() in -ldl... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.      -lruby-static -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for dlopen()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'dlopen' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))dlopen; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { dlopen(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for dlclose()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'dlclose' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))dlclose; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { dlclose(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for dlsym()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'dlsym' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))dlsym; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { dlsym(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for dlerror()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'dlerror' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))dlerror; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/dl  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I. -g -O2 -pipe -fno-common   -fno-defer-pop -fno-omit-frame-pointer conftest.c  -L. -L../.. -L.     -ldl  -lruby-static -ldl  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { dlerror(); return 0; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,26 @@
+have_library: checking for gdbm_open() in -lgdbm... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/gdbm  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lgdbm  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'gdbm_open' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))gdbm_open; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/gdbm  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lgdbm  -ldl -lobjc  "
+ld: library not found for -lgdbm
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { gdbm_open(); return 0; }
+/* end */
+
+--------------------
+

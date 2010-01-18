@@ -1,0 +1,36 @@
+  case 0:
+#ifdef DEBUG
+    printf("{ void (*f)() = func; (*f)(); }\n");
+#endif
+    { void (*f)() = func; (*f)(); };
+    break;
+  case 1:
+#ifdef DEBUG
+    printf("{ char (*f)() = func; ret.c = (*f)(); }\n");
+#endif
+    { char (*f)() = func; ret.c = (*f)(); };
+    break;
+  case 2:
+#ifdef DEBUG
+    printf("{ short (*f)() = func; ret.h = (*f)(); }\n");
+#endif
+    { short (*f)() = func; ret.h = (*f)(); };
+    break;
+  case 4:
+#ifdef DEBUG
+    printf("{ long (*f)() = func; ret.l = (*f)(); }\n");
+#endif
+    { long (*f)() = func; ret.l = (*f)(); };
+    break;
+  case 5:
+#ifdef DEBUG
+    printf("{ float (*f)() = func; ret.f = (*f)(); }\n");
+#endif
+    { float (*f)() = func; ret.f = (*f)(); };
+    break;
+  case 6:
+#ifdef DEBUG
+    printf("{ double (*f)() = func; ret.d = (*f)(); }\n");
+#endif
+    { double (*f)() = func; ret.d = (*f)(); };
+    break;

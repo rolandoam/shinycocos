@@ -1,0 +1,978 @@
+have_library: checking for tgetent() in -ltinfo... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -ltinfo  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'tgetent' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))tgetent; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -ltinfo  -ldl -lobjc  "
+ld: library not found for -ltinfo
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { tgetent(); return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for tgetent() in -ltermcap... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'tgetent' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))tgetent; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { tgetent(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for ncurses.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <ncurses.h>
+/* end */
+
+--------------------
+
+have_library: checking for initscr() in -lncurses... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'initscr' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))initscr; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { initscr(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for beep()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'beep' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))beep; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { beep(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for bkgd()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'bkgd' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))bkgd; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { bkgd(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for bkgdset()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'bkgdset' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))bkgdset; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { bkgdset(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for curs_set()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'curs_set' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))curs_set; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { curs_set(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for deleteln()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'deleteln' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))deleteln; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { deleteln(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for doupdate()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'doupdate' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))doupdate; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { doupdate(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for flash()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'flash' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))flash; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { flash(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getbkgd()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getbkgd' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getbkgd; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getbkgd(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getnstr()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getnstr' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getnstr; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getnstr(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for init()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'init' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))init; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+Undefined symbols:
+  "_init", referenced from:
+      _t in ccNjcgFo.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { init(); return 0; }
+/* end */
+
+--------------------
+
+have_macro: checking for init in ncurses.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:4:3: error: #error 
+conftest.c:5: error: syntax error before '>>' token
+checked program was:
+/* begin */
+1: #include <ncurses.h>
+2: /*top*/
+3: #ifndef init
+4: # error
+5: >>>>>> init undefined <<<<<<
+6: #endif
+/* end */
+
+--------------------
+
+have_func: checking for isendwin()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'isendwin' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))isendwin; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { isendwin(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for keyname()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'keyname' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))keyname; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { keyname(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for keypad()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'keypad' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))keypad; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { keypad(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for resizeterm()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'resizeterm' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))resizeterm; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { resizeterm(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for scrl()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'scrl' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))scrl; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { scrl(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for set()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'set' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))set; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+Undefined symbols:
+  "_set", referenced from:
+      _t in ccz7xurx.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { set(); return 0; }
+/* end */
+
+--------------------
+
+have_macro: checking for set in ncurses.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:4:3: error: #error 
+conftest.c:5: error: syntax error before '>>' token
+checked program was:
+/* begin */
+1: #include <ncurses.h>
+2: /*top*/
+3: #ifndef set
+4: # error
+5: >>>>>> set undefined <<<<<<
+6: #endif
+/* end */
+
+--------------------
+
+have_func: checking for setscrreg()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'setscrreg' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))setscrreg; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { setscrreg(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ungetch()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'ungetch' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))ungetch; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { ungetch(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wattroff()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wattroff' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wattroff; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wattroff(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wattron()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wattron' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wattron; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wattron(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wattrset()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wattrset' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wattrset; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wattrset(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wbkgd()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wbkgd' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wbkgd; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wbkgd(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wbkgdset()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wbkgdset' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wbkgdset; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wbkgdset(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wdeleteln()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wdeleteln' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wdeleteln; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wdeleteln(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wgetnstr()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wgetnstr' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wgetnstr; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wgetnstr(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wresize()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wresize' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wresize; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wresize(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wscrl()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wscrl' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wscrl; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wscrl(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wsetscrreg()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wsetscrreg' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wsetscrreg; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wsetscrreg(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for def_prog_mode()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'def_prog_mode' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))def_prog_mode; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { def_prog_mode(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for reset_prog_mode()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'reset_prog_mode' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))reset_prog_mode; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { reset_prog_mode(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for timeout()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'timeout' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))timeout; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { timeout(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wtimeout()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wtimeout' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wtimeout; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wtimeout(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for nodelay()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'nodelay' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))nodelay; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { nodelay(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for init_color()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'init_color' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))init_color; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { init_color(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for wcolor_set()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'wcolor_set' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))wcolor_set; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses -ltermcap  -lruby-static -lncurses -ltermcap  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { wcolor_set(); return 0; }
+/* end */
+
+--------------------
+
+"gcc -I../.. -I../../. -I../.././ext/curses  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -D_XOPEN_SOURCE_EXTENDED -c conftest.c"
+conftest.c:4: error: size of array 'test_var' is negative
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <stdlib.h>
+3: #include <ncurses.h>
+4: int test_var[(sizeof(char*)>sizeof(int))*2-1];
+/* end */
+

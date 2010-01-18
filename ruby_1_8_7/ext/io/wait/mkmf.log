@@ -1,0 +1,28 @@
+"gcc -I../../.. -I../../../. -I../../.././ext/io/wait  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:4:3: error: #error 
+conftest.c:5: error: syntax error before '>>' token
+checked program was:
+/* begin */
+1: #include <ruby.h>
+2: /*top*/
+3: #ifndef DOSISH
+4: # error
+5: >>>>>> DOSISH undefined <<<<<<
+6: #endif
+/* end */
+
+have_macro: checking for FIONREAD in sys/ioctl.h... -------------------- yes
+
+"gcc -I../../.. -I../../../. -I../../.././ext/io/wait  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <sys/ioctl.h>
+2: /*top*/
+3: #ifndef FIONREAD
+4: # error
+5: >>>>>> FIONREAD undefined <<<<<<
+6: #endif
+/* end */
+
+--------------------
+

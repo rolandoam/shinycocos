@@ -1,0 +1,486 @@
+have_library: checking for tgetnum() in -lncurses... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'tgetnum' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))tgetnum; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lncurses  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { tgetnum(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for readline/readline.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <readline/readline.h>
+/* end */
+
+--------------------
+
+have_header: checking for readline/history.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <readline/history.h>
+/* end */
+
+--------------------
+
+have_library: checking for readline() in -lreadline... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'readline' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))readline; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { readline(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_filename_completion_function()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_filename_completion_function' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_filename_completion_function; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+Undefined symbols:
+  "_rl_filename_completion_function", referenced from:
+      _t in ccjHzmXv.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_filename_completion_function(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_username_completion_function()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_username_completion_function' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_username_completion_function; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+Undefined symbols:
+  "_rl_username_completion_function", referenced from:
+      _t in cctIWAgQ.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_username_completion_function(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_completion_matches()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_completion_matches' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_completion_matches; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+Undefined symbols:
+  "_rl_completion_matches", referenced from:
+      _t in ccJN8oUu.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_completion_matches(); return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_deprep_term_function in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_deprep_term_function)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_completion_append_character in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_completion_append_character)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_basic_word_break_characters in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_basic_word_break_characters)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_completer_word_break_characters in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_completer_word_break_characters)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_basic_quote_characters in stdio.h,readline/readline.h,readline/history.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c: In function 't':
+conftest.c:7: error: 'rl_basic_quote_characters' undeclared (first use in this function)
+conftest.c:7: error: (Each undeclared identifier is reported only once
+conftest.c:7: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_basic_quote_characters)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_completer_quote_characters in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_completer_quote_characters)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_filename_quote_characters in stdio.h,readline/readline.h,readline/history.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c: In function 't':
+conftest.c:7: error: 'rl_filename_quote_characters' undeclared (first use in this function)
+conftest.c:7: error: (Each undeclared identifier is reported only once
+conftest.c:7: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_filename_quote_characters)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_attempted_completion_over in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_attempted_completion_over)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_library_version in stdio.h,readline/readline.h,readline/history.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_library_version)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_var: checking for rl_event_hook in stdio.h,readline/readline.h,readline/history.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c: In function 't':
+conftest.c:7: error: 'rl_event_hook' undeclared (first use in this function)
+conftest.c:7: error: (Each undeclared identifier is reported only once
+conftest.c:7: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include <stdio.h>
+2: #include <readline/readline.h>
+3: #include <readline/history.h>
+4: 
+5: /*top*/
+6: int main() { return 0; }
+7: int t() { const volatile void *volatile p; p = &(&rl_event_hook)[0]; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_cleanup_after_signal()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_cleanup_after_signal' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_cleanup_after_signal; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_cleanup_after_signal(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_clear_signals()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_clear_signals' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_clear_signals; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+Undefined symbols:
+  "_rl_clear_signals", referenced from:
+      _t in cc3KTKQI.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_clear_signals(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_vi_editing_mode()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_vi_editing_mode' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_vi_editing_mode; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+Undefined symbols:
+  "_rl_vi_editing_mode", referenced from:
+      _t in ccBj2Mh3.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_vi_editing_mode(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rl_emacs_editing_mode()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'rl_emacs_editing_mode' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))rl_emacs_editing_mode; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+Undefined symbols:
+  "_rl_emacs_editing_mode", referenced from:
+      _t in ccGMRUVm.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { rl_emacs_editing_mode(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for replace_history_entry()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'replace_history_entry' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))replace_history_entry; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { replace_history_entry(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for remove_history()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'remove_history' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))remove_history; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/readline  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lreadline -lncurses  -lruby-static -lreadline -lncurses  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { remove_history(); return 0; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,44 @@
+have_header: checking for sys/cdefs.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/sha2 -I../../.././ext/digest/sha2/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <sys/cdefs.h>
+/* end */
+
+--------------------
+
+have_header: checking for inttypes.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/sha2 -I../../.././ext/digest/sha2/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <inttypes.h>
+/* end */
+
+--------------------
+
+have_header: checking for unistd.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/sha2 -I../../.././ext/digest/sha2/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <unistd.h>
+/* end */
+
+--------------------
+
+have_type: checking for uint64_t in defs.h with -DHAVE_CONFIG_H -DHAVE_SYS_CDEFS_H -DHAVE_INTTYPES_H -DHAVE_UNISTD_H... -------------------- yes
+
+"gcc -I../../.. -I../../../. -I../../.././ext/digest/sha2 -I../../.././ext/digest/sha2/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -DHAVE_CONFIG_H -DHAVE_SYS_CDEFS_H -DHAVE_INTTYPES_H -DHAVE_UNISTD_H -c conftest.c"
+checked program was:
+/* begin */
+1: #include <defs.h>
+2: 
+3: /*top*/
+4: typedef uint64_t conftest_type;
+5: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+

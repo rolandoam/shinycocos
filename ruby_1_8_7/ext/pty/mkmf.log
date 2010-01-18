@@ -1,0 +1,110 @@
+have_header: checking for sys/stropts.h... -------------------- no
+
+"gcc -E -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+conftest.c:1:25: error: sys/stropts.h: No such file or directory
+checked program was:
+/* begin */
+1: #include <sys/stropts.h>
+/* end */
+
+--------------------
+
+have_func: checking for setresuid()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'setresuid' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))setresuid; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+Undefined symbols:
+  "_setresuid", referenced from:
+      _t in cc2BEZ3l.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { setresuid(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for libutil.h... -------------------- no
+
+"gcc -E -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+conftest.c:1:21: error: libutil.h: No such file or directory
+checked program was:
+/* begin */
+1: #include <libutil.h>
+/* end */
+
+--------------------
+
+have_header: checking for pty.h... -------------------- no
+
+"gcc -E -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+conftest.c:1:17: error: pty.h: No such file or directory
+checked program was:
+/* begin */
+1: #include <pty.h>
+/* end */
+
+--------------------
+
+have_library: checking for openpty() in -lutil... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lutil  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'openpty' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))openpty; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lutil  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { openpty(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for openpty()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lutil  -lruby-static -lutil  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'openpty' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))openpty; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/pty  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.     -lutil  -lruby-static -lutil  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { openpty(); return 0; }
+/* end */
+
+--------------------
+

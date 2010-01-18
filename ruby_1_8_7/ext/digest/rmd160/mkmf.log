@@ -1,0 +1,52 @@
+have_library: checking for main() in -lcrypto... -------------------- yes
+
+"gcc -o conftest -I../../.. -I../../../. -I../../.././ext/digest/rmd160 -I../../.././ext/digest/rmd160/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../../.. -L.      -lruby-static -lcrypto  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for openssl/ripemd.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/rmd160 -I../../.././ext/digest/rmd160/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <openssl/ripemd.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/cdefs.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/rmd160 -I../../.././ext/digest/rmd160/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <sys/cdefs.h>
+/* end */
+
+--------------------
+
+have_header: checking for inttypes.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/rmd160 -I../../.././ext/digest/rmd160/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <inttypes.h>
+/* end */
+
+--------------------
+
+have_header: checking for unistd.h... -------------------- yes
+
+"gcc -E -I../../.. -I../../../. -I../../.././ext/digest/rmd160 -I../../.././ext/digest/rmd160/..  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <unistd.h>
+/* end */
+
+--------------------
+

@@ -1,0 +1,36 @@
+"gcc -I../.. -I../../. -I../.././ext/bigdecimal  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -DBASE=10UL -c conftest.c"
+checked program was:
+/* begin */
+1: /*top*/
+2: int conftest_const[((BASE * (BASE+1)) / BASE == (BASE+1)) ? 1 : -1];
+/* end */
+
+"gcc -I../.. -I../../. -I../.././ext/bigdecimal  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -DBASE=100UL -c conftest.c"
+checked program was:
+/* begin */
+1: /*top*/
+2: int conftest_const[((BASE * (BASE+1)) / BASE == (BASE+1)) ? 1 : -1];
+/* end */
+
+"gcc -I../.. -I../../. -I../.././ext/bigdecimal  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -DBASE=1000UL -c conftest.c"
+checked program was:
+/* begin */
+1: /*top*/
+2: int conftest_const[((BASE * (BASE+1)) / BASE == (BASE+1)) ? 1 : -1];
+/* end */
+
+"gcc -I../.. -I../../. -I../.././ext/bigdecimal  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -DBASE=10000UL -c conftest.c"
+checked program was:
+/* begin */
+1: /*top*/
+2: int conftest_const[((BASE * (BASE+1)) / BASE == (BASE+1)) ? 1 : -1];
+/* end */
+
+"gcc -I../.. -I../../. -I../.././ext/bigdecimal  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    -DBASE=100000UL -c conftest.c"
+conftest.c:2: error: size of array 'conftest_const' is negative
+checked program was:
+/* begin */
+1: /*top*/
+2: int conftest_const[((BASE * (BASE+1)) / BASE == (BASE+1)) ? 1 : -1];
+/* end */
+

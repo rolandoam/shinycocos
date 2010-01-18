@@ -1,0 +1,601 @@
+have_library: checking for t_open() in -lnsl... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lnsl  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 't_open' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))t_open; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lnsl  -ldl -lobjc  "
+ld: library not found for -lnsl
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { t_open(); return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for socket() in -lsocket... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lsocket  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'socket' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))socket; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -lsocket  -ldl -lobjc  "
+ld: library not found for -lsocket
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { socket(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for arpa/inet.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <arpa/inet.h>
+/* end */
+
+--------------------
+
+checking for ipv6... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <sys/socket.h>
+3: main()
+4: {
+5:   socket(AF_INET6, SOCK_STREAM, 0);
+6: }
+/* end */
+
+--------------------
+
+checking for ipv6 type... -------------------- kame
+
+have_macro: checking for IPV6_INRIA_VERSION in netinet/in.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:4:3: error: #error 
+conftest.c:5: error: syntax error before '>>' token
+checked program was:
+/* begin */
+1: #include <netinet/in.h>
+2: /*top*/
+3: #ifndef IPV6_INRIA_VERSION
+4: # error
+5: >>>>>> IPV6_INRIA_VERSION undefined <<<<<<
+6: #endif
+/* end */
+
+--------------------
+
+have_macro: checking for __KAME__ in netinet/in.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <netinet/in.h>
+2: /*top*/
+3: #ifndef __KAME__
+4: # error
+5: >>>>>> __KAME__ undefined <<<<<<
+6: #endif
+/* end */
+
+--------------------
+
+have_library: checking for main() in -linet6... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -linet6  -ldl -lobjc  "
+ld: library not found for -linet6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static -linet6  -ldl -lobjc  "
+ld: library not found for -linet6
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { main(); return 0; }
+/* end */
+
+--------------------
+
+--------------------
+
+have_struct_member: checking for struct sockaddr_in.sin_len in sys/types.h,netdb.h,string.h,sys/socket.h,netinet/in.h,arpa/inet.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+ 1: #include <sys/types.h>
+ 2: #include <netdb.h>
+ 3: #include <string.h>
+ 4: #include <sys/socket.h>
+ 5: #include <netinet/in.h>
+ 6: #include <arpa/inet.h>
+ 7: 
+ 8: /*top*/
+ 9: int main() { return 0; }
+10: int s = (char *)&((struct sockaddr_in*)0)->sin_len - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct sockaddr_storage.ss_family in sys/types.h,netdb.h,string.h,sys/socket.h,netinet/in.h,arpa/inet.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+ 1: #include <sys/types.h>
+ 2: #include <netdb.h>
+ 3: #include <string.h>
+ 4: #include <sys/socket.h>
+ 5: #include <netinet/in.h>
+ 6: #include <arpa/inet.h>
+ 7: 
+ 8: /*top*/
+ 9: int main() { return 0; }
+10: int s = (char *)&((struct sockaddr_storage*)0)->ss_family - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct sockaddr.sa_len in sys/types.h,netdb.h,string.h,sys/socket.h,netinet/in.h,arpa/inet.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+ 1: #include <sys/types.h>
+ 2: #include <netdb.h>
+ 3: #include <string.h>
+ 4: #include <sys/socket.h>
+ 5: #include <netinet/in.h>
+ 6: #include <arpa/inet.h>
+ 7: 
+ 8: /*top*/
+ 9: int main() { return 0; }
+10: int s = (char *)&((struct sockaddr*)0)->sa_len - (char *)0;
+/* end */
+
+--------------------
+
+have_header: checking for netinet/tcp.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <netinet/tcp.h>
+/* end */
+
+--------------------
+
+have_header: checking for netinet/udp.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <netinet/udp.h>
+/* end */
+
+--------------------
+
+have_func: checking for sendmsg()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'sendmsg' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))sendmsg; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { sendmsg(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for recvmsg()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'recvmsg' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))recvmsg; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { recvmsg(); return 0; }
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct msghdr.msg_control in sys/types.h,sys/socket.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <sys/socket.h>
+3: 
+4: /*top*/
+5: int main() { return 0; }
+6: int s = (char *)&((struct msghdr*)0)->msg_control - (char *)0;
+/* end */
+
+--------------------
+
+have_struct_member: checking for struct msghdr.msg_accrights in sys/types.h,sys/socket.h... -------------------- no
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+conftest.c:6: error: 'struct msghdr' has no member named 'msg_accrights'
+checked program was:
+/* begin */
+1: #include <sys/types.h>
+2: #include <sys/socket.h>
+3: 
+4: /*top*/
+5: int main() { return 0; }
+6: int s = (char *)&((struct msghdr*)0)->msg_accrights - (char *)0;
+/* end */
+
+--------------------
+
+checking for wide getaddrinfo... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+  1: #include <sys/types.h>
+  2: #include <netdb.h>
+  3: #include <string.h>
+  4: #include <sys/socket.h>
+  5: #include <netinet/in.h>
+  6: #include <arpa/inet.h>
+  7: 
+  8: #include <stdlib.h>
+  9: 
+ 10: #ifndef EXIT_SUCCESS
+ 11: #define EXIT_SUCCESS 0
+ 12: #endif
+ 13: #ifndef EXIT_FAILURE
+ 14: #define EXIT_FAILURE 1
+ 15: #endif
+ 16: 
+ 17: #ifndef AF_LOCAL
+ 18: #define AF_LOCAL AF_UNIX
+ 19: #endif
+ 20: 
+ 21: main()
+ 22: {
+ 23:   int passive, gaierr, inet4 = 0, inet6 = 0;
+ 24:   struct addrinfo hints, *ai, *aitop;
+ 25:   char straddr[INET6_ADDRSTRLEN], strport[16];
+ 26: 
+ 27:   for (passive = 0; passive <= 1; passive++) {
+ 28:     memset(&hints, 0, sizeof(hints));
+ 29:     hints.ai_family = AF_UNSPEC;
+ 30:     hints.ai_protocol = IPPROTO_TCP;
+ 31:     hints.ai_flags = passive ? AI_PASSIVE : 0;
+ 32:     hints.ai_socktype = SOCK_STREAM;
+ 33:     if ((gaierr = getaddrinfo(NULL, "54321", &hints, &aitop)) != 0) {
+ 34:       (void)gai_strerror(gaierr);
+ 35:       goto bad;
+ 36:     }
+ 37:     for (ai = aitop; ai; ai = ai->ai_next) {
+ 38:       if (ai->ai_family == AF_LOCAL) continue;
+ 39:       if (ai->ai_addr == NULL)
+ 40:         goto bad;
+ 41: #if defined(_AIX)
+ 42:       if (ai->ai_family == AF_INET6 && passive) {
+ 43:         inet6++;
+ 44:         continue;
+ 45:       }
+ 46:       ai->ai_addr->sa_len = ai->ai_addrlen;
+ 47:       ai->ai_addr->sa_family = ai->ai_family;
+ 48: #endif
+ 49:       if (ai->ai_addrlen == 0 ||
+ 50:           getnameinfo(ai->ai_addr, ai->ai_addrlen,
+ 51:                       straddr, sizeof(straddr), strport, sizeof(strport),
+ 52:                       NI_NUMERICHOST|NI_NUMERICSERV) != 0) {
+ 53:         goto bad;
+ 54:       }
+ 55:       if (strcmp(strport, "54321") != 0) {
+ 56:         goto bad;
+ 57:       }
+ 58:       switch (ai->ai_family) {
+ 59:       case AF_INET:
+ 60:         if (passive) {
+ 61:           if (strcmp(straddr, "0.0.0.0") != 0) {
+ 62:             goto bad;
+ 63:           }
+ 64:         } else {
+ 65:           if (strcmp(straddr, "127.0.0.1") != 0) {
+ 66:             goto bad;
+ 67:           }
+ 68:         }
+ 69:         inet4++;
+ 70:         break;
+ 71:       case AF_INET6:
+ 72:         if (passive) {
+ 73:           if (strcmp(straddr, "::") != 0) {
+ 74:             goto bad;
+ 75:           }
+ 76:         } else {
+ 77:           if (strcmp(straddr, "::1") != 0) {
+ 78:             goto bad;
+ 79:           }
+ 80:         }
+ 81:         inet6++;
+ 82:         break;
+ 83:       case AF_UNSPEC:
+ 84:         goto bad;
+ 85:         break;
+ 86:       default:
+ 87:         /* another family support? */
+ 88:         break;
+ 89:       }
+ 90:     }
+ 91:   }
+ 92: 
+ 93:   if (!(inet4 == 0 || inet4 == 2))
+ 94:     goto bad;
+ 95:   if (!(inet6 == 0 || inet6 == 2))
+ 96:     goto bad;
+ 97: 
+ 98:   if (aitop)
+ 99:     freeaddrinfo(aitop);
+100:   exit(EXIT_SUCCESS);
+101: 
+102:  bad:
+103:   if (aitop)
+104:     freeaddrinfo(aitop);
+105:   exit(EXIT_FAILURE);
+106: }
+/* end */
+
+./conftest
+--------------------
+
+have_func: checking for getnameinfo() in netdb.h... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: #include <netdb.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int t() { void ((*volatile p)()); p = (void ((*)()))getnameinfo; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getaddrinfo() in netdb.h... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: #include <netdb.h>
+2: 
+3: /*top*/
+4: int main() { return 0; }
+5: int t() { void ((*volatile p)()); p = (void ((*)()))getaddrinfo; return 0; }
+/* end */
+
+--------------------
+
+have_type: checking for socklen_t in sys/types.h,netdb.h,string.h,sys/socket.h,netinet/in.h,arpa/inet.h... -------------------- yes
+
+"gcc -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common     -c conftest.c"
+checked program was:
+/* begin */
+ 1: #include <sys/types.h>
+ 2: #include <netdb.h>
+ 3: #include <string.h>
+ 4: #include <sys/socket.h>
+ 5: #include <netinet/in.h>
+ 6: #include <arpa/inet.h>
+ 7: 
+ 8: /*top*/
+ 9: typedef socklen_t conftest_type;
+10: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_header: checking for sys/un.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <sys/un.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/uio.h... -------------------- yes
+
+"gcc -E -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <sys/uio.h>
+/* end */
+
+--------------------
+
+have_func: checking for socket()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'socket' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))socket; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { socket(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for hsterror()... -------------------- no
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'hsterror' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))hsterror; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+Undefined symbols:
+  "_hsterror", referenced from:
+      _t in cci2pz4Y.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { hsterror(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for getipnodebyname()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'getipnodebyname' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))getipnodebyname; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { getipnodebyname(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for socketpair()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'socketpair' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))socketpair; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { socketpair(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for gethostname()... -------------------- yes
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+conftest.c: In function 't':
+conftest.c:3: error: 'gethostname' undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))gethostname; return 0; }
+/* end */
+
+"gcc -o conftest -I../.. -I../../. -I../.././ext/socket  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L../.. -L.      -lruby-static  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { gethostname(); return 0; }
+/* end */
+
+--------------------
+
