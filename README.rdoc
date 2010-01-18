@@ -79,6 +79,8 @@ as <tt>.c</tt>)
 
 == Installation/Building
 
+*NOTE* These instructions are obsolote!!
+
 *NOTE* if you have a previous version of ShinyCocos and have a "ruby"
 directory, remove that directory and pull the latest version from the
 repository (or completly remove ShinyCocos and pull the latest version).
@@ -112,7 +114,7 @@ them to your project, and put the <tt>Init_xxx()</tt> call right after
 the call to SetupShinyCocos() in your main app delegate, like this:
 
   ShinyCocosSetup(window);
-  // insert here your ruby extensions (i.e.: Init_xxx())
+  // insert here your ruby extensions (i.e.: Init_zzz())
   Init_myextension();
   Init_another_extension();
   
@@ -132,20 +134,16 @@ For ruby-only extensions, just add them to the lib directory.
 You don't need to <tt>require</tt> these, they're already bundled and
 initialized in the included interpreter.
 
-* encdb
-* stringio
-* syck
-* nkf
 * zlib
 
-These are pure-ruby libs (found in the <tt>lib</tt> directory):
+These are pure-ruby libs (found in the <tt>lib</tt> directory) added when
+you create a new project using the XCode template:
 
 * base64
 * date
 * forwardable
 * rexml (no iconv support)
 * set
-* yaml
 
 == Hey, I found a bug!
 

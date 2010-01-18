@@ -1,3 +1,9 @@
+version 0.2.0 - 2010-01-17
+. Improved stability
+. Moved to ruby 1.8.7
+. Added XCode templates
+. Shipped as a static library
+. Included cocos2d in the source (no longer needed to checkout the source code)
 version 0.1.2 - 2009-08-16
 . Changes in Startup API
 . Updates ruby & cocos2d
