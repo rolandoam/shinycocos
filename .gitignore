@@ -4,3 +4,4 @@ _DC/
 build/
 Integration/doc/
 .DS_Store
+Template/ShinyCocos/lib/*.a
