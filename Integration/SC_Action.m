@@ -822,7 +822,9 @@ VALUE rb_cRotateBy_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Cocos2D::Actions::MoveTo.new(duration, [x,y])   #=> Action
+ *
+ * move-to
  */
 VALUE rb_cMoveTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(2)

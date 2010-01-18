@@ -168,7 +168,7 @@ VALUE rb_mDirector_win_size(VALUE module) {
  * Sets the Directors' projection to 2D
  */
 VALUE rb_mDirector_set_2d_projection(VALUE module) {
-	[[Director sharedDirector] set2Dprojection];
+	[[Director sharedDirector] setProjection:CCDirectorProjection2D];
 	return Qnil;
 }
 
@@ -180,8 +180,22 @@ VALUE rb_mDirector_set_2d_projection(VALUE module) {
  * Sets the Directors' projection to 3D
  */
 VALUE rb_mDirector_set_3d_projection(VALUE module) {
-	[[Director sharedDirector] set3Dprojection];
+	[[Director sharedDirector] setProjection:CCDirectorProjection3D];
 	return Qnil;
+}
+
+
+/*
+ * call-seq:
+ *   Director.convert_to_gl([x,y])  #=> [new_x, new_y]
+ *
+ * Converts a given point to GL coordinates
+ */
+VALUE rb_mDirector_convert_to_gl(VALUE module, VALUE point) {
+	Check_Type(point, T_ARRAY);
+	CGPoint p = CGPointMake(NUM2DBL(RARRAY_PTR(point)[0]), NUM2DBL(RARRAY_PTR(point)[1]));
+	p = [[Director sharedDirector] convertToGL:p];
+	return rb_ary_new3(2, rb_float_new(p.x), rb_float_new(p.y));
 }
 
 
@@ -200,6 +214,7 @@ void init_rb_mDirector() {
 	rb_define_module_function(rb_mDirector, "win_size", rb_mDirector_win_size, 0);
 	rb_define_module_function(rb_mDirector, "set_2d_projection", rb_mDirector_set_2d_projection, 0);
 	rb_define_module_function(rb_mDirector, "set_3d_projection", rb_mDirector_set_3d_projection, 0);
+	rb_define_module_function(rb_mDirector, "convert_to_gl", rb_mDirector_convert_to_gl, 1);
 	// orientation constants
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_LEFT", INT2FIX(CCDeviceOrientationLandscapeLeft));
 	rb_define_const(rb_mDirector, "ORIENTATION_LANDSCAPE_RIGHT", INT2FIX(CCDeviceOrientationLandscapeRight));
