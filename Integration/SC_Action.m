@@ -915,7 +915,6 @@ VALUE rb_cJumpTo_s_new(int argc, VALUE *argv, VALUE klass) {
  * 
  * Generate BezierBy action, for moving a sprite along a Bezier curve..
  * It's a DoBy action, so all points are relative to the starting position of the node..
- */
 VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	
 	CHECK_ARGS_NUM(5)
@@ -925,6 +924,7 @@ VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	Check_Type(argv[4], T_ARRAY);
 	
 	ccBezierConfig config;
+	
 	config.startPosition	= cpv(NUM2DBL(RARRAY_PTR(argv[1])[0]), NUM2DBL(RARRAY_PTR(argv[1])[1]));
 	config.controlPoint_1	= cpv(NUM2DBL(RARRAY_PTR(argv[2])[0]), NUM2DBL(RARRAY_PTR(argv[2])[1]));
 	config.controlPoint_2	= cpv(NUM2DBL(RARRAY_PTR(argv[3])[0]), NUM2DBL(RARRAY_PTR(argv[3])[1]));
@@ -934,6 +934,7 @@ VALUE rb_cBezierBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	VALUE ret = sc_init(klass, nil, action, argc-5, argv+5, YES);
 	return ret;
 }
+*/
 
 
 /*
@@ -1250,7 +1251,7 @@ void init_rb_mAction() {
 	rb_cMoveBy = rb_define_class_under(rb_mActions, "MoveBy", rb_cMoveTo); // MoveBy
 	rb_cJumpBy = rb_define_class_under(rb_mActions, "JumpBy", rb_cIntervalAction); // JumpBy
 	rb_cJumpTo = rb_define_class_under(rb_mActions, "JumpTo", rb_cJumpBy); // JumpTo
-	rb_cBezierBy = rb_define_class_under(rb_mActions, "BezierBy", rb_cIntervalAction); // BezierBy
+//	rb_cBezierBy = rb_define_class_under(rb_mActions, "BezierBy", rb_cIntervalAction); // BezierBy
 	rb_cScaleTo = rb_define_class_under(rb_mActions, "ScaleTo", rb_cIntervalAction); // ScaleTo
 	rb_cScaleBy = rb_define_class_under(rb_mActions, "ScaleBy", rb_cScaleTo); // ScaleBy
 	rb_cBlink = rb_define_class_under(rb_mActions, "Blink", rb_cIntervalAction); // Blink
@@ -1368,7 +1369,7 @@ void init_rb_mAction() {
 	rb_define_singleton_method(rb_cMoveBy, "new", rb_cMoveBy_s_new, -1);
 	rb_define_singleton_method(rb_cJumpBy, "new", rb_cJumpBy_s_new, -1);
 	rb_define_singleton_method(rb_cJumpTo, "new", rb_cJumpTo_s_new, -1);
-	rb_define_singleton_method(rb_cBezierBy, "new", rb_cBezierBy_s_new, -1);
+//	rb_define_singleton_method(rb_cBezierBy, "new", rb_cBezierBy_s_new, -1);
 	rb_define_singleton_method(rb_cScaleTo, "new", rb_cScaleTo_s_new, -1);
 	rb_define_singleton_method(rb_cScaleBy, "new", rb_cScaleBy_s_new, -1);
 	rb_define_singleton_method(rb_cBlink, "new", rb_cBlink_s_new, -1);
