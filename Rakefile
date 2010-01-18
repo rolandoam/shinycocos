@@ -1,3 +1,4 @@
+gem 'rdoc', '>=2.4'
 require 'rake/rdoctask'
 
 PROJECT    = "ShinyCocos.xcodeproj"
@@ -62,13 +63,13 @@ end
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files = %w(
 Integration/SC_init.m
+Integration/SC_CocosNode.m
 Integration/SC_AVAudioPlayer.m
 Integration/SC_Action.m
 Integration/SC_AtlasSprite.m
 Integration/SC_AtlasSpriteManager.m
 Integration/SC_BitmatFontAtlas.m
 Integration/SC_CocoaAdditions.m
-Integration/SC_CocosNode.m
 Integration/SC_Director.m
 Integration/SC_Label.m
 Integration/SC_LabelAtlas.m
@@ -84,7 +85,6 @@ Integration/SC_TextureNode.m
 Integration/SC_Transition.m
 Integration/SC_Twitter.m
 Integration/SC_UserDefaults.m
-Integration/SC_ids.m
 Integration/ShinyCocos.m
 README.rdoc
   )
