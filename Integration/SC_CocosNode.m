@@ -251,6 +251,42 @@ static void eachShape(void *ptr, void* unused)
 
 # pragma mark Properties
 
+
+/* 
+ * call-seq:
+ *   node.parent   => CocosNode
+ * 
+ * Returns the parent of the node
+ */
+VALUE rb_cCocosNode_parent(VALUE object) {
+	return (VALUE)(((CocosNode *)CC_NODE(object).parent).userData);
+}
+
+/* 
+ * call-seq:
+ *   node.parent = another_node
+ *
+ * Sets the parent of the node
+ */
+VALUE rb_cCocosNode_set_parent(VALUE object, VALUE p) {
+	CHECK_SUBCLASS(p, rb_cCocosNode);
+	[CC_NODE(object) setParent: CC_NODE(p)];
+	return p;
+}
+
+
+/* 
+ * call-seq:
+ *   node.opacity = 0.3
+ *
+ * Sets the opacity of the sprite
+ */
+VALUE rb_cCocosNode_set_opacity(VALUE object, VALUE o) {
+	[CC_NODE(object) setOpacity: NUM2DBL(o)];
+	return object;
+}
+
+
 /* 
  * call-seq:
  *   node.z_order   => Integer
@@ -259,6 +295,17 @@ static void eachShape(void *ptr, void* unused)
  */
 VALUE rb_cCocosNode_z_order(VALUE object) {
 	return INT2FIX(CC_NODE(object).zOrder);
+}
+
+/* 
+ * call-seq:
+ *   node.z_order = 4
+ *
+ * Sets the z order of the sprite
+ */
+VALUE rb_cCocosNode_set_z_order(VALUE object, VALUE z) {
+	[CC_NODE(object).parent reorderChild: CC_NODE(object) z: FIX2INT(z)];
+	return z;
 }
 
 /* 
@@ -539,6 +586,16 @@ VALUE rb_cCocosNode_run_action(VALUE object, VALUE action) {
 }
 
 /*
+ *    node.stop_actions()   #=> nil
+ *
+ */
+VALUE rb_cCocosNode_stop_actions(VALUE object) {
+	[CC_NODE(object) stopAllActions];
+	
+	return object;
+}
+
+/*
  * Will set the node as the stepper for chipmunk (will run the
  * <tt>chipmunk_step:</tt> selector).
  *
@@ -748,6 +805,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "initializer", rb_cCocosNode_init, -1);
 	
 	// getters
+	rb_define_method(rb_cCocosNode, "parent", rb_cCocosNode_parent, 0);
 	rb_define_method(rb_cCocosNode, "z_order", rb_cCocosNode_z_order, 0);
 	rb_define_method(rb_cCocosNode, "rotation", rb_cCocosNode_rotation, 0);
 	rb_define_method(rb_cCocosNode, "scale", rb_cCocosNode_scale, 0);
@@ -758,6 +816,9 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "tag", rb_cCocosNode_tag, 0);
 
 	// setters
+	rb_define_method(rb_cCocosNode, "parent=", rb_cCocosNode_set_parent, 1);
+	rb_define_method(rb_cCocosNode, "z_order=", rb_cCocosNode_set_z_order, 1);
+	rb_define_method(rb_cCocosNode, "opacity=", rb_cCocosNode_set_opacity, 1);	
 	rb_define_method(rb_cCocosNode, "rotation=", rb_cCocosNode_set_rotation, 1);
 	rb_define_method(rb_cCocosNode, "scale=", rb_cCocosNode_set_scale, 1);
 	rb_define_method(rb_cCocosNode, "scale_x=", rb_cCocosNode_set_scale_x, 1);
@@ -774,6 +835,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "child_with_tag", rb_cCocosNode_child_with_tag, 1);
 	rb_define_method(rb_cCocosNode, "children", rb_cCocosNode_children, 0);
 	rb_define_method(rb_cCocosNode, "run_action", rb_cCocosNode_run_action, 1);
+	rb_define_method(rb_cCocosNode, "stop_actions", rb_cCocosNode_stop_actions, 0);
 	rb_define_method(rb_cCocosNode, "become_chipmunk_stepper", rb_cCocosNode_become_chipmunk_stepper, 0);
 	rb_define_method(rb_cCocosNode, "attach_chipmunk_shape", rb_cCocosNode_attach_chipmunk_shape, 1);
 	rb_define_method(rb_cCocosNode, "schedule", rb_cCocosNode_schedule, 1);
