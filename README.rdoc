@@ -79,23 +79,18 @@ as <tt>.c</tt>)
 
 == Installation/Building
 
-*NOTE* These instructions are obsolote!!
+First, you need a fresh copy of ShinyCocos, so get one:
 
-*NOTE* if you have a previous version of ShinyCocos and have a "ruby"
-directory, remove that directory and pull the latest version from the
-repository (or completly remove ShinyCocos and pull the latest version).
+  git clone http://github.com/funkaster/shinycocos.git
 
-First, you need to get the latest release of cocos2d (currently, working with v0.8 from trunk)
-You can either fetch it from the project page or using subversion:
+Now, you're ready to rock. Since we love ruby so much, the building process
+is really easy:
 
-  svn co http://cocos2d-iphone.googlecode.com/svn/trunk cocos2d-iphone
+  rake distribution
+  rake install_template
 
-Open the cocos2d-iphone project and set the output directory for the
-cocos2d-iphone and chipmunk to "../build" instead of "build".
-
-Open the TestShinyCocos project and build.
-
-Now you're ready to rock :-)
+Now fire up XCode, and choose as a new project, the ShinyCocos application.
+Enjoy!
 
 == Documentation
 
