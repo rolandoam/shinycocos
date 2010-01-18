@@ -2,30 +2,38 @@ require 'rake/rdoctask'
 
 PROJECT    = "ShinyCocos.xcodeproj"
 TARGET     = "ShinyCocos"
-SDK_DEVICE = "iphoneos2.2.1"
-SDK_SIMUL  = "iphonesimulator2.2.1"
+SDK_DEVICE = "iphoneos3.0"
+SDK_SIMUL  = "iphonesimulator3.0"
 XCODEBUILD = "/usr/bin/xcodebuild"
 LIPO       = "/usr/bin/lipo"
 
-def xcodebuild_str(config = "Debug")
-  sdk = ENV['DEVICE'] ? SDK_DEVICE : SDK_SIMUL
+def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
   "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
 end
 
 task :default => [:build]
 
-desc "Build ShinyCocos"
-task :build do
-  sh "#{xcodebuild_str} build"
+desc "Build Debug version of ShinyCocos"
+task :build_debug do
+  sh "#{xcodebuild_str('Debug', SDK_SIMUL)} build"
+  sh "#{xcodebuild_str('Debug', SDK_DEVICE)} build"
 end
 
-desc "Clean ShinyCocos"
-task :clean do
-  sh "#{xcodebuild_str} clean"
+desc "Build Release version of ShinyCocos"
+task :build_release do
+  sh "#{xcodebuild_str('Release', SDK_SIMUL)} build"
+  sh "#{xcodebuild_str('Release', SDK_DEVICE)} build"
 end
 
-desc "Create release library"
-task :distribution do
+
+desc "Clean ShinyCocos (both debug and release)"
+task :build_clean do
+  sh "#{xcodebuild_str('Debug')} clean"
+  sh "#{xcodebuild_str('Release')} clean"
+end
+
+desc "Create static library"
+task :distribution => [:build_debug, :build_release] do
   libs = ["build/Release-iphoneos/libShinyCocos.a", "build/Release-iphonesimulator/libShinyCocos.a",
           "build/Debug-iphoneos/libShinyCocos.a", "build/Debug-iphonesimulator/libShinyCocos.a"]
   if File.exists?(libs[0]) && File.exists?(libs[1]) && File.exists?(libs[2]) && File.exists?(libs[3])
