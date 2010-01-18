@@ -1,7 +1,6 @@
 *.tmproj
 *.tar.gz
 _DC/
-cocos2d-iphone/
 build/
 Integration/doc/
 .DS_Store
