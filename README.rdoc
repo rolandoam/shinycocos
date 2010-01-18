@@ -148,8 +148,7 @@ github project page.
 
 == TODO
 
-* Add documentation :-)
+* Improve documentation :-)
 * Integrate the rest of the cocos2d-iphone API
-* Check for leaks
+* Test for leaks
 * Benchmarks
-* Support for 'debug' (?)
