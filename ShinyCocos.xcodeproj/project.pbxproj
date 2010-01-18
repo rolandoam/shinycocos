@@ -1269,9 +1269,7 @@
 				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					./ruby_1_8_7,
-					./ruby_1_8_7/include,
 					"./cocos2d-iphone/cocos2d/**",
-					"./cocos2d-iphone/external/Chipmunk/src",
 				);
 				INSTALL_PATH = /usr/local/lib;
 				KEEP_PRIVATE_EXTERNS = NO;
@@ -1292,9 +1290,8 @@
 				GCC_PREFIX_HEADER = ShinyCocos_Prefix.pch;
 				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
-					"./ruby/**",
+					./ruby_1_8_7,
 					"./cocos2d-iphone/cocos2d/**",
-					"./cocos2d-iphone/external/Chipmunk/src",
 				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = ShinyCocos;
