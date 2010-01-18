@@ -135,12 +135,12 @@ VALUE rb_cAction_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   action.start   #=> nil
+ *   action.start_with_target   #=> nil
  *
  * starts running the action
  */
-VALUE rb_cAction_start(VALUE object) {
-	[CC_ACTION(object) start];
+VALUE rb_cAction_start_with_target(VALUE object, VALUE target) {
+	[CC_ACTION(object) startWithTarget:CC_NODE(target)];
 	return Qnil;
 }
 
@@ -1193,7 +1193,7 @@ void init_rb_mAction() {
 	rb_cAction = rb_define_class_under(rb_mActions, "Action", rb_cObject);
 	rb_define_singleton_method(rb_cAction, "new", rb_cAction_s_new, -1);
 	// common action methods
-	rb_define_method(rb_cAction, "start", rb_cAction_start, 0);
+	rb_define_method(rb_cAction, "start_with_target", rb_cAction_start_with_target, 1);
 	rb_define_method(rb_cAction, "stop", rb_cAction_stop, 0);
 	rb_define_method(rb_cAction, "done?", rb_cAction_done_p, 0);
 
