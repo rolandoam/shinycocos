@@ -89,19 +89,19 @@ VALUE rb_cTMXLayer_name(VALUE obj) {
  *
  * Adds a new tile for the given gid on the specified position (as a 2d array).
  * Returns a new AtlasSprite.
- */
-VALUE rb_cTMXLayer_add_tile(VALUE obj, VALUE gid, VALUE coord) {
+VALUE rb_cTMXLayer_insert_tile(VALUE obj, VALUE gid, VALUE coord) {
 	Check_Type(gid, T_FIXNUM);
 	Check_Type(coord, T_ARRAY);
 	
 	CGPoint pos = CGPointMake(FIX2INT(RARRAY_PTR(coord)[0]), FIX2INT(RARRAY_PTR(coord)[1]));
-	AtlasSprite *sprite = [CC_TMXLAYER(obj) addTileForGID:FIX2INT(gid) at:pos];
+	AtlasSprite *sprite = [CC_TMXLAYER(obj) insertTileForGID:FIX2INT(gid) at:pos];
 	if (!sprite.userData) {
 		VALUE ret = sc_init(rb_cAtlasSprite, nil, sprite, 0, 0, YES);
 		sprite.userData = (void *)ret;
 	}
 	return (VALUE)sprite.userData;
 }
+*/
 
 
 /*
@@ -183,7 +183,7 @@ void init_rb_cTMXLayer() {
 	// properties
 	rb_define_method(rb_cTMXLayer, "name", rb_cTMXLayer_name, 0);
 	// methods
-	rb_define_method(rb_cTMXLayer, "add_tile", rb_cTMXLayer_add_tile, 2);
+//	rb_define_method(rb_cTMXLayer, "append_tile", rb_cTMXLayer_append_tile, 2);
 	rb_define_method(rb_cTMXLayer, "tile", rb_cTMXLayer_tile, 1);
 	rb_define_method(rb_cTMXLayer, "tile_gid", rb_cTMXLayer_tile_gid, 1);
 	rb_define_method(rb_cTMXLayer, "set_tile_gid", rb_cTMXLayer_set_tile_gid, 2);
