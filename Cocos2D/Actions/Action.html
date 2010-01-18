@@ -59,15 +59,15 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000018">::new</a></li>
+					<li><a href="#M000061">::new</a></li>
 					
-					<li><a href="#M000022">::new</a></li>
+					<li><a href="#M000065">::new</a></li>
 					
-					<li><a href="#M000021">#done?</a></li>
+					<li><a href="#M000064">#done?</a></li>
 					
-					<li><a href="#M000019">#start</a></li>
+					<li><a href="#M000062">#start_with_target</a></li>
 					
-					<li><a href="#M000020">#stop</a></li>
+					<li><a href="#M000063">#stop</a></li>
 					
 				</ul>
 			</div>
@@ -118,8 +118,6 @@
 					<li><a href="../../Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 				
 					<li><a href="../../Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-				
-					<li><a href="../../Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 				
 					<li><a href="../../Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
@@ -339,7 +337,7 @@
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000018"></a>
+				<a name="M000061"></a>
 
 				<div class="method-heading">
 				
@@ -494,7 +492,7 @@ VALUE rb_cAction_s_new(int argc, VALUE *argv, VALUE klass) </pre>
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000022"></a>
+				<a name="M000065"></a>
 
 				<div class="method-heading">
 				
@@ -655,7 +653,7 @@ VALUE rb_cAction_s_new(int argc, VALUE *argv, VALUE klass) </pre>
 
 		
 			<div id="done--method" class="method-detail ">
-				<a name="M000021"></a>
+				<a name="M000064"></a>
 
 				<div class="method-heading">
 				
@@ -684,12 +682,12 @@ VALUE rb_cAction_done_p(VALUE object) </pre>
 			</div>
 
 		
-			<div id="start-method" class="method-detail ">
-				<a name="M000019"></a>
+			<div id="start-with-target-method" class="method-detail ">
+				<a name="M000062"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-callseq">start   #=> nil</span>
+					<span class="method-callseq">start_with_target   #=> nil</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -703,9 +701,9 @@ starts running the action
 
 					
 					<div class="method-source-code"
-						id="start-source">
+						id="start-with-target-source">
 <pre>
-VALUE rb_cAction_start(VALUE object) </pre>
+VALUE rb_cAction_start_with_target(VALUE object, VALUE target) </pre>
 					</div>
 					
 				</div>
@@ -715,7 +713,7 @@ VALUE rb_cAction_start(VALUE object) </pre>
 
 		
 			<div id="stop-method" class="method-detail ">
-				<a name="M000020"></a>
+				<a name="M000063"></a>
 
 				<div class="method-heading">
 				

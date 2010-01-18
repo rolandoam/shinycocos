@@ -52,29 +52,31 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000144">::add_touch_handler</a></li>
+					<li><a href="#M000151">::add_touch_handler</a></li>
 					
-					<li><a href="#M000141">::display_fps</a></li>
+					<li><a href="#M000158">::convert_to_gl</a></li>
 					
-					<li><a href="#M000146">::pause</a></li>
+					<li><a href="#M000148">::display_fps</a></li>
 					
-					<li><a href="#M000145">::remove_touch_handler</a></li>
+					<li><a href="#M000153">::pause</a></li>
 					
-					<li><a href="#M000143">::replace_scene</a></li>
+					<li><a href="#M000152">::remove_touch_handler</a></li>
 					
-					<li><a href="#M000147">::resume</a></li>
+					<li><a href="#M000150">::replace_scene</a></li>
 					
-					<li><a href="#M000142">::run_scene</a></li>
+					<li><a href="#M000154">::resume</a></li>
 					
-					<li><a href="#M000149">::set_2d_projection</a></li>
+					<li><a href="#M000149">::run_scene</a></li>
 					
-					<li><a href="#M000150">::set_3d_projection</a></li>
+					<li><a href="#M000156">::set_2d_projection</a></li>
 					
-					<li><a href="#M000140">::set_animation_interval</a></li>
+					<li><a href="#M000157">::set_3d_projection</a></li>
 					
-					<li><a href="#M000139">::set_orientation</a></li>
+					<li><a href="#M000147">::set_animation_interval</a></li>
 					
-					<li><a href="#M000148">::win_size</a></li>
+					<li><a href="#M000146">::set_orientation</a></li>
+					
+					<li><a href="#M000155">::win_size</a></li>
 					
 				</ul>
 			</div>
@@ -125,8 +127,6 @@
 					<li><a href="../Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 				
 					<li><a href="../Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-				
-					<li><a href="../Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 				
 					<li><a href="../Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
@@ -368,12 +368,11 @@
 
 		
 			<div id="add-touch-handler-method" class="method-detail ">
-				<a name="M000144"></a>
+				<a name="M000151"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">add_touch_handler</span><span
-						class="method-args">(p1)</span>
+					<span class="method-callseq">add_touch_handler(some_node, standard = true, priority = 0)   #=> some_node</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -381,18 +380,52 @@
 				<div class="method-description">
 					
 					<p>
-call-seq:
+Adds a touch handler. By default it&#8217;s a standard handler, that means
+the object should respond to touches_(began|cancelled|ended). If it&#8217;s
+not a standard handler, it&#8217;s assumed to be a targeted handler. In
+that case, the object should respond to touch_(began|cancelled|ended).
 </p>
-<pre>
-  Director.add_event_handler(some_node)   #=&gt; some_node
-</pre>
+<p>
+In all cases, some_node MUST BE a <a href="CocosNode.html">CocosNode</a>
+subclass.
+</p>
 					
 
 					
 					<div class="method-source-code"
 						id="add-touch-handler-source">
 <pre>
-VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) </pre>
+VALUE rb_mDirector_add_touch_handler(int argc, VALUE *argv, VALUE module) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="convert-to-gl-method" class="method-detail ">
+				<a name="M000158"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">convert_to_gl([x,y])  #=> [new_x, new_y]</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Converts a given point to GL coordinates
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="convert-to-gl-source">
+<pre>
+VALUE rb_mDirector_convert_to_gl(VALUE module, VALUE point) </pre>
 					</div>
 					
 				</div>
@@ -402,7 +435,7 @@ VALUE rb_mDirector_add_touch_handler(VALUE module, VALUE node) </pre>
 
 		
 			<div id="display-fps-method" class="method-detail ">
-				<a name="M000141"></a>
+				<a name="M000148"></a>
 
 				<div class="method-heading">
 				
@@ -432,7 +465,7 @@ VALUE rb_mDirector_display_fps(VALUE module, VALUE display) </pre>
 
 		
 			<div id="pause-method" class="method-detail ">
-				<a name="M000146"></a>
+				<a name="M000153"></a>
 
 				<div class="method-heading">
 				
@@ -462,7 +495,7 @@ VALUE rb_mDirector_pause(VALUE module) </pre>
 
 		
 			<div id="remove-touch-handler-method" class="method-detail ">
-				<a name="M000145"></a>
+				<a name="M000152"></a>
 
 				<div class="method-heading">
 				
@@ -496,7 +529,7 @@ VALUE rb_mDirector_remove_touch_handler(VALUE module, VALUE node) </pre>
 
 		
 			<div id="replace-scene-method" class="method-detail ">
-				<a name="M000143"></a>
+				<a name="M000150"></a>
 
 				<div class="method-heading">
 				
@@ -526,7 +559,7 @@ VALUE rb_mDirector_replace_scene(VALUE module, VALUE scene) </pre>
 
 		
 			<div id="resume-method" class="method-detail ">
-				<a name="M000147"></a>
+				<a name="M000154"></a>
 
 				<div class="method-heading">
 				
@@ -556,7 +589,7 @@ VALUE rb_mDirector_resume(VALUE module) </pre>
 
 		
 			<div id="run-scene-method" class="method-detail ">
-				<a name="M000142"></a>
+				<a name="M000149"></a>
 
 				<div class="method-heading">
 				
@@ -587,7 +620,7 @@ VALUE rb_mDirector_run_scene(VALUE module, VALUE scene) </pre>
 
 		
 			<div id="set-d-projection-method" class="method-detail ">
-				<a name="M000149"></a>
+				<a name="M000156"></a>
 
 				<div class="method-heading">
 				
@@ -617,7 +650,7 @@ VALUE rb_mDirector_set_2d_projection(VALUE module) </pre>
 
 		
 			<div id="set-d-projection-method" class="method-detail ">
-				<a name="M000150"></a>
+				<a name="M000157"></a>
 
 				<div class="method-heading">
 				
@@ -647,7 +680,7 @@ VALUE rb_mDirector_set_3d_projection(VALUE module) </pre>
 
 		
 			<div id="set-animation-interval-method" class="method-detail ">
-				<a name="M000140"></a>
+				<a name="M000147"></a>
 
 				<div class="method-heading">
 				
@@ -678,7 +711,7 @@ VALUE rb_mDirector_set_animation_interval(VALUE module, VALUE interval) </pre>
 
 		
 			<div id="set-orientation-method" class="method-detail ">
-				<a name="M000139"></a>
+				<a name="M000146"></a>
 
 				<div class="method-heading">
 				
@@ -722,7 +755,7 @@ VALUE rb_mDirector_set_orientation(VALUE module, VALUE orientation) </pre>
 
 		
 			<div id="win-size-method" class="method-detail ">
-				<a name="M000148"></a>
+				<a name="M000155"></a>
 
 				<div class="method-heading">
 				

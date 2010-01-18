@@ -159,72 +159,59 @@ That will fix the <tt>-E</tt> option (needed to treat <tt>.m</tt> files as
 </p>
 <h2>Installation/Building</h2>
 <p>
-<b>NOTE</b> if you have a previous version of ShinyCocos and have a
-&#8220;ruby&#8221; directory, remove that directory and pull the latest
-version from the repository (or completly remove ShinyCocos and pull the
-latest version).
-</p>
-<p>
-First, you need to get the latest release of cocos2d (currently, working
-with v0.8 from trunk) You can either fetch it from the project page or
-using subversion:
+First, you need a fresh copy of ShinyCocos, so get one:
 </p>
 <pre>
-  svn co http://cocos2d-iphone.googlecode.com/svn/trunk cocos2d-iphone
+  git clone http://github.com/funkaster/shinycocos.git
 </pre>
 <p>
-If you already have a copy of Cocos2D-iphone lying around, you can safely
-create a symbolic link with the name of &#8220;cocos2d-iphone&#8221;:
+Now, you&#8217;re ready to rock. Since we love ruby so much, the building
+process is really easy:
 </p>
 <pre>
-  cd shinycocos
-  ln -s /path/to/cocos2d-iphone cocos2d-iphone
+  rake distribution
+  rake install_template
 </pre>
 <p>
-Open the cocos2d-iphone project and set the output directory for the
-cocos2d-iphone and chipmunk to &#8220;../build&#8221; instead of
-&#8220;build&#8221;.
-</p>
-<p>
-Open the TestShinyCocos project and build.
-</p>
-<p>
-Now you&#8217;re ready to rock :-)
+Now fire up XCode, and choose as a new project, the ShinyCocos application.
+Enjoy!
 </p>
 <h2>Documentation</h2>
 <p>
-Use the rakefile:
+You can check the online documentation for the official release here:
 </p>
-<pre>
-  rake rdoc
-  open html/index.html
-</pre>
 <p>
-You might need a newer version of rdoc:
+<a
+href="http://funkaster.github.com/shinycocos">funkaster.github.com/shinycocos</a>
 </p>
-<pre>
-  sudo gem install rdoc
-</pre>
 <p>
-The one that comes with Leopard is too old and complains about the
-enclosing module not being found.
+Also, be sure to check the wiki:
+</p>
+<p>
+<a
+href="http://wiki.github.com/funkaster/shinycocos">wiki.github.com/funkaster/shinycocos</a>
 </p>
 <h2>Adding extensions from the stdlib</h2>
 <p>
-If you need to add an extension from the stdlib (or your own extension) add
-the source file to the &#8220;ext&#8221; group in the ShinyCocos project
-file. It will be statically linked to ruby. You should also add the Init
-call in the function <tt>Init_SC_Ruby_Extensions</tt>, in the
-<tt>SC_init.m</tt> file.
+If you need to add your own c extension, or one from the stdlib, add them
+to your project, and put the <tt>Init_xxx()</tt> call right after the call
+to SetupShinyCocos() in your main app delegate, like this:
 </p>
+<pre>
+  ShinyCocosSetup(window);
+  // insert here your ruby extensions (i.e.: Init_zzz())
+  Init_myextension();
+  Init_another_extension();
+
+  ShinyCocosInitChipmunk();
+  ShinyCocosStart();
+</pre>
 <p>
-After that, make sure you add an empty file named after your extension,
-i.e: stringio.rb for the StringIO extension, inside the &#8220;lib&#8221;
-directory of your project. That way, your code can still call <tt>require
-'stringio'</tt>.
-</p>
-<p>
-I will try to find an easier way :-).
+Be careful with the <tt>require</tt>s though, because if you add the
+extension this way, it will be statically linked, so you don&#8217;t have
+to <tt>require</tt> it in your code. If you do not want to modify your
+code, just add an empty file named after your extension and put it in the
+<tt>lib</tt> directory of your project.
 </p>
 <p>
 For ruby-only extensions, just add them to the lib directory.
@@ -235,24 +222,13 @@ You don&#8217;t need to <tt>require</tt> these, they&#8217;re already
 bundled and initialized in the included interpreter.
 </p>
 <ul>
-<li>encdb
-
-</li>
-<li>stringio
-
-</li>
-<li>syck
-
-</li>
-<li>nkf
-
-</li>
 <li>zlib
 
 </li>
 </ul>
 <p>
-These are pure-ruby libs (found in the <tt>lib</tt> directory):
+These are pure-ruby libs (found in the <tt>lib</tt> directory) added when
+you create a new project using the XCode template:
 </p>
 <ul>
 <li>base64
@@ -270,17 +246,6 @@ These are pure-ruby libs (found in the <tt>lib</tt> directory):
 <li>set
 
 </li>
-<li>yaml
-
-</li>
-</ul>
-<p>
-ShinyCocos libraries (also pure-ruby):
-</p>
-<ul>
-<li>map_reader (Tiled map support)
-
-</li>
 </ul>
 <h2>Hey, I found a bug!</h2>
 <p>
@@ -290,19 +255,16 @@ the github project page.
 </p>
 <h2>TODO</h2>
 <ul>
-<li>Add documentation :-)
+<li>Improve documentation :-)
 
 </li>
 <li>Integrate the rest of the cocos2d-iphone API
 
 </li>
-<li>Check for leaks
+<li>Test for leaks
 
 </li>
 <li>Benchmarks
-
-</li>
-<li>Support for &#8216;debug&#8217; (?)
 
 </li>
 </ul>
@@ -336,8 +298,6 @@ the github project page.
 		<li class="class"><a href="Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 		
 		<li class="class"><a href="Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-		
-		<li class="class"><a href="Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 		
 		<li class="class"><a href="Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 		
@@ -534,395 +494,409 @@ the github project page.
 	<h2>Methods</h2>
 	<ul>
 		
-			<li><a href="Cocos2D/UserDefaults.html#M000193">::[] &mdash; Cocos2D::UserDefaults</a></li>
+			<li><a href="Cocos2D/UserDefaults.html#M000200">::[] &mdash; Cocos2D::UserDefaults</a></li>
 		
-			<li><a href="Cocos2D/UserDefaults.html#M000192">::[]= &mdash; Cocos2D::UserDefaults</a></li>
+			<li><a href="Cocos2D/UserDefaults.html#M000199">::[]= &mdash; Cocos2D::UserDefaults</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000144">::add_touch_handler &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000151">::add_touch_handler &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/SolidShapeMap.html#M000168">::create &mdash; Cocos2D::SolidShapeMap</a></li>
+			<li><a href="Cocos2D/Director.html#M000158">::convert_to_gl &mdash; Cocos2D::Director</a></li>
+		
+			<li><a href="Cocos2D/SolidShapeMap.html#M000176">::create &mdash; Cocos2D::SolidShapeMap</a></li>
 		
 			<li><a href="Cocos2D.html#M000001">::display_alert &mdash; Cocos2D</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000141">::display_fps &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000148">::display_fps &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Slider.html#M000162">::new &mdash; Cocos2D::Slider</a></li>
+			<li><a href="Cocos2D/Slider.html#M000170">::new &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/Actions/IntervalAction.html#M000064">::new &mdash; Cocos2D::Actions::IntervalAction</a></li>
+			<li><a href="Cocos2D/Actions/IntervalAction.html#M000108">::new &mdash; Cocos2D::Actions::IntervalAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseOut.html#M000031">::new &mdash; Cocos2D::Actions::EaseOut</a></li>
+			<li><a href="Cocos2D/Actions/EaseOut.html#M000074">::new &mdash; Cocos2D::Actions::EaseOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/ScaleBy.html#M000076">::new &mdash; Cocos2D::Actions::ScaleBy</a></li>
+			<li><a href="Cocos2D/Actions/ScaleBy.html#M000119">::new &mdash; Cocos2D::Actions::ScaleBy</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeTo.html#M000080">::new &mdash; Cocos2D::Actions::FadeTo</a></li>
+			<li><a href="Cocos2D/Actions/FadeTo.html#M000123">::new &mdash; Cocos2D::Actions::FadeTo</a></li>
 		
-			<li><a href="Cocos2D/Actions/Repeat.html#M000066">::new &mdash; Cocos2D::Actions::Repeat</a></li>
+			<li><a href="Cocos2D/Actions/Repeat.html#M000110">::new &mdash; Cocos2D::Actions::Repeat</a></li>
 		
-			<li><a href="Cocos2D/Actions/ScaleTo.html#M000075">::new &mdash; Cocos2D::Actions::ScaleTo</a></li>
+			<li><a href="Cocos2D/Actions/ScaleTo.html#M000118">::new &mdash; Cocos2D::Actions::ScaleTo</a></li>
 		
-			<li><a href="Cocos2D/BitmapFontAtlas.html#M000015">::new &mdash; Cocos2D::BitmapFontAtlas</a></li>
+			<li><a href="Cocos2D/Menu.html#M000167">::new &mdash; Cocos2D::Menu</a></li>
 		
-			<li><a href="Cocos2D/Menu.html#M000160">::new &mdash; Cocos2D::Menu</a></li>
+			<li><a href="Cocos2D/BitmapFontAtlas.html#M000059">::new &mdash; Cocos2D::BitmapFontAtlas</a></li>
 		
-			<li><a href="Cocos2D/Actions/Liquid.html#M000045">::new &mdash; Cocos2D::Actions::Liquid</a></li>
+			<li><a href="Cocos2D/Actions/RepeatForever.html#M000067">::new &mdash; Cocos2D::Actions::RepeatForever</a></li>
 		
-			<li><a href="Cocos2D/Actions/RepeatForever.html#M000024">::new &mdash; Cocos2D::Actions::RepeatForever</a></li>
+			<li><a href="Cocos2D/Actions/MoveTo.html#M000114">::new &mdash; Cocos2D::Actions::MoveTo</a></li>
 		
-			<li><a href="Cocos2D/Actions/MoveTo.html#M000070">::new &mdash; Cocos2D::Actions::MoveTo</a></li>
+			<li><a href="Cocos2D/Actions/EaseAction.html#M000071">::new &mdash; Cocos2D::Actions::EaseAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseAction.html#M000028">::new &mdash; Cocos2D::Actions::EaseAction</a></li>
+			<li><a href="Cocos2D/Actions/TiledGrid3DAction.html#M000094">::new &mdash; Cocos2D::Actions::TiledGrid3DAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/TiledGrid3DAction.html#M000050">::new &mdash; Cocos2D::Actions::TiledGrid3DAction</a></li>
+			<li><a href="Cocos2D/Actions/Speed.html#M000068">::new &mdash; Cocos2D::Actions::Speed</a></li>
 		
-			<li><a href="Cocos2D/Actions/Speed.html#M000025">::new &mdash; Cocos2D::Actions::Speed</a></li>
+			<li><a href="Cocos2D/Actions/Liquid.html#M000089">::new &mdash; Cocos2D::Actions::Liquid</a></li>
 		
-			<li><a href="Cocos2D/Layer.html#M000155">::new &mdash; Cocos2D::Layer</a></li>
+			<li><a href="Cocos2D/Layer.html#M000163">::new &mdash; Cocos2D::Layer</a></li>
 		
-			<li><a href="Cocos2D/Actions/Grid3DAction.html#M000049">::new &mdash; Cocos2D::Actions::Grid3DAction</a></li>
+			<li><a href="Cocos2D/Actions/CameraAction.html#M000069">::new &mdash; Cocos2D::Actions::CameraAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/CameraAction.html#M000026">::new &mdash; Cocos2D::Actions::CameraAction</a></li>
+			<li><a href="Cocos2D/Actions/ShuffleTiles.html#M000131">::new &mdash; Cocos2D::Actions::ShuffleTiles</a></li>
 		
-			<li><a href="Cocos2D/Actions/ShuffleTiles.html#M000088">::new &mdash; Cocos2D::Actions::ShuffleTiles</a></li>
+			<li><a href="Cocos2D/Actions/FlipX3D.html#M000083">::new &mdash; Cocos2D::Actions::FlipX3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/ShatteredTiles3D.html#M000087">::new &mdash; Cocos2D::Actions::ShatteredTiles3D</a></li>
+			<li><a href="Cocos2D/Actions/MoveBy.html#M000115">::new &mdash; Cocos2D::Actions::MoveBy</a></li>
 		
-			<li><a href="Cocos2D/Actions/MoveBy.html#M000071">::new &mdash; Cocos2D::Actions::MoveBy</a></li>
+			<li><a href="Cocos2D/Actions/Ripple3D.html#M000087">::new &mdash; Cocos2D::Actions::Ripple3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/Ripple3D.html#M000043">::new &mdash; Cocos2D::Actions::Ripple3D</a></li>
+			<li><a href="Cocos2D/Actions/Waves3D.html#M000082">::new &mdash; Cocos2D::Actions::Waves3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/Waves3D.html#M000039">::new &mdash; Cocos2D::Actions::Waves3D</a></li>
+			<li><a href="Cocos2D/Actions/ReverseTime.html#M000127">::new &mdash; Cocos2D::Actions::ReverseTime</a></li>
 		
-			<li><a href="Cocos2D/Actions/ReverseTime.html#M000084">::new &mdash; Cocos2D::Actions::ReverseTime</a></li>
+			<li><a href="Cocos2D/Actions/EaseExponentialInOut.html#M000078">::new &mdash; Cocos2D::Actions::EaseExponentialInOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseExponentialInOut.html#M000035">::new &mdash; Cocos2D::Actions::EaseExponentialInOut</a></li>
+			<li><a href="Cocos2D/Actions/SplitCols.html#M000140">::new &mdash; Cocos2D::Actions::SplitCols</a></li>
 		
-			<li><a href="Cocos2D/Actions/SplitCols.html#M000097">::new &mdash; Cocos2D::Actions::SplitCols</a></li>
+			<li><a href="Cocos2D/Actions/Waves.html#M000090">::new &mdash; Cocos2D::Actions::Waves</a></li>
 		
-			<li><a href="Cocos2D/Actions/Waves.html#M000046">::new &mdash; Cocos2D::Actions::Waves</a></li>
+			<li><a href="Cocos2D/Actions/EaseSineOut.html#M000080">::new &mdash; Cocos2D::Actions::EaseSineOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseSineOut.html#M000037">::new &mdash; Cocos2D::Actions::EaseSineOut</a></li>
+			<li><a href="Cocos2D/AtlasAnimation.html#M000054">::new &mdash; Cocos2D::AtlasAnimation</a></li>
 		
-			<li><a href="Cocos2D/AtlasAnimation.html#M000010">::new &mdash; Cocos2D::AtlasAnimation</a></li>
+			<li><a href="Cocos2D/Actions/Grid3DAction.html#M000093">::new &mdash; Cocos2D::Actions::Grid3DAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/Spawn.html#M000067">::new &mdash; Cocos2D::Actions::Spawn</a></li>
+			<li><a href="Cocos2D/Actions/FadeOut.html#M000122">::new &mdash; Cocos2D::Actions::FadeOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeOut.html#M000079">::new &mdash; Cocos2D::Actions::FadeOut</a></li>
+			<li><a href="Cocos2D/Actions/GridAction.html#M000092">::new &mdash; Cocos2D::Actions::GridAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/GridAction.html#M000048">::new &mdash; Cocos2D::Actions::GridAction</a></li>
+			<li><a href="Cocos2D/LabelAtlas.html#M000161">::new &mdash; Cocos2D::LabelAtlas</a></li>
 		
-			<li><a href="Cocos2D/LabelAtlas.html#M000153">::new &mdash; Cocos2D::LabelAtlas</a></li>
+			<li><a href="Cocos2D/Actions/Spawn.html#M000111">::new &mdash; Cocos2D::Actions::Spawn</a></li>
 		
-			<li><a href="Cocos2D/Actions/RotateBy.html#M000069">::new &mdash; Cocos2D::Actions::RotateBy</a></li>
+			<li><a href="Cocos2D/Actions/TintTo.html#M000124">::new &mdash; Cocos2D::Actions::TintTo</a></li>
 		
-			<li><a href="Cocos2D/Actions/BezierBy.html#M000074">::new &mdash; Cocos2D::Actions::BezierBy</a></li>
+			<li><a href="Cocos2D/Actions/DeccelAmplitude.html#M000097">::new &mdash; Cocos2D::Actions::DeccelAmplitude</a></li>
 		
-			<li><a href="Cocos2D/Actions/TintTo.html#M000081">::new &mdash; Cocos2D::Actions::TintTo</a></li>
+			<li><a href="Cocos2D/AtlasSpriteManager.html#M000056">::new &mdash; Cocos2D::AtlasSpriteManager</a></li>
 		
-			<li><a href="Cocos2D/Actions/DeccelAmplitude.html#M000053">::new &mdash; Cocos2D::Actions::DeccelAmplitude</a></li>
+			<li><a href="Cocos2D/Actions/RotateBy.html#M000113">::new &mdash; Cocos2D::Actions::RotateBy</a></li>
 		
-			<li><a href="Cocos2D/AtlasSpriteManager.html#M000012">::new &mdash; Cocos2D::AtlasSpriteManager</a></li>
+			<li><a href="Cocos2D/Actions/TurnOffTiles.html#M000136">::new &mdash; Cocos2D::Actions::TurnOffTiles</a></li>
 		
-			<li><a href="Cocos2D/Actions/TurnOffTiles.html#M000093">::new &mdash; Cocos2D::Actions::TurnOffTiles</a></li>
+			<li><a href="Cocos2D/Actions/JumpTo.html#M000117">::new &mdash; Cocos2D::Actions::JumpTo</a></li>
 		
-			<li><a href="Cocos2D/MenuItemImage.html#M000158">::new &mdash; Cocos2D::MenuItemImage</a></li>
+			<li><a href="Cocos2D/Actions/JumpBy.html#M000116">::new &mdash; Cocos2D::Actions::JumpBy</a></li>
 		
-			<li><a href="Cocos2D/Actions/JumpTo.html#M000073">::new &mdash; Cocos2D::Actions::JumpTo</a></li>
+			<li><a href="Cocos2D/Actions/Hide.html#M000102">::new &mdash; Cocos2D::Actions::Hide</a></li>
 		
-			<li><a href="Cocos2D/Actions/JumpBy.html#M000072">::new &mdash; Cocos2D::Actions::JumpBy</a></li>
+			<li><a href="Cocos2D/Actions/TintBy.html#M000125">::new &mdash; Cocos2D::Actions::TintBy</a></li>
 		
-			<li><a href="Cocos2D/Actions/ShakyTiles3D.html#M000086">::new &mdash; Cocos2D::Actions::ShakyTiles3D</a></li>
+			<li><a href="Cocos2D/Actions/EaseRateAction.html#M000072">::new &mdash; Cocos2D::Actions::EaseRateAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/TintBy.html#M000082">::new &mdash; Cocos2D::Actions::TintBy</a></li>
+			<li><a href="Cocos2D/Actions/Place.html#M000104">::new &mdash; Cocos2D::Actions::Place</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseRateAction.html#M000029">::new &mdash; Cocos2D::Actions::EaseRateAction</a></li>
+			<li><a href="Cocos2D/Sprite.html#M000177">::new &mdash; Cocos2D::Sprite</a></li>
 		
-			<li><a href="Cocos2D/Actions/Place.html#M000060">::new &mdash; Cocos2D::Actions::Place</a></li>
+			<li><a href="Cocos2D/MenuItemImage.html#M000165">::new &mdash; Cocos2D::MenuItemImage</a></li>
 		
-			<li><a href="Cocos2D/Sprite.html#M000169">::new &mdash; Cocos2D::Sprite</a></li>
+			<li><a href="Cocos2D/Actions/Lens3D.html#M000086">::new &mdash; Cocos2D::Actions::Lens3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/CallFuncN.html#M000062">::new &mdash; Cocos2D::Actions::CallFuncN</a></li>
+			<li><a href="Cocos2D/Actions/EaseSineInOut.html#M000081">::new &mdash; Cocos2D::Actions::EaseSineInOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/Lens3D.html#M000042">::new &mdash; Cocos2D::Actions::Lens3D</a></li>
+			<li><a href="Cocos2D/Actions/EaseInOut.html#M000075">::new &mdash; Cocos2D::Actions::EaseInOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseSineInOut.html#M000038">::new &mdash; Cocos2D::Actions::EaseSineInOut</a></li>
+			<li><a href="Cocos2D/Actions/Show.html#M000101">::new &mdash; Cocos2D::Actions::Show</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseInOut.html#M000032">::new &mdash; Cocos2D::Actions::EaseInOut</a></li>
+			<li><a href="Cocos2D/Actions/StopGrid.html#M000098">::new &mdash; Cocos2D::Actions::StopGrid</a></li>
 		
-			<li><a href="Cocos2D/Actions/Show.html#M000057">::new &mdash; Cocos2D::Actions::Show</a></li>
+			<li><a href="Cocos2D/Actions/Blink.html#M000120">::new &mdash; Cocos2D::Actions::Blink</a></li>
 		
-			<li><a href="Cocos2D/Actions/StopGrid.html#M000054">::new &mdash; Cocos2D::Actions::StopGrid</a></li>
+			<li><a href="Cocos2D/TMXTiledMap.html#M000179">::new &mdash; Cocos2D::TMXTiledMap</a></li>
 		
-			<li><a href="Cocos2D/Actions/Blink.html#M000077">::new &mdash; Cocos2D::Actions::Blink</a></li>
+			<li><a href="Cocos2D/Actions/CallFuncN.html#M000106">::new &mdash; Cocos2D::Actions::CallFuncN</a></li>
 		
-			<li><a href="Cocos2D/TMXTiledMap.html#M000171">::new &mdash; Cocos2D::TMXTiledMap</a></li>
+			<li><a href="Cocos2D/Actions/Animate.html#M000128">::new &mdash; Cocos2D::Actions::Animate</a></li>
 		
-			<li><a href="Cocos2D/Actions/RotateTo.html#M000068">::new &mdash; Cocos2D::Actions::RotateTo</a></li>
+			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000066">::new &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/Animate.html#M000085">::new &mdash; Cocos2D::Actions::Animate</a></li>
+			<li><a href="Cocos2D/Actions/RotateTo.html#M000112">::new &mdash; Cocos2D::Actions::RotateTo</a></li>
 		
-			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000023">::new &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
+			<li><a href="Cocos2D/Actions/WavesTiles3D.html#M000137">::new &mdash; Cocos2D::Actions::WavesTiles3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/WavesTiles3D.html#M000094">::new &mdash; Cocos2D::Actions::WavesTiles3D</a></li>
+			<li><a href="Cocos2D/Actions/FlipY3D.html#M000084">::new &mdash; Cocos2D::Actions::FlipY3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/FlipY3D.html#M000041">::new &mdash; Cocos2D::Actions::FlipY3D</a></li>
+			<li><a href="Cocos2D/TransitionScene.html#M000198">::new &mdash; Cocos2D::TransitionScene</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseSineIn.html#M000036">::new &mdash; Cocos2D::Actions::EaseSineIn</a></li>
+			<li><a href="Cocos2D/Label.html#M000159">::new &mdash; Cocos2D::Label</a></li>
 		
-			<li><a href="Cocos2D/TransitionScene.html#M000189">::new &mdash; Cocos2D::TransitionScene</a></li>
+			<li><a href="Cocos2D/Actions/EaseSineIn.html#M000079">::new &mdash; Cocos2D::Actions::EaseSineIn</a></li>
 		
-			<li><a href="Cocos2D/Label.html#M000151">::new &mdash; Cocos2D::Label</a></li>
+			<li><a href="Cocos2D/Actions/Sequence.html#M000109">::new &mdash; Cocos2D::Actions::Sequence</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseExponentialOut.html#M000034">::new &mdash; Cocos2D::Actions::EaseExponentialOut</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000013">::new &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/Actions/Sequence.html#M000065">::new &mdash; Cocos2D::Actions::Sequence</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000003">::new &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000002">::new &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/Actions/EaseExponentialOut.html#M000077">::new &mdash; Cocos2D::Actions::EaseExponentialOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/Action.html#M000022">::new &mdash; Cocos2D::Actions::Action</a></li>
+			<li><a href="Cocos2D/Actions/Action.html#M000065">::new &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/Actions/Action.html#M000018">::new &mdash; Cocos2D::Actions::Action</a></li>
+			<li><a href="Cocos2D/Actions/Action.html#M000061">::new &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000103">::new &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TextField.html#M000187">::new &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000180">::new &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/Actions/CallFunc.html#M000105">::new &mdash; Cocos2D::Actions::CallFunc</a></li>
 		
-			<li><a href="Cocos2D/Actions/CallFunc.html#M000061">::new &mdash; Cocos2D::Actions::CallFunc</a></li>
+			<li><a href="Cocos2D/AtlasSprite.html#M000053">::new &mdash; Cocos2D::AtlasSprite</a></li>
 		
-			<li><a href="Cocos2D/Actions/FlipX3D.html#M000040">::new &mdash; Cocos2D::Actions::FlipX3D</a></li>
+			<li><a href="Cocos2D/Actions/FadeOutTRTiles.html#M000132">::new &mdash; Cocos2D::Actions::FadeOutTRTiles</a></li>
 		
-			<li><a href="Cocos2D/AtlasSprite.html#M000009">::new &mdash; Cocos2D::AtlasSprite</a></li>
+			<li><a href="Cocos2D/Actions/OrbitCamera.html#M000070">::new &mdash; Cocos2D::Actions::OrbitCamera</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeOutTRTiles.html#M000089">::new &mdash; Cocos2D::Actions::FadeOutTRTiles</a></li>
+			<li><a href="Cocos2D/Actions/Shaky3D.html#M000088">::new &mdash; Cocos2D::Actions::Shaky3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/OrbitCamera.html#M000027">::new &mdash; Cocos2D::Actions::OrbitCamera</a></li>
+			<li><a href="Cocos2D/TextureNode.html#M000195">::new &mdash; Cocos2D::TextureNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/Shaky3D.html#M000044">::new &mdash; Cocos2D::Actions::Shaky3D</a></li>
+			<li><a href="Cocos2D/Actions/FadeOutBLTiles.html#M000133">::new &mdash; Cocos2D::Actions::FadeOutBLTiles</a></li>
 		
-			<li><a href="Cocos2D/TextureNode.html#M000188">::new &mdash; Cocos2D::TextureNode</a></li>
+			<li><a href="Cocos2D/Actions/CallFuncND.html#M000107">::new &mdash; Cocos2D::Actions::CallFuncND</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeOutBLTiles.html#M000090">::new &mdash; Cocos2D::Actions::FadeOutBLTiles</a></li>
+			<li><a href="Cocos2D/Actions/ToggleVisibility.html#M000103">::new &mdash; Cocos2D::Actions::ToggleVisibility</a></li>
 		
-			<li><a href="Cocos2D/Actions/CallFuncND.html#M000063">::new &mdash; Cocos2D::Actions::CallFuncND</a></li>
+			<li><a href="Cocos2D/Actions/SplitRows.html#M000139">::new &mdash; Cocos2D::Actions::SplitRows</a></li>
 		
-			<li><a href="Cocos2D/Actions/ToggleVisibility.html#M000059">::new &mdash; Cocos2D::Actions::ToggleVisibility</a></li>
+			<li><a href="Cocos2D/Actions/FadeOutDownTiles.html#M000135">::new &mdash; Cocos2D::Actions::FadeOutDownTiles</a></li>
 		
-			<li><a href="Cocos2D/Actions/SplitRows.html#M000096">::new &mdash; Cocos2D::Actions::SplitRows</a></li>
+			<li><a href="Cocos2D/Actions/EaseExponentialIn.html#M000076">::new &mdash; Cocos2D::Actions::EaseExponentialIn</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeOutDownTiles.html#M000092">::new &mdash; Cocos2D::Actions::FadeOutDownTiles</a></li>
+			<li><a href="Cocos2D/Actions/AccelAmplitude.html#M000096">::new &mdash; Cocos2D::Actions::AccelAmplitude</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseExponentialIn.html#M000033">::new &mdash; Cocos2D::Actions::EaseExponentialIn</a></li>
+			<li><a href="Cocos2D/Scene.html#M000169">::new &mdash; Cocos2D::Scene</a></li>
 		
-			<li><a href="Cocos2D/Actions/AccelAmplitude.html#M000052">::new &mdash; Cocos2D::Actions::AccelAmplitude</a></li>
+			<li><a href="Cocos2D/MenuItemAtlasSprite.html#M000166">::new &mdash; Cocos2D::MenuItemAtlasSprite</a></li>
 		
-			<li><a href="Cocos2D/MenuItemAtlasSprite.html#M000159">::new &mdash; Cocos2D::MenuItemAtlasSprite</a></li>
+			<li><a href="Cocos2D/Actions/FadeOutUpTiles.html#M000134">::new &mdash; Cocos2D::Actions::FadeOutUpTiles</a></li>
 		
-			<li><a href="Cocos2D/Scene.html#M000157">::new &mdash; Cocos2D::Scene</a></li>
+			<li><a href="Cocos2D/Actions/Twirl.html#M000091">::new &mdash; Cocos2D::Actions::Twirl</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeOutUpTiles.html#M000091">::new &mdash; Cocos2D::Actions::FadeOutUpTiles</a></li>
+			<li><a href="Cocos2D/Actions/FadeIn.html#M000121">::new &mdash; Cocos2D::Actions::FadeIn</a></li>
 		
-			<li><a href="Cocos2D/Actions/Twirl.html#M000047">::new &mdash; Cocos2D::Actions::Twirl</a></li>
+			<li><a href="Cocos2D/Actions/EaseIn.html#M000073">::new &mdash; Cocos2D::Actions::EaseIn</a></li>
 		
-			<li><a href="Cocos2D/Actions/FadeIn.html#M000078">::new &mdash; Cocos2D::Actions::FadeIn</a></li>
+			<li><a href="Cocos2D/Actions/InstantAction.html#M000100">::new &mdash; Cocos2D::Actions::InstantAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/EaseIn.html#M000030">::new &mdash; Cocos2D::Actions::EaseIn</a></li>
+			<li><a href="Cocos2D/Actions/DelayTime.html#M000126">::new &mdash; Cocos2D::Actions::DelayTime</a></li>
 		
-			<li><a href="Cocos2D/Actions/InstantAction.html#M000056">::new &mdash; Cocos2D::Actions::InstantAction</a></li>
+			<li><a href="Cocos2D/Actions/AccelDeccelAmplitude.html#M000095">::new &mdash; Cocos2D::Actions::AccelDeccelAmplitude</a></li>
 		
-			<li><a href="Cocos2D/Actions/DelayTime.html#M000083">::new &mdash; Cocos2D::Actions::DelayTime</a></li>
+			<li><a href="Cocos2D/Actions/ReuseGrid.html#M000099">::new &mdash; Cocos2D::Actions::ReuseGrid</a></li>
 		
-			<li><a href="Cocos2D/Actions/AccelDeccelAmplitude.html#M000051">::new &mdash; Cocos2D::Actions::AccelDeccelAmplitude</a></li>
+			<li><a href="Cocos2D/Actions/JumpTiles3D.html#M000138">::new &mdash; Cocos2D::Actions::JumpTiles3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/ReuseGrid.html#M000055">::new &mdash; Cocos2D::Actions::ReuseGrid</a></li>
+			<li><a href="Cocos2D/Actions/ShakyTiles3D.html#M000129">::new &mdash; Cocos2D::Actions::ShakyTiles3D</a></li>
 		
-			<li><a href="Cocos2D/Actions/JumpTiles3D.html#M000095">::new &mdash; Cocos2D::Actions::JumpTiles3D</a></li>
-		
-			<li><a href="Cocos2D/Actions/Hide.html#M000058">::new &mdash; Cocos2D::Actions::Hide</a></li>
+			<li><a href="Cocos2D/Actions/ShatteredTiles3D.html#M000130">::new &mdash; Cocos2D::Actions::ShatteredTiles3D</a></li>
 		
 			<li><a href="Cocos2D.html#M000000">::ns_log &mdash; Cocos2D</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000146">::pause &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000153">::pause &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="File.html#M000017">::read_from_resources &mdash; File</a></li>
+			<li><a href="Cocos2D.html#M000002">::reachability_for_host &mdash; Cocos2D</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000145">::remove_touch_handler &mdash; Cocos2D::Director</a></li>
+			<li><a href="File.html#M000085">::read_from_resources &mdash; File</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000143">::replace_scene &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000152">::remove_touch_handler &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000147">::resume &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000150">::replace_scene &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000142">::run_scene &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000154">::resume &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000149">::set_2d_projection &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000149">::run_scene &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000150">::set_3d_projection &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000156">::set_2d_projection &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000140">::set_animation_interval &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000157">::set_3d_projection &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000139">::set_orientation &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Director.html#M000147">::set_animation_interval &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/UserDefaults.html#M000194">::synchronize &mdash; Cocos2D::UserDefaults</a></li>
+			<li><a href="Cocos2D/Director.html#M000146">::set_orientation &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/Twitter.html#M000191">::twitt &mdash; Cocos2D::Twitter</a></li>
+			<li><a href="Cocos2D/UserDefaults.html#M000201">::synchronize &mdash; Cocos2D::UserDefaults</a></li>
 		
-			<li><a href="Cocos2D/Twitter.html#M000190">::verify_credentials &mdash; Cocos2D::Twitter</a></li>
+			<li><a href="Cocos2D/Twitter.html#M000197">::twitt &mdash; Cocos2D::Twitter</a></li>
 		
-			<li><a href="Cocos2D/Director.html#M000148">::win_size &mdash; Cocos2D::Director</a></li>
+			<li><a href="Cocos2D/Twitter.html#M000196">::verify_credentials &mdash; Cocos2D::Twitter</a></li>
 		
-			<li><a href="Cocos2D/TMXTiledMap.html#M000172">#[] &mdash; Cocos2D::TMXTiledMap</a></li>
+			<li><a href="Cocos2D/Director.html#M000155">::win_size &mdash; Cocos2D::Director</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000121">#add_child &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TMXTiledMap.html#M000180">#[] &mdash; Cocos2D::TMXTiledMap</a></li>
 		
-			<li><a href="Cocos2D/AtlasAnimation.html#M000011">#add_frame &mdash; Cocos2D::AtlasAnimation</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000033">#add_child &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Slider.html#M000167">#add_target &mdash; Cocos2D::Slider</a></li>
+			<li><a href="Cocos2D/AtlasAnimation.html#M000055">#add_frame &mdash; Cocos2D::AtlasAnimation</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000174">#add_tile &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/Slider.html#M000175">#add_target &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/Menu.html#M000161">#align &mdash; Cocos2D::Menu</a></li>
+			<li><a href="Cocos2D/Menu.html#M000168">#align &mdash; Cocos2D::Menu</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000119">#anchor_point &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000031">#anchor_point &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000120">#anchor_point= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000032">#anchor_point= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AtlasSpriteManager.html#M000014">#antialias &mdash; Cocos2D::AtlasSpriteManager</a></li>
+			<li><a href="Cocos2D/Sprite.html#M000178">#antialias &mdash; Cocos2D::Sprite</a></li>
 		
-			<li><a href="Cocos2D/Sprite.html#M000170">#antialias &mdash; Cocos2D::Sprite</a></li>
+			<li><a href="Cocos2D/AtlasSpriteManager.html#M000058">#antialias &mdash; Cocos2D::AtlasSpriteManager</a></li>
 		
-			<li><a href="Cocos2D/Slider.html#M000163">#attach &mdash; Cocos2D::Slider</a></li>
+			<li><a href="Cocos2D/Slider.html#M000171">#attach &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000181">#attach &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000188">#attach &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000126">#attach_chipmunk_shape &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000040">#attach_chipmunk_shape &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000129">#become_accelerometer_delegate &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000043">#become_accelerometer_delegate &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000125">#become_chipmunk_stepper &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000039">#become_chipmunk_stepper &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000133">#camera_center &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000047">#camera_center &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000134">#camera_center= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000048">#camera_center= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000131">#camera_eye &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000045">#camera_eye &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000132">#camera_eye= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000046">#camera_eye= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000122">#child_with_tag &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000035">#child_with_tag &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000123">#children &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000036">#children &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AtlasSpriteManager.html#M000013">#create_sprite &mdash; Cocos2D::AtlasSpriteManager</a></li>
+			<li><a href="Cocos2D/AtlasSpriteManager.html#M000057">#create_sprite &mdash; Cocos2D::AtlasSpriteManager</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000185">#delegate= &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000016">#delegate= &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000005">#delegate= &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/TextField.html#M000192">#delegate= &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/Slider.html#M000164">#detach &mdash; Cocos2D::Slider</a></li>
+			<li><a href="Cocos2D/Slider.html#M000172">#detach &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000182">#detach &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000189">#detach &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/Actions/Action.html#M000021">#done? &mdash; Cocos2D::Actions::Action</a></li>
+			<li><a href="Cocos2D/Actions/Action.html#M000064">#done? &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000137">#draw &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000051">#draw &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000098">#duration &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
+			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000141">#duration &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000099">#duration= &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
+			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000142">#duration= &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000138">#inspect &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000004">#initializer &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000006">#loops= &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000052">#inspect &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000173">#name &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000017">#loops= &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000135">#on_enter &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TMXLayer.html#M000181">#name &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000136">#on_exit &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000049">#on_enter &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000003">#play &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000050">#on_exit &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000109">#position &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000023">#opacity= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000116">#position= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000005">#parent &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000179">#px_position &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000021">#parent= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Layer.html#M000156">#register_with_touch_dispatcher &mdash; Cocos2D::Layer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000014">#play &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000178">#remove_tile &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000011">#position &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000187">#resign_first_responder &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000028">#position= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000100">#reverse &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
+			<li><a href="Cocos2D/TMXLayer.html#M000186">#px_position &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000105">#rotation &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/Layer.html#M000164">#register_with_touch_dispatcher &mdash; Cocos2D::Layer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000112">#rotation= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000034">#remove_child &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000124">#run_action &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TMXLayer.html#M000185">#remove_tile &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000106">#scale &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TextField.html#M000194">#resign_first_responder &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000113">#scale= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000143">#reverse &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000107">#scale_x &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000007">#rotation &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000114">#scale_x= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000024">#rotation= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000108">#scale_y &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000037">#run_action &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000115">#scale_y= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000008">#scale &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000127">#schedule &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000025">#scale= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000186">#secure_text &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000009">#scale_x &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000177">#set_tile_gid &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000026">#scale_x= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/Speed.html#M000101">#speed &mdash; Cocos2D::Actions::Speed</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000010">#scale_y &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/Speed.html#M000102">#speed= &mdash; Cocos2D::Actions::Speed</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000027">#scale_y= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/Action.html#M000019">#start &mdash; Cocos2D::Actions::Action</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000041">#schedule &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Actions/Action.html#M000020">#stop &mdash; Cocos2D::Actions::Action</a></li>
+			<li><a href="Cocos2D/TextField.html#M000193">#secure_text &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000004">#stop &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/TMXLayer.html#M000184">#set_tile_gid &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/Label.html#M000152">#string= &mdash; Cocos2D::Label</a></li>
+			<li><a href="Cocos2D/Actions/Speed.html#M000144">#speed &mdash; Cocos2D::Actions::Speed</a></li>
 		
-			<li><a href="Cocos2D/LabelAtlas.html#M000154">#string= &mdash; Cocos2D::LabelAtlas</a></li>
+			<li><a href="Cocos2D/Actions/Speed.html#M000145">#speed= &mdash; Cocos2D::Actions::Speed</a></li>
 		
-			<li><a href="Cocos2D/BitmapFontAtlas.html#M000016">#string= &mdash; Cocos2D::BitmapFontAtlas</a></li>
+			<li><a href="Cocos2D/Actions/Action.html#M000062">#start_with_target &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000111">#tag &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/Actions/Action.html#M000063">#stop &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000118">#tag= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000015">#stop &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000175">#tile &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000038">#stop_actions &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TMXLayer.html#M000176">#tile_gid &mdash; Cocos2D::TMXLayer</a></li>
+			<li><a href="Cocos2D/BitmapFontAtlas.html#M000060">#string= &mdash; Cocos2D::BitmapFontAtlas</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000128">#unschedule &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/Label.html#M000160">#string= &mdash; Cocos2D::Label</a></li>
 		
-			<li><a href="Cocos2D/Slider.html#M000165">#value &mdash; Cocos2D::Slider</a></li>
+			<li><a href="Cocos2D/LabelAtlas.html#M000162">#string= &mdash; Cocos2D::LabelAtlas</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000183">#value &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000020">#tag &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000184">#value= &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000030">#tag= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/Slider.html#M000166">#value= &mdash; Cocos2D::Slider</a></li>
+			<li><a href="Cocos2D/TMXLayer.html#M000182">#tile &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000117">#visible= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TMXLayer.html#M000183">#tile_gid &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000110">#visible? &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000042">#unschedule &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000008">#volume &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/TextField.html#M000190">#value &mdash; Cocos2D::TextField</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000007">#volume= &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/Slider.html#M000173">#value &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000130">#world_to_node_space &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/Slider.html#M000174">#value= &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000104">#z_order &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/TextField.html#M000191">#value= &mdash; Cocos2D::TextField</a></li>
+		
+			<li><a href="Cocos2D/CocosNode.html#M000029">#visible= &mdash; Cocos2D::CocosNode</a></li>
+		
+			<li><a href="Cocos2D/CocosNode.html#M000012">#visible? &mdash; Cocos2D::CocosNode</a></li>
+		
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000019">#volume &mdash; Cocos2D::AVAudioPlayer</a></li>
+		
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000018">#volume= &mdash; Cocos2D::AVAudioPlayer</a></li>
+		
+			<li><a href="Cocos2D/CocosNode.html#M000044">#world_to_node_space &mdash; Cocos2D::CocosNode</a></li>
+		
+			<li><a href="Cocos2D/CocosNode.html#M000006">#z_order &mdash; Cocos2D::CocosNode</a></li>
+		
+			<li><a href="Cocos2D/CocosNode.html#M000022">#z_order= &mdash; Cocos2D::CocosNode</a></li>
 		
 	</ul>
 

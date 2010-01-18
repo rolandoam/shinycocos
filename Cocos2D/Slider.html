@@ -59,17 +59,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000162">::new</a></li>
+					<li><a href="#M000170">::new</a></li>
 					
-					<li><a href="#M000167">#add_target</a></li>
+					<li><a href="#M000175">#add_target</a></li>
 					
-					<li><a href="#M000163">#attach</a></li>
+					<li><a href="#M000171">#attach</a></li>
 					
-					<li><a href="#M000164">#detach</a></li>
+					<li><a href="#M000172">#detach</a></li>
 					
-					<li><a href="#M000165">#value</a></li>
+					<li><a href="#M000173">#value</a></li>
 					
-					<li><a href="#M000166">#value=</a></li>
+					<li><a href="#M000174">#value=</a></li>
 					
 				</ul>
 			</div>
@@ -120,8 +120,6 @@
 					<li><a href="../Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 				
 					<li><a href="../Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-				
-					<li><a href="../Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 				
 					<li><a href="../Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
@@ -358,7 +356,7 @@
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000162"></a>
+				<a name="M000170"></a>
 
 				<div class="method-heading">
 				
@@ -395,7 +393,7 @@ VALUE rb_cSlider_s_new(int argc, VALUE *argv, VALUE klass) </pre>
 
 		
 			<div id="add-target-method" class="method-detail ">
-				<a name="M000167"></a>
+				<a name="M000175"></a>
 
 				<div class="method-heading">
 				
@@ -426,7 +424,7 @@ VALUE rb_cSlider_add_target(VALUE object, VALUE target, VALUE event) </pre>
 
 		
 			<div id="attach-method" class="method-detail ">
-				<a name="M000163"></a>
+				<a name="M000171"></a>
 
 				<div class="method-heading">
 				
@@ -457,7 +455,7 @@ VALUE rb_cSlider_attach(VALUE object) </pre>
 
 		
 			<div id="detach-method" class="method-detail ">
-				<a name="M000164"></a>
+				<a name="M000172"></a>
 
 				<div class="method-heading">
 				
@@ -488,12 +486,11 @@ VALUE rb_cSlider_detach(VALUE object) </pre>
 
 		
 			<div id="value-method" class="method-detail ">
-				<a name="M000165"></a>
+				<a name="M000173"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">value</span><span
-						class="method-args">()</span>
+					<span class="method-callseq">value   #=> float</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -501,11 +498,8 @@ VALUE rb_cSlider_detach(VALUE object) </pre>
 				<div class="method-description">
 					
 					<p>
-call-seq:
+returns the current value of the slider as a float
 </p>
-<pre>
-  slider.value   #=&gt; string
-</pre>
 					
 
 					
@@ -522,12 +516,11 @@ VALUE rb_cSlider_value(VALUE object) </pre>
 
 		
 			<div id="value--method" class="method-detail ">
-				<a name="M000166"></a>
+				<a name="M000174"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">value=</span><span
-						class="method-args">(p1)</span>
+					<span class="method-callseq">value = float   #=> float</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -535,11 +528,8 @@ VALUE rb_cSlider_value(VALUE object) </pre>
 				<div class="method-description">
 					
 					<p>
-call-seq:
+sets the current value of the slider
 </p>
-<pre>
-  slider.value = string   #=&gt; string
-</pre>
 					
 
 					

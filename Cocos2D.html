@@ -113,6 +113,8 @@
 					
 					<li><a href="#M000000">::ns_log</a></li>
 					
+					<li><a href="#M000002">::reachability_for_host</a></li>
+					
 				</ul>
 			</div>
 			
@@ -162,8 +164,6 @@
 					<li><a href="./Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 				
 					<li><a href="./Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-				
-					<li><a href="./Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 				
 					<li><a href="./Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
@@ -372,6 +372,34 @@
 
 		<!-- Constants -->
 		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="NOT_REACHABLE">NOT_REACHABLE</a></dt>
+				
+				<dd class="description"><p>
+no network conectivity
+</p></dd>
+				
+			
+				<dt><a name="REACHABLE_VIA_CARRIER_DATA_NETWORK">REACHABLE_VIA_CARRIER_DATA_NETWORK</a></dt>
+				
+				<dd class="description"><p>
+network conectivity through carrier
+</p></dd>
+				
+			
+				<dt><a name="REACHABLE_VIA_WIFI_NETWORK">REACHABLE_VIA_WIFI_NETWORK</a></dt>
+				
+				<dd class="description"><p>
+network conectivity through wifi network
+</p></dd>
+				
+			
+			</dl>
+		</div>
+		
 
 		<!-- Attributes -->
 		
@@ -417,8 +445,7 @@ VALUE sc_display_alert(int argc, VALUE *argv, VALUE module) </pre>
 
 				<div class="method-heading">
 				
-					<span class="method-name">ns_log</span><span
-						class="method-args">(...)</span>
+					<span class="method-callseq">ns_log "something to log here", "something else here", [1,2,3], aRubyObject</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -426,7 +453,11 @@ VALUE sc_display_alert(int argc, VALUE *argv, VALUE module) </pre>
 				<div class="method-description">
 					
 					<p>
-use this with caution, this is really slow!
+NOTE: Use this with caution, this is really slow!
+</p>
+<p>
+For every argument passed, if it&#8217;s not a string, <tt>inspect</tt> is
+called on it to convert it to string.
 </p>
 					
 
@@ -435,6 +466,53 @@ use this with caution, this is really slow!
 						id="ns-log-source">
 <pre>
 VALUE sc_ns_log(int argc, VALUE *argv, VALUE module) </pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="reachability-for-host-method" class="method-detail ">
+				<a name="M000002"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">reachability_for_host("myhost.com")   #=> integer</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Determines the reachability for the specified host. You should always try
+to check for the reachability of a host before actually contacting it.
+</p>
+<p>
+Possible return values:
+</p>
+<ul>
+<li><tt>Cocos2D::<a href="Cocos2D.html#NOT_REACHABLE">NOT_REACHABLE</a></tt>
+
+</li>
+<li><tt>Cocos2D::<a
+href="Cocos2D.html#REACHABLE_VIA_CARRIER_DATA_NETWORK">REACHABLE_VIA_CARRIER_DATA_NETWORK</a></tt>
+
+</li>
+<li><tt>Cocos2D::<a
+href="Cocos2D.html#REACHABLE_VIA_WIFI_NETWORK">REACHABLE_VIA_WIFI_NETWORK</a></tt>
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="reachability-for-host-source">
+<pre>
+VALUE sc_reachability_for_host(VALUE module, VALUE host) </pre>
 					</div>
 					
 				</div>

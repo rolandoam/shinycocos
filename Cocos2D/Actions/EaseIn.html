@@ -59,7 +59,7 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000030">::new</a></li>
+					<li><a href="#M000073">::new</a></li>
 					
 				</ul>
 			</div>
@@ -110,8 +110,6 @@
 					<li><a href="../../Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 				
 					<li><a href="../../Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-				
-					<li><a href="../../Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 				
 					<li><a href="../../Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
@@ -331,12 +329,11 @@
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000030"></a>
+				<a name="M000073"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">new</span><span
-						class="method-args">(...)</span>
+					<span class="method-callseq">new another_action</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -344,10 +341,10 @@
 				<div class="method-description">
 					
 					<p>
-call-seq:
+example:
 </p>
 <pre>
-  doc stub
+  node.run_action Actions::EaseIn.new(Actions::MoveTo.new(10, [20,20]))
 </pre>
 					
 

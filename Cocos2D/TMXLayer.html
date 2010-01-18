@@ -59,19 +59,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000174">#add_tile</a></li>
+					<li><a href="#M000181">#name</a></li>
 					
-					<li><a href="#M000173">#name</a></li>
+					<li><a href="#M000186">#px_position</a></li>
 					
-					<li><a href="#M000179">#px_position</a></li>
+					<li><a href="#M000185">#remove_tile</a></li>
 					
-					<li><a href="#M000178">#remove_tile</a></li>
+					<li><a href="#M000184">#set_tile_gid</a></li>
 					
-					<li><a href="#M000177">#set_tile_gid</a></li>
+					<li><a href="#M000182">#tile</a></li>
 					
-					<li><a href="#M000175">#tile</a></li>
-					
-					<li><a href="#M000176">#tile_gid</a></li>
+					<li><a href="#M000183">#tile_gid</a></li>
 					
 				</ul>
 			</div>
@@ -122,8 +120,6 @@
 					<li><a href="../Cocos2D/Actions/Action.html">Cocos2D::Actions::Action</a></li>
 				
 					<li><a href="../Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
-				
-					<li><a href="../Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
 				
 					<li><a href="../Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
@@ -342,39 +338,8 @@
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
-			<div id="add-tile-method" class="method-detail ">
-				<a name="M000174"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-callseq">add_tile(gid, coord)   #=> AtlasSprite</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p>
-Adds a new tile for the given gid on the specified position (as a 2d
-array). Returns a new <a href="AtlasSprite.html">AtlasSprite</a>.
-</p>
-					
-
-					
-					<div class="method-source-code"
-						id="add-tile-source">
-<pre>
-VALUE rb_cTMXLayer_add_tile(VALUE obj, VALUE gid, VALUE coord) </pre>
-					</div>
-					
-				</div>
-
-				
-			</div>
-
-		
 			<div id="name-method" class="method-detail ">
-				<a name="M000173"></a>
+				<a name="M000181"></a>
 
 				<div class="method-heading">
 				
@@ -404,7 +369,7 @@ VALUE rb_cTMXLayer_name(VALUE obj) </pre>
 
 		
 			<div id="px-position-method" class="method-detail ">
-				<a name="M000179"></a>
+				<a name="M000186"></a>
 
 				<div class="method-heading">
 				
@@ -434,7 +399,7 @@ VALUE rb_cTMXLayer_px_position(VALUE obj, VALUE coord) </pre>
 
 		
 			<div id="remove-tile-method" class="method-detail ">
-				<a name="M000178"></a>
+				<a name="M000185"></a>
 
 				<div class="method-heading">
 				
@@ -464,7 +429,7 @@ VALUE rb_cTMXLayer_remove_tile(VALUE obj, VALUE coord) </pre>
 
 		
 			<div id="set-tile-gid-method" class="method-detail ">
-				<a name="M000177"></a>
+				<a name="M000184"></a>
 
 				<div class="method-heading">
 				
@@ -495,7 +460,7 @@ VALUE rb_cTMXLayer_set_tile_gid(VALUE obj, VALUE gid, VALUE coord) </pre>
 
 		
 			<div id="tile-method" class="method-detail ">
-				<a name="M000175"></a>
+				<a name="M000182"></a>
 
 				<div class="method-heading">
 				
@@ -526,7 +491,7 @@ VALUE rb_cTMXLayer_tile(VALUE obj, VALUE coord) </pre>
 
 		
 			<div id="tile-gid-method" class="method-detail ">
-				<a name="M000176"></a>
+				<a name="M000183"></a>
 
 				<div class="method-heading">
 				

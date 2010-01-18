@@ -64,8 +64,6 @@
 				
 					<li><a href="./Cocos2D/Actions/Animate.html">Cocos2D::Actions::Animate</a></li>
 				
-					<li><a href="./Cocos2D/Actions/BezierBy.html">Cocos2D::Actions::BezierBy</a></li>
-				
 					<li><a href="./Cocos2D/Actions/Blink.html">Cocos2D::Actions::Blink</a></li>
 				
 					<li><a href="./Cocos2D/Actions/CallFunc.html">Cocos2D::Actions::CallFunc</a></li>
@@ -401,72 +399,59 @@ That will fix the <tt>-E</tt> option (needed to treat <tt>.m</tt> files as
 </p>
 <h2>Installation/Building</h2>
 <p>
-<b>NOTE</b> if you have a previous version of ShinyCocos and have a
-&#8220;ruby&#8221; directory, remove that directory and pull the latest
-version from the repository (or completly remove ShinyCocos and pull the
-latest version).
-</p>
-<p>
-First, you need to get the latest release of cocos2d (currently, working
-with v0.8 from trunk) You can either fetch it from the project page or
-using subversion:
+First, you need a fresh copy of ShinyCocos, so get one:
 </p>
 <pre>
-  svn co http://cocos2d-iphone.googlecode.com/svn/trunk cocos2d-iphone
+  git clone http://github.com/funkaster/shinycocos.git
 </pre>
 <p>
-If you already have a copy of Cocos2D-iphone lying around, you can safely
-create a symbolic link with the name of &#8220;cocos2d-iphone&#8221;:
+Now, you&#8217;re ready to rock. Since we love ruby so much, the building
+process is really easy:
 </p>
 <pre>
-  cd shinycocos
-  ln -s /path/to/cocos2d-iphone cocos2d-iphone
+  rake distribution
+  rake install_template
 </pre>
 <p>
-Open the cocos2d-iphone project and set the output directory for the
-cocos2d-iphone and chipmunk to &#8220;../build&#8221; instead of
-&#8220;build&#8221;.
-</p>
-<p>
-Open the TestShinyCocos project and build.
-</p>
-<p>
-Now you&#8217;re ready to rock :-)
+Now fire up XCode, and choose as a new project, the ShinyCocos application.
+Enjoy!
 </p>
 <h2>Documentation</h2>
 <p>
-Use the rakefile:
+You can check the online documentation for the official release here:
 </p>
-<pre>
-  rake rdoc
-  open html/index.html
-</pre>
 <p>
-You might need a newer version of rdoc:
+<a
+href="http://funkaster.github.com/shinycocos">funkaster.github.com/shinycocos</a>
 </p>
-<pre>
-  sudo gem install rdoc
-</pre>
 <p>
-The one that comes with Leopard is too old and complains about the
-enclosing module not being found.
+Also, be sure to check the wiki:
+</p>
+<p>
+<a
+href="http://wiki.github.com/funkaster/shinycocos">wiki.github.com/funkaster/shinycocos</a>
 </p>
 <h2>Adding extensions from the stdlib</h2>
 <p>
-If you need to add an extension from the stdlib (or your own extension) add
-the source file to the &#8220;ext&#8221; group in the ShinyCocos project
-file. It will be statically linked to ruby. You should also add the Init
-call in the function <tt>Init_SC_Ruby_Extensions</tt>, in the
-<tt>SC_init.m</tt> file.
+If you need to add your own c extension, or one from the stdlib, add them
+to your project, and put the <tt>Init_xxx()</tt> call right after the call
+to SetupShinyCocos() in your main app delegate, like this:
 </p>
+<pre>
+  ShinyCocosSetup(window);
+  // insert here your ruby extensions (i.e.: Init_zzz())
+  Init_myextension();
+  Init_another_extension();
+
+  ShinyCocosInitChipmunk();
+  ShinyCocosStart();
+</pre>
 <p>
-After that, make sure you add an empty file named after your extension,
-i.e: stringio.rb for the StringIO extension, inside the &#8220;lib&#8221;
-directory of your project. That way, your code can still call <tt>require
-'stringio'</tt>.
-</p>
-<p>
-I will try to find an easier way :-).
+Be careful with the <tt>require</tt>s though, because if you add the
+extension this way, it will be statically linked, so you don&#8217;t have
+to <tt>require</tt> it in your code. If you do not want to modify your
+code, just add an empty file named after your extension and put it in the
+<tt>lib</tt> directory of your project.
 </p>
 <p>
 For ruby-only extensions, just add them to the lib directory.
@@ -477,24 +462,13 @@ You don&#8217;t need to <tt>require</tt> these, they&#8217;re already
 bundled and initialized in the included interpreter.
 </p>
 <ul>
-<li>encdb
-
-</li>
-<li>stringio
-
-</li>
-<li>syck
-
-</li>
-<li>nkf
-
-</li>
 <li>zlib
 
 </li>
 </ul>
 <p>
-These are pure-ruby libs (found in the <tt>lib</tt> directory):
+These are pure-ruby libs (found in the <tt>lib</tt> directory) added when
+you create a new project using the XCode template:
 </p>
 <ul>
 <li>base64
@@ -512,17 +486,6 @@ These are pure-ruby libs (found in the <tt>lib</tt> directory):
 <li>set
 
 </li>
-<li>yaml
-
-</li>
-</ul>
-<p>
-ShinyCocos libraries (also pure-ruby):
-</p>
-<ul>
-<li>map_reader (Tiled map support)
-
-</li>
 </ul>
 <h2>Hey, I found a bug!</h2>
 <p>
@@ -532,19 +495,16 @@ the github project page.
 </p>
 <h2>TODO</h2>
 <ul>
-<li>Add documentation :-)
+<li>Improve documentation :-)
 
 </li>
 <li>Integrate the rest of the cocos2d-iphone API
 
 </li>
-<li>Check for leaks
+<li>Test for leaks
 
 </li>
 <li>Benchmarks
-
-</li>
-<li>Support for &#8216;debug&#8217; (?)
 
 </li>
 </ul>
