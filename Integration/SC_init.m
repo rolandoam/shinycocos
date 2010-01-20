@@ -38,7 +38,7 @@ struct sc_funcall_param {
 
 void sc_free(void *ptr) {
 	CocosNode *obj = (CocosNode *)(((cocos_holder *)(ptr))->_obj);
-	if (obj) {
+	if (obj && [obj isKindOfClass:[CocosNode class]]) {
 		obj.userData = nil; // we set this to nil because ruby has already cleared this
 		[obj release];
 	}
