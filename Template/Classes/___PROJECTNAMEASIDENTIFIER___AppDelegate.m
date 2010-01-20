@@ -23,7 +23,12 @@ unsigned long sc_require(unsigned long file) {
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	ShinyCocosSetup();
+#if COCOS2D_DEBUG
+	// add a special place to look for ruby scripts
+	ShinyCocosSetup(@"/Somewhere/In/Your/HD");
+#else
+	ShinyCocosSetup(nil);
+#endif
 	ShinyCocosInitChipmunk();
 	ShinyCocosStart(window, self);
 }
