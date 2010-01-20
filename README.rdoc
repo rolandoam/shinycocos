@@ -6,7 +6,7 @@ ShinyCocos is a ruby bindings for the Cocos2D-iphone game framework.
 
 The idea is to have a very rubyish binding for the awesome
 {cocos2d-iphone}[http://code.google.com/p/cocos2d-iphone] game
-framework. It also includes the Chipmunk ruby bindings.
+framework. It also includes the Chipmunk (5.1.0) ruby bindings.
 
 == Why?
 
@@ -17,10 +17,10 @@ and also, ruby takes care of your GC.
 
 == How?
 
-Bundled with your application there is a ruby interpreter (ruby 1.9.1,
-stable-snapshot). The interpreter is loaded with a simple call from
-within your App Delegate. The interpreter then loads "main.rb". From
-there, you can have as many classes/files as you want.
+Bundled with your application there is a ruby interpreter (ruby 1.8.7).
+The interpreter is loaded with a simple call from within your App Delegate.
+The interpreter then loads "main.rb". From there, you can have as many
+classes/files as you want.
 
 Your own code should be under the directory <tt>vendor</tt>, the
 ruby libraries, and other common code should be under the directory
@@ -55,8 +55,8 @@ not implemented 100%.
 
 == Requirements
 
-* subversion (to fetch current trunk of cocos2d-iphone --working with v0.8--)
-* rake (in order to generate the documentation)
+* rake (in order to compile and generate the documentation)
+* iPhone SDK 3.0 or greater (ShinyCocos is compiled against SDK 3.0)
 * rdoc >= 2.4.0 (you can install it with: <tt>sudo gem install rdoc</tt>)
 
 NOTE:
