@@ -32,7 +32,7 @@ static char **sc_argv;
 static int    sc_argc;
 id _appDelegate;
 
-void ShinyCocosSetup() {	
+void ShinyCocosSetup(NSString *devLibs) {	
 	/* prepare ruby stuff */
 	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 	NSString *rubyLib = [NSString stringWithFormat:@"%@/lib", resourcePath];
@@ -52,10 +52,13 @@ void ShinyCocosSetup() {
 	
 	/* add the bundle resource path to the search path */
 	VALUE load_path = rb_gv_get(":");
-	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]));
-	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyLib cStringUsingEncoding:NSUTF8StringEncoding]));
-	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyVendor cStringUsingEncoding:NSUTF8StringEncoding]));
-
+	if (devLibs) {
+		rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([devLibs UTF8String]));
+	}
+	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([resourcePath UTF8String]));
+	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyLib UTF8String]));
+	rb_funcall(load_path, rb_intern("push"), 1, rb_str_new2([rubyVendor UTF8String]));
+	
 	/* init our stuff */
 	Init_ShinyCocos();
 	Init_SC_Ruby_Extensions();
