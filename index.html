@@ -31,7 +31,7 @@ ShinyCocos is a ruby bindings for the Cocos2D-iphone game framework.
 <p>
 The idea is to have a very rubyish binding for the awesome <a
 href="http://code.google.com/p/cocos2d-iphone">cocos2d-iphone</a> game
-framework. It also includes the Chipmunk ruby bindings.
+framework. It also includes the Chipmunk (5.1.0) ruby bindings.
 </p>
 <h2>Why?</h2>
 <p>
@@ -43,10 +43,10 @@ overhead and also, ruby takes care of your GC.
 </p>
 <h2>How?</h2>
 <p>
-Bundled with your application there is a ruby interpreter (ruby 1.9.1,
-stable-snapshot). The interpreter is loaded with a simple call from within
-your App Delegate. The interpreter then loads &#8220;main.rb&#8220;. From
-there, you can have as many classes/files as you want.
+Bundled with your application there is a ruby interpreter (ruby 1.8.7). The
+interpreter is loaded with a simple call from within your App Delegate. The
+interpreter then loads &#8220;main.rb&#8220;. From there, you can have as
+many classes/files as you want.
 </p>
 <p>
 Your own code should be under the directory <tt>vendor</tt>, the ruby
@@ -124,11 +124,10 @@ implemented 100%.
 </p>
 <h2>Requirements</h2>
 <ul>
-<li>subversion (to fetch current trunk of cocos2d-iphone &#8212;working with
-v0.8&#8212;)
+<li>rake (in order to compile and generate the documentation)
 
 </li>
-<li>rake (in order to generate the documentation)
+<li>iPhone SDK 3.0 or greater (ShinyCocos is compiled against SDK 3.0)
 
 </li>
 <li>rdoc >= 2.4.0 (you can install it with: <tt>sudo gem install rdoc</tt>)
@@ -162,7 +161,7 @@ That will fix the <tt>-E</tt> option (needed to treat <tt>.m</tt> files as
 First, you need a fresh copy of ShinyCocos, so get one:
 </p>
 <pre>
-  git clone http://github.com/funkaster/shinycocos.git
+  git clone git://github.com/funkaster/shinycocos.git
 </pre>
 <p>
 Now, you&#8217;re ready to rock. Since we love ruby so much, the building
@@ -532,11 +531,11 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/EaseAction.html#M000071">::new &mdash; Cocos2D::Actions::EaseAction</a></li>
 		
-			<li><a href="Cocos2D/Actions/TiledGrid3DAction.html#M000094">::new &mdash; Cocos2D::Actions::TiledGrid3DAction</a></li>
+			<li><a href="Cocos2D/Actions/TiledGrid3DAction.html#M000093">::new &mdash; Cocos2D::Actions::TiledGrid3DAction</a></li>
 		
 			<li><a href="Cocos2D/Actions/Speed.html#M000068">::new &mdash; Cocos2D::Actions::Speed</a></li>
 		
-			<li><a href="Cocos2D/Actions/Liquid.html#M000089">::new &mdash; Cocos2D::Actions::Liquid</a></li>
+			<li><a href="Cocos2D/Actions/Liquid.html#M000088">::new &mdash; Cocos2D::Actions::Liquid</a></li>
 		
 			<li><a href="Cocos2D/Layer.html#M000163">::new &mdash; Cocos2D::Layer</a></li>
 		
@@ -548,7 +547,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/MoveBy.html#M000115">::new &mdash; Cocos2D::Actions::MoveBy</a></li>
 		
-			<li><a href="Cocos2D/Actions/Ripple3D.html#M000087">::new &mdash; Cocos2D::Actions::Ripple3D</a></li>
+			<li><a href="Cocos2D/Actions/Ripple3D.html#M000086">::new &mdash; Cocos2D::Actions::Ripple3D</a></li>
 		
 			<li><a href="Cocos2D/Actions/Waves3D.html#M000082">::new &mdash; Cocos2D::Actions::Waves3D</a></li>
 		
@@ -558,17 +557,17 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/SplitCols.html#M000140">::new &mdash; Cocos2D::Actions::SplitCols</a></li>
 		
-			<li><a href="Cocos2D/Actions/Waves.html#M000090">::new &mdash; Cocos2D::Actions::Waves</a></li>
+			<li><a href="Cocos2D/Actions/Waves.html#M000089">::new &mdash; Cocos2D::Actions::Waves</a></li>
 		
 			<li><a href="Cocos2D/Actions/EaseSineOut.html#M000080">::new &mdash; Cocos2D::Actions::EaseSineOut</a></li>
 		
 			<li><a href="Cocos2D/AtlasAnimation.html#M000054">::new &mdash; Cocos2D::AtlasAnimation</a></li>
 		
-			<li><a href="Cocos2D/Actions/Grid3DAction.html#M000093">::new &mdash; Cocos2D::Actions::Grid3DAction</a></li>
+			<li><a href="Cocos2D/Actions/Grid3DAction.html#M000092">::new &mdash; Cocos2D::Actions::Grid3DAction</a></li>
 		
 			<li><a href="Cocos2D/Actions/FadeOut.html#M000122">::new &mdash; Cocos2D::Actions::FadeOut</a></li>
 		
-			<li><a href="Cocos2D/Actions/GridAction.html#M000092">::new &mdash; Cocos2D::Actions::GridAction</a></li>
+			<li><a href="Cocos2D/Actions/GridAction.html#M000091">::new &mdash; Cocos2D::Actions::GridAction</a></li>
 		
 			<li><a href="Cocos2D/LabelAtlas.html#M000161">::new &mdash; Cocos2D::LabelAtlas</a></li>
 		
@@ -576,7 +575,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/TintTo.html#M000124">::new &mdash; Cocos2D::Actions::TintTo</a></li>
 		
-			<li><a href="Cocos2D/Actions/DeccelAmplitude.html#M000097">::new &mdash; Cocos2D::Actions::DeccelAmplitude</a></li>
+			<li><a href="Cocos2D/Actions/DeccelAmplitude.html#M000096">::new &mdash; Cocos2D::Actions::DeccelAmplitude</a></li>
 		
 			<li><a href="Cocos2D/AtlasSpriteManager.html#M000056">::new &mdash; Cocos2D::AtlasSpriteManager</a></li>
 		
@@ -600,7 +599,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/MenuItemImage.html#M000165">::new &mdash; Cocos2D::MenuItemImage</a></li>
 		
-			<li><a href="Cocos2D/Actions/Lens3D.html#M000086">::new &mdash; Cocos2D::Actions::Lens3D</a></li>
+			<li><a href="Cocos2D/Actions/Lens3D.html#M000085">::new &mdash; Cocos2D::Actions::Lens3D</a></li>
 		
 			<li><a href="Cocos2D/Actions/EaseSineInOut.html#M000081">::new &mdash; Cocos2D::Actions::EaseSineInOut</a></li>
 		
@@ -634,7 +633,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/Sequence.html#M000109">::new &mdash; Cocos2D::Actions::Sequence</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000013">::new &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000017">::new &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000003">::new &mdash; Cocos2D::CocosNode</a></li>
 		
@@ -644,7 +643,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/Action.html#M000061">::new &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000187">::new &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000188">::new &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/Actions/CallFunc.html#M000105">::new &mdash; Cocos2D::Actions::CallFunc</a></li>
 		
@@ -654,9 +653,9 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/OrbitCamera.html#M000070">::new &mdash; Cocos2D::Actions::OrbitCamera</a></li>
 		
-			<li><a href="Cocos2D/Actions/Shaky3D.html#M000088">::new &mdash; Cocos2D::Actions::Shaky3D</a></li>
+			<li><a href="Cocos2D/Actions/Shaky3D.html#M000087">::new &mdash; Cocos2D::Actions::Shaky3D</a></li>
 		
-			<li><a href="Cocos2D/TextureNode.html#M000195">::new &mdash; Cocos2D::TextureNode</a></li>
+			<li><a href="Cocos2D/TextureNode.html#M000187">::new &mdash; Cocos2D::TextureNode</a></li>
 		
 			<li><a href="Cocos2D/Actions/FadeOutBLTiles.html#M000133">::new &mdash; Cocos2D::Actions::FadeOutBLTiles</a></li>
 		
@@ -670,7 +669,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/EaseExponentialIn.html#M000076">::new &mdash; Cocos2D::Actions::EaseExponentialIn</a></li>
 		
-			<li><a href="Cocos2D/Actions/AccelAmplitude.html#M000096">::new &mdash; Cocos2D::Actions::AccelAmplitude</a></li>
+			<li><a href="Cocos2D/Actions/AccelAmplitude.html#M000095">::new &mdash; Cocos2D::Actions::AccelAmplitude</a></li>
 		
 			<li><a href="Cocos2D/Scene.html#M000169">::new &mdash; Cocos2D::Scene</a></li>
 		
@@ -678,7 +677,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/FadeOutUpTiles.html#M000134">::new &mdash; Cocos2D::Actions::FadeOutUpTiles</a></li>
 		
-			<li><a href="Cocos2D/Actions/Twirl.html#M000091">::new &mdash; Cocos2D::Actions::Twirl</a></li>
+			<li><a href="Cocos2D/Actions/Twirl.html#M000090">::new &mdash; Cocos2D::Actions::Twirl</a></li>
 		
 			<li><a href="Cocos2D/Actions/FadeIn.html#M000121">::new &mdash; Cocos2D::Actions::FadeIn</a></li>
 		
@@ -688,7 +687,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/DelayTime.html#M000126">::new &mdash; Cocos2D::Actions::DelayTime</a></li>
 		
-			<li><a href="Cocos2D/Actions/AccelDeccelAmplitude.html#M000095">::new &mdash; Cocos2D::Actions::AccelDeccelAmplitude</a></li>
+			<li><a href="Cocos2D/Actions/AccelDeccelAmplitude.html#M000094">::new &mdash; Cocos2D::Actions::AccelDeccelAmplitude</a></li>
 		
 			<li><a href="Cocos2D/Actions/ReuseGrid.html#M000099">::new &mdash; Cocos2D::Actions::ReuseGrid</a></li>
 		
@@ -704,7 +703,7 @@ the github project page.
 		
 			<li><a href="Cocos2D.html#M000002">::reachability_for_host &mdash; Cocos2D</a></li>
 		
-			<li><a href="File.html#M000085">::read_from_resources &mdash; File</a></li>
+			<li><a href="File.html#M000097">::read_from_resources &mdash; File</a></li>
 		
 			<li><a href="Cocos2D/Director.html#M000152">::remove_touch_handler &mdash; Cocos2D::Director</a></li>
 		
@@ -750,7 +749,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Slider.html#M000171">#attach &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000188">#attach &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000189">#attach &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000040">#attach_chipmunk_shape &mdash; Cocos2D::CocosNode</a></li>
 		
@@ -772,13 +771,13 @@ the github project page.
 		
 			<li><a href="Cocos2D/AtlasSpriteManager.html#M000057">#create_sprite &mdash; Cocos2D::AtlasSpriteManager</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000016">#delegate= &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000020">#delegate= &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000192">#delegate= &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000193">#delegate= &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/Slider.html#M000172">#detach &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000189">#detach &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000190">#detach &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/Actions/Action.html#M000064">#done? &mdash; Cocos2D::Actions::Action</a></li>
 		
@@ -792,7 +791,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/CocosNode.html#M000052">#inspect &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000017">#loops= &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000021">#loops= &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
 			<li><a href="Cocos2D/TMXLayer.html#M000181">#name &mdash; Cocos2D::TMXLayer</a></li>
 		
@@ -800,13 +799,13 @@ the github project page.
 		
 			<li><a href="Cocos2D/CocosNode.html#M000050">#on_exit &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000023">#opacity= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000016">#opacity= &mdash; Cocos2D::CocosNode</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000005">#parent &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000021">#parent= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000014">#parent= &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000014">#play &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000018">#play &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000011">#position &mdash; Cocos2D::CocosNode</a></li>
 		
@@ -820,7 +819,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/TMXLayer.html#M000185">#remove_tile &mdash; Cocos2D::TMXLayer</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000194">#resign_first_responder &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000195">#resign_first_responder &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/Actions/FiniteTimeAction.html#M000143">#reverse &mdash; Cocos2D::Actions::FiniteTimeAction</a></li>
 		
@@ -844,7 +843,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/CocosNode.html#M000041">#schedule &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000193">#secure_text &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000194">#secure_text &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/TMXLayer.html#M000184">#set_tile_gid &mdash; Cocos2D::TMXLayer</a></li>
 		
@@ -856,7 +855,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/Actions/Action.html#M000063">#stop &mdash; Cocos2D::Actions::Action</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000015">#stop &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000019">#stop &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000038">#stop_actions &mdash; Cocos2D::CocosNode</a></li>
 		
@@ -866,7 +865,7 @@ the github project page.
 		
 			<li><a href="Cocos2D/LabelAtlas.html#M000162">#string= &mdash; Cocos2D::LabelAtlas</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000020">#tag &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000013">#tag &mdash; Cocos2D::CocosNode</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000030">#tag= &mdash; Cocos2D::CocosNode</a></li>
 		
@@ -876,27 +875,27 @@ the github project page.
 		
 			<li><a href="Cocos2D/CocosNode.html#M000042">#unschedule &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000190">#value &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000191">#value &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/Slider.html#M000173">#value &mdash; Cocos2D::Slider</a></li>
 		
 			<li><a href="Cocos2D/Slider.html#M000174">#value= &mdash; Cocos2D::Slider</a></li>
 		
-			<li><a href="Cocos2D/TextField.html#M000191">#value= &mdash; Cocos2D::TextField</a></li>
+			<li><a href="Cocos2D/TextField.html#M000192">#value= &mdash; Cocos2D::TextField</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000029">#visible= &mdash; Cocos2D::CocosNode</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000012">#visible? &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000019">#volume &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000023">#volume &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
-			<li><a href="Cocos2D/AVAudioPlayer.html#M000018">#volume= &mdash; Cocos2D::AVAudioPlayer</a></li>
+			<li><a href="Cocos2D/AVAudioPlayer.html#M000022">#volume= &mdash; Cocos2D::AVAudioPlayer</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000044">#world_to_node_space &mdash; Cocos2D::CocosNode</a></li>
 		
 			<li><a href="Cocos2D/CocosNode.html#M000006">#z_order &mdash; Cocos2D::CocosNode</a></li>
 		
-			<li><a href="Cocos2D/CocosNode.html#M000022">#z_order= &mdash; Cocos2D::CocosNode</a></li>
+			<li><a href="Cocos2D/CocosNode.html#M000015">#z_order= &mdash; Cocos2D::CocosNode</a></li>
 		
 	</ul>
 
