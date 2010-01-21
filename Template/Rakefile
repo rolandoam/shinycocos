@@ -1,0 +1,27 @@
+TEMPLATE_DIR='/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'
+
+desc "check ShinyCocos library version and update if a newer one is installed"
+task :update_shinycocos do
+  current = Dir["#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-*.a"].first
+  # just to make sure :-)
+  if File.exists?(current) && md = current.match(/libShinyCocos-(\d{4})(\d{2})(\d{2}).a/)
+    year, month, day = md[1,3].map {|i| i.to_i}
+    d1 = Date.new(year, month, day)
+    puts "Template lib: #{year} - #{month} - #{day}"
+    installed = Dir["./ShinyCocos/lib/libShinyCocos-*.a"].first
+    if installed
+      iyear, imonth, iday = (installed.match(/libShinyCocos-(\d{4})(\d{2})(\d{2})/))[1,3].map {|i| i.to_i}
+      d2 = Date.new(iyear, imonth, iday)
+      if d1 > d2
+        puts "Updating ShinyCocos (current: #{iyear}-#{imonth}-#{iday})"
+        sh "rm -f ./ShinyCocos/lib/*.a"
+        # copy original files
+        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-#{year}#{month}#{day}.a' ./ShinyCocos/lib"
+        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocosd-#{year}#{month}#{day}.a' ./ShinyCocos/lib"
+        # create links
+        sh "ln -s ./ShinyCocos/lib/libShinyCocos-#{year}#{month}#{day}.a ./ShinyCocos/lib/libShinyCocos.a"
+        sh "ln -s ./ShinyCocos/lib/libShinyCocosd-#{year}#{month}#{day}.a ./ShinyCocos/lib/libShinyCocosd.a"
+      end
+    end
+  end
+end
