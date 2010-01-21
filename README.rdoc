@@ -81,7 +81,7 @@ as <tt>.c</tt>)
 
 First, you need a fresh copy of ShinyCocos, so get one:
 
-  git clone http://github.com/funkaster/shinycocos.git
+  git clone git://github.com/funkaster/shinycocos.git
 
 Now, you're ready to rock. Since we love ruby so much, the building process
 is really easy:
