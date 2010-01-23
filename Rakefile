@@ -49,7 +49,7 @@ task :distribution => [:build_debug, :build_release] do
   libs = ["build/Release-iphoneos/libShinyCocos.a", "build/Release-iphonesimulator/libShinyCocos.a",
           "build/Debug-iphoneos/libShinyCocos.a", "build/Debug-iphonesimulator/libShinyCocos.a"]
   # test if there are uncommited changes
-  system("git status > /dev/null")
+  system("git diff --exit-code > /dev/null")
   if $?.exitstatus != 0
     $stderr.puts "** ERROR **"
     $stderr.puts "   Uncommited changes. Commit before building for distribution"
