@@ -44,7 +44,6 @@
 #import "SC_TextField.h"
 #import "SC_TextureNode.h"
 #import "SC_Transition.h"
-#import "SC_Twitter.h"
 #import "SC_UserDefaults.h"
 
 typedef struct {
