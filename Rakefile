@@ -12,7 +12,18 @@ def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
   "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
 end
 
-task :default => [:build]
+# returns a name for the new lib
+def libname(base)
+  tmp = `git log -1`
+  md = tmp.match(/commit (\w{6})/)
+  if md
+    name = "#{base}-#{md[1]}.a"
+    return name
+  end
+  return nil
+end
+
+task :default => [:build_debug]
 
 desc "Build Debug version of ShinyCocos"
 task :build_debug do
@@ -37,12 +48,20 @@ desc "Create static library"
 task :distribution => [:build_debug, :build_release] do
   libs = ["build/Release-iphoneos/libShinyCocos.a", "build/Release-iphonesimulator/libShinyCocos.a",
           "build/Debug-iphoneos/libShinyCocos.a", "build/Debug-iphonesimulator/libShinyCocos.a"]
+  # test if there are uncommited changes
+  system("git status > /dev/null")
+  if $?.exitstatus != 0
+    $stderr.puts "** ERROR **"
+    $stderr.puts "   Uncommited changes. Commit before building for distribution"
+    exit 1
+  end
   if File.exists?(libs[0]) && File.exists?(libs[1]) && File.exists?(libs[2]) && File.exists?(libs[3])
-    fname_release = Date.today.strftime("libShinyCocos-%Y%m%d.a")
-    fname_debug = Date.today.strftime("libShinyCocosd-%Y%m%d.a")
+    fname_release = libname("libShinyCocos")
+    fname_debug = libname("libShinyCocosd")
     sh "#{LIPO} -create #{libs[0]} #{libs[1]} -output build/#{fname_release}"
     sh "#{LIPO} -create #{libs[2]} #{libs[3]} -output build/#{fname_debug}"
     # copy libraries to template
+    sh "mkdir -p Template/ShinyCocos/lib"
     sh "rm -f Template/ShinyCocos/lib/*.a"
     sh "cp build/#{fname_release} Template/ShinyCocos/lib/"
     sh "cp build/#{fname_debug} Template/ShinyCocos/lib/"
@@ -58,6 +77,11 @@ desc "Install Xcode Template"
 task :install_template => [:distribution] do
   sh "sudo rm -rf '/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'"
   sh "sudo cp -r Template '/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'"
+end
+
+task :revision do
+  fname = libname("libShinyCocos")
+  puts fname
 end
 
 Rake::RDocTask.new do |rdoc|
