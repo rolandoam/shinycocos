@@ -53,8 +53,6 @@
 		A92F3114102DD31000C3B3FB /* SC_TMXTiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A92F30E2102DD31000C3B3FB /* SC_TMXTiledMap.m */; };
 		A92F3115102DD31000C3B3FB /* SC_Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = A92F30E3102DD31000C3B3FB /* SC_Transition.h */; };
 		A92F3116102DD31000C3B3FB /* SC_Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = A92F30E4102DD31000C3B3FB /* SC_Transition.m */; };
-		A92F3117102DD31000C3B3FB /* SC_Twitter.h in Headers */ = {isa = PBXBuildFile; fileRef = A92F30E5102DD31000C3B3FB /* SC_Twitter.h */; };
-		A92F3118102DD31000C3B3FB /* SC_Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A92F30E6102DD31000C3B3FB /* SC_Twitter.m */; };
 		A92F3119102DD31000C3B3FB /* SC_UserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = A92F30E7102DD31000C3B3FB /* SC_UserDefaults.h */; };
 		A92F311A102DD31000C3B3FB /* SC_UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A92F30E8102DD31000C3B3FB /* SC_UserDefaults.m */; };
 		A92F311B102DD31000C3B3FB /* ShinyCocos.h in Headers */ = {isa = PBXBuildFile; fileRef = A92F30E9102DD31000C3B3FB /* ShinyCocos.h */; };
@@ -305,8 +303,6 @@
 		A92F30E2102DD31000C3B3FB /* SC_TMXTiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_TMXTiledMap.m; path = Integration/SC_TMXTiledMap.m; sourceTree = "<group>"; };
 		A92F30E3102DD31000C3B3FB /* SC_Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Transition.h; path = Integration/SC_Transition.h; sourceTree = "<group>"; };
 		A92F30E4102DD31000C3B3FB /* SC_Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Transition.m; path = Integration/SC_Transition.m; sourceTree = "<group>"; };
-		A92F30E5102DD31000C3B3FB /* SC_Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_Twitter.h; path = Integration/SC_Twitter.h; sourceTree = "<group>"; };
-		A92F30E6102DD31000C3B3FB /* SC_Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_Twitter.m; path = Integration/SC_Twitter.m; sourceTree = "<group>"; };
 		A92F30E7102DD31000C3B3FB /* SC_UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SC_UserDefaults.h; path = Integration/SC_UserDefaults.h; sourceTree = "<group>"; };
 		A92F30E8102DD31000C3B3FB /* SC_UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SC_UserDefaults.m; path = Integration/SC_UserDefaults.m; sourceTree = "<group>"; };
 		A92F30E9102DD31000C3B3FB /* ShinyCocos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShinyCocos.h; path = Integration/ShinyCocos.h; sourceTree = "<group>"; };
@@ -633,8 +629,6 @@
 			children = (
 				A9190D7A10308D31004847A1 /* Reachability.h */,
 				A9190D7B10308D31004847A1 /* Reachability.m */,
-				A92F30E5102DD31000C3B3FB /* SC_Twitter.h */,
-				A92F30E6102DD31000C3B3FB /* SC_Twitter.m */,
 			);
 			name = Extras;
 			sourceTree = "<group>";
@@ -981,7 +975,6 @@
 				A92F3111102DD31000C3B3FB /* SC_TextureNode.h in Headers */,
 				A92F3113102DD31000C3B3FB /* SC_TMXTiledMap.h in Headers */,
 				A92F3115102DD31000C3B3FB /* SC_Transition.h in Headers */,
-				A92F3117102DD31000C3B3FB /* SC_Twitter.h in Headers */,
 				A92F3119102DD31000C3B3FB /* SC_UserDefaults.h in Headers */,
 				A92F311B102DD31000C3B3FB /* ShinyCocos.h in Headers */,
 				A9190D7C10308D31004847A1 /* Reachability.h in Headers */,
@@ -1120,7 +1113,6 @@
 				A92F3112102DD31000C3B3FB /* SC_TextureNode.m in Sources */,
 				A92F3114102DD31000C3B3FB /* SC_TMXTiledMap.m in Sources */,
 				A92F3116102DD31000C3B3FB /* SC_Transition.m in Sources */,
-				A92F3118102DD31000C3B3FB /* SC_Twitter.m in Sources */,
 				A92F311A102DD31000C3B3FB /* SC_UserDefaults.m in Sources */,
 				A92F311C102DD31000C3B3FB /* ShinyCocos.m in Sources */,
 				A9190D7D10308D31004847A1 /* Reachability.m in Sources */,
