@@ -1,7 +1,10 @@
-TEMPLATE_DIR='/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'
-APP_NAME="___PROJECTNAMEASIDENTIFIER___"
-SIMULATOR="/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app/Contents/MacOS"
-SDK_ROOT="/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.1.2.sdk"
+TEMPLATE_DIR = '/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'
+APP_NAME     = "___PROJECTNAMEASIDENTIFIER___"
+PROJECT      = "___PROJECTNAMEASIDENTIFIER___.xcodeproj"
+TARGET       = APP_NAME
+SDK_DEVICE   = "iphoneos3.1.2"
+SDK_SIMUL    = "iphonesimulator3.1.2"
+XCODEBUILD   = "/usr/bin/xcodebuild"
 
 def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
   "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
