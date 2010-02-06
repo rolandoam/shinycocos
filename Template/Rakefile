@@ -1,37 +1,71 @@
 TEMPLATE_DIR='/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'
-APP_NAME="AQ"
+APP_NAME="___PROJECTNAMEASIDENTIFIER___"
 SIMULATOR="/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app/Contents/MacOS"
 SDK_ROOT="/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk"
+
+def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
+  "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
+end
 
 desc "check ShinyCocos library version and update if a newer one is installed"
 task :update_shinycocos do
   current = Dir["#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-*.a"].first
   # just to make sure :-)
-  if File.exists?(current) && md = current.match(/libShinyCocos-(\d{4})(\d{2})(\d{2}).a/)
-    year, month, day = md[1,3].map {|i| i.to_i}
-    d1 = Date.new(year, month, day)
-    puts "Template lib: #{year} - #{month} - #{day}"
-    installed = Dir["./ShinyCocos/lib/libShinyCocos-*.a"].first
+  if File.exists?(current) && md = current.match(/libShinyCocos-(\w+).a/)
+    svers = md[1]
+    puts "Template lib: #{svers}"
+    installed = Dir["#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos-*.a"].first
     if installed
-      iyear, imonth, iday = (installed.match(/libShinyCocos-(\d{4})(\d{2})(\d{2})/))[1,3].map {|i| i.to_i}
-      d2 = Date.new(iyear, imonth, iday)
-      if d1 > d2
-        puts "Updating ShinyCocos (current: #{iyear}-#{imonth}-#{iday})"
+      ivers = installed.match(/libShinyCocos-(\w+).a/)[1]
+      if ivers != svers
+        puts "Updating ShinyCocos (current: #{ivers})"
         sh "rm -f ./ShinyCocos/lib/*.a"
         # copy original files
-        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-#{year}#{month}#{day}.a' ./ShinyCocos/lib"
-        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocosd-#{year}#{month}#{day}.a' ./ShinyCocos/lib"
+        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
+        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocosd-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
         # create links
-        sh "ln -s ./ShinyCocos/lib/libShinyCocos-#{year}#{month}#{day}.a ./ShinyCocos/lib/libShinyCocos.a"
-        sh "ln -s ./ShinyCocos/lib/libShinyCocosd-#{year}#{month}#{day}.a ./ShinyCocos/lib/libShinyCocosd.a"
+        sh "ln -s '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos.a'"
+        sh "ln -s '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocosd-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocosd.a'"
       end
     end
   end
 end
 
-task :build do
+desc "builds the debug version of the app (for simulator)"
+task :build_debug do
+  sh "#{xcodebuild_str('Debug', SDK_SIMUL)} build"
 end
 
-task :run => [:build] do
-  sh "./iphonesim launch "
+desc "removes the app from the simulator"
+task :clean_simulator do
+  dst_dir = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/User/Applications/#{APP_NAME}"
+  rm_rf dst_dir
 end
+
+desc "installs the app on the simulator"
+task :install_on_sim do
+  dst_dir = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/User/Applications/#{APP_NAME}"
+
+  mkdir_p dst_dir
+  mkdir_p "#{dst_dir}/Documents"
+  mkdir_p "#{dst_dir}/Library/Caches"
+  mkdir_p "#{dst_dir}/Library/Preferences"
+  mkdir_p "#{dst_dir}/tmp"
+  # replate old binary
+  rm_rf "#{dst_dir}/#{APP_NAME}.app"
+  cp_r "build/Debug-iphonesimulator/#{APP_NAME}.app", dst_dir
+end
+
+desc "build application, then install and run on simulator"
+task :debug => [:build_debug, :install_on_sim] do
+  dst_dir = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/User/Applications/#{APP_NAME}"
+  sh "./iphonesim launch '#{dst_dir}/#{APP_NAME}.app' 3.0"
+end
+
+=begin
+TODO
+
+* build for device (must sign the app) - check what the guys from http://www.appcelerator.com did
+* install on device (through iTunes)
+* build for AppStore
+=end
