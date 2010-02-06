@@ -1271,10 +1271,11 @@
 					"./cocos2d-iphone/cocos2d/**",
 				);
 				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				KEEP_PRIVATE_EXTERNS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ShinyCocos;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.1.2;
 			};
 			name = Debug;
 		};
@@ -1294,8 +1295,9 @@
 					"./cocos2d-iphone/cocos2d/**",
 				);
 				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				PRODUCT_NAME = ShinyCocos;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.1.2;
 			};
 			name = Release;
 		};

@@ -47,7 +47,7 @@ class, right now, the following classes are implemented:
 * TMXTiledMap (& friends)
 * Transitions
 * Some UIKit Classes: UITextField, UISlider, AVAudioPlayer, UserDefaults
-* Custom ShinyCocos helpers: Twitter, TiledMap
+* Custom ShinyCocos helpers: TiledMap
 
 The idea is to support every class provided by cocos2d-iphone. Please
 note that this is a project still starting, so most of the classes are
@@ -56,7 +56,7 @@ not implemented 100%.
 == Requirements
 
 * rake (in order to compile and generate the documentation)
-* iPhone SDK 3.0 or greater (ShinyCocos is compiled against SDK 3.0)
+* iPhone SDK 2.2.1 or greater (ShinyCocos and the Template are using as BaseSDK version 3.1.2 and as a deployment OS, version 2.2.1)
 * rdoc >= 2.4.0 (you can install it with: <tt>sudo gem install rdoc</tt>)
 
 NOTE:
@@ -108,13 +108,13 @@ If you need to add your own c extension, or one from the stdlib, add
 them to your project, and put the <tt>Init_xxx()</tt> call right after
 the call to SetupShinyCocos() in your main app delegate, like this:
 
-  ShinyCocosSetup(window);
+  ShinyCocosSetup(nil);
   // insert here your ruby extensions (i.e.: Init_zzz())
   Init_myextension();
   Init_another_extension();
   
   ShinyCocosInitChipmunk();
-  ShinyCocosStart();
+  ShinyCocosStart(window, appDelegate);
 
 Be careful with the <tt>require</tt>s though, because if you add the
 extension this way, it will be statically linked, so you don't have to

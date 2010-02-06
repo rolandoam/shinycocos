@@ -3,8 +3,8 @@ require 'rake/rdoctask'
 
 PROJECT    = "ShinyCocos.xcodeproj"
 TARGET     = "ShinyCocos"
-SDK_DEVICE = "iphoneos3.0"
-SDK_SIMUL  = "iphonesimulator3.0"
+SDK_DEVICE = "iphoneos3.1.2"
+SDK_SIMUL  = "iphonesimulator3.1.2"
 XCODEBUILD = "/usr/bin/xcodebuild"
 LIPO       = "/usr/bin/lipo"
 
