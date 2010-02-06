@@ -1,4 +1,7 @@
 TEMPLATE_DIR='/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'
+APP_NAME="AQ"
+SIMULATOR="/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app/Contents/MacOS"
+SDK_ROOT="/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk"
 
 desc "check ShinyCocos library version and update if a newer one is installed"
 task :update_shinycocos do
@@ -24,4 +27,11 @@ task :update_shinycocos do
       end
     end
   end
+end
+
+task :build do
+end
+
+task :run => [:build] do
+  sh "./iphonesim launch "
 end

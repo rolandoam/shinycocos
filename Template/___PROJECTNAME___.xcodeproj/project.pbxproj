@@ -205,10 +205,11 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "ShinyCocos/Include/**";
 				INFOPLIST_FILE = "Resources/___PROJECTNAMEASIDENTIFIER___-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				LIBRARY_SEARCH_PATHS = ShinyCocos/lib;
 				OTHER_LDFLAGS = "-lShinyCocosd";
 				PRODUCT_NAME = "___PROJECTNAME___";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.1.2;
 			};
 			name = Debug;
 		};
@@ -222,10 +223,11 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "ShinyCocos/Include/**";
 				INFOPLIST_FILE = "Resources/___PROJECTNAMEASIDENTIFIER___-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				LIBRARY_SEARCH_PATHS = ShinyCocos/lib;
 				OTHER_LDFLAGS = "-lShinyCocos";
 				PRODUCT_NAME = "___PROJECTNAME___";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.1.2;
 			};
 			name = Release;
 		};
