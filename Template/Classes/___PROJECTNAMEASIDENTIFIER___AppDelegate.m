@@ -6,7 +6,7 @@
 //  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
 //
 
-#import "___PROJECTNAME___AppDelegate.h"
+#import "___PROJECTNAMEASIDENTIFIER___AppDelegate.h"
 #import "cocos2d.h"
 #import "ShinyCocos.h"
 
@@ -16,7 +16,7 @@ unsigned long sc_require(unsigned long file) {
 	return (unsigned long)4; // Qnil == 4
 }
 
-@implementation ___PROJECTNAME___AppDelegate
+@implementation ___PROJECTNAMEASIDENTIFIER___AppDelegate
 
 @synthesize window;
 

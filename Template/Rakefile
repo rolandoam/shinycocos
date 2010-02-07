@@ -1,13 +1,13 @@
 TEMPLATE_DIR = '/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Project Templates/Application/ShinyCocos Application'
-APP_NAME     = "___PROJECTNAMEASIDENTIFIER___"
-PROJECT      = "___PROJECTNAMEASIDENTIFIER___.xcodeproj"
+APP_NAME     = "___PROJECTNAME___"
+PROJECT      = "___PROJECTNAME___.xcodeproj"
 TARGET       = APP_NAME
 SDK_DEVICE   = "iphoneos3.1.2"
 SDK_SIMUL    = "iphonesimulator3.1.2"
 XCODEBUILD   = "/usr/bin/xcodebuild"
 
 def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
-  "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
+  "#{XCODEBUILD} -project '#{PROJECT}' -target '#{TARGET}' -sdk #{sdk} -configuration #{config}" 
 end
 
 def clean_xcode_output(cmd)
@@ -84,13 +84,12 @@ end
 desc "build application, then install and run on simulator"
 task :debug => [:build_debug, :install_on_sim] do
   dst_dir = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/User/Applications/#{APP_NAME}"
-  sh "./iphonesim launch '#{dst_dir}/#{APP_NAME}.app' 3.0"
+  sh "./iphonesim launch '#{dst_dir}/#{APP_NAME}.app' 3.1.2"
 end
 
 =begin
 TODO
 
-* build for device (must sign the app) - check what the guys from http://www.appcelerator.com did
 * install on device (through iTunes)
 * build for AppStore
 =end

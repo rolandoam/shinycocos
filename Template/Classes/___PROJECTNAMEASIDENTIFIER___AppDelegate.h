@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ___PROJECTNAME___AppDelegate : NSObject <UIApplicationDelegate> {
+@interface ___PROJECTNAMEASIDENTIFIER___AppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 }
 
