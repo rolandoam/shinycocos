@@ -10,6 +10,26 @@ def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
   "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
 end
 
+def clean_xcode_output(cmd)
+  f = IO.popen(cmd)
+  while line = f.gets
+    line = line.strip
+    if md = line.match(/^CompileC ([^ ]+\.o) "?(.+\.m)"?/)
+      fname = File.basename(md[2])
+      puts "[GCC] Compiling #{fname}"
+    elsif md = line.match(/^Ld ([^ ]+)/)
+      fname = File.basename(md[1])
+      puts "[LD] Linking #{fname}"
+    elsif md = line.match(/^CpResource ([^ ]+) ([^ ]+)/)
+      fname1 = File.basename(md[1])
+      fname2 = File.basename(md[2])
+      puts "[CP] #{fname1} to #{fname2}"
+    # else
+    #   puts "[DEBUG] #{line}"
+    end
+  end
+end
+
 desc "check ShinyCocos library version and update if a newer one is installed"
 task :update_shinycocos do
   current = Dir["#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-*.a"].first
@@ -36,7 +56,9 @@ end
 
 desc "builds the debug version of the app (for simulator)"
 task :build_debug do
-  sh "#{xcodebuild_str('Debug', SDK_SIMUL)} build"
+  puts "[SHINYCOCOS] Debug build started - #{Time.now}"
+  clean_xcode_output "#{xcodebuild_str('Debug', SDK_SIMUL)} build"
+  puts "[SHINYCOCOS] Debug build ended - #{Time.now}"
 end
 
 desc "removes the app from the simulator"
