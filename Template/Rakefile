@@ -34,21 +34,21 @@ desc "check ShinyCocos library version and update if a newer one is installed"
 task :update_shinycocos do
   current = Dir["#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-*.a"].first
   # just to make sure :-)
-  if File.exists?(current) && md = current.match(/libShinyCocos-(\w+).a/)
+  if File.exists?(current) && md = current.match(/libShinyCocos-([\d\.]+).a/)
     svers = md[1]
     puts "Template lib: #{svers}"
     installed = Dir["#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos-*.a"].first
     if installed
-      ivers = installed.match(/libShinyCocos-(\w+).a/)[1]
+      ivers = installed.match(/libShinyCocos-(.+).a$/)[1]
       if ivers != svers
         puts "Updating ShinyCocos (current: #{ivers})"
-        sh "rm -f ./ShinyCocos/lib/*.a"
+        sh "rm -f ./ShinyCocos/lib/libShinyCocos*.a"
         # copy original files
         sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
         sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocosd-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
         # create links
-        sh "ln -s '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos.a'"
-        sh "ln -s '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocosd-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib/libShinyCocosd.a'"
+        sh "cd ./ShinyCocos/lib && ln -s libShinyCocos-#{svers}.a libShinyCocos.a"
+        sh "cd ./ShinyCocos/lib && ln -s libShinyCocosd-#{svers}.a libShinyCocosd.a"
       end
     end
   end

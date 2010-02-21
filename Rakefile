@@ -7,6 +7,7 @@ SDK_DEVICE = "iphoneos3.1.2"
 SDK_SIMUL  = "iphonesimulator3.1.2"
 XCODEBUILD = "/usr/bin/xcodebuild"
 LIPO       = "/usr/bin/lipo"
+SC_VERSION = "0.2.1"
 
 def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
   "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
@@ -14,13 +15,7 @@ end
 
 # returns a name for the new lib
 def libname(base)
-  tmp = `git log -1`
-  md = tmp.match(/commit (\w{6})/)
-  if md
-    name = "#{base}-#{md[1]}.a"
-    return name
-  end
-  return nil
+  "#{base}-#{SC_VERSION}.a"
 end
 
 task :default => [:build_debug]
@@ -48,13 +43,6 @@ desc "Create static library"
 task :distribution => [:build_debug, :build_release] do
   libs = ["build/Release-iphoneos/libShinyCocos.a", "build/Release-iphonesimulator/libShinyCocos.a",
           "build/Debug-iphoneos/libShinyCocos.a", "build/Debug-iphonesimulator/libShinyCocos.a"]
-  # test if there are uncommited changes
-  system("git diff --exit-code > /dev/null")
-  if $?.exitstatus != 0
-    $stderr.puts "** ERROR **"
-    $stderr.puts "   Uncommited changes. Commit before building for distribution"
-    exit 1
-  end
   if File.exists?(libs[0]) && File.exists?(libs[1]) && File.exists?(libs[2]) && File.exists?(libs[3])
     fname_release = libname("libShinyCocos")
     fname_debug = libname("libShinyCocosd")
