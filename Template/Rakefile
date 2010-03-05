@@ -2,8 +2,9 @@ TEMPLATE_DIR = '/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/P
 APP_NAME     = "___PROJECTNAME___"
 PROJECT      = "___PROJECTNAME___.xcodeproj"
 TARGET       = APP_NAME
-SDK_DEVICE   = "iphoneos3.1.2"
-SDK_SIMUL    = "iphonesimulator3.1.2"
+SDK_VERS     = "3.1.2"
+SDK_DEVICE   = "iphoneos#{SDK_VERS}"
+SDK_SIMUL    = "iphonesimulator#{SDK_VERS}"
 XCODEBUILD   = "/usr/bin/xcodebuild"
 
 def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
@@ -38,18 +39,15 @@ task :update_shinycocos do
     svers = md[1]
     puts "Template lib: #{svers}"
     installed = Dir["#{ENV['PWD']}/ShinyCocos/lib/libShinyCocos-*.a"].first
-    if installed
-      ivers = installed.match(/libShinyCocos-(.+).a$/)[1]
-      if ivers != svers
-        puts "Updating ShinyCocos (current: #{ivers})"
-        sh "rm -f ./ShinyCocos/lib/libShinyCocos*.a"
-        # copy original files
-        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
-        sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocosd-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
-        # create links
-        sh "cd ./ShinyCocos/lib && ln -s libShinyCocos-#{svers}.a libShinyCocos.a"
-        sh "cd ./ShinyCocos/lib && ln -s libShinyCocosd-#{svers}.a libShinyCocosd.a"
-      end
+    if (installed and (ivers = installed.match(/libShinyCocos-(.+).a$/)[1] && ivers != svers)) or !installed
+      puts "Updating ShinyCocos (current: #{ivers})"
+      sh "rm -f ./ShinyCocos/lib/libShinyCocos*.a"
+      # copy original files
+      sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocos-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
+      sh "cp '#{TEMPLATE_DIR}/ShinyCocos/lib/libShinyCocosd-#{svers}.a' '#{ENV['PWD']}/ShinyCocos/lib'"
+      # create links
+      sh "cd ./ShinyCocos/lib && ln -s libShinyCocos-#{svers}.a libShinyCocos.a"
+      sh "cd ./ShinyCocos/lib && ln -s libShinyCocosd-#{svers}.a libShinyCocosd.a"
     end
   end
 end
@@ -84,7 +82,8 @@ end
 desc "build application, then install and run on simulator"
 task :debug => [:build_debug, :install_on_sim] do
   dst_dir = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/User/Applications/#{APP_NAME}"
-  sh "./iphonesim launch '#{dst_dir}/#{APP_NAME}.app' 3.1.2"
+  sh "./iphonesim launch '#{dst_dir}/#{APP_NAME}.app' #{SDK_VERS} &"
+  sh "osascript -e 'tell application \"Finder\"' -e 'activate' -e 'end tell'"
 end
 
 =begin
@@ -92,4 +91,14 @@ TODO
 
 * install on device (through iTunes)
 * build for AppStore
+
+NOTE
+install on device is something like this:
+
+* open bundle with iTunes:
+  open -b com.apple.itunes 'app_bundle'
+* sync itunes:
+  osascript -e 'tell application "iTunes" to update'
+
+we should make sure that the device build has the proper Entitlements and can be signed properly
 =end
