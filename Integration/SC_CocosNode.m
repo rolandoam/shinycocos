@@ -129,9 +129,10 @@ static void eachShape(void *ptr, void* unused)
 	VALUE methods = rb_ivar_get((VALUE)userData, id_sc_ivar_scheduled_methods);
 	if (methods != Qnil) {
 		int i;
+		VALUE rb_delta = rb_float_new(delta);
 		for (i=0; i < RARRAY_LEN(methods); i++) {
 			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
-			sc_protect_funcall((VALUE)userData, m_id, 1, rb_float_new(delta));
+			sc_protect_funcall((VALUE)userData, m_id, 1, rb_delta);
 		}
 	}
 }
