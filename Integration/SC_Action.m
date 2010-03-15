@@ -111,9 +111,8 @@ VALUE rb_cSplitCols; // TiledGrid3DAction
 @implementation Action (SC_Extension)
 - (void)rb_stop {
 	[self rb_stop];
-	VALUE handler = sc_ruby_instance_for(sc_object_hash, self);
-	if (handler != Qnil) {
-		sc_protect_funcall(handler, id_sc_on_stop, 0, 0);
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_on_stop, 0, 0);
 	}
 }
 @end
@@ -128,7 +127,7 @@ VALUE rb_cSplitCols; // TiledGrid3DAction
 VALUE rb_cAction_s_new(int argc, VALUE *argv, VALUE klass) {
 	Action *action = [[Action alloc] init];
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
-	sc_add_tracking(sc_object_hash, action, ret);
+	action.userData = (void *)ret;
 	return ret;
 }
 
@@ -854,6 +853,7 @@ VALUE rb_cMoveTo_s_new(int argc, VALUE *argv, VALUE klass) {
 	p.y = NUM2DBL(RARRAY_PTR(argv[1])[1]);
 	MoveTo *action = [[MoveTo alloc] initWithDuration:NUM2DBL(argv[0]) position:p];
 	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
+	action.userData = (void *)ret;
 	return ret;
 }
 
@@ -870,6 +870,7 @@ VALUE rb_cMoveBy_s_new(int argc, VALUE *argv, VALUE klass) {
 	p.y = NUM2DBL(RARRAY_PTR(argv[1])[1]);
 	MoveBy *action = [[MoveBy alloc] initWithDuration:NUM2DBL(argv[0]) position:p];
 	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
+	action.userData = (void *)ret;
 	return ret;
 }
 
@@ -975,24 +976,30 @@ VALUE rb_cBlink_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   doc stub
+ *   act = Cocos2D::Actions::FadeIn.new()  #=> action
+ *
+ * fade in
  */
 VALUE rb_cFadeIn_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	FadeIn *action = [[FadeIn alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM(1)
+	FadeIn *action = [[FadeIn alloc] initWithDuration:NUM2DBL(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
+	action.userData = (void *)ret;
 	return ret;
 }
 
 
 /*
  * call-seq:
- *   doc stub
+ *   act = Cocos2D::Actions::FadeOut.new()  #=> action
+ *
+ * fade out
  */
 VALUE rb_cFadeOut_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	FadeOut *action = [[FadeOut alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM(1)
+	FadeOut *action = [[FadeOut alloc] initWithDuration:NUM2DBL(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
+	action.userData = (void *)ret;
 	return ret;
 }
 

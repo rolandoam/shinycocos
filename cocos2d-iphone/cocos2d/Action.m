@@ -25,7 +25,7 @@
 #pragma mark Action
 @implementation Action
 
-@synthesize tag, target, originalTarget;
+@synthesize tag, target, originalTarget, userData;
 
 +(id) action
 {

@@ -29,6 +29,7 @@ enum {
 	id	originalTarget;
 	id	target;
 	int	tag;
+	void *userData; /* GFF */
 }
 
 /** The "target". The action will modify the target properties.
@@ -46,6 +47,9 @@ enum {
 
 /** The action tag. An identifier of the action */
 @property (nonatomic,readwrite,assign) int tag;
+
+/** The user data */
+@property (nonatomic,readwrite,assign) void *userData;
 
 /** Allocates and initializes the action */
 +(id) action;
