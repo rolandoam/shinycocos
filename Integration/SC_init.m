@@ -241,26 +241,30 @@ void Init_ShinyCocos() {
 	init_sc_ids();
 	init_rb_mDirector();
 	init_rb_cCocosNode();
+	init_rb_cTextureNode();
+	init_rb_cLabel();
+	init_rb_cLabelAtlas();
+	init_rb_cLayer();
 	init_rb_cScene();
+	init_rb_cSolidShapeMap();
+	init_rb_cTransitionScene();
 	init_rb_cTextureNode();
 	init_rb_cSprite();
 	init_rb_cAtlasSpriteManager();
 	init_rb_cAtlasSprite();
 	init_rb_cAtlasAnimation();
-	init_rb_cLayer();
-	init_rb_cLabel();
-	init_rb_cLabelAtlas();
 	init_rb_cMenu();
 	init_rb_cMenuItemImage();
 	init_rb_cMenuItemAtlasSprite();
-	init_rb_cSolidShapeMap();
-	init_rb_cTransitionScene();
-	init_rb_mAction();
-	init_rb_mUserDefaults();
 	init_rb_cTextField();
 	init_rb_cSlider();
 	init_rb_cAVAudioPlayer();
 	init_rb_cBitmapFontAtlas();
+	init_rb_cTMXTiledMap();
+	init_rb_cTMXLayer();
+
+	init_rb_mAction();
+	init_rb_mUserDefaults();
 	init_sc_cocoa_additions();
 	
 	/* common utility functions */
