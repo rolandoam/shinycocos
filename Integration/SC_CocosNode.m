@@ -547,6 +547,9 @@ VALUE rb_cCocosNode_add_child(int argc, VALUE *args, VALUE object) {
  */
 VALUE rb_cCocosNode_remove_child(VALUE object, VALUE child) {
 	[CC_NODE(object) removeChild:CC_NODE(child) cleanup:YES];
+	// remove the child from the children array
+	VALUE children_ary = rb_ivar_get(object, id_sc_ivar_children);
+	rb_ary_delete(children_ary, object);
 	return object;
 }
 
