@@ -79,11 +79,39 @@ task :install_on_sim do
   cp_r "build/Debug-iphonesimulator/#{APP_NAME}.app", dst_dir
 end
 
-desc "build application, then install and run on simulator"
+desc "build application, then install and run on simulator (ctrl-c to end session)"
 task :debug => [:build_debug, :install_on_sim] do
+  require 'tempfile'
+
   dst_dir = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/User/Applications/#{APP_NAME}"
-  sh "./iphonesim launch '#{dst_dir}/#{APP_NAME}.app' #{SDK_VERS} &"
-  sh "osascript -e 'tell application \"Finder\"' -e 'activate' -e 'end tell'"
+  tf = Tempfile.new("shinycocos.log")
+
+  # step 1: launch iphonesim with redirected stderr
+  p1 = fork do
+    ENV['STDERR'] = tf.path
+    exec "'#{ENV['PWD']}/iphonesim' launch '#{dst_dir}/#{APP_NAME}.app' #{SDK_VERS}"
+  end
+  
+  # step 2: launch a tail process on redirected stderr
+  p2 = fork do
+    # tail
+    exec "tail -f '#{tf.path}'"
+  end
+  
+  # step 3: activate iPhone Simulator
+  sh "osascript -e 'tell application \"iPhone Simulator\"' -e 'activate' -e 'end tell'"
+  
+  # trap SIGINT
+  Signal.trap("SIGINT") {
+    # kill all on ctrl-c
+    sh "killall 'iPhone Simulator'"
+    Process.kill("QUIT", p1)
+  }
+  
+  # clean the house
+  Process.wait(p1)
+  Process.kill("QUIT",p2)
+  Process.wait(p2)
 end
 
 =begin
