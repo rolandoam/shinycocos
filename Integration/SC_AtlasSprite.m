@@ -26,7 +26,7 @@ VALUE rb_cAtlasAnimation;
 
 /*
  * call-seq:
- *   sprite = AtlasSprite.new(:rect => [top, left, width, height], :manager => manager) #=>   AtlasSprite
+ *   sprite = AtlasSprite.new(:rect => [left, top, width, height], :manager => manager) #=>   AtlasSprite
  *
  * creates a new AtlasSprite
  */
@@ -47,9 +47,23 @@ VALUE rb_cAtlasSprite_s_new(int argc, VALUE *argv, VALUE klass) {
 	return ret;
 }
 
+
+/*
+ * call_seq:
+ *   atlas_sprite.texture_rect = [left, top, width, height]  #=> rect
+ *
+ * Sets the new texture rect
+ */
+VALUE rb_cAtlasSprite_set_texture_rect(VALUE obj, VALUE rect) {
+	Check_Type(rect, T_ARRAY);
+	CC_ATLAS_SPRITE(obj).textureRect = sc_make_rect(rect);
+	return rect;
+}
+
 void init_rb_cAtlasSprite() {
 	rb_cAtlasSprite = rb_define_class_under(rb_mCocos2D, "AtlasSprite", rb_cCocosNode);
 	rb_define_singleton_method(rb_cAtlasSprite, "new", rb_cAtlasSprite_s_new, -1);
+	rb_define_method(rb_cAtlasSprite, "texture_rect=", rb_cAtlasSprite_set_texture_rect, 1);
 }
 
 #pragma mark AtlasAnimation
