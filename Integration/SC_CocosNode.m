@@ -283,7 +283,7 @@ VALUE rb_cCocosNode_set_parent(VALUE object, VALUE p) {
  * Sets the opacity of the sprite
  */
 VALUE rb_cCocosNode_set_opacity(VALUE object, VALUE o) {
-	[CC_NODE(object) setOpacity: NUM2DBL(o)];
+	[(<CocosNodeRGBA>)CC_NODE(object) setOpacity: NUM2DBL(o)];
 	return object;
 }
 
@@ -308,6 +308,41 @@ VALUE rb_cCocosNode_set_z_order(VALUE object, VALUE z) {
 	[CC_NODE(object).parent reorderChild: CC_NODE(object) z: FIX2INT(z)];
 	return z;
 }
+
+
+/*
+ * call-seq:
+ *   node.color   #=> [r,g,b]
+ *
+ * gets the color as a 3 element array
+ */
+VALUE rb_cCocosNode_color(VALUE object) {
+	ccColor3B color = ((<CocosNodeRGBA>)CC_NODE(object)).color;
+	return rb_ary_new3(3, INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.g));
+}
+
+
+/*
+ * call-seq:
+ *   node.color = [r,g,b]   #=> [r,g,b]
+ *
+ * sets the color of the node as a 3 element array
+ */
+VALUE rb_cCocosNode_set_color(VALUE object, VALUE array) {
+	Check_Type(array, T_ARRAY);
+	if (RARRAY_LEN(array) < 3) {
+		rb_raise(rb_eArgError, "invalid color array length");
+		return Qnil;
+	}
+	ccColor3B color;
+	color.r = FIX2INT(RARRAY_PTR(array)[0]);
+	color.g = FIX2INT(RARRAY_PTR(array)[1]);
+	color.b = FIX2INT(RARRAY_PTR(array)[2]);
+	((<CocosNodeRGBA>)CC_NODE(object)).color = color;
+	return array;
+}
+
+
 
 /* 
  *  call-seq:
@@ -827,6 +862,7 @@ void init_rb_cCocosNode() {
 	// getters
 	rb_define_method(rb_cCocosNode, "parent", rb_cCocosNode_parent, 0);
 	rb_define_method(rb_cCocosNode, "z_order", rb_cCocosNode_z_order, 0);
+	rb_define_method(rb_cCocosNode, "color", rb_cCocosNode_color, 0);
 	rb_define_method(rb_cCocosNode, "rotation", rb_cCocosNode_rotation, 0);
 	rb_define_method(rb_cCocosNode, "scale", rb_cCocosNode_scale, 0);
 	rb_define_method(rb_cCocosNode, "scale_x", rb_cCocosNode_scale_x, 0);
@@ -840,6 +876,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "parent=", rb_cCocosNode_set_parent, 1);
 	rb_define_method(rb_cCocosNode, "z_order=", rb_cCocosNode_set_z_order, 1);
 	rb_define_method(rb_cCocosNode, "opacity=", rb_cCocosNode_set_opacity, 1);	
+	rb_define_method(rb_cCocosNode, "color=", rb_cCocosNode_set_color, 1);
 	rb_define_method(rb_cCocosNode, "rotation=", rb_cCocosNode_set_rotation, 1);
 	rb_define_method(rb_cCocosNode, "scale=", rb_cCocosNode_set_scale, 1);
 	rb_define_method(rb_cCocosNode, "scale_x=", rb_cCocosNode_set_scale_x, 1);
