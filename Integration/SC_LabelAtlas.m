@@ -67,7 +67,7 @@ VALUE rb_cLabelAtlas_set_string(VALUE object, VALUE string) {
  * The ruby equivalent of the Layer node
  */
 void init_rb_cLabelAtlas() {
-	rb_cLabel = rb_define_class_under(rb_mCocos2D, "LabelAtlas", rb_cCocosNode);
+	rb_cLabelAtlas = rb_define_class_under(rb_mCocos2D, "LabelAtlas", rb_cCocosNode);
 	rb_define_singleton_method(rb_cLabel, "new", rb_cLabelAtlas_s_new, -1);
 	rb_define_method(rb_cLabel, "string=", rb_cLabelAtlas_set_string, 1);
 }
