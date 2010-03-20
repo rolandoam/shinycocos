@@ -46,6 +46,26 @@
 }
 @end
 
+#pragma mark MenuItemLabel
+
+VALUE rb_cMenuItemLabel;
+
+VALUE rb_cMenuItemLabel_s_new(VALUE klass, VALUE label) {
+	CHECK_SUBCLASS(label, rb_cLabel);
+	MenuItemProxy *mp = [[MenuItemProxy alloc] initWithRubyObject:Qnil];
+	MenuItemLabel *ml = [[MenuItemLabel alloc] initWithLabel:CC_LABEL(label) target:mp selector:@selector(proxyRuby:)];
+
+	VALUE ret = sc_init(klass, nil, ml, 0, 0, YES);
+	mp.rbObject = ret;
+	return ret;
+}
+
+
+void init_rb_cMenuItemLabel() {
+	rb_cMenuItemLabel = rb_define_class_under(rb_mCocos2D, "MenuItemLabel", rb_cCocosNode);
+	rb_define_singleton_method(rb_cMenuItemLabel, "new", rb_cMenuItemLabel_s_new, 1);
+}
+
 #pragma mark MenuItemImage
 
 VALUE rb_cMenuItemImage;

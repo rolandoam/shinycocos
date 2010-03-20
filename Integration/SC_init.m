@@ -254,6 +254,7 @@ void Init_ShinyCocos() {
 	init_rb_cAtlasSprite();
 	init_rb_cAtlasAnimation();
 	init_rb_cMenu();
+	init_rb_cMenuItemLabel();
 	init_rb_cMenuItemImage();
 	init_rb_cMenuItemAtlasSprite();
 	init_rb_cTextField();
