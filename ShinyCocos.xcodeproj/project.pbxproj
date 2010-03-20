@@ -1273,7 +1273,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				KEEP_PRIVATE_EXTERNS = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ShinyCocos;
 				SDKROOT = iphoneos3.1.2;
 			};
@@ -1296,6 +1296,7 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ShinyCocos;
 				SDKROOT = iphoneos3.1.2;
 			};
