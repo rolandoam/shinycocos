@@ -326,7 +326,6 @@ VALUE rb_cCocosNode_rotation(VALUE object) {
  * Sets the rotation of the sprite
  */
 VALUE rb_cCocosNode_set_rotation(VALUE object, VALUE rotation) {
-	Check_Type(rotation, T_FLOAT);
 	CC_NODE(object).rotation = NUM2DBL(rotation);
 	return rotation;
 }
@@ -442,6 +441,7 @@ VALUE rb_cCocosNode_anchor_point(VALUE object) {
 	cpVect anchor = CC_NODE(object).anchorPoint;
 	return rb_ary_new3(2, rb_float_new(anchor.x), rb_float_new(anchor.y));
 }
+
 
 /*
  * call-seq:
@@ -578,6 +578,7 @@ VALUE rb_cCocosNode_children(VALUE object) {
 
 
 /*
+ * call-seq:
  *    node.run_action(action)   #=> nil
  *
  * +action+ must be a subclass of Cocos2D::Actions::Action.
@@ -590,8 +591,23 @@ VALUE rb_cCocosNode_run_action(VALUE object, VALUE action) {
 }
 
 /*
+ * call-seq:
+ *    node.stop_action(action)   #=> nil
+ *
+ * will stop a specific action
+ */
+VALUE rb_cCocosNode_stop_action(VALUE object, VALUE action) {
+	CHECK_SUBCLASS(action, rb_cAction);
+	[CC_NODE(object) stopAction:CC_ACTION(action)];
+	
+	return object;
+}
+
+/*
+ * call-seq:
  *    node.stop_actions()   #=> nil
  *
+ * will stop all actions
  */
 VALUE rb_cCocosNode_stop_actions(VALUE object) {
 	[CC_NODE(object) stopAllActions];
@@ -818,6 +834,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "position", rb_cCocosNode_position, 0);
 	rb_define_method(rb_cCocosNode, "visible?", rb_cCocosNode_visible, 0);
 	rb_define_method(rb_cCocosNode, "tag", rb_cCocosNode_tag, 0);
+	rb_define_method(rb_cCocosNode, "anchor_point", rb_cCocosNode_anchor_point, 0);
 
 	// setters
 	rb_define_method(rb_cCocosNode, "parent=", rb_cCocosNode_set_parent, 1);
@@ -830,7 +847,6 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "position=", rb_cCocosNode_set_position, 1);
 	rb_define_method(rb_cCocosNode, "visible=", rb_cCocosNode_set_visible, 1);
 	rb_define_method(rb_cCocosNode, "tag=", rb_cCocosNode_set_tag, 1);
-	rb_define_method(rb_cCocosNode, "anchor_point", rb_cCocosNode_anchor_point, 0);
 	rb_define_method(rb_cCocosNode, "anchor_point=", rb_cCocosNode_set_anchor_point, 1);
 	
 	// misc
@@ -839,6 +855,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "child_with_tag", rb_cCocosNode_child_with_tag, 1);
 	rb_define_method(rb_cCocosNode, "children", rb_cCocosNode_children, 0);
 	rb_define_method(rb_cCocosNode, "run_action", rb_cCocosNode_run_action, 1);
+	rb_define_method(rb_cCocosNode, "stop_action", rb_cCocosNode_stop_action, 1);
 	rb_define_method(rb_cCocosNode, "stop_actions", rb_cCocosNode_stop_actions, 0);
 	rb_define_method(rb_cCocosNode, "become_chipmunk_stepper", rb_cCocosNode_become_chipmunk_stepper, 0);
 	rb_define_method(rb_cCocosNode, "attach_chipmunk_shape", rb_cCocosNode_attach_chipmunk_shape, 1);
