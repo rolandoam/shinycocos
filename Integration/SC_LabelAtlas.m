@@ -23,7 +23,7 @@
 #import "SC_LabelAtlas.h"
 #import "SC_CocosNode.h"
 
-VALUE rb_cLabel;
+VALUE rb_cLabelAtlas;
 
 /*
  * call-seq:
