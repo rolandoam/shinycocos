@@ -7,7 +7,7 @@ SDK_DEVICE = "iphoneos3.1.2"
 SDK_SIMUL  = "iphonesimulator3.1.2"
 XCODEBUILD = "/usr/bin/xcodebuild"
 LIPO       = "/usr/bin/lipo"
-SC_VERSION = "0.2.1"
+SC_VERSION = "0.2.2"
 
 def xcodebuild_str(config = "Debug", sdk = SDK_SIMUL)
   "#{XCODEBUILD} -project #{PROJECT} -target #{TARGET} -sdk #{sdk} -configuration #{config}" 
