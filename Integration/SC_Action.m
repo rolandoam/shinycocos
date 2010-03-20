@@ -1066,7 +1066,10 @@ VALUE rb_cReverseTime_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   doc stub
+ *   node.run_action(Cocos2D::Animate.new(animation, true))  #=> run animation and restore original frame
+ *   node.run_action(Cocos2D::Animate.new(animation))        #=> run animation and do not original frame
+ *
+ * Second parameter is optional. By default it's false.
  */
 VALUE rb_cAnimate_s_new(int argc, VALUE *argv, VALUE klass) {
 	CHECK_ARGS_NUM(1)
@@ -1081,6 +1084,7 @@ VALUE rb_cAnimate_s_new(int argc, VALUE *argv, VALUE klass) {
 		argv += 1;
 	}
 	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	action.userData = (void *)ret;
 	return ret;
 }
 

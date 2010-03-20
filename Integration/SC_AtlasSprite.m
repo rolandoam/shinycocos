@@ -60,10 +60,60 @@ VALUE rb_cAtlasSprite_set_texture_rect(VALUE obj, VALUE rect) {
 	return rect;
 }
 
+
+/*
+ * call-seq:
+ *   atlas_sprite.flip_x   #=> true/false
+ *
+ * returns whether or not the sprite is flipped on X axis
+ */
+VALUE rb_cCocosNode_flip_x(VALUE obj) {
+	return CC_ATLAS_SPRITE(obj).flipX ? Qtrue : Qfalse;
+}
+
+
+/*
+ * call-seq:
+ *   atlas_sprite.flip_y   #=> true/false
+ *
+ * returns whether or not the sprite is flipped on Y axis
+ */
+VALUE rb_cCocosNode_flip_y(VALUE obj) {
+	return CC_ATLAS_SPRITE(obj).flipY ? Qtrue : Qfalse;
+}
+
+
+/*
+ * call-seq:
+ *   atlas_sprite.flip_x = true   #=> true/false
+ *
+ * sets the flip_x property on the sprite
+ */
+VALUE rb_cCocosNode_set_flip_x(VALUE obj, VALUE flip) {
+	CC_ATLAS_SPRITE(obj).flipX = (flip != Qfalse ? YES : NO);
+	return flip;
+}
+
+
+/*
+ * call-seq:
+ *   atlas_sprite.flip_y = true   #=> true/false
+ *
+ * sets the flip_y property on the sprite
+ */
+VALUE rb_cCocosNode_set_flip_y(VALUE obj, VALUE flip) {
+	CC_ATLAS_SPRITE(obj).flipY = (flip != Qfalse ? YES : NO);
+	return flip;
+}
+
 void init_rb_cAtlasSprite() {
 	rb_cAtlasSprite = rb_define_class_under(rb_mCocos2D, "AtlasSprite", rb_cCocosNode);
 	rb_define_singleton_method(rb_cAtlasSprite, "new", rb_cAtlasSprite_s_new, -1);
 	rb_define_method(rb_cAtlasSprite, "texture_rect=", rb_cAtlasSprite_set_texture_rect, 1);
+	rb_define_method(rb_cCocosNode, "flip_x", rb_cCocosNode_flip_x, 0);
+	rb_define_method(rb_cCocosNode, "flip_y", rb_cCocosNode_flip_y, 0);
+	rb_define_method(rb_cCocosNode, "flip_x=", rb_cCocosNode_set_flip_x, 1);
+	rb_define_method(rb_cCocosNode, "flip_y=", rb_cCocosNode_set_flip_y, 1);
 }
 
 #pragma mark AtlasAnimation
