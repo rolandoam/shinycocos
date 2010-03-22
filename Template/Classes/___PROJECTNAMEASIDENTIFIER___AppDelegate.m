@@ -7,7 +7,6 @@
 //
 
 #import "___PROJECTNAMEASIDENTIFIER___AppDelegate.h"
-#import "cocos2d.h"
 #import "ShinyCocos.h"
 
 // dummy sc_require

@@ -25,3 +25,10 @@ void ShinyCocosStart(UIWindow *window, id appDelegate);
 void ShinyCocosInitChipmunk();
 /* clean up things */
 void ShinyCocosStop();
+
+/* cocos2d declarations, only the ones we need */
+@interface Director : NSObject
++ (Director *)sharedDirector;
+- (void)pause;
+- (void)resume;
+@end

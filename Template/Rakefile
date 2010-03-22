@@ -121,6 +121,12 @@ TODO
 * build for AppStore
 
 NOTE
+to sign the binary without xcode (thanks to mobileorchard)
+
+export CODESIGN_ALLOCATE=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate
+codesign -f -s "iPhone Developer" _APP_NAME_.app
+
+NOTE
 install on device is something like this:
 
 * open bundle with iTunes:
