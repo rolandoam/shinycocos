@@ -220,6 +220,7 @@
 		A9AD609F10FFABF7004BF022 /* time.c in Sources */ = {isa = PBXBuildFile; fileRef = A9AD608910FFABF7004BF022 /* time.c */; };
 		A9AD616310FFAE87004BF022 /* enumerator.c in Sources */ = {isa = PBXBuildFile; fileRef = A9AD616210FFAE87004BF022 /* enumerator.c */; };
 		A9AD633710FFBFB0004BF022 /* finite.c in Sources */ = {isa = PBXBuildFile; fileRef = A9AD633610FFBFB0004BF022 /* finite.c */; };
+		A9F5C3311158267D0087622D /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = A9F5C3301158267D0087622D /* thread.c */; };
 		A9FDEAEE11075E6700462652 /* rb_chipmunk.c in Sources */ = {isa = PBXBuildFile; fileRef = A9FDEAE611075E6700462652 /* rb_chipmunk.c */; };
 		A9FDEAEF11075E6700462652 /* rb_chipmunk.h in Headers */ = {isa = PBXBuildFile; fileRef = A9FDEAE711075E6700462652 /* rb_chipmunk.h */; };
 		A9FDEAF011075E6700462652 /* rb_cpBB.c in Sources */ = {isa = PBXBuildFile; fileRef = A9FDEAE811075E6700462652 /* rb_cpBB.c */; };
@@ -470,6 +471,7 @@
 		A9AD608910FFABF7004BF022 /* time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = time.c; path = ruby_1_8_7/time.c; sourceTree = "<group>"; };
 		A9AD616210FFAE87004BF022 /* enumerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = enumerator.c; path = ruby_1_8_7/enumerator.c; sourceTree = "<group>"; };
 		A9AD633610FFBFB0004BF022 /* finite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = finite.c; path = ruby_1_8_7/missing/finite.c; sourceTree = "<group>"; };
+		A9F5C3301158267D0087622D /* thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = thread.c; path = ruby_1_8_7/ext/thread/thread.c; sourceTree = "<group>"; };
 		A9FDEAE611075E6700462652 /* rb_chipmunk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rb_chipmunk.c; sourceTree = "<group>"; };
 		A9FDEAE711075E6700462652 /* rb_chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rb_chipmunk.h; sourceTree = "<group>"; };
 		A9FDEAE811075E6700462652 /* rb_cpBB.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rb_cpBB.c; sourceTree = "<group>"; };
@@ -801,6 +803,7 @@
 		A9A3478211038C5A00DBEF9C /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A9F5C3301158267D0087622D /* thread.c */,
 				A9A3478411038CE100DBEF9C /* zlib.c */,
 			);
 			name = extensions;
@@ -1244,6 +1247,7 @@
 				A9FDEB5D11075EA800462652 /* cpSpace.c in Sources */,
 				A9FDEB5E11075EA800462652 /* cpSpaceHash.c in Sources */,
 				A9FDEB5F11075EA800462652 /* cpVect.c in Sources */,
+				A9F5C3311158267D0087622D /* thread.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
