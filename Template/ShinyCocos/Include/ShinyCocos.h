@@ -26,6 +26,8 @@ void ShinyCocosInitChipmunk();
 /* clean up things */
 void ShinyCocosStop();
 
+extern VALUE rb_mCocos2D;
+
 /* cocos2d declarations, only the ones we need */
 @interface Director : NSObject
 + (Director *)sharedDirector;

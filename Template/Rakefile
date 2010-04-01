@@ -54,6 +54,7 @@ end
 
 desc "builds the debug version of the app (for simulator)"
 task :build_debug do
+  sh "touch vendor"
   puts "[SHINYCOCOS] Debug build started - #{Time.now}"
   clean_xcode_output "#{xcodebuild_str('Debug', SDK_SIMUL)} build"
   puts "[SHINYCOCOS] Debug build ended - #{Time.now}"
