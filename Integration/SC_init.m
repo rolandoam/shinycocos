@@ -119,6 +119,7 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
 			p->n = n;
 		}
 		
+		// lock & load
 		result = rb_protect(RUBY_METHOD_FUNC(sc_funcall), (VALUE)p, &(p->state));
 		if (p->argv)
 			xfree(p->argv);
@@ -134,11 +135,22 @@ VALUE sc_protect_funcall(VALUE recv, ID mid, int n, ...) {
 
 void sc_error(int state) {
 	VALUE err    = rb_funcall(rb_gv_get("$!"), id_sc_message, 0, 0);
+	// backtrace
+	CCLOG(@"RubyError: %s", StringValueCStr(err));
+	if (!NIL_P(ruby_errinfo)) {
+		VALUE ary = rb_funcall(ruby_errinfo, rb_intern("backtrace"), 0);
+		int c;
+		for (c=0; c<RARRAY(ary)->len; c++) {
+			CCLOG(@"\tfrom %s", RSTRING(RARRAY(ary)->ptr[c])->ptr);
+		}		
+	}
+	/*
 	VALUE err_bt = rb_gv_get("$@");
 	VALUE err_bt_str = rb_funcall(err_bt, id_sc_join, 1, rb_str_new2("\n"));
 	CCLOG(@"RubyError: %s\n%s",
 		  StringValueCStr(err),
 		  StringValueCStr(err_bt_str));
+	*/
 }
 
 
@@ -285,10 +297,12 @@ void Init_encdb();
 void Init_stringio();
 void Init_syck();
 void Init_zlib();
+void Init_thread();
 
 void Init_SC_Ruby_Extensions() {
 //	Init_encdb();
 //	Init_stringio();
 //	Init_syck();
 	Init_zlib();
+	Init_thread();
 }

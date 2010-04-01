@@ -20,6 +20,9 @@
 #import <Foundation/Foundation.h>
 #import "SC_common.h"
 #import "ruby.h"
+// this one is for thread critical
+#import "rubysig.h"
+
 #import "SC_CocosNode.h"
 #import "SC_Action.h"
 #import "rb_chipmunk.h"
@@ -43,6 +46,24 @@ static void eachShape(void *ptr, void* unused)
 	}
 	cpBodyResetForces(shape->body);
 }
+
+typedef struct tSCProtectWrapper_ {
+	VALUE obj;
+	ID method;
+	VALUE delta;
+} tSCProtectWrapper;
+
+static VALUE sc_protect_wrapper(VALUE arg) {
+	tSCProtectWrapper *w = (tSCProtectWrapper *)arg;
+	return sc_protect_funcall(w->obj, w->method, 1, w->delta);
+}
+
+static VALUE sc_set_critical(VALUE value)
+{
+    rb_thread_critical = (int)value;
+    return Qundef;
+}
+
 
 @interface CocosNode (SC_Extension)
 // actions
@@ -104,6 +125,9 @@ static void eachShape(void *ptr, void* unused)
 
 - (void)rb_draw {
 	[self rb_draw];
+	if (userData) {
+		sc_protect_funcall((VALUE)userData, id_sc_draw, 0, 0);
+	}
 }
 
 - (void)chipmunk_step:(ccTime)delta {
@@ -130,10 +154,21 @@ static void eachShape(void *ptr, void* unused)
 	if (methods != Qnil) {
 		int i;
 		VALUE rb_delta = rb_float_new(delta);
+		tSCProtectWrapper *w = (tSCProtectWrapper *)malloc(sizeof(tSCProtectWrapper));
 		for (i=0; i < RARRAY_LEN(methods); i++) {
 			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
+			// simulating thread_exclusive
+			/*
+			VALUE critical = rb_thread_critical;
+			rb_thread_critical = 1;
+			w->obj = (VALUE)userData;
+			w->method = m_id;
+			w->delta = rb_delta;
+			rb_ensure(sc_protect_wrapper, (VALUE)w, sc_set_critical, (VALUE)critical);
+			*/
 			sc_protect_funcall((VALUE)userData, m_id, 1, rb_delta);
 		}
+		free(w);
 	}
 }
 
@@ -493,6 +528,18 @@ VALUE rb_cCocosNode_set_anchor_point(VALUE object, VALUE rb_anchor) {
 	anchor.y = NUM2DBL(RARRAY_PTR(rb_anchor)[1]);
 	CC_NODE(object).anchorPoint = anchor;
 	return rb_anchor;
+}
+
+
+/*
+ * call-seq:
+ *   node.content_size   #=> [width, height]
+ *
+ * returns the content size of a node
+ */
+VALUE rb_cCocosNode_content_size(VALUE object) {
+	CGSize cs = CC_NODE(object).contentSize;
+	return rb_ary_new3(2, rb_float_new(cs.width), rb_float_new(cs.height));
 }
 
 #pragma mark Methods
@@ -871,6 +918,7 @@ void init_rb_cCocosNode() {
 	rb_define_method(rb_cCocosNode, "visible?", rb_cCocosNode_visible, 0);
 	rb_define_method(rb_cCocosNode, "tag", rb_cCocosNode_tag, 0);
 	rb_define_method(rb_cCocosNode, "anchor_point", rb_cCocosNode_anchor_point, 0);
+	rb_define_method(rb_cCocosNode, "content_size", rb_cCocosNode_content_size, 0);
 
 	// setters
 	rb_define_method(rb_cCocosNode, "parent=", rb_cCocosNode_set_parent, 1);
@@ -912,7 +960,7 @@ void init_rb_cCocosNode() {
 	// actions
 	rb_define_method(rb_cCocosNode, "on_enter", rb_cCocosNode_on_enter, 0);
 	rb_define_method(rb_cCocosNode, "on_exit", rb_cCocosNode_on_exit, 0);
-	rb_define_method(rb_cCocosNode, "draw", rb_cCocosNode_on_exit, 0);
+	rb_define_method(rb_cCocosNode, "draw", rb_cCocosNode_draw, 0);
 	
 	// inspect
 	rb_define_method(rb_cCocosNode, "inspect", rb_cCocosNode_inspect, 0);
@@ -921,4 +969,5 @@ void init_rb_cCocosNode() {
 	sc_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));
 	sc_method_swap([CocosNode class], @selector(onEnterTransitionDidFinish), @selector(rb_on_enter_transition_did_finish));
 	sc_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
+//	sc_method_swap([CocosNode class], @selector(draw), @selector(rb_draw)); // BUG
 }

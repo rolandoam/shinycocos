@@ -38,6 +38,7 @@ extern ID id_sc_move_by;
 extern ID id_sc_move_to;
 extern ID id_sc_name;
 extern ID id_sc_normal;
+extern ID id_sc_draw;
 extern ID id_sc_on_enter;
 extern ID id_sc_on_exit;
 extern ID id_sc_on_stop;

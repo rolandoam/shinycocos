@@ -41,6 +41,7 @@ ID id_sc_move_by;
 ID id_sc_move_to;
 ID id_sc_name;
 ID id_sc_normal;
+ID id_sc_draw;
 ID id_sc_on_enter;
 ID id_sc_on_exit;
 ID id_sc_on_stop;
@@ -160,6 +161,7 @@ void init_sc_ids() {
 	id_sc_move_to = rb_intern("move_to");
 	id_sc_name = rb_intern("name");
 	id_sc_normal = rb_intern("normal");
+	id_sc_draw = rb_intern("draw");
 	id_sc_on_enter = rb_intern("on_enter");
 	id_sc_on_exit = rb_intern("on_exit");
 	id_sc_on_stop = rb_intern("on_stop");
