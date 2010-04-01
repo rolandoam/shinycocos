@@ -146,6 +146,21 @@ VALUE rb_cAction_start_with_target(VALUE object, VALUE target) {
 
 /*
  * call-seq:
+ *   action.target   #=> cocos node
+ *
+ * returns the target of the specified action.
+ */
+VALUE rb_cAction_target(VALUE object) {
+	CocosNode *target = CC_ACTION(object);
+	if (target.userData) {
+		return (VALUE)(target.userData);
+	}
+	return Qnil;
+}
+
+
+/*
+ * call-seq:
  *   action.stop   #=> nil
  *
  * stops the running action
@@ -206,7 +221,9 @@ VALUE rb_cFiniteTimeAction_set_duration(VALUE object, VALUE d) {
 
 /*
  * call-seq:
- *   doc stub
+ *   action2 = action1.reverse   #=> action
+ *
+ * returns the reverse action (only for finite time actions)
  */
 VALUE rb_cFiniteTimeAction_reverse(VALUE object) {
 	FiniteTimeAction *action = [CC_FINITETIMEACTION(object) reverse];
@@ -758,7 +775,9 @@ VALUE rb_cIntervalAction_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Actions::Sequence.new(*list)   #=> action
+ *
+ * creates a new action given a list of actions. Each one is executed right after the other
  */
 VALUE rb_cSequence_s_new(int argc, VALUE *argv, VALUE klass) {
 	// we create a sequence with each two actions from the argument list
@@ -794,7 +813,9 @@ VALUE rb_cRepeat_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Actions::Spawn.new(*list)   #=> action
+ *
+ * same as sequence, but actions are executed simultaneously
  */
 VALUE rb_cSpawn_s_new(int argc, VALUE *argv, VALUE klass) {
 	Spawn *action, *first = nil;
@@ -1006,48 +1027,56 @@ VALUE rb_cFadeOut_s_new(int argc, VALUE *argv, VALUE klass) {
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Actions::FadeTo.new(duration, opacity)   #=> action
+ *
+ * fades to the desired opacity (alpha channel)
  */
 VALUE rb_cFadeTo_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	FadeTo *action = [[FadeTo alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM(2)
+	FadeTo *action = [[FadeTo alloc] initWithDuration:NUM2DBL(argv[0]) opacity:NUM2DBL(argv[1])];
+	VALUE ret = sc_init(klass, nil, action, argc-2, argv+2, YES);
 	return ret;
 }
 
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Actions::TintTo.new(duration, r, g, b)   #=> action
+ *
+ * creates a TintTo action.
  */
 VALUE rb_cTintTo_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	TintTo *action = [[TintTo alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM(4)
+	TintTo *action = [[TintTo alloc] initWithDuration:NUM2DBL(argv[0]) red:NUM2DBL(argv[1]) green:NUM2DBL(argv[2]) blue:NUM2DBL(argv[3])];
+	VALUE ret = sc_init(klass, nil, action, argc-4, argv+4, YES);
 	return ret;
 }
 
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Actions::TintBy.new(duration, r, g, b)   #=> action
+ *
+ * createas a TintBy action.
  */
 VALUE rb_cTintBy_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	TintBy *action = [[TintBy alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM(4)
+	TintBy *action = [[TintBy alloc] initWithDuration:NUM2DBL(argv[0]) red:NUM2DBL(argv[1]) green:NUM2DBL(argv[2]) blue:NUM2DBL(argv[3])];
+	VALUE ret = sc_init(klass, nil, action, argc-4, argv+4, YES);
 	return ret;
 }
 
 
 /*
  * call-seq:
- *   doc stub
+ *   action = Actions::DelayTime.new(duration)   #=> action
+ *
+ * dummy action
  */
 VALUE rb_cDelayTime_s_new(int argc, VALUE *argv, VALUE klass) {
-	rb_raise(rb_eStandardError, "Action not implemented (%d)", rb_class2name(klass));
-	DelayTime *action = [[DelayTime alloc] init];
-	VALUE ret = sc_init(klass, nil, action, argc, argv, YES);
+	CHECK_ARGS_NUM(1)
+	DelayTime *action = [[DelayTime alloc] initWithDuration:NUM2DBL(argv[0])];
+	VALUE ret = sc_init(klass, nil, action, argc-1, argv+1, YES);
 	return ret;
 }
 
@@ -1245,6 +1274,7 @@ void init_rb_mAction() {
 	// common action methods
 	rb_define_method(rb_cAction, "start_with_target", rb_cAction_start_with_target, 1);
 	rb_define_method(rb_cAction, "stop", rb_cAction_stop, 0);
+	rb_define_method(rb_cAction, "target", rb_cAction_target, 0);
 	rb_define_method(rb_cAction, "done?", rb_cAction_done_p, 0);
 
 	// action subclasses
