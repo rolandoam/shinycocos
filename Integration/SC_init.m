@@ -42,7 +42,7 @@ void sc_free(void *ptr) {
 		obj.userData = nil; // we set this to nil because ruby has already cleared this
 		[obj release];
 	}
-	free(ptr);
+	xfree(ptr);
 }
 
 VALUE sc_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *argv, BOOL release_on_free) {
@@ -51,7 +51,7 @@ VALUE sc_init(VALUE klass, cocos_holder **ret_ptr, id object, int argc, VALUE *a
 	if (release_on_free)
 		obj = Data_Make_Struct(klass, cocos_holder, 0, sc_free, ptr);
 	else
-		obj = Data_Make_Struct(klass, cocos_holder, 0, free, ptr);
+		obj = Data_Make_Struct(klass, cocos_holder, 0, xfree, ptr);
 	ptr->_obj = object;
 	rb_obj_call_init(obj, argc, argv);
 	if (ret_ptr != nil)
