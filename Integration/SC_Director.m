@@ -104,7 +104,7 @@ VALUE rb_mDirector_add_touch_handler(int argc, VALUE *argv, VALUE module) {
 	if (argc < 1 || argc > 3 || !(rb_obj_is_kind_of(argv[0], rb_cCocosNode))) {
 		rb_raise(rb_eArgError, "Invalid arguments. Check that node is a subclass of CocosNode");
 	}
-	VALUE standard = ((argc == 2) ? argv[1] : Qtrue);
+	VALUE standard = ((argc >= 2) ? argv[1] : Qtrue);
 	VALUE priority = ((argc == 3) ? argv[2] : INT2FIX(0));
 	if (RTEST(standard)) {
 		[[TouchDispatcher sharedDispatcher] addStandardDelegate:(id)CC_NODE(argv[0]) priority:FIX2INT(priority)];
