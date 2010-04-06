@@ -92,6 +92,17 @@ is really easy:
 Now fire up XCode, and choose as a new project, the ShinyCocos application.
 Enjoy!
 
+== Template Update
+
+If you need to update your template (you have just installed a new
+version of ShinyCocos), you can easily do it with the Rakefile that
+ships in the template
+
+  rake update_shinycocos
+
+If you installed an old version of the template, try to copy the
+Rakefile and iphonesim binary from the distribution.
+
 == Documentation
 
 You can check the online documentation for the official release here:
