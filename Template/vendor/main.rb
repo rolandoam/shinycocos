@@ -7,7 +7,7 @@ class DemoScene < Cocos2D::Scene
 
   def initialize
     @sprite = Sprite.new("grossini.png")
-	@sprite.position = [160,120]
+    @sprite.position = [160,120]
     add_child @sprite
     Director.add_touch_handler(self)
   end
