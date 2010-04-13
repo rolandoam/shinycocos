@@ -28,6 +28,19 @@
 #import "rb_chipmunk.h"
 
 VALUE rb_cCocosNode;
+ccHashSet *scheduledMethods;
+
+typedef struct hashMethod_ {
+	VALUE object;
+	VALUE methods;
+} hashMethod;
+
+static int scheduledMethodsEql(void *ptr, void *elt)
+{
+	hashMethod *first = (hashMethod *)ptr;
+	hashMethod *second = (hashMethod *)elt;
+	return (first->object == second->object);
+}
 
 #pragma mark CocosNode extension
 
@@ -70,6 +83,7 @@ static VALUE sc_set_critical(VALUE value)
 - (void)rb_on_enter;
 - (void)rb_on_enter_transition_did_finish;
 - (void)rb_on_exit;
+- (void)rb_dealloc;
 - (void)rb_draw;
 
 // chipmunk support
@@ -123,6 +137,20 @@ static VALUE sc_set_critical(VALUE value)
 	}
 }
 
+- (void)rb_dealloc {
+	[self rb_dealloc];
+	if (userData) {
+		// get rid of scheduledMethods if any
+		hashMethod tmpMethod;
+		tmpMethod.object = (VALUE)userData;
+		hashMethod *methods = ccHashSetFind(scheduledMethods, CC_HASH_INT(userData), &tmpMethod);
+		if (methods) {
+			VALUE rb_methods = methods->methods;
+			rb_gc_unregister_address(&rb_methods);
+		}
+	}
+}
+
 - (void)rb_draw {
 	[self rb_draw];
 	if (userData) {
@@ -150,25 +178,19 @@ static VALUE sc_set_critical(VALUE value)
 - (void)rbScheduler:(ccTime)delta {
 	if (!userData)
 		return;
-	VALUE methods = rb_ivar_get((VALUE)userData, id_sc_ivar_scheduled_methods);
-	if (methods != Qnil) {
+	hashMethod tmpMethod;
+	tmpMethod.object = (VALUE)userData;
+	hashMethod *methods = ccHashSetFind(scheduledMethods, CC_HASH_INT(userData), &tmpMethod);
+	if (methods) {
 		int i;
 		VALUE rb_delta = rb_float_new(delta);
-		tSCProtectWrapper *w = (tSCProtectWrapper *)malloc(sizeof(tSCProtectWrapper));
-		for (i=0; i < RARRAY_LEN(methods); i++) {
-			ID m_id = rb_to_id(RARRAY_PTR(methods)[i]);
-			// simulating thread_exclusive
-			/*
-			VALUE critical = rb_thread_critical;
-			rb_thread_critical = 1;
-			w->obj = (VALUE)userData;
-			w->method = m_id;
-			w->delta = rb_delta;
-			rb_ensure(sc_protect_wrapper, (VALUE)w, sc_set_critical, (VALUE)critical);
-			*/
+		VALUE rb_methods = methods->methods;
+		for (i=0; i < RARRAY_LEN(rb_methods); i++) {
+			ID m_id = rb_to_id(RARRAY_PTR(rb_methods)[i]);
 			sc_protect_funcall((VALUE)userData, m_id, 1, rb_delta);
 		}
-		free(w);
+	} else {
+		CCLOG(@"running scheduled method for %d, but no ary set?", userData);
 	}
 }
 
@@ -745,13 +767,20 @@ VALUE rb_cCocosNode_attach_chipmunk_shape(VALUE object, VALUE rb_shape) {
  */
 VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {	
 	Check_Type(method, T_SYMBOL);
-	VALUE methods = rb_ivar_get(object, id_sc_ivar_scheduled_methods);
-	if (methods == Qnil) {
-		methods = rb_ary_new3(1, method);
-		rb_ivar_set(object, id_sc_ivar_scheduled_methods, methods);
+	hashMethod tmpMethod;
+	tmpMethod.object = (VALUE)object;
+	hashMethod *methods = (hashMethod *)ccHashSetFind(scheduledMethods, CC_HASH_INT(object), &tmpMethod);
+	if (!methods) {
+		CCLOG(@"**** inserting new scheduled method for object %d", object);
+		methods = (hashMethod *)malloc(sizeof(hashMethod));
+		methods->object = object;
+		VALUE rb_methods = rb_ary_new3(1, method);
+		methods->methods = rb_methods;
+		rb_gc_register_address(&rb_methods);
+		ccHashSetInsert(scheduledMethods, CC_HASH_INT(object), methods, nil);
 		[CC_NODE(object) schedule:@selector(rbScheduler:)];
 	} else {
-		rb_ary_push(methods, method);
+		rb_ary_push(methods->methods, method);
 	}
 	
 	return object;
@@ -762,15 +791,23 @@ VALUE rb_cCocosNode_schedule(VALUE object, VALUE method) {
  */
 VALUE rb_cCocosNode_unschedule(VALUE object, VALUE method) {
 	Check_Type(method, T_SYMBOL);
-	VALUE methods = rb_ivar_get(object, id_sc_ivar_scheduled_methods);
-	if (methods != Qnil) {
-		sc_protect_funcall(methods, id_sc_delete, 1, method);
+	hashMethod tmpMethod;
+	tmpMethod.object = (VALUE)object;
+	hashMethod *methods = (hashMethod *)ccHashSetFind(scheduledMethods, CC_HASH_INT(object), &tmpMethod);
+	if (methods) {
+		sc_protect_funcall(methods->methods, id_sc_delete, 1, method);
 		if (RARRAY_LEN(methods) == 0) {
 			// empty array, unschedule the ruby scheduler
 			[CC_NODE(object) unschedule:@selector(rbScheduler)];
+			// and remove the object from the hash
+			VALUE rb_methods = methods->methods;
+			rb_gc_unregister_address(&rb_methods);
+			ccHashSetRemove(scheduledMethods, CC_HASH_INT(object), methods);
+			free(methods);
 		}
+		return methods->methods;
 	}
-	return methods;
+	return Qnil;
 }
 
 /*
@@ -969,5 +1006,8 @@ void init_rb_cCocosNode() {
 	sc_method_swap([CocosNode class], @selector(onEnter), @selector(rb_on_enter));
 	sc_method_swap([CocosNode class], @selector(onEnterTransitionDidFinish), @selector(rb_on_enter_transition_did_finish));
 	sc_method_swap([CocosNode class], @selector(onExit), @selector(rb_on_exit));
-//	sc_method_swap([CocosNode class], @selector(draw), @selector(rb_draw)); // BUG
+	sc_method_swap([CocosNode class], @selector(dealloc), @selector(rb_dealloc));
+	
+	// hash for scheduled methods
+	scheduledMethods = ccHashSetNew(20, scheduledMethodsEql);
 }

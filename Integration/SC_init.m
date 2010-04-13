@@ -293,16 +293,8 @@ void Init_ShinyCocos() {
 	rb_define_const(rb_mCocos2D, "REACHABLE_VIA_WIFI_NETWORK", INT2FIX(ReachableViaWiFiNetwork));
 }
 
-void Init_encdb();
-void Init_stringio();
-void Init_syck();
-void Init_zlib();
-void Init_thread();
+extern void Init_zlib();
 
 void Init_SC_Ruby_Extensions() {
-//	Init_encdb();
-//	Init_stringio();
-//	Init_syck();
 	Init_zlib();
-	Init_thread();
 }

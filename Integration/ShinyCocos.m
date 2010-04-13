@@ -37,17 +37,17 @@ void ShinyCocosSetup(NSString *devLibs) {
 	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 	NSString *rubyLib = [NSString stringWithFormat:@"%@/lib", resourcePath];
 	NSString *rubyVendor = [NSString stringWithFormat:@"%@/vendor", resourcePath];
-	NSString *entryPoint = [NSString stringWithFormat:@"%@/main.rb", resourcePath];
+	NSString *entryPoint = [NSString stringWithFormat:@"%@/main.rb", rubyVendor];
 
 	sc_argc = 2;
-	sc_argv = (char **)malloc(sizeof(char *) * 2);
+	sc_argv = (char **)malloc(sizeof(char *) * (sc_argc));
 	sc_argv[0] = "ShinyCocos";
-	sc_argv[1] = (char *)[entryPoint cStringUsingEncoding:NSUTF8StringEncoding];
+	sc_argv[1] = (char *)[entryPoint UTF8String];
 	
-	// ruby_sysinit(&sc_argc, &sc_argv);
 	{
 	RUBY_INIT_STACK;
 	ruby_init();
+	ruby_options(sc_argc, sc_argv);
 	}
 	
 	/* add the bundle resource path to the search path */
@@ -67,7 +67,7 @@ void ShinyCocosSetup(NSString *devLibs) {
 extern void sc_require(char *fname);
 
 void ShinyCocosStart(UIWindow *window, id appDelegate) {
-	int state;
+	int state_;
 	_appDelegate = appDelegate;
 	/* hide the top bar */
 	[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
@@ -77,15 +77,15 @@ void ShinyCocosStart(UIWindow *window, id appDelegate) {
 	[[Director sharedDirector] attachInWindow:window];
 	[window makeKeyAndVisible];
 	
-	ruby_script("main.rb");
+	ruby_script("ShinyCocos"); // set the name script
 	// test for secure_require
 	if (rb_obj_respond_to(rb_mKernel, rb_intern("secure_require"), 0)) {
-		rb_protect(RUBY_METHOD_FUNC(sc_require), (VALUE)"main", &state);
+		rb_protect(RUBY_METHOD_FUNC(sc_require), (VALUE)"main", &state_);
 	} else {
-		rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state);
+		rb_protect(RUBY_METHOD_FUNC(rb_require), (VALUE)"main", &state_);
 	}
-	if (state != 0)
-		sc_error(state);
+	if (state_ != 0)
+		sc_error(state_);
 }
 
 void ShinyCocosInitChipmunk() {

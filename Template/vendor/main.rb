@@ -18,5 +18,9 @@ class DemoScene < Cocos2D::Scene
   end
 end
 
-Cocos2D::Director.set_orientation Cocos2D::Director::ORIENTATION_LANDSCAPE_RIGHT
-Cocos2D::Director.run_scene DemoScene.new
+if $0 == "ShinyCocos"
+  Cocos2D::Director.set_orientation Cocos2D::Director::ORIENTATION_LANDSCAPE_RIGHT
+  Cocos2D::Director.run_scene DemoScene.new
+else
+  $stderr.puts "This script should be run only from a ShinyCocos environment"
+end
